@@ -295,10 +295,31 @@ subApps:
             fields:
               - name: jcrName
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Article Name [EN]
+                label: Article Name
               - name: title
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Title [EN]
+                label: Title
+              - name: subHead
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Subhead
+              - name: byline
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Byline
+              - name: bylineUrl
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Byline URL
+              - name: bylineUrlOptionSelect
+                class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+                multiselect: false
+                type: String
+                label: Byline Option
+                options:
+                  - name: internalLink
+                    label: Internal Link
+                    selected: false
+                  - name: externalLink
+                    label: External Link
+                    selected: true
               - name: image
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
                 targetWorkspace: dam
@@ -308,18 +329,66 @@ subApps:
                   class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
                 contentPreviewDefinition:
                   contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
-              - name: description
+              - name: body
                 class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
-                label: Description [EN]
+                label: Body
+              - name: realAgeOptionSelect
+                class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+                multiselect: false
+                type: String
+                label: Real Age Benefit Titl
+                options:
+                  - name: yes
+                    label: Yes
+                    selected: false
+                  - name: no
+                    label: No
+                    selected: true
+              - name: callOutBody
+                class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+                label: Callout Body
+              - name: playerId
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Player ID
+              - name: videoID
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Video ID
+              - name: videoTitle
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Video Title
+              - name: videoTeaser
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Video Teaser
           - name: spanish
             label: Article [Spanish]
             fields:
               - name: sp_jcrName
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Article Name [SP]
+                label: Article Name
               - name: sp_title
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Title [SP]
+                label: Title
+              - name: sp_subHead
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Subhead
+              - name: sp_byline
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Byline
+              - name: sp_bylineUrl
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Byline URL
+              - name: sp_bylineUrlOptionSelect
+                class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+                multiselect: false
+                type: String
+                label: Byline Option
+                options:
+                  - name: internalLink
+                    label: Internal Link
+                    selected: false
+                  - name: externalLink
+                    label: External Link
+                    selected: true
               - name: image
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
                 targetWorkspace: dam
@@ -329,17 +398,81 @@ subApps:
                   class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
                 contentPreviewDefinition:
                   contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
-              - name: sp_description
+              - name: sp_body
                 class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
-                label: Description [SP]
-              - name: sp_content
+                label: Body
+              - name: realAgeOptionSelect
+                class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+                multiselect: false
+                type: String
+                label: Real Age Benefit Titl
+                options:
+                  - name: yes
+                    label: Yes
+                    selected: false
+                  - name: no
+                    label: No
+                    selected: true
+              - name: sp_callOutBody
+                class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+                label: Callout Body
+              - name: playerId
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Content [SP]
+                label: Player ID
+              - name: videoID
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Video ID
+              - name: videoTitle
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Video Title
+              - name: videoTeaser
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Video Teaser
           - name: meta
             label: Meta
             fields:
-              - name: tag
-                label: Primary Tag
+              - name: metaTitle
+                label: Page & Meta Title
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: metaDescription
+                label: Meta Description
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: metaKeywords
+                label: Meta Keywords
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: hasSynviscComScore
+                label: Add Synvisc comscore tag
+                class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+                buttonLabel: Check this box to add/remove synvisc comscore
+              - name: ogLabel
+                label: Open Graph
+                class: info.magnolia.ui.form.field.definition.StaticFieldDefinition
+                value: Open Graph Stuff here
+              - name: disableSocialButtons
+                label: Disable Social Buttons
+                class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+                buttonLabel: Removes all OpenGraph tags and social share bar
+              - name: ogType
+                label: OG Type
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: ogImage
+                label: OG Title
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: ogTitle
+                label: OG Image Url
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: ogDescription
+                label: OG Description
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: ogUrl
+                label: OG Url
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: noIndexFollow
+                label: No Crawl
+                class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+                buttonLabel: No Index No Follow
+              - name: canonicalReference
+                label: Canonical Reference
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: segmentSelect
                 class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
@@ -361,6 +494,37 @@ subApps:
                   - name: triTitle
                     label: Trinity
                     value: trinity
+          - name: editorial
+            label: Editorial
+            fields:
+              - name: Notes
+                label: Notes
+                class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+          - name: tags
+            label: Tags
+            fields:
+              - name: primaryTag
+                label: Primary Tag [TBD]
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          - name: mobile
+            label: Mobile
+            fields:
+              - name: enableMobile
+                label: Enabled for Mobile App
+                class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+                buttonLabel: Check this box to enable mobile meta image
+              - name: mobileTitle
+                label: Mobile Title
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: mobileImage
+                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+                targetWorkspace: dam
+                appName: assets
+                label: Select image
+                identifierToPathConverter:
+                  class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+                contentPreviewDefinition:
+                  contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
           - name: activation-status
             label: Activation
             fields:
