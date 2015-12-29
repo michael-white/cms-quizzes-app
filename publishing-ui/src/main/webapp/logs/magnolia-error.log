@@ -1,0 +1,16 @@
+ERROR  info.magnolia.module.InstallContextImpl 28.12.2015 13:46:25 -- [60/200 tasks - Magnolia Resource Loader (version 5.4.0)]> Could not install or update resource-loader module. Task 'Setup module repositories' failed. (NullPointerException: )
+info.magnolia.module.delta.TaskExecutionException: Could not bootstrap workspace: null
+	at info.magnolia.module.delta.SetupModuleRepositoriesTask.execute(SetupModuleRepositoriesTask.java:91)
+	at info.magnolia.module.ModuleManagerImpl.applyDeltas(ModuleManagerImpl.java:511)
+	at info.magnolia.module.ModuleManagerImpl.installOrUpdateModule(ModuleManagerImpl.java:493)
+	at info.magnolia.module.ModuleManagerImpl$1.doExec(ModuleManagerImpl.java:274)
+	at info.magnolia.context.MgnlContext$VoidOp.exec(MgnlContext.java:421)
+	at info.magnolia.context.MgnlContext$VoidOp.exec(MgnlContext.java:418)
+	at info.magnolia.context.MgnlContext.doInSystemContext(MgnlContext.java:392)
+	at info.magnolia.module.ModuleManagerImpl.performInstallOrUpdate(ModuleManagerImpl.java:268)
+	at info.magnolia.module.ui.ModuleManagerWebUI$2.run(ModuleManagerWebUI.java:123)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.NullPointerException
+	at info.magnolia.module.delta.SetupModuleRepositoriesTask.grantRepositoryToSuperuser(SetupModuleRepositoriesTask.java:99)
+	at info.magnolia.module.delta.SetupModuleRepositoriesTask.execute(SetupModuleRepositoriesTask.java:86)
+	... 9 more

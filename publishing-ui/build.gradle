@@ -1,0 +1,9 @@
+version '1.0-SNAPSHOT'
+
+apply plugin: 'war'
+apply plugin: 'jetty'
+
+dependencies {
+    compile project(':articles-app')
+
+}

@@ -1,0 +1,392 @@
+appClass: info.magnolia.ui.contentapp.ContentApp
+class: info.magnolia.ui.contentapp.ConfiguredContentAppDescriptor
+label: Articles
+icon: icon-items
+subApps:
+  browser:
+    subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
+    class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
+    actionbar:
+      defaultAction: editProduct
+      sections:
+        - name: root
+          groups:
+            - name: addActions
+              items:
+                - name: addProduct
+                - name: addFolder
+          availability:
+            nodes: false
+            root: true
+        - name: folder
+          groups:
+            - name: addActions
+              items:
+                - name: addProduct
+                - name: addFolder
+            - name: editActions
+              items:
+                - name: editFolder
+                - name: deleteFolder
+            - name: previewEnv
+              items:
+                - name: activatePreview
+                - name: deactivatePreview
+            - name: stageEnv
+              items:
+                - name: activateStage
+                - name: deactivateStage
+            - name: prodEnv
+              items:
+                - name: activateProd
+                - name: deactivateProd
+            - name: armyEnv
+              items:
+                - name: activateArmy
+                - name: deactivateArmy
+            - name: hcaEnv
+              items:
+                - name: activateHCA
+                - name: deactivateHCA
+            - name: truEnv
+              items:
+                - name: activateTri
+                - name: deactivateTri
+          availability:
+            nodeTypes:
+              - mgnl:folder
+        - name: product
+          groups:
+            - name: editActions
+              items:
+                - name: editProduct
+                - name: deleteProduct
+            - name: previewEnv
+              items:
+                - name: activatePreview
+                - name: deactivatePreview
+            - name: stageEnv
+              items:
+                - name: activateStage
+                - name: deactivateStage
+            - name: prodEnv
+              items:
+                - name: activateProd
+                - name: deactivateProd
+            - name: armyEnv
+              items:
+                - name: activateArmy
+                - name: deactivateArmy
+            - name: hcaEnv
+              items:
+                - name: activateHCA
+                - name: deactivateHCA
+            - name: truEnv
+              items:
+                - name: activateTri
+                - name: deactivateTri
+          availability:
+            nodeTypes:
+              - mgnl:product
+    actions:
+      addProduct:
+        subAppId: detail
+        icon: icon-add-item
+        nodeType: mgnl:product
+        appName: articles
+        class: info.magnolia.ui.contentapp.detail.action.CreateItemActionDefinition
+        availability:
+          root: true
+          nodeTypes:
+            - mgnl:folder
+      addFolder:
+        icon: icon-add-folder
+        class: info.magnolia.ui.framework.action.AddFolderActionDefinition
+        availability:
+          root: true
+      editFolder:
+        icon: icon-edit
+        dialogName: ui-framework:folder
+        class: info.magnolia.ui.framework.action.OpenEditDialogActionDefinition
+      deleteFolder:
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.DeleteItemActionDefinition
+      editProduct:
+        subAppId: detail
+        icon: icon-edit
+        appName: articles
+        class: info.magnolia.ui.contentapp.detail.action.EditItemActionDefinition
+      deleteProduct:
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.DeleteItemActionDefinition
+      activatePreview:
+        label: Active Preview
+        environment: sc-preview
+        command: activate
+        icon: icon-publish
+        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
+        recursive: true
+        availability:
+          multiple: true
+      deactivatePreview:
+        label: De-activate Preview
+        environment: sc-preview
+        command: activate
+        icon: icon-unpublish
+        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
+        recursive: true
+        availability:
+          multiple: true
+      activateStage:
+        label: Active On Stage
+        environment: sc-stage
+        command: activate
+        icon: icon-publish
+        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
+        recursive: true
+        availability:
+          multiple: true
+      deactivateStage:
+        label: De-Active On Stage
+        environment: sc-stage
+        command: activate
+        icon: icon-unpublish
+        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
+        recursive: true
+        availability:
+          multiple: true
+      activateProd:
+        label: Active On Prod
+        environment: sc-prod
+        command: activate
+        icon: icon-publish
+        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
+        recursive: true
+        availability:
+          multiple: true
+      deactivateProd:
+        label: De-Active On Prod
+        environment: sc-prod
+        command: activate
+        icon: icon-unpublish
+        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
+        recursive: true
+        availability:
+          multiple: true
+      activateArmy:
+        label: Active On Army
+        environment: army
+        command: activate
+        icon: icon-publish
+        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
+        recursive: true
+        availability:
+          multiple: true
+      deactivateArmy:
+        label: De-Active On Army
+        environment: army
+        command: deactivate
+        icon: icon-unpublish
+        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
+        recursive: true
+        availability:
+          multiple: true
+      activateHCA:
+        label: Active On HCA
+        environment: hca
+        command: activate
+        icon: icon-publish
+        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
+        recursive: true
+        availability:
+          multiple: true
+      deactivateHCA:
+        label: De-Active On HCA
+        environment: hca
+        command: deactivate
+        icon: icon-unpublish
+        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
+        recursive: true
+        availability:
+          multiple: true
+      activateTri:
+        label: Active On Trinity
+        environment: trinity
+        command: activate
+        icon: icon-publish
+        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
+        recursive: true
+        availability:
+          multiple: true
+      deactivateTri:
+        label: De-Active On Trinity
+        environment: trinity
+        command: activate
+        icon: icon-unpublish
+        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
+        recursive: true
+        availability:
+          multiple: true
+
+    workbench:
+      dropConstraintClass: info.magnolia.ui.workbench.tree.drop.AlwaysTrueDropConstraint
+      editable: false
+
+      contentViews:
+        - name: tree
+          class: info.magnolia.ui.workbench.tree.TreePresenterDefinition
+          columns: &myColumns
+            - name: name
+              editable: true
+              sortable: true
+              propertyName: jcrName
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: status
+              width: 45
+              displayInChooseDialog: false
+              formatterClass: info.magnolia.ui.workbench.column.StatusColumnFormatter
+              class: info.magnolia.ui.workbench.column.definition.StatusColumnDefinition
+            - name: moddate
+              width: 160
+              sortable: true
+              displayInChooseDialog: false
+              formatterClass: info.magnolia.ui.workbench.column.DateColumnFormatter
+              propertyName: mgnl:lastModified
+              class: info.magnolia.ui.workbench.column.definition.MetaDataColumnDefinition
+        - name: list
+          class: info.magnolia.ui.workbench.list.ListPresenterDefinition
+          columns: *myColumns
+        - name: thumbnail
+          class: info.magnolia.ui.workbench.thumbnail.ThumbnailPresenterDefinition
+        - name: search
+          class: info.magnolia.ui.workbench.search.SearchPresenterDefinition
+          columns: *myColumns
+
+    imageProvider:
+       class: info.magnolia.dam.app.ui.imageprovider.DamLinkImageProviderDefinition
+       damLinkPropertyName: image
+    contentConnector:
+      includeProperties: false
+      workspace: articles
+      rootPath: /
+      defaultOrder: jcrName
+      nodeTypes:
+        - name: mgnl:product
+          icon: icon-items
+        - name: mgnl:folder
+          icon: icon-folder
+  detail:
+    subAppClass: info.magnolia.ui.contentapp.detail.DetailSubApp
+    class: info.magnolia.ui.contentapp.detail.DetailSubAppDescriptor
+    actions:
+      commit:
+        implementationClass: info.magnolia.ui.form.action.SaveFormAction
+        class: info.magnolia.ui.form.action.SaveFormActionDefinition
+      cancel:
+        class: info.magnolia.ui.form.action.CancelFormActionDefinition
+    editor:
+      actions:
+        - name: commit
+        - name: cancel
+      form:
+        tabs:
+          - name: english
+            label: Article [English]
+            fields:
+              - name: jcrName
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Article Name [EN]
+              - name: title
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Title [EN]
+              - name: image
+                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+                targetWorkspace: dam
+                appName: assets
+                label: Select image
+                identifierToPathConverter:
+                  class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+                contentPreviewDefinition:
+                  contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+              - name: description
+                class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+                label: Description [EN]
+          - name: spanish
+            label: Article [Spanish]
+            fields:
+              - name: sp_jcrName
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Article Name [SP]
+              - name: sp_title
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Title [SP]
+              - name: image
+                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+                targetWorkspace: dam
+                appName: assets
+                label: Select image
+                identifierToPathConverter:
+                  class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+                contentPreviewDefinition:
+                  contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+              - name: sp_description
+                class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+                label: Description [SP]
+              - name: sp_content
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Content [SP]
+          - name: meta
+            label: Meta
+            fields:
+              - name: tag
+                label: Primary Tag
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: segmentSelect
+                class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+                multiselect: true
+                type: String
+                sortOptions: false
+                label: Segments visible for
+                options:
+                  - name: globalTitle
+                    label: Global
+                    selected: true
+                    value: global
+                  - name: armyTitle
+                    label: Army sites
+                    value: army
+                  - name: hcaTitle
+                    label: HCA
+                    value: hca
+                  - name: triTitle
+                    label: Trinity
+                    value: trinity
+          - name: activation-status
+            label: Activation
+            fields:
+              - name: active-status
+                class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+                multiselect: true
+                type: String
+                sortOptions: false
+                label: Active Status
+                readOnly: true
+                options:
+                  - name: sc-preview
+                    label: SC Preview
+                  - name: sc-stage
+                    label: SC Stage
+                  - name: sc-prod
+                    label: SC Production
+                  - name: hca
+                    label: HCA
+                  - name: trinity
+                    label: Trinity
+                  - name: army
+                    label: Army
+      nodeType:
+        icon: icon-items
+        name: mgnl:product
+    contentConnector:
+      workspace: articles
+
