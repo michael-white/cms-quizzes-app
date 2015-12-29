@@ -231,7 +231,6 @@ subApps:
     workbench:
       dropConstraintClass: info.magnolia.ui.workbench.tree.drop.AlwaysTrueDropConstraint
       editable: false
-
       contentViews:
         - name: tree
           class: info.magnolia.ui.workbench.tree.TreePresenterDefinition
@@ -242,10 +241,10 @@ subApps:
               propertyName: jcrName
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
             - name: status
-              width: 45
+              width: 160
               displayInChooseDialog: false
-              formatterClass: info.magnolia.ui.workbench.column.StatusColumnFormatter
-              class: info.magnolia.ui.workbench.column.definition.StatusColumnDefinition
+              formatterClass: com.sharecare.cms.articles.formatter.MultiSiteActivationStatusFormatter
+              class: com.sharecare.cms.articles.formatter.MultiSiteActivationStatusDefinition
             - name: moddate
               width: 160
               sortable: true
