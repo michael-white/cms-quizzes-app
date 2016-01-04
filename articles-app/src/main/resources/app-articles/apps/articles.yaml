@@ -11,23 +11,28 @@ subApps:
       sections:
         - name: root
           groups:
-            - name: addActions
+            - name: rootActions
               items:
-                - name: addProduct
                 - name: addFolder
+                - name: editFolder
+                - name: deleteFolder
+            - name: adminActions
+              items:
+                - name: exportProduct
           availability:
             nodes: false
             root: true
         - name: folder
           groups:
-            - name: addActions
+            - name: groupActions
               items:
-                - name: addProduct
                 - name: addFolder
-            - name: editActions
-              items:
                 - name: editFolder
                 - name: deleteFolder
+                - name: addProduct
+            - name: adminActions
+              items:
+                - name: exportProduct
             - name: previewEnv
               items:
                 - name: activatePreview
@@ -61,6 +66,9 @@ subApps:
               items:
                 - name: editProduct
                 - name: deleteProduct
+            - name: adminActions
+              items:
+                - name: exportProduct
             - name: previewEnv
               items:
                 - name: activatePreview
@@ -119,6 +127,11 @@ subApps:
       deleteProduct:
         icon: icon-delete
         class: info.magnolia.ui.framework.action.DeleteItemActionDefinition
+      exportProduct:
+        label: Export items
+        icon: icon-export
+        command: export
+        class: info.magnolia.ui.framework.action.ExportActionDefinition
       activatePreview:
         label: Active Preview
         environment: sc-preview
