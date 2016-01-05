@@ -10,6 +10,7 @@ subApps:
       defaultAction: editProduct
       sections:
         - name: root
+          label: Root
           groups:
             - name: rootActions
               items:
@@ -23,6 +24,7 @@ subApps:
             nodes: false
             root: true
         - name: folder
+          label: Folder
           groups:
             - name: groupActions
               items:
@@ -61,6 +63,7 @@ subApps:
             nodeTypes:
               - mgnl:folder
         - name: product
+          label: Article
           groups:
             - name: editActions
               items:
@@ -240,7 +243,9 @@ subApps:
         recursive: true
         availability:
           multiple: true
-
+#          rules:
+#            - name: environmentRule
+#              implementationClass: com.sharecare.cms.articles.activation.EnvironmentAvailabilityRule
     workbench:
       dropConstraintClass: info.magnolia.ui.workbench.tree.drop.AlwaysTrueDropConstraint
       editable: false
