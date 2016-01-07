@@ -114,55 +114,52 @@ subApps:
         class: info.magnolia.ui.framework.action.ExportActionDefinition
       activatePreview:
         label: Publish On Preview
-        environment: sc-preview
-        command: activate
+        command: activatePreview
         icon: icon-publish
-        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
         recursive: true
         availability:
           multiple: true
       deactivatePreview:
         label: Unpublish Preview
         environment: sc-preview
-        command: activate
+        command: deactivateRemoteData
         icon: icon-unpublish
-        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
         recursive: true
         availability:
           multiple: true
       activateStage:
         label: Publish On Stage
-        environment: sc-stage
-        command: activate
+        command: activateStage
         icon: icon-publish
-        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
         recursive: true
         availability:
           multiple: true
       deactivateStage:
         label: Unpublish On Stage
         environment: sc-stage
-        command: activate
+        command: deactivateRemoteData
         icon: icon-unpublish
-        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
         recursive: true
         availability:
           multiple: true
       activateProd:
         label: Publish On Prod
-        environment: sc-prod
-        command: activate
+        command: activateProd
         icon: icon-publish
-        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
         recursive: true
         availability:
           multiple: true
       deactivateProd:
         label: Unpublish On Prod
         environment: sc-prod
-        command: activate
+        command: deactivateRemoteData
         icon: icon-unpublish
-        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
         recursive: true
         availability:
           multiple: true
@@ -489,12 +486,6 @@ subApps:
                     label: SC Stage
                   - name: sc-prod
                     label: SC Production
-                  - name: hca
-                    label: HCA
-                  - name: trinity
-                    label: Trinity
-                  - name: army
-                    label: Army
       nodeType:
         icon: icon-items
         name: mgnl:product

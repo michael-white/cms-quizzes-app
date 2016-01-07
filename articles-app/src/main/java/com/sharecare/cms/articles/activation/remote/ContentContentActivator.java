@@ -1,4 +1,4 @@
-package com.sharecare.cms.articles.activation;
+package com.sharecare.cms.articles.activation.remote;
 
 import java.util.List;
 

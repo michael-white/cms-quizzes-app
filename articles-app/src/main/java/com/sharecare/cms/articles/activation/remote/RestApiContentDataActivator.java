@@ -1,7 +1,8 @@
-package com.sharecare.cms.articles.activation;
+package com.sharecare.cms.articles.activation.remote;
 
 import java.util.List;
 
+import com.sharecare.cms.articles.activation.DataActivationAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
