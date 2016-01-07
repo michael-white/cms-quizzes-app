@@ -47,18 +47,6 @@ subApps:
               items:
                 - name: activateProd
                 - name: deactivateProd
-            - name: armyEnv
-              items:
-                - name: activateArmy
-                - name: deactivateArmy
-            - name: hcaEnv
-              items:
-                - name: activateHCA
-                - name: deactivateHCA
-            - name: truEnv
-              items:
-                - name: activateTri
-                - name: deactivateTri
           availability:
             nodeTypes:
               - mgnl:folder
@@ -72,6 +60,7 @@ subApps:
             - name: adminActions
               items:
                 - name: exportProduct
+                - name: selectCampaignAction
             - name: previewEnv
               items:
                 - name: activatePreview
@@ -84,18 +73,6 @@ subApps:
               items:
                 - name: activateProd
                 - name: deactivateProd
-            - name: armyEnv
-              items:
-                - name: activateArmy
-                - name: deactivateArmy
-            - name: hcaEnv
-              items:
-                - name: activateHCA
-                - name: deactivateHCA
-            - name: truEnv
-              items:
-                - name: activateTri
-                - name: deactivateTri
           availability:
             nodeTypes:
               - mgnl:product
@@ -136,7 +113,7 @@ subApps:
         command: export
         class: info.magnolia.ui.framework.action.ExportActionDefinition
       activatePreview:
-        label: Active Preview
+        label: Publish On Preview
         environment: sc-preview
         command: activate
         icon: icon-publish
@@ -145,7 +122,7 @@ subApps:
         availability:
           multiple: true
       deactivatePreview:
-        label: De-activate Preview
+        label: Unpublish Preview
         environment: sc-preview
         command: activate
         icon: icon-unpublish
@@ -154,7 +131,7 @@ subApps:
         availability:
           multiple: true
       activateStage:
-        label: Active On Stage
+        label: Publish On Stage
         environment: sc-stage
         command: activate
         icon: icon-publish
@@ -163,7 +140,7 @@ subApps:
         availability:
           multiple: true
       deactivateStage:
-        label: De-Active On Stage
+        label: Unpublish On Stage
         environment: sc-stage
         command: activate
         icon: icon-unpublish
@@ -172,7 +149,7 @@ subApps:
         availability:
           multiple: true
       activateProd:
-        label: Active On Prod
+        label: Publish On Prod
         environment: sc-prod
         command: activate
         icon: icon-publish
@@ -181,7 +158,7 @@ subApps:
         availability:
           multiple: true
       deactivateProd:
-        label: De-Active On Prod
+        label: Unpublish On Prod
         environment: sc-prod
         command: activate
         icon: icon-unpublish
@@ -189,58 +166,11 @@ subApps:
         recursive: true
         availability:
           multiple: true
-      activateArmy:
-        label: Active On Army
-        environment: army
-        command: activate
-        icon: icon-publish
-        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
-        recursive: true
-        availability:
-          multiple: true
-      deactivateArmy:
-        label: De-Active On Army
-        environment: army
-        command: deactivate
-        icon: icon-unpublish
-        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
-        recursive: true
-        availability:
-          multiple: true
-      activateHCA:
-        label: Active On HCA
-        environment: hca
-        command: activate
-        icon: icon-publish
-        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
-        recursive: true
-        availability:
-          multiple: true
-      deactivateHCA:
-        label: De-Active On HCA
-        environment: hca
-        command: deactivate
-        icon: icon-unpublish
-        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
-        recursive: true
-        availability:
-          multiple: true
-      activateTri:
-        label: Active On Trinity
-        environment: trinity
-        command: activate
-        icon: icon-publish
-        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
-        recursive: true
-        availability:
-          multiple: true
-      deactivateTri:
-        label: De-Active On Trinity
-        environment: trinity
-        command: activate
-        icon: icon-unpublish
-        class: com.sharecare.cms.articles.activation.DataActivationActionDefinition
-        recursive: true
+      selectCampaignAction:
+        label: campaign-publisher.actions.selectCampaignAction.label
+        icon: icon-add-folder
+        class: info.magnolia.campaignpublisher.ui.action.OpenMultiEditDialogAction$Definition
+        dialogName: campaign-publisher:addToCampaign
         availability:
           multiple: true
 #          rules:

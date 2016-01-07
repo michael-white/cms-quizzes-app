@@ -13,26 +13,41 @@ allprojects {
         }
 
         maven {
+            name "magnolia.ent"
+            url "https://nexus.magnolia-cms.com/content/groups/enterprise/"
+            credentials {
+                username 'dagronow'
+                password 'YzMfC3aQ'
+            }
+
+        }
+
+        maven {
             name "vaadin-addons"
             url "https://maven.vaadin.com/vaadin-addons"
         }
     }
 
     ext {
-        magV = "5.4"
+        magV = "5.4.1"
     }
 
     configurations {
         all*.exclude group: "commons-logging", module: "commons-logging"
+        all*.exclude group: "info.magnolia.lang"
     }
 
     dependencies {
 
         compile "info.magnolia:magnolia-empty-webapp:$magV",
-                "info.magnolia.dam:magnolia-dam-app:2.1",
+                "info.magnolia.dam:magnolia-dam-app:2.1.2",
                 "info.magnolia.rest:magnolia-rest-services:1.1.1",
                 "info.magnolia.rest:magnolia-rest-integration:1.1.1",
                 "info.magnolia.rest:magnolia-rest-tools:1.1.1",
+                "info.magnolia.campaign:magnolia-campaign-publisher:1.0",
+                "info.magnolia.personalization:magnolia-personalization-integration:1.2.2",
+                "info.magnolia:magnolia-module-content-dependencies:1.6.1",
+                "info.magnolia.enterprise:magnolia-module-enterprise:5.4.1",
                 "org.projectlombok:lombok:1.16.6"
 
         testCompile group: 'junit', name: 'junit', version: '4.11'
