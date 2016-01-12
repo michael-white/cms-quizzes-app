@@ -2,13 +2,13 @@ package com.sharecare.cms.articles.activation.remote;
 
 import java.util.List;
 
-import com.sharecare.cms.articles.activation.DataActivationAction;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class RestApiContentDataActivator implements ContentContentActivator {
+@Slf4j
+public class RestApiContentDataActivator implements ContentContentActivator {
 
-	private static final Logger log = LoggerFactory.getLogger(DataActivationAction.class);
 
 	@Override
 	public ActivationResult activate(List<ArticleRequestFactory.ArticleRequest> requests) {
@@ -25,5 +25,10 @@ class RestApiContentDataActivator implements ContentContentActivator {
 				return "";
 			}
 		};
+	}
+
+	@Override
+	public ActivationResult activate(ArticleRequestFactory.ArticleRequest request) {
+		return null;
 	}
 }

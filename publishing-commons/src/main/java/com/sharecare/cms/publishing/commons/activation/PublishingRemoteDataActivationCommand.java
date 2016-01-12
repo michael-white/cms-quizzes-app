@@ -27,14 +27,10 @@ public class PublishingRemoteDataActivationCommand extends ActivationCommand {
 
 		final Node node = getJCRNode(ctx);
 
-		RemoteDataPublisher publisher = registry.forNode(node);
+		RemoteDataPublisher publisher = registry.forNode(node.getPrimaryNodeType());
 
-		return publisher.publishTo(environment) && super.execute(ctx);
+		return publisher.publish(node, environment) && super.execute(ctx);
 
-		//		if (node.isNodeType("mgnl:article")) {
-//			publishRemote(node);
-//		}
-//		return super.execute(ctx);
 	}
 
 

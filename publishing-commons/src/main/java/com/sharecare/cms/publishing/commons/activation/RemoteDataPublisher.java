@@ -1,6 +1,10 @@
 package com.sharecare.cms.publishing.commons.activation;
 
+import javax.jcr.Node;
+
 public interface RemoteDataPublisher {
 
-	boolean publishTo(String environment);
+	boolean publish(Node node, String environment);
+
+	boolean canService(String nodeType);
 }

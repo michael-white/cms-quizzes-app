@@ -4,6 +4,7 @@ import java.util.List;
 
 public interface ContentContentActivator {
 
+
 	interface ActivationResult {
 		boolean isSuccess();
 
@@ -11,4 +12,7 @@ public interface ContentContentActivator {
 	}
 
 	ActivationResult activate(List<ArticleRequestFactory.ArticleRequest> requests);
+
+	ActivationResult activate(ArticleRequestFactory.ArticleRequest request);
+
 }
