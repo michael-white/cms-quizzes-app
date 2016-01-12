@@ -50,7 +50,7 @@ subApps:
           availability:
             nodeTypes:
               - mgnl:folder
-        - name: product
+        - name: article
           label: Article
           groups:
             - name: editActions
@@ -75,12 +75,12 @@ subApps:
                 - name: deactivateProd
           availability:
             nodeTypes:
-              - mgnl:product
+              - mgnl:article
     actions:
       addProduct:
         subAppId: detail
         icon: icon-add-item
-        nodeType: mgnl:product
+        nodeType: mgnl:article
         appName: articles
         class: info.magnolia.ui.contentapp.detail.action.CreateItemActionDefinition
         availability:
@@ -215,7 +215,7 @@ subApps:
       rootPath: /
       defaultOrder: jcrName
       nodeTypes:
-        - name: mgnl:product
+        - name: mgnl:article
           icon: icon-items
         - name: mgnl:folder
           icon: icon-folder
@@ -488,7 +488,7 @@ subApps:
                     label: SC Production
       nodeType:
         icon: icon-items
-        name: mgnl:product
+        name: mgnl:article
     contentConnector:
       workspace: articles
 

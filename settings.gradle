@@ -1,2 +1,3 @@
 include 'articles-app', 'publishing-ui'
+include 'publishing-commons'
 

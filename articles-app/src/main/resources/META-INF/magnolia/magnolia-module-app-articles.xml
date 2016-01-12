@@ -6,6 +6,13 @@
   <description>Articles Content</description>
   <version>${project.version}</version>
 
+  <components>
+    <id>main</id> <!-- Container ID -->
+    <configurer>
+      <class>com.sharecare.cms.articles.activation.publishing.ArticlesPublishingBindingConfigurer</class>
+    </configurer>
+  </components>
+
   <dependencies>
     <dependency>
       <name>core</name>

@@ -17,7 +17,7 @@ public class ActivateRemoteDataCommand extends ActivationCommand {
 	public boolean execute(Context ctx) throws Exception {
 
 		final Node node = getJCRNode(ctx);
-		if (node.isNodeType("mgnl:product")) {
+		if (node.isNodeType("mgnl:article")) {
 			publishRemote(node);
 		}
 		return super.execute(ctx);
