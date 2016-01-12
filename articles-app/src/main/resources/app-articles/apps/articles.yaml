@@ -57,6 +57,10 @@ subApps:
               items:
                 - name: editProduct
                 - name: deleteProduct
+            - name: versioningActions
+              items:
+                - name: showVersions
+                - name: restoreVersions
             - name: adminActions
               items:
                 - name: exportProduct
@@ -87,6 +91,17 @@ subApps:
           root: true
           nodeTypes:
             - mgnl:folder
+      showVersions:
+        class: info.magnolia.ui.contentapp.browser.action.ShowVersionsActionDefinition
+        icon: icon-show-versions
+      restoreVersions:
+        class: info.magnolia.ui.contentapp.browser.action.RestoreVersionActionDefinition
+        icon: icon-retrieve-versions
+        label: Restore version
+#        availability:
+#          rules:
+#            - name: HasVersionsRule
+#              ruleClass: info.magnolia.ui.api.availability.HasVersionsRule
       addFolder:
         icon: icon-add-folder
         class: info.magnolia.ui.framework.action.AddFolderActionDefinition
@@ -114,6 +129,7 @@ subApps:
         class: info.magnolia.ui.framework.action.ExportActionDefinition
       activatePreview:
         label: Publish On Preview
+        catalog: versioned
         command: activatePreview
         icon: icon-publish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
@@ -124,6 +140,7 @@ subApps:
         label: Unpublish Preview
         environment: sc-preview
         command: deactivateRemoteData
+        catalog: versioned
         icon: icon-unpublish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
         recursive: true
@@ -131,6 +148,7 @@ subApps:
           multiple: true
       activateStage:
         label: Publish On Stage
+        catalog: versioned
         command: activateStage
         icon: icon-publish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
@@ -141,6 +159,7 @@ subApps:
         label: Unpublish On Stage
         environment: sc-stage
         command: deactivateRemoteData
+        catalog: versioned
         icon: icon-unpublish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
         recursive: true
@@ -148,6 +167,7 @@ subApps:
           multiple: true
       activateProd:
         label: Publish On Prod
+        catalog: versioned
         command: activateProd
         icon: icon-publish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
@@ -158,6 +178,7 @@ subApps:
         label: Unpublish On Prod
         environment: sc-prod
         command: deactivateRemoteData
+        catalog: versioned
         icon: icon-unpublish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
         recursive: true
