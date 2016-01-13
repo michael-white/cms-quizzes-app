@@ -13,7 +13,7 @@
     <sv:value>info.magnolia.campaignpublisher.ui.action.UnpublishCampaignAction$Definition</sv:value>
   </sv:property>
   <sv:property sv:name="command" sv:type="String">
-    <sv:value>deactivate</sv:value>
+    <sv:value>deactivateProd</sv:value>
   </sv:property>
   <sv:property sv:name="icon" sv:type="String">
     <sv:value>icon-unpublish</sv:value>
@@ -31,7 +31,7 @@
     <sv:value>superuser</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-    <sv:value>2016-01-07T10:48:31.669-05:00</sv:value>
+    <sv:value>2016-01-07T15:14:08.625-05:00</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
     <sv:value>superuser</sv:value>

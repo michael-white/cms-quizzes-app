@@ -13,7 +13,7 @@
     <sv:value>info.magnolia.campaignpublisher.ui.action.PublishCampaignAction$Definition</sv:value>
   </sv:property>
   <sv:property sv:name="command" sv:type="String">
-    <sv:value>activate</sv:value>
+    <sv:value>activateStage</sv:value>
   </sv:property>
   <sv:property sv:name="icon" sv:type="String">
     <sv:value>icon-publish</sv:value>
@@ -40,7 +40,7 @@
     <sv:value>superuser</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-    <sv:value>2016-01-07T10:50:25.048-05:00</sv:value>
+    <sv:value>2016-01-07T15:13:49.826-05:00</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
     <sv:value>superuser</sv:value>
