@@ -139,7 +139,7 @@ subApps:
       deactivatePreview:
         label: Unpublish Preview
         environment: sc-preview
-        command: deactivateRemoteData
+        command: deactivatePreview
         catalog: versioned
         icon: icon-unpublish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
@@ -158,7 +158,7 @@ subApps:
       deactivateStage:
         label: Unpublish On Stage
         environment: sc-stage
-        command: deactivateRemoteData
+        command: deactivateStage
         catalog: versioned
         icon: icon-unpublish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
@@ -177,7 +177,7 @@ subApps:
       deactivateProd:
         label: Unpublish On Prod
         environment: sc-prod
-        command: deactivateRemoteData
+        command: deactivateProd
         catalog: versioned
         icon: icon-unpublish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition

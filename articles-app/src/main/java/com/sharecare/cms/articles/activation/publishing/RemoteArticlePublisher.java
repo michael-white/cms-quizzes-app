@@ -19,24 +19,45 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 	@Override
 	public boolean publish(Node node, String environment) {
 
-		if (true) return true;
+		try {
+			log.warn("Publishing {}:{} content to {} ", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
 
-		ArticleRequestFactory.ArticleRequest request = buildArticleActivationRequests();
+			if (true) return true;
 
-		ContentContentActivator activator = new RestApiContentDataActivator();
-		ContentContentActivator.ActivationResult result = activator.activate(request);
+			ArticleRequestFactory.ArticleRequest request = buildArticleActivationRequests();
 
-		if (result.isSuccess()) {
-			try {
-				markItemsAsActivated(node, environment);
-			} catch (RepositoryException e) {
-				log.error("Failed Activation of article  {} ",e.getMessage());
-				return false;
+			ContentContentActivator activator = new RestApiContentDataActivator();
+			ContentContentActivator.ActivationResult result = activator.activate(request);
+
+			if (result.isSuccess()) {
+				try {
+					markItemsAsActivated(node, environment);
+				} catch (RepositoryException e) {
+					log.error("Failed Activation of article  {} ", e.getMessage());
+					return false;
+				}
+				return true;
 			}
-			return true;
+
+			return false;
+		} catch (RepositoryException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean unPublish(Node node, String environment) {
+
+		try {
+			log.warn("UN Publishing {}:{} content from {} ", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
+		} catch (RepositoryException e) {
+			e.printStackTrace();
+			return false;
 		}
 
-		return false;
+		return true;
+//		throw new UnsupportedOperationException("NOT IMPLEMENTED YET");
 	}
 
 	private ArticleRequestFactory.ArticleRequest buildArticleActivationRequests() {

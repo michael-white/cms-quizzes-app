@@ -3,7 +3,6 @@ package com.sharecare.cms.publishing.commons.activation;
 import javax.inject.Inject;
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
-import javax.jcr.RepositoryException;
 
 import java.util.Optional;
 
@@ -14,7 +13,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PublishingRemoteDataActivationCommand extends ActivationCommand {
+public class UnpublishingRemoteDataActivationCommand extends ActivationCommand {
 
 
 	private String environment;
@@ -22,7 +21,7 @@ public class PublishingRemoteDataActivationCommand extends ActivationCommand {
 	private final RemoteDataPublishersRegistry registry;
 
 	@Inject
-	public PublishingRemoteDataActivationCommand(RemoteDataPublishersRegistry registry) {
+	public UnpublishingRemoteDataActivationCommand(RemoteDataPublishersRegistry registry) {
 		this.registry = registry;
 	}
 
@@ -32,8 +31,7 @@ public class PublishingRemoteDataActivationCommand extends ActivationCommand {
 		final Node node = getJCRNode(ctx);
 
 		Optional<RemoteDataPublisher> publisher = registry.forNode(node.getPrimaryNodeType());
-		return !publisher.isPresent() || publisher.get().publish(node, environment) && super.execute(ctx);
+		return !publisher.isPresent() || publisher.get().unPublish(node, environment) && super.execute(ctx);
 	}
-
 
 }
