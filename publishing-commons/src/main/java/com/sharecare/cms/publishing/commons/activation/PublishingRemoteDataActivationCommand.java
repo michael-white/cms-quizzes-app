@@ -2,9 +2,6 @@ package com.sharecare.cms.publishing.commons.activation;
 
 import javax.inject.Inject;
 import javax.jcr.Node;
-import javax.jcr.NodeIterator;
-import javax.jcr.RepositoryException;
-
 import java.util.Optional;
 
 import info.magnolia.context.Context;

@@ -4,6 +4,7 @@
   <name>app-articles</name>
   <displayName>App Articles</displayName>
   <description>Articles Content</description>
+  <class>com.sharecare.cms.articles.configuration.ArticlesModuleConfig</class>
   <version>${project.version}</version>
 
   <components>

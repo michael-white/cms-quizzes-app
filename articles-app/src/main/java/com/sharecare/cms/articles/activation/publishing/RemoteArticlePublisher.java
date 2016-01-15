@@ -1,12 +1,14 @@
 package com.sharecare.cms.articles.activation.publishing;
 
+import javax.inject.Inject;
 import javax.jcr.*;
-
 import java.util.Arrays;
 
 import com.sharecare.cms.articles.activation.remote.ArticleRequestFactory;
 import com.sharecare.cms.articles.activation.remote.ContentContentActivator;
 import com.sharecare.cms.articles.activation.remote.RestApiContentDataActivator;
+import com.sharecare.cms.articles.configuration.ArticlesModuleConfig;
+import com.sharecare.cms.articles.configuration.RemotePublishResourceConfig;
 import com.sharecare.cms.publishing.commons.activation.RemoteDataPublisher;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,6 +17,12 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 
 	private static final String ARTICLES_NODE_TYPE = "mgnl:article";
 
+	private final ArticlesModuleConfig articlesModuleConfig;
+
+	@Inject
+	public RemoteArticlePublisher(ArticlesModuleConfig articlesModuleConfig) {
+		this.articlesModuleConfig = articlesModuleConfig;
+	}
 
 	@Override
 	public boolean publish(Node node, String environment) {
@@ -22,8 +30,8 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 		try {
 			log.warn("Publishing {}:{} content to {} ", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
 
+			RemotePublishResourceConfig config = articlesModuleConfig.forEnvironment(environment);
 			if (true) return true;
-
 			ArticleRequestFactory.ArticleRequest request = buildArticleActivationRequests();
 
 			ContentContentActivator activator = new RestApiContentDataActivator();
@@ -48,6 +56,7 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 
 	@Override
 	public boolean unPublish(Node node, String environment) {
+		RemotePublishResourceConfig config = articlesModuleConfig.forEnvironment(environment);
 
 		try {
 			log.warn("UN Publishing {}:{} content from {} ", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
