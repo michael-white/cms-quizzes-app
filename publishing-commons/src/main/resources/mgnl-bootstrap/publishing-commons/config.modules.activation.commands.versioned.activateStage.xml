@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sv:node sv:name="activateProd" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<sv:node sv:name="activateStage" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <sv:property sv:name="jcr:primaryType" sv:type="Name">
     <sv:value>mgnl:contentNode</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>42662568-524d-4c0f-b1c9-02641c9c0295</sv:value>
+    <sv:value>cde2a749-6e0b-4ca3-b754-b03fc4325e3d</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:createdBy" sv:type="String">
     <sv:value>admin</sv:value>
@@ -13,35 +13,32 @@
     <sv:value>false</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:created" sv:type="Date">
-    <sv:value>2016-01-07T16:02:47.392-05:00</sv:value>
+    <sv:value>2016-01-07T15:55:29.255-05:00</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:createdBy" sv:type="String">
     <sv:value>superuser</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
-    <sv:value>2016-01-07T16:02:47.393-05:00</sv:value>
+    <sv:value>2016-01-07T15:55:29.258-05:00</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
     <sv:value>superuser</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-    <sv:value>2016-01-07T16:02:52.379-05:00</sv:value>
+    <sv:value>2016-01-07T15:55:37.284-05:00</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
     <sv:value>superuser</sv:value>
   </sv:property>
-  <sv:node sv:name="version">
+  <sv:node sv:name="activateStage">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>17a3dddc-52ad-4465-8fa0-7bdb11a50e83</sv:value>
+      <sv:value>a5a98402-0572-4755-920d-c2ddb01436fa</sv:value>
     </sv:property>
-    <sv:property sv:name="class" sv:type="String">
-      <sv:value>info.magnolia.commands.impl.VersionCommand</sv:value>
-    </sv:property>
-    <sv:property sv:name="enabled" sv:type="String">
-      <sv:value>true</sv:value>
+    <sv:property sv:name="extends" sv:type="String">
+      <sv:value>/modules/activation/commands/default/activateStage</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>
@@ -50,19 +47,19 @@
       <sv:value>false</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:created" sv:type="Date">
-      <sv:value>2016-01-07T16:02:47.392-05:00</sv:value>
+      <sv:value>2016-01-07T15:55:29.255-05:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:createdBy" sv:type="String">
       <sv:value>superuser</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
-      <sv:value>2016-01-07T16:02:47.393-05:00</sv:value>
+      <sv:value>2016-01-07T15:55:29.259-05:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
       <sv:value>superuser</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-      <sv:value>2016-01-07T16:02:52.379-05:00</sv:value>
+      <sv:value>2016-01-13T11:13:10.239-05:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
       <sv:value>superuser</sv:value>
@@ -73,7 +70,7 @@
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>9cd86466-291f-49c3-977e-8ce4683f8a91</sv:value>
+      <sv:value>10c953ac-244d-44eb-aef6-9bd9e2faffe5</sv:value>
     </sv:property>
     <sv:property sv:name="class" sv:type="String">
       <sv:value>info.magnolia.commands.DelegateCommand</sv:value>
@@ -88,33 +85,39 @@
       <sv:value>false</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:created" sv:type="Date">
-      <sv:value>2016-01-07T16:02:47.392-05:00</sv:value>
+      <sv:value>2016-01-07T15:55:29.255-05:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:createdBy" sv:type="String">
       <sv:value>superuser</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
-      <sv:value>2016-01-07T16:02:47.393-05:00</sv:value>
+      <sv:value>2016-01-07T15:55:29.258-05:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
       <sv:value>superuser</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-      <sv:value>2016-01-07T16:02:52.379-05:00</sv:value>
+      <sv:value>2016-01-18T15:48:26.885-05:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
       <sv:value>superuser</sv:value>
     </sv:property>
   </sv:node>
-  <sv:node sv:name="activateProd">
+  <sv:node sv:name="version">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>1abfbd10-b0e2-4c44-abc0-93206bd12bd4</sv:value>
+      <sv:value>d4d1fece-1a65-4b43-be3c-8f65975a2206</sv:value>
     </sv:property>
-    <sv:property sv:name="extends" sv:type="String">
-      <sv:value>/modules/activation/commands/default/activateProd</sv:value>
+    <sv:property sv:name="class" sv:type="String">
+      <sv:value>com.sharecare.cms.publishing.commons.versioning.EnvironmentVersionCommand</sv:value>
+    </sv:property>
+    <sv:property sv:name="enabled" sv:type="String">
+      <sv:value>true</sv:value>
+    </sv:property>
+    <sv:property sv:name="environment" sv:type="String">
+      <sv:value>STAGE</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>
@@ -123,19 +126,19 @@
       <sv:value>false</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:created" sv:type="Date">
-      <sv:value>2016-01-07T16:02:47.392-05:00</sv:value>
+      <sv:value>2016-01-07T15:55:29.255-05:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:createdBy" sv:type="String">
       <sv:value>superuser</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
-      <sv:value>2016-01-07T16:02:47.393-05:00</sv:value>
+      <sv:value>2016-01-07T15:55:29.258-05:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
       <sv:value>superuser</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-      <sv:value>2016-01-13T11:08:26.605-05:00</sv:value>
+      <sv:value>2016-01-18T15:48:22.442-05:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
       <sv:value>superuser</sv:value>

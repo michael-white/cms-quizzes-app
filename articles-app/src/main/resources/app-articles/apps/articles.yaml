@@ -57,6 +57,7 @@ subApps:
               items:
                 - name: editProduct
                 - name: deleteProduct
+                - name: duplicateProduct
             - name: versioningActions
               items:
                 - name: showVersions
@@ -122,6 +123,10 @@ subApps:
       deleteProduct:
         icon: icon-delete
         class: info.magnolia.ui.framework.action.DeleteItemActionDefinition
+      duplicateProduct:
+        label: Duplicate item
+        icon: icon-duplicate
+        class: info.magnolia.ui.framework.action.DuplicateNodeActionDefinition
       exportProduct:
         label: Export items
         icon: icon-export
@@ -468,28 +473,9 @@ subApps:
           - name: tags
             label: Tags
             fields:
-              - name: primaryTag
-                label: Primary Tag [TBD]
+              - name: topicUri
+                label: Topic Uri
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-          - name: mobile
-            label: Mobile
-            fields:
-              - name: enableMobile
-                label: Enabled for Mobile App
-                class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
-                buttonLabel: Check this box to enable mobile meta image
-              - name: mobileTitle
-                label: Mobile Title
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: mobileImage
-                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
-                targetWorkspace: dam
-                appName: assets
-                label: Select image
-                identifierToPathConverter:
-                  class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
-                contentPreviewDefinition:
-                  contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
           - name: activation-status
             label: Activation
             fields:

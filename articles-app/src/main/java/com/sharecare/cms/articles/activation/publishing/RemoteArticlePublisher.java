@@ -11,6 +11,7 @@ import com.sharecare.cms.articles.configuration.ArticlesModuleConfig;
 import com.sharecare.cms.articles.configuration.RemotePublishResourceConfig;
 import com.sharecare.cms.publishing.commons.activation.RemoteDataPublisher;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.exception.ExceptionUtils;
 
 @Slf4j
 public class RemoteArticlePublisher implements RemoteDataPublisher {
@@ -28,30 +29,27 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 	public boolean publish(Node node, String environment) {
 
 		try {
-			log.warn("Publishing {}:{} content to {} ", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
+			log.info("Publishing {}:{} content to {} ", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
 
 			RemotePublishResourceConfig config = articlesModuleConfig.forEnvironment(environment);
 			if (true) return true;
+
+			// TODO - wire in the Articles SDK here
 			ArticleRequestFactory.ArticleRequest request = buildArticleActivationRequests();
 
 			ContentContentActivator activator = new RestApiContentDataActivator();
 			ContentContentActivator.ActivationResult result = activator.activate(request);
 
 			if (result.isSuccess()) {
-				try {
-					markItemsAsActivated(node, environment);
-				} catch (RepositoryException e) {
-					log.error("Failed Activation of article  {} ", e.getMessage());
-					return false;
-				}
-				return true;
+				log.info("Successfully published content item {}:{}", node.getPrimaryNodeType().getName(), node.getIdentifier());
+				return markItemsAsActivated(node, environment);
 			}
 
-			return false;
 		} catch (RepositoryException e) {
-			e.printStackTrace();
-			return false;
+			log.error("Failed Activation of article  {} ", ExceptionUtils.getFullStackTrace(e));
 		}
+
+		return false;
 	}
 
 	@Override
@@ -59,7 +57,7 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 		RemotePublishResourceConfig config = articlesModuleConfig.forEnvironment(environment);
 
 		try {
-			log.warn("UN Publishing {}:{} content from {} ", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
+			log.warn("Unpublishing {}:{} content from {} ", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
 		} catch (RepositoryException e) {
 			e.printStackTrace();
 			return false;
@@ -73,7 +71,7 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 		return null;
 	}
 
-	private void markItemsAsActivated(Node item, String environment) throws RepositoryException {
+	private boolean markItemsAsActivated(Node item, String environment) throws RepositoryException {
 
 		log.debug("Marking item {} as active on environment {}", item.getIdentifier(), environment);
 		try {
@@ -91,9 +89,11 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 			}
 
 			session.save();
+			return true;
 		} catch (RepositoryException e) {
-			// TODO revert the sync
-			log.error("Failed Activation of article  {} ", item.getIdentifier());
+			log.error("Failed to mark as activated {} ", ExceptionUtils.getFullStackTrace(e));
+			unPublish(item, environment);
+			return false;
 		}
 	}
 
