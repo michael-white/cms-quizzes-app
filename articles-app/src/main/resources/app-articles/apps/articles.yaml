@@ -468,8 +468,8 @@ subApps:
           - name: tags
             label: Tags
             fields:
-              - name: primaryTag
-                label: Primary Tag [TBD]
+              - name: topicUri
+                label: Topic Uri
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
           - name: mobile
             label: Mobile

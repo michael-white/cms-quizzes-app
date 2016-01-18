@@ -30,18 +30,15 @@
   <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
     <sv:value>superuser</sv:value>
   </sv:property>
-  <sv:node sv:name="version">
+  <sv:node sv:name="deactivateProd">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>09d1d86c-546e-40fa-ba89-569904644287</sv:value>
+      <sv:value>8dd504dd-9148-4ac3-b14f-fae127dc1bb3</sv:value>
     </sv:property>
-    <sv:property sv:name="class" sv:type="String">
-      <sv:value>info.magnolia.commands.impl.VersionCommand</sv:value>
-    </sv:property>
-    <sv:property sv:name="enabled" sv:type="String">
-      <sv:value>true</sv:value>
+    <sv:property sv:name="extends" sv:type="String">
+      <sv:value>/modules/activation/commands/default/deactivateProd</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>
@@ -62,7 +59,7 @@
       <sv:value>superuser</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-      <sv:value>2016-01-13T10:04:40.648-05:00</sv:value>
+      <sv:value>2016-01-13T11:14:04.531-05:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
       <sv:value>superuser</sv:value>
@@ -100,21 +97,27 @@
       <sv:value>superuser</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-      <sv:value>2016-01-13T10:05:00.538-05:00</sv:value>
+      <sv:value>2016-01-18T15:50:12.319-05:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
       <sv:value>superuser</sv:value>
     </sv:property>
   </sv:node>
-  <sv:node sv:name="deactivateProd">
+  <sv:node sv:name="version">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>8dd504dd-9148-4ac3-b14f-fae127dc1bb3</sv:value>
+      <sv:value>09d1d86c-546e-40fa-ba89-569904644287</sv:value>
     </sv:property>
-    <sv:property sv:name="extends" sv:type="String">
-      <sv:value>/modules/activation/commands/default/deactivateProd</sv:value>
+    <sv:property sv:name="class" sv:type="String">
+      <sv:value>com.sharecare.cms.publishing.commons.versioning.EnvironmentVersionCommand</sv:value>
+    </sv:property>
+    <sv:property sv:name="enabled" sv:type="String">
+      <sv:value>true</sv:value>
+    </sv:property>
+    <sv:property sv:name="environment" sv:type="String">
+      <sv:value>PRODUCTION</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>
@@ -135,7 +138,7 @@
       <sv:value>superuser</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-      <sv:value>2016-01-13T11:14:04.531-05:00</sv:value>
+      <sv:value>2016-01-18T15:50:09.894-05:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
       <sv:value>superuser</sv:value>
