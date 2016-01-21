@@ -29,7 +29,7 @@ allprojects {
     }
 
     ext {
-        magV = "5.4.1"
+        magV = "5.4.4"
     }
 
     configurations {
@@ -39,15 +39,37 @@ allprojects {
 
     dependencies {
 
-        compile "info.magnolia:magnolia-empty-webapp:$magV",
-                "info.magnolia.dam:magnolia-dam-app:2.1.2",
+        compile "info.magnolia:magnolia-core:$magV",
+                "info.magnolia.ui:magnolia-ui-admincentral:$magV",
+                "info.magnolia.ui:magnolia-ui-api:$magV",
+                "info.magnolia.ui:magnolia-ui-form:$magV",
+                "info.magnolia.ui:magnolia-ui-framework:$magV",
+                "info.magnolia.ui:magnolia-ui-contentapp:$magV",
+                "info.magnolia:magnolia-rendering:$magV",
+//                "info.magnolia:magnolia-templating:$magV",
+
+                "info.magnolia.enterprise:magnolia-module-enterprise:$magV",
+
+                "info.magnolia:magnolia-empty-webapp:$magV",
+                "info.magnolia.dam:magnolia-dam-app:2.1",
+
                 "info.magnolia.rest:magnolia-rest-services:1.1.1",
                 "info.magnolia.rest:magnolia-rest-integration:1.1.1",
                 "info.magnolia.rest:magnolia-rest-tools:1.1.1",
+
                 "info.magnolia.campaign:magnolia-campaign-publisher:1.0",
                 "info.magnolia.personalization:magnolia-personalization-integration:1.2.2",
                 "info.magnolia:magnolia-module-content-dependencies:1.6.1",
-                "info.magnolia.enterprise:magnolia-module-enterprise:5.4.1",
+
+                "info.magnolia.documentation:flickr-accounts:1.0.5-SNAPSHOT",
+                "info.magnolia.documentation:flickr-integration:1.0.5-SNAPSHOT",
+                "info.magnolia.documentation:flickr-simple-browser:1.0.5-SNAPSHOT",
+                "info.magnolia.documentation:flickr-browser:1.0.5-SNAPSHOT",
+                "info.magnolia.documentation:flickr-templates:1.0.5-SNAPSHOT",
+//                "info.magnolia:magnolia-module-standard-templating-kit:2.9.3",
+//                "info.magnolia:magnolia-module-mail:5.2.2",
+
+
 
                 // Misc
                 "org.projectlombok:lombok:1.16.6",
