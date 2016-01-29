@@ -3,9 +3,6 @@
   <sv:property sv:name="jcr:primaryType" sv:type="Name">
     <sv:value>mgnl:contentNode</sv:value>
   </sv:property>
-  <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>ef038820-1af6-4da7-ab74-bc333a5f77ed</sv:value>
-  </sv:property>
   <sv:property sv:name="catalog" sv:type="String">
     <sv:value>campaign-publisher</sv:value>
   </sv:property>
@@ -39,9 +36,6 @@
   <sv:node sv:name="availability">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>
-    </sv:property>
-    <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>b7f8ba8e-9529-4296-8c75-1bea18aa9fff</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>

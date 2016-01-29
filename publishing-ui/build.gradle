@@ -5,6 +5,7 @@ apply plugin: 'jetty'
 
 dependencies {
     compile project(':articles-app')
+    compile project(':cloudinary-app')
     compile project(':publishing-commons')
 
 

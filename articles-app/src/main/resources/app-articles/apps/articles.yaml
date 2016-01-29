@@ -57,6 +57,7 @@ subApps:
               items:
                 - name: editProduct
                 - name: deleteProduct
+                - name: duplicateProduct
             - name: versioningActions
               items:
                 - name: showVersions

@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module SYSTEM "module.dtd" >
 <module>
-  <name>app-articles</name>
-  <displayName>App Articles</displayName>
-  <description>Articles Content</description>
-  <class>com.sharecare.cms.articles.configuration.ArticlesModuleConfig</class>
+  <name>app-cloudinary</name>
+  <displayName>App Cloudinary</displayName>
+  <description>Cloudinary DAM</description>
   <versionHandler>com.sharecare.cms.publishing.commons.bootstrap.ConfigVersionHandler</versionHandler>
   <version>1.0</version>
-
-  <components>
-    <id>main</id> <!-- Container ID -->
-    <configurer>
-      <class>com.sharecare.cms.articles.activation.publishing.ArticlesPublishingBindingConfigurer</class>
-    </configurer>
-  </components>
 
   <dependencies>
     <dependency>
@@ -35,15 +27,5 @@
     </dependency>
   </dependencies>
 
-
-  <repositories>
-    <repository>
-      <name>magnolia</name>
-      <workspaces>
-        <workspace>articles</workspace>
-      </workspaces>
-      <nodeTypeFile>/mgnl-nodetypes/app-articles-nodetypes.xml</nodeTypeFile>
-    </repository>
-  </repositories>
 
 </module>

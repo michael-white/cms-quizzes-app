@@ -40,36 +40,45 @@ allprojects {
     dependencies {
 
         compile "info.magnolia:magnolia-core:$magV",
+
+                 // UI
                 "info.magnolia.ui:magnolia-ui-admincentral:$magV",
+                "info.magnolia.ui:magnolia-ui-workbench:$magV",
                 "info.magnolia.ui:magnolia-ui-api:$magV",
                 "info.magnolia.ui:magnolia-ui-form:$magV",
                 "info.magnolia.ui:magnolia-ui-framework:$magV",
                 "info.magnolia.ui:magnolia-ui-contentapp:$magV",
-                "info.magnolia:magnolia-rendering:$magV",
-//                "info.magnolia:magnolia-templating:$magV",
 
+                // Templating
+                "info.magnolia:magnolia-rendering:$magV",
+                "info.magnolia.templating:magnolia-templating-essentials-models:1.0-SNAPSHOT",
+                "info.magnolia.templating:magnolia-templating-essentials-parent:1.0-SNAPSHOT",
+                "info.magnolia.templating:magnolia-templating-essentials-imaging:1.0-SNAPSHOT",
+                "info.magnolia:magnolia-module-inplace-templating:2.4.2",
+
+                // Enterprise
                 "info.magnolia.enterprise:magnolia-module-enterprise:$magV",
 
+                // DO I need this ?
                 "info.magnolia:magnolia-empty-webapp:$magV",
-                "info.magnolia.dam:magnolia-dam-app:2.1",
 
+                // DAM
+                "info.magnolia.dam:magnolia-dam-app:2.1",
+                "info.magnolia.dam:magnolia-dam-core:2.1",
+                "info.magnolia.dam:magnolia-dam-api:2.1",
+
+                // REST
                 "info.magnolia.rest:magnolia-rest-services:1.1.1",
                 "info.magnolia.rest:magnolia-rest-integration:1.1.1",
                 "info.magnolia.rest:magnolia-rest-tools:1.1.1",
+
 
                 "info.magnolia.campaign:magnolia-campaign-publisher:1.0",
                 "info.magnolia.personalization:magnolia-personalization-integration:1.2.2",
                 "info.magnolia:magnolia-module-content-dependencies:1.6.1",
 
-                "info.magnolia.documentation:flickr-accounts:1.0.5-SNAPSHOT",
-                "info.magnolia.documentation:flickr-integration:1.0.5-SNAPSHOT",
-                "info.magnolia.documentation:flickr-simple-browser:1.0.5-SNAPSHOT",
-                "info.magnolia.documentation:flickr-browser:1.0.5-SNAPSHOT",
-                "info.magnolia.documentation:flickr-templates:1.0.5-SNAPSHOT",
-//                "info.magnolia:magnolia-module-standard-templating-kit:2.9.3",
-//                "info.magnolia:magnolia-module-mail:5.2.2",
-
-
+                "info.magnolia.amazon:amazon-s3-connector-module:1.0",
+                "info.magnolia.dam:magnolia-dam-external-app:2.1",
 
                 // Misc
                 "org.projectlombok:lombok:1.16.6",
@@ -79,6 +88,15 @@ allprojects {
                 "ch.qos.logback:logback-core:1.1.3",
                 "net.logstash.logback:logstash-logback-encoder:4.4",
                 "org.codehaus.groovy:groovy:2.4.3"
+
+
+//                "info.magnolia:magnolia-module-standard-templating-kit:2.9.3"
+//                "info.magnolia.documentation:flickr-accounts:1.0.5-SNAPSHOT",
+//                "info.magnolia.documentation:flickr-integration:1.0.5-SNAPSHOT",
+//                "info.magnolia.documentation:flickr-simple-browser:1.0.5-SNAPSHOT",
+//                "info.magnolia.documentation:flickr-browser:1.0.5-SNAPSHOT",
+//                "info.magnolia.documentation:flickr-templates:1.0.5-SNAPSHOT",
+//                "info.magnolia.documentation:flickr-templates:1.0.5-SNAPSHOT"
 
         testCompile group: 'junit', name: 'junit', version: '4.11'
     }

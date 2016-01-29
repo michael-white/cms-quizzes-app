@@ -3,9 +3,6 @@
   <sv:property sv:name="jcr:primaryType" sv:type="Name">
     <sv:value>mgnl:contentNode</sv:value>
   </sv:property>
-  <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>1ffbc2ff-0f39-4046-9622-98ea0e679934</sv:value>
-  </sv:property>
   <sv:property sv:name="jcr:createdBy" sv:type="String">
     <sv:value>admin</sv:value>
   </sv:property>
@@ -30,9 +27,6 @@
   <sv:node sv:name="activatePreview">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>
-    </sv:property>
-    <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>0ccd3370-2514-4ae4-a86d-0cb94c425a44</sv:value>
     </sv:property>
     <sv:property sv:name="extends" sv:type="String">
       <sv:value>/modules/activation/commands/default/activatePreview</sv:value>
@@ -66,9 +60,6 @@
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>
     </sv:property>
-    <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>5083603d-9540-4cbb-bc5d-5feddf7aa8c7</sv:value>
-    </sv:property>
     <sv:property sv:name="class" sv:type="String">
       <sv:value>info.magnolia.commands.DelegateCommand</sv:value>
     </sv:property>
@@ -100,9 +91,6 @@
   <sv:node sv:name="version">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>
-    </sv:property>
-    <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>55833b28-6a05-408a-ad38-b51f6e551da2</sv:value>
     </sv:property>
     <sv:property sv:name="class" sv:type="String">
       <sv:value>com.sharecare.cms.publishing.commons.versioning.EnvironmentVersionCommand</sv:value>

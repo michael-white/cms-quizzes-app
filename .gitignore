@@ -5,3 +5,4 @@ out/
 build/
 /articles-app/build
 /publishing-ui/build
+*.log
