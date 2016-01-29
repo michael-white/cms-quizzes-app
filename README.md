@@ -1,0 +1,1 @@
+gradle :publishing-ui:jettyRun
