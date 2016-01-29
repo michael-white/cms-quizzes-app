@@ -9,7 +9,7 @@ subApps:
     class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
     actionbar:
       defaultAction: openUploadAssetDialog
-      selections:
+      sections:
         - name: root
           label: Root
           groups:
@@ -18,7 +18,6 @@ subApps:
                 - name: openCreateFolderDialog
                 - name: refresh
           availability:
-            nodes: false
             root: true
         - name: folder
           label: Folder
@@ -28,10 +27,12 @@ subApps:
                 - name: openCreateFolderDialog
                 - name: confirmDeleteFolder
                 - name: openUploadAssetDialog
+          availability:
+            root: true
         - name: asset
           label: Asset
           groups:
-            - name: editActions
+            - name: assetActions
               items:
                 - name: confirmDeleteAsset
                 - name: downloadAsset
@@ -40,38 +41,31 @@ subApps:
         class: info.magnolia.amazon.s3.ui.action.OpenDialogActionDefinition
         dialogName: amazon-s3-connector-module:uploadAsset
         icon: icon-upload
-        availability:
-          root: false
-          rules:
-            isBucketOrFolder:
-              - implementationClass: info.magnolia.amazon.s3.ui.action.availability.IsBucketOrFolderRule
+        label: Upload asset
       openCreateFolderDialog:
         icon: icon-add-folder
         dialogName: amazon-s3-connector-module:createFolder
         class: info.magnolia.amazon.s3.ui.action.OpenDialogActionDefinition
-        availability:
-          root: true
+        label: Create folder
       confirmDeleteFolder:
         icon: icon-delete
         dialogName: amazon-s3-connector-module:createFolder
         class: info.magnolia.ui.framework.action.ConfirmationActionDefinition
         successActionName: deleteFolder
-        availability:
-          root: true
+        label: Delete folder
       confirmDeleteAsset:
         icon: icon-delete
         class: info.magnolia.ui.framework.action.ConfirmationActionDefinition
         successActionName: deleteAsset
-        availability:
-          root: false
+        label: Delete Asset
       downloadAsset:
         icon: icon-download
         class: info.magnolia.amazon.s3.ui.action.DownloadAssetActionDefinition
+        label: Download asset
       refresh:
         icon: icon-rotate-image-cw
         class: info.magnolia.amazon.s3.ui.action.RefreshContainerActionDefinition
-        availability:
-          root: true
+        label: Refresh
     workbench:
       dropConstraintClass: info.magnolia.ui.workbench.tree.drop.AlwaysTrueDropConstraint
       editable: false
@@ -85,6 +79,7 @@ subApps:
               formatClass: info.magnolia.dam.external.app.contentview.column.AssetNameColumnFormatter
               class: info.magnolia.dam.external.app.contentview.column.AssetNameColumnDefinition
             - name: acl
+              label: time
               expandRatio: 2
               class: info.magnolia.amazon.s3.ui.column.AclColumnDefinition
     imageProvider:
