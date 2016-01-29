@@ -1,0 +1,15 @@
+        actions:
+          commit:
+            class: info.magnolia.amazon.s3.ui.action.CreateFolderSaveActionDefinition
+          cancel:
+            class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition
+        form:
+          tabs:
+            main:
+              fields:
+                name:
+                  label: Folder Name
+                  class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                  required: true
+        modalityLevel: light
+        presenterClass: info.magnolia.amazon.s3.ui.form.AmazonS3FormDialogPresenter

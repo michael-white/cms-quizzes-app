@@ -1,0 +1,16 @@
+#      uploadAsset:
+        actions:
+          commit:
+            class: info.magnolia.amazon.s3.ui.action.UploadAssetSaveActionDefinition
+          cancel:
+            class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition
+        form:
+          tabs:
+            main:
+              fields:
+                upload:
+                  class: info.magnolia.ui.form.field.definition.BasicUploadFieldDefinition
+                  required: true
+                  transformerClass: info.magnolia.amazon.s3.ui.action.AmazonS3FileTransformer
+        modalityLevel: strong
+        presenterClass: info.magnolia.amazon.s3.ui.form.AmazonS3FormDialogPresenter

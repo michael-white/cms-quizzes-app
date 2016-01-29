@@ -1,14 +1,14 @@
-appClass: info.magnolia.amazon.s3.ui.AmazonS3App
+appClass: com.sharecare.cms.cloudinary.ui.CloudinaryApp
 class: info.magnolia.ui.contentapp.ConfiguredContentAppDescriptor
 label: Cloudinary
 icon: icon-file-image
-name: cloudinary
 subApps:
   browser:
     subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
     class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
+    label: Cloudiary Content Module
     actionbar:
-      defaultAction: openUploadAssetDialog
+      defaultAction: openCreateFolderDialog
       sections:
         - name: root
           label: Root
@@ -39,17 +39,18 @@ subApps:
     actions:
       openUploadAssetDialog:
         class: info.magnolia.amazon.s3.ui.action.OpenDialogActionDefinition
-        dialogName: amazon-s3-connector-module:uploadAsset
+        dialogName: app-cloudinary:uploadAsset
         icon: icon-upload
         label: Upload asset
       openCreateFolderDialog:
         icon: icon-add-folder
-        dialogName: amazon-s3-connector-module:createFolder
-        class: info.magnolia.amazon.s3.ui.action.OpenDialogActionDefinition
+        dialogName: app-cloudinary:createFolder
+        class: com.sharecare.cms.cloudinary.ui.action.OpenDialogActionDefinition
         label: Create folder
+        availability:
+          root: true
       confirmDeleteFolder:
         icon: icon-delete
-        dialogName: amazon-s3-connector-module:createFolder
         class: info.magnolia.ui.framework.action.ConfirmationActionDefinition
         successActionName: deleteFolder
         label: Delete folder
@@ -88,21 +89,3 @@ subApps:
     contentConnector:
       assetProviderId: s3
       class: info.magnolia.dam.external.app.contentconnector.ConfiguredAssetContentConnectorDefinition
-  dialogs:
-      createFolder:
-        actions:
-          commit:
-            class: info.magnolia.amazon.s3.ui.action.CreateFolderSaveActionDefinition
-          cancel:
-            class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition
-        form:
-          tabs:
-            main:
-              fields:
-                name:
-                  class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                  required: true
-                acl:
-                  extends: /modules/amazon-s3-connector-module/dialogs/changePermissions/form/tabs/main/fields/acl
-        modalityLevel: light
-        presenterClass: info.magnolia.amazon.s3.ui.form.AmazonS3FormDialogPresenter

@@ -12,10 +12,14 @@ def MAG_LOG_LOCATION = System.getProperty("magnolia.log") != null ? System.getPr
 appender("stdout", ConsoleAppender) {
     file = "${APPLICATION_LOG_LOCATION}"
 
-    encoder(LoggingEventCompositeJsonEncoder) {
-        def jsprov = new LoggingEventJsonProviders()
-        jsprov.addMessage(new ApplicationLogJsonProvider())
-        providers=jsprov
+//    encoder(LoggingEventCompositeJsonEncoder) {
+//        def jsprov = new LoggingEventJsonProviders()
+//        jsprov.addMessage(new ApplicationLogJsonProvider())
+//        providers=jsprov
+//    }
+
+    encoder(PatternLayoutEncoder) {
+        pattern = "%level %logger - %msg%n"
     }
 
     rollingPolicy(TimeBasedRollingPolicy) {
@@ -25,4 +29,5 @@ appender("stdout", ConsoleAppender) {
 
 root(WARN, ["stdout"])
 logger("com.sharecare", DEBUG, ["stdout"])
+//logger("info.magnolia", DEBUG, ["stdout"])
 logger("org.eclipse.jetty", WARN, ["stdout"])
