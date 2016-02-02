@@ -16,9 +16,6 @@ package com.sharecare.cms.cloudinary.ui.action;
 
 import info.magnolia.ui.framework.action.OpenCreateDialogActionDefinition;
 
-/**
- * Definition for {@link info.magnolia.amazon.s3.ui.action.OpenDialogAction}.
- */
 public class OpenDialogActionDefinition extends OpenCreateDialogActionDefinition {
 
     public OpenDialogActionDefinition() {

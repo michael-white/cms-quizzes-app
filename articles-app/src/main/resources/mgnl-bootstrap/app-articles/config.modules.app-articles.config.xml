@@ -3,9 +3,6 @@
   <sv:property sv:name="jcr:primaryType" sv:type="Name">
     <sv:value>mgnl:contentNode</sv:value>
   </sv:property>
-  <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>90242fd0-0055-4275-937d-b2ac27265e38</sv:value>
-  </sv:property>
   <sv:property sv:name="jcr:createdBy" sv:type="String">
     <sv:value>admin</sv:value>
   </sv:property>

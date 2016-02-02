@@ -1,4 +1,4 @@
-appClass: com.sharecare.cms.cloudinary.ui.CloudinaryApp
+appClass: info.magnolia.ui.contentapp.ContentApp
 class: info.magnolia.ui.contentapp.ConfiguredContentAppDescriptor
 label: Cloudinary
 icon: icon-file-image
@@ -87,5 +87,5 @@ subApps:
        class: info.magnolia.ui.imageprovider.definition.ConfiguredImageProviderDefinition
        imageProviderClass: info.magnolia.dam.external.app.imageprovider.AssetImageProvider
     contentConnector:
-      assetProviderId: s3
+      assetProviderId: cp
       class: info.magnolia.dam.external.app.contentconnector.ConfiguredAssetContentConnectorDefinition

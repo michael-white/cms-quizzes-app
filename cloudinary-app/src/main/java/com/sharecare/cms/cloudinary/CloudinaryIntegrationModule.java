@@ -16,34 +16,39 @@ package com.sharecare.cms.cloudinary;
 
 import javax.inject.Inject;
 
+import com.sharecare.cms.cloudinary.dam.CloudinaryClientServiceConnector;
 import info.magnolia.amazon.s3.dam.AmazonS3ClientService;
 import info.magnolia.license.*;
 import info.magnolia.module.ModuleLifecycle;
 import info.magnolia.module.ModuleLifecycleContext;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Module class.
  */
+@Getter
+@Setter
 public class CloudinaryIntegrationModule implements ModuleLifecycle, EnterpriseLicensedModule {
 
     private static final String MODULE_NAME = "cloudinary-app-module";
 
     private String credentialsDialogId;
 
-    private String accessKey;
-
+    private String apiKey;
     private String secretAccessKey;
+    private String cloudName;
 
-    private AmazonS3ClientService amazonS3ClientService;
+    private CloudinaryClientServiceConnector cloudinaryClientServiceConnector;
 
     @Inject
-    public CloudinaryIntegrationModule(AmazonS3ClientService amazonS3ClientService) {
-        this.amazonS3ClientService = amazonS3ClientService;
+    public CloudinaryIntegrationModule(CloudinaryClientServiceConnector cloudinaryClientServiceConnector) {
+        this.cloudinaryClientServiceConnector = cloudinaryClientServiceConnector;
     }
 
     @Override
     public void start(ModuleLifecycleContext moduleLifecycleContext) {
-        amazonS3ClientService.init();
+        cloudinaryClientServiceConnector.init();
     }
 
     @Override
@@ -78,27 +83,4 @@ public class CloudinaryIntegrationModule implements ModuleLifecycle, EnterpriseL
         return LicenseManager.getInstance().isLicenseValid(MODULE_NAME);
     }
 
-    public String getCredentialsDialogId() {
-        return credentialsDialogId;
-    }
-
-    public void setCredentialsDialogId(String credentialsDialogId) {
-        this.credentialsDialogId = credentialsDialogId;
-    }
-
-    public String getAccessKey() {
-        return accessKey;
-    }
-
-    public void setAccessKey(String accessKey) {
-        this.accessKey = accessKey;
-    }
-
-    public String getSecretAccessKey() {
-        return secretAccessKey;
-    }
-
-    public void setSecretAccessKey(String secretAccessKey) {
-        this.secretAccessKey = secretAccessKey;
-    }
 }

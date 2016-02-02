@@ -3,8 +3,6 @@ package com.sharecare.cms.publishing.commons.activation;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.jcr.Node;
-import javax.jcr.NodeIterator;
-
 import java.util.Optional;
 
 import info.magnolia.context.Context;

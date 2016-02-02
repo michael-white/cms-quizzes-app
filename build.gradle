@@ -49,6 +49,9 @@ allprojects {
                 "info.magnolia.ui:magnolia-ui-framework:$magV",
                 "info.magnolia.ui:magnolia-ui-contentapp:$magV",
 
+                // Activation
+                "info.magnolia.activation:magnolia-module-activation:5.4.2",
+//
                 // Templating
                 "info.magnolia:magnolia-rendering:$magV",
                 "info.magnolia.templating:magnolia-templating-essentials-models:1.0-SNAPSHOT",
@@ -66,6 +69,11 @@ allprojects {
                 "info.magnolia.dam:magnolia-dam-app:2.1",
                 "info.magnolia.dam:magnolia-dam-core:2.1",
                 "info.magnolia.dam:magnolia-dam-api:2.1",
+                "info.magnolia.dam:magnolia-dam-imaging:2.1",
+                "info.magnolia.dam:magnolia-dam-compatibility:2.1",
+                "info.magnolia.dam:magnolia-dam-templating:2.1",
+                "info.magnolia.dam:magnolia-dam-jcr:2.1",
+                "info.magnolia.dam:magnolia-dam-external-app:2.1",
 
                 // REST
                 "info.magnolia.rest:magnolia-rest-services:1.1.1",
@@ -78,7 +86,6 @@ allprojects {
                 "info.magnolia:magnolia-module-content-dependencies:1.6.1",
 
                 "info.magnolia.amazon:amazon-s3-connector-module:1.0",
-                "info.magnolia.dam:magnolia-dam-external-app:2.1",
 
                 // Misc
                 "org.projectlombok:lombok:1.16.6",

@@ -8,6 +8,16 @@
   <versionHandler>com.sharecare.cms.publishing.commons.bootstrap.ConfigVersionHandler</versionHandler>
   <version>1.0</version>
 
+
+  <components>
+    <id>main</id>
+    <component>
+      <type>com.sharecare.cms.cloudinary.dam.CloudinaryClientServiceConnector</type>
+      <implementation>com.sharecare.cms.cloudinary.dam.CloudinaryClientServiceConnector</implementation>
+      <scope>singleton</scope>
+    </component>
+  </components>
+
   <dependencies>
     <dependency>
       <name>core</name>
@@ -25,6 +35,10 @@
     <dependency>
       <name>dam-app</name>
       <version>2.1/*</version>
+    </dependency>
+    <dependency>
+      <name>enterprise</name>
+      <version>5.4/*</version>
     </dependency>
   </dependencies>
 
