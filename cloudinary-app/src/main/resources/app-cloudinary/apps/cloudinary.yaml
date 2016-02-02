@@ -87,5 +87,5 @@ subApps:
        class: info.magnolia.ui.imageprovider.definition.ConfiguredImageProviderDefinition
        imageProviderClass: info.magnolia.dam.external.app.imageprovider.AssetImageProvider
     contentConnector:
-      assetProviderId: cp
+      assetProviderId: cl
       class: info.magnolia.dam.external.app.contentconnector.ConfiguredAssetContentConnectorDefinition

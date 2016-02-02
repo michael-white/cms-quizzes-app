@@ -1,6 +1,7 @@
 package com.sharecare.cms.cloudinary.dam;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
@@ -24,14 +25,14 @@ public class CloudinaryAssetProvider extends AbstractAssetProvider implements Pa
 
     public static final String PATH_SEPARATOR = "/";
 
-    public static final String ASSET_PROVIDER_ID = "cp:";
+    public static final String ASSET_PROVIDER_ID = "cl:";
 
     /**
      * Fake root folder
      */
     private Folder rootFolder;
 
-    private Cloudinary service;
+    private final Provider<CloudinaryClientServiceConnector> service;
 
     private MessagesManager messagesManager;
 
@@ -40,10 +41,11 @@ public class CloudinaryAssetProvider extends AbstractAssetProvider implements Pa
     private ServerConfiguration serverConfiguration;
 
     private Cache<String, CloudinaryCacheEntry> cache = CacheBuilder.newBuilder().expireAfterAccess(15, TimeUnit.MINUTES).build();
+    private Cloudinary client;
 
     @Inject
-    public CloudinaryAssetProvider(CloudinaryClientServiceConnector connector, MessagesManager messagesManager, SimpleTranslator i18n, ServerConfiguration serverConfiguration) {
-        this.service = connector.getClient();
+    public CloudinaryAssetProvider(Provider<CloudinaryClientServiceConnector> connector, MessagesManager messagesManager, SimpleTranslator i18n, ServerConfiguration serverConfiguration) {
+        this.service = connector;
         this.messagesManager = messagesManager;
         this.i18n = i18n;
         this.serverConfiguration = serverConfiguration;
@@ -107,7 +109,7 @@ public class CloudinaryAssetProvider extends AbstractAssetProvider implements Pa
     @Override
     public Asset getAsset(String assetPath) throws PathNotFoundException {
         try {
-            ApiResponse response = service.api().resource(assetPath, ObjectUtils.emptyMap());
+            ApiResponse response = client().api().resource(assetPath, ObjectUtils.emptyMap());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -124,7 +126,7 @@ public class CloudinaryAssetProvider extends AbstractAssetProvider implements Pa
         }
 
         try {
-            ApiResponse response = service.api().resources(ObjectUtils.asMap(
+            ApiResponse response =  client().api().resources(ObjectUtils.asMap(
 					"prefix", folderPath));
         } catch (Exception e) {
             e.printStackTrace();
@@ -137,7 +139,7 @@ public class CloudinaryAssetProvider extends AbstractAssetProvider implements Pa
     public Folder getRootFolder() {
         if (rootFolder == null) {
             try {
-                ApiResponse response = service.api().resources(ObjectUtils.asMap(
+                ApiResponse response =  client().api().resources(ObjectUtils.asMap(
 						"type", "upload",
 						"prefix", "TestFolder/"));
 
@@ -193,4 +195,12 @@ public class CloudinaryAssetProvider extends AbstractAssetProvider implements Pa
             this.childrenLoaded = childrenLoaded;
         }
     }
+
+    private Cloudinary client() {
+        if (client == null) {
+            client = service.get().getClient();
+        }
+        return client;
+    }
+
 }

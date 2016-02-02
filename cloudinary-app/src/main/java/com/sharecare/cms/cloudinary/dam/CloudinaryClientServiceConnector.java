@@ -48,6 +48,7 @@ public class CloudinaryClientServiceConnector {
         CloudinaryIntegrationModule module = provider.get();
         apiKey = module.getApiKey();
         secretAccessKey = module.getSecretAccessKey();
+        cloudName = module.getCloudName();
 
         if (StringUtils.isNotBlank(apiKey) && StringUtils.isNotBlank(secretAccessKey) && StringUtils.isNotBlank(cloudName)) {
              client = createDefaultClient();
