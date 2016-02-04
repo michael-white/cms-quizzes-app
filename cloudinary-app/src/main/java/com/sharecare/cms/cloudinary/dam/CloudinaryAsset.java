@@ -3,13 +3,17 @@ package com.sharecare.cms.cloudinary.dam;
 import java.io.InputStream;
 import java.util.Calendar;
 
-import info.magnolia.dam.api.Asset;
-import info.magnolia.dam.api.AssetProvider;
-import info.magnolia.dam.api.Folder;
-import info.magnolia.dam.api.ItemKey;
+import info.magnolia.dam.api.*;
 import info.magnolia.dam.api.metadata.AssetMetadata;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 
-public class CloudinaryAsset implements Asset {
+@Slf4j
+public class CloudinaryAsset extends AbstractCloudinaryItem implements Asset {
+
+	protected CloudinaryAsset(CloudinaryAssetProvider assetProvider, ItemKey key) {
+		super(assetProvider, key);
+	}
 
 	@Override
 	public String getLink() {
@@ -97,17 +101,13 @@ public class CloudinaryAsset implements Asset {
 	}
 
 	@Override
-	public String getName() {
-		return null;
-	}
-
-	@Override
-	public String getPath() {
-		return null;
-	}
-
-	@Override
 	public Folder getParent() {
+		String fullPath = StringUtils.substringBeforeLast(StringUtils.removeEnd(getPath(), "/"), "/") + "/";
+		try {
+			return getAssetProvider().getFolder(fullPath);
+		} catch (PathAwareAssetProvider.PathNotFoundException e) {
+			log.warn("Unable to obtain parent for item {}", getPath());
+		}
 		return null;
 	}
 
@@ -118,11 +118,6 @@ public class CloudinaryAsset implements Asset {
 
 	@Override
 	public boolean isAsset() {
-		return false;
-	}
-
-	@Override
-	public AssetProvider getAssetProvider() {
-		return null;
+		return true;
 	}
 }
