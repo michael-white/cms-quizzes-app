@@ -96,11 +96,6 @@ public class CloudinaryAsset extends AbstractCloudinaryItem implements Asset {
 	}
 
 	@Override
-	public ItemKey getItemKey() {
-		return null;
-	}
-
-	@Override
 	public Folder getParent() {
 		String fullPath = StringUtils.substringBeforeLast(StringUtils.removeEnd(getPath(), "/"), "/") + "/";
 		try {

@@ -1,5 +1,8 @@
 package com.sharecare.cms.cloudinary.dam;
 
+import static org.apache.commons.lang3.StringUtils.*;
+import static org.yaml.snakeyaml.util.UriEncoder.*;
+
 import javax.inject.Inject;
 import javax.inject.Provider;
 import java.util.*;
@@ -20,7 +23,6 @@ import info.magnolia.i18nsystem.SimpleTranslator;
 import info.magnolia.ui.framework.message.MessagesManager;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.IteratorUtils;
-import org.apache.commons.lang3.StringUtils;
 
 @Slf4j
 public class CloudinaryAssetProvider extends AbstractAssetProvider implements PathAwareAssetProvider {
@@ -68,7 +70,7 @@ public class CloudinaryAssetProvider extends AbstractAssetProvider implements Pa
 		if (getRootFolder().getItemKey().equals(itemKey)) {
 			return getRootFolder();
 		}
-		if (StringUtils.endsWith(itemKey.getAssetId(), PATH_SEPARATOR)) {
+		if (endsWith(itemKey.getAssetId(), PATH_SEPARATOR)) {
 			return getFolder(itemKey);
 		} else {
 			return getAsset(itemKey);
@@ -101,7 +103,7 @@ public class CloudinaryAssetProvider extends AbstractAssetProvider implements Pa
 		if (getRootFolder().getPath().equals(path)) {
 			return getRootFolder();
 		}
-		if (StringUtils.endsWith(path, PATH_SEPARATOR)) {
+		if (endsWith(path, PATH_SEPARATOR)) {
 			return getFolder(path);
 		} else {
 			return getAsset(path);
@@ -167,7 +169,7 @@ public class CloudinaryAssetProvider extends AbstractAssetProvider implements Pa
 	}
 
 	private ItemKey createItemKeyForItem(String bucketName, String key) {
-		if (StringUtils.isBlank(key)) {
+		if (isBlank(key)) {
 			return ItemKey.from(ASSET_PROVIDER_ID + PATH_SEPARATOR + bucketName + PATH_SEPARATOR);
 		} else {
 			return ItemKey.from(ASSET_PROVIDER_ID + PATH_SEPARATOR + bucketName + PATH_SEPARATOR + key);
@@ -211,15 +213,8 @@ public class CloudinaryAssetProvider extends AbstractAssetProvider implements Pa
 	protected Iterator<Item> getChildren(Folder folder)  {
 		try {
 
-			List<Item> items = Lists.newArrayList();
-			ApiResponse response = client().api().subFolders(folder.getPath(), ObjectUtils.asMap());
-			List folders = (List) response.get("folders");
-
-			for (Object dir : folders) {
-				Map f = (Map) dir;
-				String name = f.get("path").toString();
-				items.add(new CloudinaryFolder(this, createItemKeyForItem(name, null)));
-			}
+			List<Item> items = fetchFolders(folder);
+			items.addAll(fetchFiles(folder));
 
 			Collections.sort(items, (o1, o2) -> o1.getPath().compareTo(o2.getPath()));
 			return items.iterator();
@@ -228,6 +223,45 @@ public class CloudinaryAssetProvider extends AbstractAssetProvider implements Pa
 			e.printStackTrace();
 		}
 		return IteratorUtils.emptyIterator();
+	}
+
+	private List<Item>  fetchFiles(Folder folder) {
+		List<Item> items = Lists.newArrayList();
+
+		try {
+			ApiResponse folderFiles  = client().api().resources(ObjectUtils.asMap(
+					"type", "upload",
+					"prefix", encode(removeStart(folder.getPath(), PATH_SEPARATOR))));
+			List resources = (List) folderFiles.get("resources");
+			for (Object resource : resources) {
+				Map r = (Map) resource;
+				if (r.get("resource_type") != null && r.get("resource_type").equals("image"))  {
+					String publicId = (String) r.get("public_id");
+					String key = CloudinaryUtils.getObjectKeyFromPath(publicId);
+					String bucket = CloudinaryUtils.getBucketNameFromPath(publicId);
+					CloudinaryAsset asset = new CloudinaryAsset(this, createItemKeyForItem(key, bucket));
+					items.add(asset);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return items;
+	}
+
+	private List<Item> fetchFolders(Folder folder) throws Exception {
+		List<Item> items = Lists.newArrayList();
+
+		ApiResponse response = client().api().subFolders(encode(folder.getPath()), ObjectUtils.asMap());
+		List folders = (List) response.get("folders");
+
+		for (Object dir : folders) {
+			Map f = (Map) dir;
+			String name = f.get("path").toString();
+			items.add(new CloudinaryFolder(this, createItemKeyForItem(name, null)));
+		}
+		return items;
 	}
 
 	private Cloudinary client() {
@@ -267,6 +301,7 @@ public class CloudinaryAssetProvider extends AbstractAssetProvider implements Pa
 			for (Object resource : resources) {
 				Map r = (Map) resource;
 				String rType = (String) r.get("resource_type");
+				String publicId = (String) r.get("public_id");
 				String uri = (String) r.get("url");
 				System.out.println(">>>>" + rType + " " + uri);
 			}
