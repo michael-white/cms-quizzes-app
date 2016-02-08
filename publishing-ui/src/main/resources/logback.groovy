@@ -29,5 +29,4 @@ appender("stdout", ConsoleAppender) {
 
 root(WARN, ["stdout"])
 logger("com.sharecare", DEBUG, ["stdout"])
-//logger("info.magnolia", DEBUG, ["stdout"])
-logger("org.eclipse.jetty", WARN, ["stdout"])
+//logger("org.eclipse.jetty", WARN, ["stdout"])
