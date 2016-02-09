@@ -1,12 +1,17 @@
 package com.sharecare.cms.articles.activation.publishing;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.jcr.*;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
-import com.sharecare.cms.articles.activation.remote.ArticleRequestFactory;
-import com.sharecare.cms.articles.activation.remote.ContentContentActivator;
-import com.sharecare.cms.articles.activation.remote.RestApiContentDataActivator;
+import com.google.common.base.Function;
+import com.google.common.collect.Maps;
+import com.sharecare.articles.sdk.*;
+import com.sharecare.cms.articles.activation.remote.ArticleRequestBuilder;
+import com.sharecare.cms.articles.activation.remote.RemoteArticleRequestBuilder;
 import com.sharecare.cms.articles.configuration.ArticlesModuleConfig;
 import com.sharecare.cms.articles.configuration.RemotePublishResourceConfig;
 import com.sharecare.cms.publishing.commons.activation.RemoteDataPublisher;
@@ -18,11 +23,13 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 
 	private static final String ARTICLES_NODE_TYPE = "mgnl:article";
 
-	private final ArticlesModuleConfig articlesModuleConfig;
+	private final Map<String, ArticlesApiClient> clientMap;
+	private final ArticleRequestBuilder articleRequestBuilder;
 
 	@Inject
-	public RemoteArticlePublisher(ArticlesModuleConfig articlesModuleConfig) {
-		this.articlesModuleConfig = articlesModuleConfig;
+	public RemoteArticlePublisher(ArticlesModuleConfig articlesModuleConfig, ArticleRequestBuilder articleRequestBuilder) {
+		this.clientMap = buildApiClients(articlesModuleConfig);
+		this.articleRequestBuilder = articleRequestBuilder;
 	}
 
 	@Override
@@ -31,16 +38,11 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 		try {
 			log.info("Publishing {}:{} content to {} ", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
 
-			RemotePublishResourceConfig config = articlesModuleConfig.forEnvironment(environment);
-			if (true) return true;
+			ArticlesApiClient client = clientMap.get(environment);
+			List<Article> articleRequests = articleRequestBuilder.forNode(node);
+			BasicResponse response = client.postRequest(articleRequests).toUrl("/articles").execute();
 
-			// TODO - wire in the Articles SDK here
-			ArticleRequestFactory.ArticleRequest request = buildArticleActivationRequests();
-
-			ContentContentActivator activator = new RestApiContentDataActivator();
-			ContentContentActivator.ActivationResult result = activator.activate(request);
-
-			if (result.isSuccess()) {
+			if (response.getStatusCode() == 200) {
 				log.info("Successfully published content item {}:{}", node.getPrimaryNodeType().getName(), node.getIdentifier());
 				return markItemsAsActivated(node, environment);
 			}
@@ -54,21 +56,28 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 
 	@Override
 	public boolean unPublish(Node node, String environment) {
-		RemotePublishResourceConfig config = articlesModuleConfig.forEnvironment(environment);
 
 		try {
-			log.warn("Unpublishing {}:{} content from {} ", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
+
+			log.warn("Deleting {}:{} content from {} ", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
+			ArticlesApiClient client = clientMap.get(environment);
+			BasicResponse response = client.deleteRequest().execute();
+
+			if (response.getStatusCode() == 200) {
+				log.info("Successfully published content item {}:{}", node.getPrimaryNodeType().getName(), node.getIdentifier());
+				return markItemsAsDeActivated(node, environment);
+			}
+
 		} catch (RepositoryException e) {
-			e.printStackTrace();
-			return false;
+			log.error("Failed De-Activation of article  {} ", ExceptionUtils.getFullStackTrace(e));
 		}
 
-		return true;
-//		throw new UnsupportedOperationException("NOT IMPLEMENTED YET");
+		return false;
 	}
 
-	private ArticleRequestFactory.ArticleRequest buildArticleActivationRequests() {
-		return null;
+	private boolean markItemsAsDeActivated(Node node, String environment) {
+		// TODO Implement this
+			return true;
 	}
 
 	private boolean markItemsAsActivated(Node item, String environment) throws RepositoryException {
@@ -95,6 +104,20 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 			unPublish(item, environment);
 			return false;
 		}
+	}
+
+	private Map<String, ArticlesApiClient> buildApiClients(ArticlesModuleConfig articlesModuleConfig) {
+		return Maps.transformValues(articlesModuleConfig.getPublishing(), new Function<RemotePublishResourceConfig, ArticlesApiClient>() {
+			@Nullable
+			@Override
+			public ArticlesApiClient apply(@Nullable RemotePublishResourceConfig config) {
+				assert config != null;
+				BasicAuthCredentials basicAuthCredentials = new BasicAuthCredentials(config.getUsername(), config.getPassword());
+				ServerInfo serverInfo = new ServerInfo(config.getHostProtocol(), config.getHostAddress(), config.getHostPort());
+				return new ArticlesApiClient(basicAuthCredentials, serverInfo);
+
+			}
+		});
 	}
 
 	@Override

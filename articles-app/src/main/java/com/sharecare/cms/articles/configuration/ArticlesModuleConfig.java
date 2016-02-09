@@ -9,7 +9,4 @@ public class ArticlesModuleConfig {
 
 	private Map<String,RemotePublishResourceConfig> publishing;
 
-	public RemotePublishResourceConfig forEnvironment(String environment) {
-		return publishing.get(environment);
-	}
 }

@@ -266,16 +266,16 @@ subApps:
               - name: jcrName
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Article Name
-              - name: title
+              - name: en_title
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Title
-              - name: subHead
+              - name: en_subHead
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Subhead
-              - name: byline
+              - name: en_byline
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Byline
-              - name: bylineUrl
+              - name: en_bylineUrl
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Byline URL
               - name: bylineUrlOptionSelect
@@ -299,14 +299,14 @@ subApps:
                   class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
                 contentPreviewDefinition:
                   contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
-              - name: body
+              - name: en_body
                 class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
                 label: Body
               - name: realAgeOptionSelect
                 class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
                 multiselect: false
                 type: String
-                label: Real Age Benefit Titl
+                label: Real Age Benefit Title
                 options:
                   - name: yes
                     label: Yes
@@ -314,7 +314,7 @@ subApps:
                   - name: no
                     label: No
                     selected: true
-              - name: callOutBody
+              - name: en_callOutBody
                 class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
                 label: Callout Body
               - name: playerId
@@ -332,22 +332,22 @@ subApps:
           - name: spanish
             label: Article [Spanish]
             fields:
-              - name: sp_jcrName
+              - name: jcrName
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Article Name
-              - name: sp_title
+              - name: es_title
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Title
-              - name: sp_subHead
+              - name: es_subHead
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Subhead
-              - name: sp_byline
+              - name: es_byline
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Byline
-              - name: sp_bylineUrl
+              - name: es_bylineUrl
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Byline URL
-              - name: sp_bylineUrlOptionSelect
+              - name: es_bylineUrlOptionSelect
                 class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
                 multiselect: false
                 type: String
@@ -368,7 +368,7 @@ subApps:
                   class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
                 contentPreviewDefinition:
                   contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
-              - name: sp_body
+              - name: es_body
                 class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
                 label: Body
               - name: realAgeOptionSelect
@@ -383,7 +383,7 @@ subApps:
                   - name: no
                     label: No
                     selected: true
-              - name: sp_callOutBody
+              - name: es_callOutBody
                 class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
                 label: Callout Body
               - name: playerId
