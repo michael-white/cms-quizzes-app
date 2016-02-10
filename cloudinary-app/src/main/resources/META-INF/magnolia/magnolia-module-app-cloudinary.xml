@@ -6,7 +6,7 @@
   <description>Cloudinary DAM</description>
   <class>com.sharecare.cms.cloudinary.CloudinaryIntegrationModule</class>
   <versionHandler>com.sharecare.cms.publishing.commons.bootstrap.ConfigVersionHandler</versionHandler>
-  <version>1.0</version>
+  <version>1.2</version>
 
 
   <components>

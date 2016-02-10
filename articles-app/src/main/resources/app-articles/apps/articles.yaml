@@ -209,7 +209,7 @@ subApps:
             - name: name
               editable: true
               sortable: true
-              propertyName: jcrName
+              propertyName: articleUri
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
             - name: status
               width: 160
@@ -239,7 +239,7 @@ subApps:
       includeProperties: false
       workspace: articles
       rootPath: /
-      defaultOrder: jcrName
+      defaultOrder: articleUri
       nodeTypes:
         - name: mgnl:article
           icon: icon-items
@@ -263,9 +263,9 @@ subApps:
           - name: english
             label: Article [English]
             fields:
-              - name: jcrName
+              - name: articleUri
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Article Name
+                label: Article URI
               - name: en_title
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Title
@@ -332,9 +332,9 @@ subApps:
           - name: spanish
             label: Article [Spanish]
             fields:
-              - name: jcrName
+              - name: articleUri
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Article Name
+                label: Article URI
               - name: es_title
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Title
@@ -375,7 +375,7 @@ subApps:
                 class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
                 multiselect: false
                 type: String
-                label: Real Age Benefit Titl
+                label: Real Age Benefit Title
                 options:
                   - name: yes
                     label: Yes

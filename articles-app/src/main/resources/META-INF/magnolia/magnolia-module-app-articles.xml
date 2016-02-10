@@ -5,7 +5,7 @@
   <displayName>App Articles</displayName>
   <description>Articles Content</description>
   <class>com.sharecare.cms.articles.configuration.ArticlesModuleConfig</class>
-  <version>1.0</version>
+  <version>1.1</version>
 
   <components>
     <id>main</id> <!-- Container ID -->

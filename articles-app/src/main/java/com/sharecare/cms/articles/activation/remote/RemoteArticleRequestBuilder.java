@@ -27,7 +27,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 
 	private enum ArticleModel {
 
-		jcrName,
+		articleUri,
 		title,
 		subHead,
 		byline,
@@ -99,6 +99,9 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		if (field.equals(ArticleModel.body.name()))
 			builder.setBody(value);
 
+		else if (field.equals(ArticleModel.articleUri.name()))
+			builder.setArticleUri(value.replaceAll("\\s", "-"));
+
 		else if (field.equals((ArticleModel.title.name())))
 			builder.setTitle(value);
 
@@ -114,8 +117,6 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		else if (field.equals((ArticleModel.metaKeywords.name())))
 			builder.setKeywords(Splitter.on(",").splitToList(value));
 
-		else if (field.equals(ArticleModel.jcrName.name()))
-			builder.setArticleUri(value.replaceAll("\\s", "-"));
 
 
 	}
