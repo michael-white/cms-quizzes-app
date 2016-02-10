@@ -320,7 +320,7 @@ subApps:
               - name: playerId
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Player ID
-              - name: videoID
+              - name: videoId
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Video ID
               - name: videoTitle

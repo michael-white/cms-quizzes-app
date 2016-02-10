@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.google.common.base.Splitter;
 import com.google.common.collect.Maps;
 import com.sharecare.articles.sdk.Article;
 import com.sharecare.articles.sdk.ArticleBuilder;
@@ -30,7 +31,10 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		title,
 		subHead,
 		byline,
-		body
+		body,
+		videoId,
+		playerId,
+		metaKeywords
 
 	}
 
@@ -97,6 +101,18 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 
 		else if (field.equals((ArticleModel.title.name())))
 			builder.setTitle(value);
+
+		else if (field.equals((ArticleModel.byline.name())))
+			builder.setByLine(value);
+
+		else if (field.equals((ArticleModel.videoId.name())))
+			builder.setByLine(value);
+
+		else if (field.equals((ArticleModel.playerId.name())))
+			builder.setByLine(value);
+
+		else if (field.equals((ArticleModel.metaKeywords.name())))
+			builder.setKeywords(Splitter.on(",").splitToList(value));
 
 		else if (field.equals(ArticleModel.jcrName.name()))
 			builder.setArticleUri(value.replaceAll("\\s", "-"));
