@@ -209,7 +209,7 @@ subApps:
             - name: name
               editable: true
               sortable: true
-              propertyName: articleUri
+              propertyName: jcrName
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
             - name: status
               width: 160
@@ -239,7 +239,7 @@ subApps:
       includeProperties: false
       workspace: articles
       rootPath: /
-      defaultOrder: articleUri
+      defaultOrder: jcrName
       nodeTypes:
         - name: mgnl:article
           icon: icon-items
@@ -263,7 +263,7 @@ subApps:
           - name: english
             label: Article [English]
             fields:
-              - name: articleUri
+              - name: jcrName
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Article URI
               - name: en_title
@@ -332,7 +332,7 @@ subApps:
           - name: spanish
             label: Article [Spanish]
             fields:
-              - name: articleUri
+              - name: jcrName
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Article URI
               - name: es_title

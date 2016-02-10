@@ -27,7 +27,6 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 
 	private enum ArticleModel {
 
-		articleUri,
 		title,
 		subHead,
 		byline,
@@ -41,7 +40,6 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 
 	@Override
 	public List<Article> forNode(Node node) throws RepositoryException {
-
 		Map<String, ArticleBuilder> localeArticles = initArticleLocaleMap(node);
 		PropertyIterator it = node.getProperties();
 		while (it.hasNext()) {
@@ -75,6 +73,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 			map.put(l.name(), new ArticleBuilder()
 					.setId(node.getIdentifier())
 					.setNodeUuid(node.getIdentifier())
+					.setArticleUri(node.getName().replaceAll("\\s", "-").toLowerCase())
 					.setLocale(l.name())
 					.setPublishDate(new Date().getTime()));
 		}
@@ -98,9 +97,6 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 
 		if (field.equals(ArticleModel.body.name()))
 			builder.setBody(value);
-
-		else if (field.equals(ArticleModel.articleUri.name()))
-			builder.setArticleUri(value.replaceAll("\\s", "-"));
 
 		else if (field.equals((ArticleModel.title.name())))
 			builder.setTitle(value);
