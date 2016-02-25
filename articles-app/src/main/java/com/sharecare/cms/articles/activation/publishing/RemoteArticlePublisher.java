@@ -6,12 +6,14 @@ import javax.jcr.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Maps;
 import com.sharecare.articles.sdk.*;
+import com.sharecare.cms.articles.activation.remote.ArticleAssetProcessor;
 import com.sharecare.cms.articles.activation.remote.ArticleRequestBuilder;
-import com.sharecare.cms.articles.activation.remote.RemoteArticleRequestBuilder;
+import com.sharecare.cms.articles.activation.remote.ArticlesUploadResult;
 import com.sharecare.cms.articles.configuration.ArticlesModuleConfig;
 import com.sharecare.cms.articles.configuration.RemotePublishResourceConfig;
 import com.sharecare.cms.publishing.commons.activation.RemoteDataPublisher;
@@ -25,9 +27,13 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 
 	private final Map<String, ArticlesApiClient> clientMap;
 	private final ArticleRequestBuilder articleRequestBuilder;
+	private final ArticleAssetProcessor articleAssetProcessor;
 
 	@Inject
-	public RemoteArticlePublisher(ArticlesModuleConfig articlesModuleConfig, ArticleRequestBuilder articleRequestBuilder) {
+	public RemoteArticlePublisher(ArticlesModuleConfig articlesModuleConfig,
+								  ArticleRequestBuilder articleRequestBuilder,
+								  ArticleAssetProcessor articleAssetProcessor) {
+		this.articleAssetProcessor = articleAssetProcessor;
 		this.clientMap = buildApiClients(articlesModuleConfig);
 		this.articleRequestBuilder = articleRequestBuilder;
 	}
@@ -40,6 +46,12 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 
 			ArticlesApiClient client = clientMap.get(environment);
 			List<Article> articleRequests = articleRequestBuilder.forNode(node);
+			Optional<ArticlesUploadResult> uploadResult = articleAssetProcessor.uploadAssetFrom(node);
+			if (uploadResult.isPresent()) {
+				ArticlesUploadResult response = uploadResult.get();
+				articleRequests.stream().forEach((a -> a.setImageUrl(response.getUrl())));
+			}
+
 			BasicResponse response = client.postRequest(articleRequests).toUrl("/articles").execute();
 
 			if (response.getStatusCode() == 200) {

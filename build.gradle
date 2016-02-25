@@ -63,10 +63,10 @@ allprojects {
 //
                 // Templating
                 "info.magnolia:magnolia-rendering:$magV",
-                "info.magnolia.templating:magnolia-templating-essentials-models:1.0-SNAPSHOT",
-                "info.magnolia.templating:magnolia-templating-essentials-parent:1.0-SNAPSHOT",
-                "info.magnolia.templating:magnolia-templating-essentials-imaging:1.0-SNAPSHOT",
-                "info.magnolia:magnolia-module-inplace-templating:2.4.2",
+//                "info.magnolia.templating:magnolia-templating-essentials-models:1.0-SNAPSHOT",
+//                "info.magnolia.templating:magnolia-templating-essentials-parent:1.0-SNAPSHOT",
+//                "info.magnolia.templating:magnolia-templating-essentials-imaging:1.0-SNAPSHOT",
+//                "info.magnolia:magnolia-module-inplace-templating:2.4.2",
 
                 // Enterprise
                 "info.magnolia.enterprise:magnolia-module-enterprise:$magV",
@@ -75,14 +75,14 @@ allprojects {
                 "info.magnolia:magnolia-empty-webapp:$magV",
 
                 // DAM
-                "info.magnolia.dam:magnolia-dam-app:2.1",
-                "info.magnolia.dam:magnolia-dam-core:2.1",
-                "info.magnolia.dam:magnolia-dam-api:2.1",
-                "info.magnolia.dam:magnolia-dam-imaging:2.1",
-                "info.magnolia.dam:magnolia-dam-compatibility:2.1",
-                "info.magnolia.dam:magnolia-dam-templating:2.1",
-                "info.magnolia.dam:magnolia-dam-jcr:2.1",
-                "info.magnolia.dam:magnolia-dam-external-app:2.1",
+                "info.magnolia.dam:magnolia-dam-app:2.1.1",
+                "info.magnolia.dam:magnolia-dam-core:2.1.1",
+                "info.magnolia.dam:magnolia-dam-api:2.1.1",
+                "info.magnolia.dam:magnolia-dam-imaging:2.1.1",
+                "info.magnolia.dam:magnolia-dam-compatibility:2.1.1",
+                "info.magnolia.dam:magnolia-dam-templating:2.1.1",
+                "info.magnolia.dam:magnolia-dam-jcr:2.1.1",
+                "info.magnolia.dam:magnolia-dam-external-app:2.1.1",
 
                 // REST
                 "info.magnolia.rest:magnolia-rest-services:1.1.1",
@@ -94,7 +94,7 @@ allprojects {
                 "info.magnolia.personalization:magnolia-personalization-integration:1.2.2",
                 "info.magnolia:magnolia-module-content-dependencies:1.6.1",
 
-                "info.magnolia.amazon:amazon-s3-connector-module:1.0",
+//                "info.magnolia.amazon:amazon-s3-connector-module:1.0",
 
                 // Misc
                 "org.projectlombok:lombok:1.16.6",

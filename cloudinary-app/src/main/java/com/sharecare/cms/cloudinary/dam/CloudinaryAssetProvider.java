@@ -5,6 +5,7 @@ import static org.yaml.snakeyaml.util.UriEncoder.*;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
+import java.io.File;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -277,37 +278,47 @@ public class CloudinaryAssetProvider extends AbstractAssetProvider implements Pa
 				"api_key", "118291969656326",
 				"api_secret", "rGzQp9AEy1s3ByE73-mUoYhtz5E"));
 
-		ApiResponse response = cloudinary.api().resources(ObjectUtils.asMap(
-				"type", "upload",
-				"prefix", "TestFolder/"));
 
-		ApiResponse response1 = cloudinary.api().resources(ObjectUtils.asMap());
+		File file = new File("/Users/dianandonov/Downloads/kids-ice.jpg");
 
-		ApiResponse response2 = cloudinary.api().rootFolders(ObjectUtils.asMap());
-		ApiResponse response3 = cloudinary.api().subFolders("TestFolder", ObjectUtils.asMap());
+		Map map = cloudinary.uploader().upload(file, ObjectUtils.asMap("public_id", file.getName(),
+				"folder", "testing/",
+				"use_filename", true));
 
-		List folders = (List) response2.get("folders");
-
-		for (Object folder : folders) {
-			Map f = (Map) folder;
-			String path = f.get("path").toString();
-			String name = f.get("path").toString();
-
-			ApiResponse folderFiles = cloudinary.api().resources(ObjectUtils.asMap(
-					"type", "upload",
-					"prefix", path + "/"));
-
-			List resources = (List) folderFiles.get("resources");
-			for (Object resource : resources) {
-				Map r = (Map) resource;
-				String rType = (String) r.get("resource_type");
-				String publicId = (String) r.get("public_id");
-				String uri = (String) r.get("url");
-				System.out.println(">>>>" + rType + " " + uri);
-			}
-			ApiResponse dirFiles = cloudinary.api().subFolders(path, ObjectUtils.asMap());
-		}
-
-		System.out.println(response);
+		String id = map.get("public_id").toString();
+		String url = map.get("url").toString();
+		System.out.println("id: " + id + " url:" + url );
+//		ApiResponse response = cloudinary.api().resources(ObjectUtils.asMap(
+//				"type", "upload",
+//				"prefix", "TestFolder/"));
+//
+//		ApiResponse response1 = cloudinary.api().resources(ObjectUtils.asMap());
+//
+//		ApiResponse response2 = cloudinary.api().rootFolders(ObjectUtils.asMap());
+//		ApiResponse response3 = cloudinary.api().subFolders("TestFolder", ObjectUtils.asMap());
+//
+//		List folders = (List) response2.get("folders");
+//
+//		for (Object folder : folders) {
+//			Map f = (Map) folder;
+//			String path = f.get("path").toString();
+//			String name = f.get("path").toString();
+//
+//			ApiResponse folderFiles = cloudinary.api().resources(ObjectUtils.asMap(
+//					"type", "upload",
+//					"prefix", path + "/"));
+//
+//			List resources = (List) folderFiles.get("resources");
+//			for (Object resource : resources) {
+//				Map r = (Map) resource;
+//				String rType = (String) r.get("resource_type");
+//				String publicId = (String) r.get("public_id");
+//				String uri = (String) r.get("url");
+//				System.out.println(">>>>" + rType + " " + uri);
+//			}
+//			ApiResponse dirFiles = cloudinary.api().subFolders(path, ObjectUtils.asMap());
+//		}
+//
+//		System.out.println(response);
 	}
 }

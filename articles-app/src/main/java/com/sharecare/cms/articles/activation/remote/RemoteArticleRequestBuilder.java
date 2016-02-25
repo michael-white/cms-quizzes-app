@@ -25,19 +25,6 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		en, es
 	}
 
-	private enum ArticleModel {
-
-		title,
-		subHead,
-		byline,
-		body,
-		videoId,
-		playerId,
-		metaKeywords
-
-	}
-
-
 	@Override
 	public List<Article> forNode(Node node) throws RepositoryException {
 		Map<String, ArticleBuilder> localeArticles = initArticleLocaleMap(node);
@@ -45,17 +32,16 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		while (it.hasNext()) {
 			Property p = it.nextProperty();
 			if (!p.isMultiple()) { // TODO handle this
-				String field = p.getName();
-				String value = p.getString();
-				String locale = "all";
+				final String field = p.getName();
+				final String value = p.getString();
 
 				Matcher m = LOCALE_PATTERN.matcher(field);
 				if (m.find()) {
-					locale = m.group(1);
-					field = m.group(2);
+					ArticleBuilder builder = localeArticles.get(m.group(1));
+					populateBuilder(builder,  m.group(2), value);
+				} else {
+					localeArticles.forEach((k, v) -> populateBuilder(v, field, value));
 				}
-
-				populateArticle(localeArticles, locale, field, value);
 			}
 		}
 
@@ -81,40 +67,26 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		return map;
 	}
 
-	private void populateArticle(Map<String, ArticleBuilder> localeArticles, String locale, String field, String value) throws RepositoryException {
-
-		if (locale.equals("all")) {
-
-			localeArticles.forEach((k, v) -> populateBuilder(v, field, value));
-
-		} else {
-			ArticleBuilder builder = localeArticles.get(locale);
-			populateBuilder(builder, field, value);
-		}
-	}
 
 	private void populateBuilder(ArticleBuilder builder, String field, String value)  {
 
-		if (field.equals(ArticleModel.body.name()))
+		if (field.equals(ArticleJCRSchema.body.name()))
 			builder.setBody(value);
 
-		else if (field.equals((ArticleModel.title.name())))
+		else if (field.equals((ArticleJCRSchema.title.name())))
 			builder.setTitle(value);
 
-		else if (field.equals((ArticleModel.byline.name())))
+		else if (field.equals((ArticleJCRSchema.byline.name())))
 			builder.setByLine(value);
 
-		else if (field.equals((ArticleModel.videoId.name())))
+		else if (field.equals((ArticleJCRSchema.videoId.name())))
 			builder.setByLine(value);
 
-		else if (field.equals((ArticleModel.playerId.name())))
+		else if (field.equals((ArticleJCRSchema.playerId.name())))
 			builder.setByLine(value);
 
-		else if (field.equals((ArticleModel.metaKeywords.name())))
+		else if (field.equals((ArticleJCRSchema.metaKeywords.name())))
 			builder.setKeywords(Splitter.on(",").splitToList(value));
-
-
-
 	}
 
 }

@@ -6,6 +6,7 @@ apply plugin: 'java'
 dependencies {
 
     compile project(':publishing-commons')
+    compile project(':cloudinary-app')
 
     compile "com.sharecare.articleAPI:article-api-sdk:2.0.86"
 }

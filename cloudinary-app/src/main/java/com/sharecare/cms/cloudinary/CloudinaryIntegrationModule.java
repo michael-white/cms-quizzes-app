@@ -17,7 +17,6 @@ package com.sharecare.cms.cloudinary;
 import javax.inject.Inject;
 
 import com.sharecare.cms.cloudinary.dam.CloudinaryClientServiceConnector;
-import info.magnolia.amazon.s3.dam.AmazonS3ClientService;
 import info.magnolia.license.*;
 import info.magnolia.module.ModuleLifecycle;
 import info.magnolia.module.ModuleLifecycleContext;

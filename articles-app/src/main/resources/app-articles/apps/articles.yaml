@@ -2,6 +2,7 @@ appClass: info.magnolia.ui.contentapp.ContentApp
 class: info.magnolia.ui.contentapp.ConfiguredContentAppDescriptor
 label: Articles
 icon: icon-items
+name: articles
 subApps:
   browser:
     subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
@@ -290,15 +291,11 @@ subApps:
                   - name: externalLink
                     label: External Link
                     selected: true
-              - name: image
-                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
-                targetWorkspace: dam
-                appName: assets
-                label: Select image
-                identifierToPathConverter:
-                  class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
-                contentPreviewDefinition:
-                  contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+              - name: upload
+                class: info.magnolia.dam.app.ui.field.definition.DamUploadFieldDefinition
+                label: Upload Image
+                binaryNodeName: image
+                editFileName: true
               - name: en_body
                 class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
                 label: Body
@@ -359,15 +356,11 @@ subApps:
                   - name: externalLink
                     label: External Link
                     selected: true
-              - name: image
-                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
-                targetWorkspace: dam
-                appName: assets
-                label: Select image
-                identifierToPathConverter:
-                  class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
-                contentPreviewDefinition:
-                  contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+              - name: upload
+                class: info.magnolia.dam.app.ui.field.definition.DamUploadFieldDefinition
+                label: Upload Image
+                binaryNodeName: image
+                editFileName: true
               - name: es_body
                 class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
                 label: Body
