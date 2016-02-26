@@ -18,7 +18,7 @@ def curTime = new LocalDateTime().toString('yyyyMMdd-HHmm')
 
 s3 {
 
-    awsProfile = 'cmscentral'
+    awsProfile = 'provider'
     bucket = "admin-sharecare/builds/$awsProfile/$env/$version.$curTime"
     upload {
         key = "publishing-central.war"
