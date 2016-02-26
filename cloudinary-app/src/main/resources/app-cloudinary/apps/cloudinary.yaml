@@ -16,7 +16,6 @@ subApps:
             - name: rootActions
               items:
                 - name: openCreateFolderDialog
-                - name: refresh
           availability:
             root: true
         - name: folder
@@ -35,10 +34,9 @@ subApps:
             - name: assetActions
               items:
                 - name: confirmDeleteAsset
-                - name: downloadAsset
     actions:
       openUploadAssetDialog:
-        class: info.magnolia.amazon.s3.ui.action.OpenDialogActionDefinition
+        class: com.sharecare.cms.cloudinary.ui.action.OpenDialogActionDefinition
         dialogName: app-cloudinary:uploadAsset
         icon: icon-upload
         label: Upload asset
@@ -59,14 +57,6 @@ subApps:
         class: info.magnolia.ui.framework.action.ConfirmationActionDefinition
         successActionName: deleteAsset
         label: Delete Asset
-      downloadAsset:
-        icon: icon-download
-        class: info.magnolia.amazon.s3.ui.action.DownloadAssetActionDefinition
-        label: Download asset
-      refresh:
-        icon: icon-rotate-image-cw
-        class: info.magnolia.amazon.s3.ui.action.RefreshContainerActionDefinition
-        label: Refresh
     workbench:
       dropConstraintClass: info.magnolia.ui.workbench.tree.drop.AlwaysTrueDropConstraint
       editable: false
@@ -79,10 +69,6 @@ subApps:
               propertyName: name
               formatClass: info.magnolia.dam.external.app.contentview.column.AssetNameColumnFormatter
               class: info.magnolia.dam.external.app.contentview.column.AssetNameColumnDefinition
-            - name: acl
-              label: time
-              expandRatio: 2
-              class: info.magnolia.amazon.s3.ui.column.AclColumnDefinition
     imageProvider:
        class: info.magnolia.ui.imageprovider.definition.ConfiguredImageProviderDefinition
        imageProviderClass: info.magnolia.dam.external.app.imageprovider.AssetImageProvider

@@ -53,10 +53,10 @@ public class CloudinaryArticlesAssetProcessor implements ArticleAssetProcessor {
 
 	private File extractFile(Node fileNode) throws RepositoryException {
 		String fileName = fileNode.getProperty("fileName").getValue().getString();
-		String fileExtension = fileNode.getProperty("extension").getValue().getString();
 		BinaryValue binary = (BinaryValue) fileNode.getProperty("jcr:data").getValue();
+
 		try {
-			File tempFile = File.createTempFile(fileName, fileExtension);
+			File tempFile = new File("/tmp/" + fileName);
 			tempFile.deleteOnExit();
 			IOUtils.copy(binary.getStream(), new FileOutputStream(tempFile));
 			return tempFile;

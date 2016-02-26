@@ -101,6 +101,7 @@ allprojects {
 
                 // Misc
                 "org.projectlombok:lombok:1.16.6",
+                "org.apache.commons:commons-vfs2:2.0",
 
                 // Logger
                 "ch.qos.logback:logback-classic:1.1.3",

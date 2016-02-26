@@ -28,7 +28,7 @@ public class EmbeddedServer {
         server.addBean(mbContainer);
 
         WebAppContext webAppContext = new WebAppContext();
-        webAppContext.setContextPath("/provider");
+        webAppContext.setContextPath("/");
 
         ProtectionDomain protectionDomain = EmbeddedServer.class.getProtectionDomain();
         webAppContext.setWar(protectionDomain.getCodeSource().getLocation().toExternalForm());
