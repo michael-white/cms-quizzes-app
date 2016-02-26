@@ -40,13 +40,13 @@ public class OpenDialogAction extends OpenCreateDialogAction {
 
     public static final String SELECTED_ITEM = "selectedItem";
 
-    private Item parentItem;
+    private BeanItem<Item> parentItem;
     private final FormDialogPresenterFactory formDialogPresenterFactory;
     private final UiContext uiContext;
     private final SimpleTranslator i18n;
 
     @Inject
-    public OpenDialogAction(OpenDialogActionDefinition definition, Item parentItem, FormDialogPresenterFactory formDialogPresenterFactory, UiContext uiContext, @Named("admincentral") EventBus eventBus, ContentConnector contentConnector, SimpleTranslator i18n) {
+    public OpenDialogAction(OpenDialogActionDefinition definition, BeanItem<Item> parentItem, FormDialogPresenterFactory formDialogPresenterFactory, UiContext uiContext, @Named("admincentral") EventBus eventBus, ContentConnector contentConnector, SimpleTranslator i18n) {
         super(definition, parentItem, formDialogPresenterFactory, uiContext, eventBus, contentConnector, i18n);
         this.parentItem = parentItem;
         this.formDialogPresenterFactory = formDialogPresenterFactory;
@@ -69,7 +69,7 @@ public class OpenDialogAction extends OpenCreateDialogAction {
             return;
         }
         Item newItem = new PropertysetItem();
-        newItem.addItemProperty(SELECTED_ITEM, new DefaultProperty<>(((BeanItem<info.magnolia.dam.api.Item>) parentItem).getBean()));
+        newItem.addItemProperty(SELECTED_ITEM, new DefaultProperty<>(parentItem.getBean()));
         formDialogPresenter.start(newItem, getDefinition().getDialogName(), uiContext, new EditorCallback() {
 
             @Override

@@ -1,5 +1,6 @@
 package com.sharecare.cms.publishing.commons.versioning;
 
+import javax.inject.Inject;
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
@@ -23,7 +24,16 @@ import org.apache.commons.lang3.StringUtils;
 @Setter
 public class EnvironmentVersionCommand extends VersionCommand {
 
+	private final VersionManager versionManager;
 	private String environment;
+
+
+	@Inject
+	public EnvironmentVersionCommand(final VersionManager versionManager) {
+		super(versionManager);
+		this.versionManager = versionManager;
+	}
+
 
 	@Override
 	public boolean execute(Context ctx) throws Exception {
@@ -35,7 +45,7 @@ public class EnvironmentVersionCommand extends VersionCommand {
 			ctx.setAttribute(Context.ATTRIBUTE_VERSION_MAP, versionMap, Context.LOCAL_SCOPE);
 		} else {
 			addEnvironmentComment(node);
-			Version version = VersionManager.getInstance().addVersion(node, getRule());
+			Version version = versionManager.addVersion(node, getRule());
 			if (version != null) {
 				ctx.setAttribute(Context.ATTRIBUTE_VERSION, version.getName(), Context.LOCAL_SCOPE);
 			}
@@ -46,7 +56,7 @@ public class EnvironmentVersionCommand extends VersionCommand {
 
 	private void versionRecursively(Node node, Context ctx, List<Map<String, String>> versionMap) throws RepositoryException {
 		addEnvironmentComment(node);
-		Version version = VersionManager.getInstance().addVersion(node, getRule());
+		Version version = versionManager.addVersion(node, getRule());
 
 		Map<String, String> entry = new HashMap<String, String>();
 		entry.put("uuid", node.getIdentifier());

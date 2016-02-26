@@ -39,9 +39,13 @@ allprojects {
 
     ext {
         magV = "5.4.4"
+        magDamV = "2.1.1"
     }
 
     configurations {
+        provided
+        compile.extendsFrom provided
+
         all*.exclude group: "commons-logging", module: "commons-logging"
         all*.exclude group: "info.magnolia.lang"
     }
@@ -75,14 +79,14 @@ allprojects {
                 "info.magnolia:magnolia-empty-webapp:$magV",
 
                 // DAM
-                "info.magnolia.dam:magnolia-dam-app:2.1.1",
-                "info.magnolia.dam:magnolia-dam-core:2.1.1",
-                "info.magnolia.dam:magnolia-dam-api:2.1.1",
-                "info.magnolia.dam:magnolia-dam-imaging:2.1.1",
-                "info.magnolia.dam:magnolia-dam-compatibility:2.1.1",
-                "info.magnolia.dam:magnolia-dam-templating:2.1.1",
-                "info.magnolia.dam:magnolia-dam-jcr:2.1.1",
-                "info.magnolia.dam:magnolia-dam-external-app:2.1.1",
+                "info.magnolia.dam:magnolia-dam-app:$magDamV",
+                "info.magnolia.dam:magnolia-dam-core:$magDamV",
+                "info.magnolia.dam:magnolia-dam-api:$magDamV",
+                "info.magnolia.dam:magnolia-dam-imaging:$magDamV",
+                "info.magnolia.dam:magnolia-dam-compatibility:$magDamV",
+                "info.magnolia.dam:magnolia-dam-templating:$magDamV",
+                "info.magnolia.dam:magnolia-dam-jcr:$magDamV",
+                "info.magnolia.dam:magnolia-dam-external-app:$magDamV",
 
                 // REST
                 "info.magnolia.rest:magnolia-rest-services:1.1.1",
@@ -115,7 +119,10 @@ allprojects {
 //                "info.magnolia.documentation:flickr-templates:1.0.5-SNAPSHOT"
 
         testCompile group: 'junit', name: 'junit', version: '4.11'
+
+
     }
+
 }
 
 

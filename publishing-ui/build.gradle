@@ -3,10 +3,44 @@ version '1.0-SNAPSHOT'
 apply plugin: 'war'
 apply plugin: 'jetty'
 
+
+ext {
+    jettyVersion = '9.2.9.v20150224'
+}
+
+
+configurations {
+    executableWar
+}
+
+
 dependencies {
+
+    //Jetty
+    compile "org.eclipse.jetty.aggregate:jetty-all:$jettyVersion"
+
     compile project(':articles-app')
     compile project(':cloudinary-app')
     compile project(':publishing-commons')
 
+    executableWar "org.eclipse.jetty.aggregate:jetty-all:$jettyVersion"
 
+}
+
+sourceSets.all {
+    compileClasspath += configurations.executableWar
+}
+
+
+war {
+    from {
+        configurations.executableWar.collect {
+            return it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    from "$buildDir/classes/main"
+    exclude('**/META-INF/*.SF', '**/META-INF/*.RSA', '**/META-INF/*.DSA')
+    manifest {
+        attributes 'Main-Class': 'com.sharecare.cms.boot.EmbeddedServer'
+    }
 }
