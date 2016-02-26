@@ -44,3 +44,6 @@ war {
         attributes 'Main-Class': 'com.sharecare.cms.boot.EmbeddedServer'
     }
 }
+
+apply from: "gradle/artifactPublishing.gradle"
+

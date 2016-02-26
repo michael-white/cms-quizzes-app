@@ -1,0 +1,28 @@
+apply plugin: 's3'
+
+buildscript {
+    dependencies {
+        classpath ('com.github.skhatri:gradle-s3-plugin:1.0.2',
+                'joda-time:joda-time:2.4')
+    }
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}
+
+import org.joda.time.LocalDateTime
+
+def env = System.getProperty("env") != null ? System.getProperty("env") :  "dev"
+def curTime = new LocalDateTime().toString('yyyyMMdd-HHmm')
+
+s3 {
+
+    awsProfile = 'cmscentral'
+    bucket = "admin-sharecare/builds/$awsProfile/$env/$version.$curTime"
+    upload {
+        key = "publishing-central.war"
+        file = "$project.buildDir/libs/$project.name-$version" + ".war"
+    }
+
+}
