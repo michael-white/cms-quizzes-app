@@ -67,10 +67,10 @@ allprojects {
 //
                 // Templating
                 "info.magnolia:magnolia-rendering:$magV",
-//                "info.magnolia.templating:magnolia-templating-essentials-models:1.0-SNAPSHOT",
-//                "info.magnolia.templating:magnolia-templating-essentials-parent:1.0-SNAPSHOT",
-//                "info.magnolia.templating:magnolia-templating-essentials-imaging:1.0-SNAPSHOT",
-//                "info.magnolia:magnolia-module-inplace-templating:2.4.2",
+                "info.magnolia.templating:magnolia-templating-essentials-models:1.0-SNAPSHOT",
+                "info.magnolia.templating:magnolia-templating-essentials-parent:1.0-SNAPSHOT",
+                "info.magnolia.templating:magnolia-templating-essentials-imaging:1.0-SNAPSHOT",
+                "info.magnolia:magnolia-module-inplace-templating:2.4.2",
 
                 // Enterprise
                 "info.magnolia.enterprise:magnolia-module-enterprise:$magV",
@@ -98,7 +98,6 @@ allprojects {
                 "info.magnolia.personalization:magnolia-personalization-integration:1.2.2",
                 "info.magnolia:magnolia-module-content-dependencies:1.6.1",
 
-//                "info.magnolia.amazon:amazon-s3-connector-module:1.0",
 
                 // Misc
                 "org.projectlombok:lombok:1.16.6",
@@ -110,13 +109,7 @@ allprojects {
                 "org.codehaus.groovy:groovy:2.4.3"
 
 
-//                "info.magnolia:magnolia-module-standard-templating-kit:2.9.3"
-//                "info.magnolia.documentation:flickr-accounts:1.0.5-SNAPSHOT",
-//                "info.magnolia.documentation:flickr-integration:1.0.5-SNAPSHOT",
-//                "info.magnolia.documentation:flickr-simple-browser:1.0.5-SNAPSHOT",
-//                "info.magnolia.documentation:flickr-browser:1.0.5-SNAPSHOT",
-//                "info.magnolia.documentation:flickr-templates:1.0.5-SNAPSHOT",
-//                "info.magnolia.documentation:flickr-templates:1.0.5-SNAPSHOT"
+                "info.magnolia:magnolia-module-standard-templating-kit:2.9.3"
 
         testCompile group: 'junit', name: 'junit', version: '4.11'
 
