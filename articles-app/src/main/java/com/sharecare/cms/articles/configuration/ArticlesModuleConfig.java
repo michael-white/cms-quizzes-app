@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class ArticlesModuleConfig {
 
-	private Map<String,RemotePublishResourceConfig> publishing;
+	private Map<String,RemoteServerResourceConfig> publishing;
+	private RemoteServerResourceConfig tagResource;
 
 }

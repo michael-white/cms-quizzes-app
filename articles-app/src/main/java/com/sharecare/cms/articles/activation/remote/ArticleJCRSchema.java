@@ -9,6 +9,7 @@ public enum ArticleJCRSchema {
 	videoId,
 	playerId,
 	metaKeywords,
-	image
+	image,
+	segmentSelect
 
 }

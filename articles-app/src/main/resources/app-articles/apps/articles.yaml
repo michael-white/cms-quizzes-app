@@ -256,6 +256,7 @@ subApps:
       cancel:
         class: info.magnolia.ui.form.action.CancelFormActionDefinition
     editor:
+      wide: true
       actions:
         - name: commit
         - name: cancel
@@ -466,9 +467,14 @@ subApps:
           - name: tags
             label: Tags
             fields:
-              - name: topicUri
-                label: Topic Uri
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: primaryTag
+                label: "Primary Tag"
+                class: com.sharecare.cms.articles.ui.tag.ArticleUriFieldDefinition
+                transformerClass: com.sharecare.cms.articles.ui.tag.ArticleUriCompositeTransformer
+              - name: secondaryTag
+                label: "Secondary Tag"
+                class: com.sharecare.cms.articles.ui.tag.SecondaryTagFieldDefinition
+                transformerClass: com.sharecare.cms.articles.ui.tag.ArticleUriCompositeTransformer
           - name: activation-status
             label: Activation
             fields:
@@ -480,12 +486,12 @@ subApps:
                 label: Active Status
                 readOnly: true
                 options:
-                  - name: sc-preview
-                    label: SC Preview
-                  - name: sc-stage
-                    label: SC Stage
-                  - name: sc-prod
-                    label: SC Production
+                  - name: preview
+                    label: Preview
+                  - name: stage
+                    label: Stage
+                  - name: prod
+                    label: Production
       nodeType:
         icon: icon-items
         name: mgnl:article

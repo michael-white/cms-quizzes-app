@@ -27,7 +27,7 @@
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
       <sv:property sv:name="class" sv:type="String">
-        <sv:value>com.sharecare.cms.articles.configuration.RemotePublishResourceConfig</sv:value>
+        <sv:value>com.sharecare.cms.articles.configuration.RemoteServerResourceConfig</sv:value>
       </sv:property>
       <sv:property sv:name="hostAddress" sv:type="String">
         <sv:value>api.dev.sharecare.com</sv:value>
@@ -50,7 +50,7 @@
         <sv:value>mgnl:contentNode</sv:value>
       </sv:property>
       <sv:property sv:name="class" sv:type="String">
-        <sv:value>com.sharecare.cms.articles.configuration.RemotePublishResourceConfig</sv:value>
+        <sv:value>com.sharecare.cms.articles.configuration.RemoteServerResourceConfig</sv:value>
       </sv:property>
       <sv:property sv:name="hostAddress" sv:type="String">
         <sv:value>api.dev.sharecare.com/articles</sv:value>
@@ -76,7 +76,7 @@
         <sv:value>b807c667-4f46-486a-93ee-709f77754ff7</sv:value>
       </sv:property>
       <sv:property sv:name="class" sv:type="String">
-        <sv:value>com.sharecare.cms.articles.configuration.RemotePublishResourceConfig</sv:value>
+        <sv:value>com.sharecare.cms.articles.configuration.RemoteServerResourceConfig</sv:value>
       </sv:property>
       <sv:property sv:name="hostAddress" sv:type="String">
         <sv:value>api.dev.sharecare.com/articles</sv:value>

@@ -18,7 +18,7 @@ import info.magnolia.jcr.util.NodeTypes;
 import info.magnolia.jcr.util.PropertyUtil;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 
 @Getter
 @Setter
@@ -62,7 +62,7 @@ public class EnvironmentVersionCommand extends VersionCommand {
 		entry.put("uuid", node.getIdentifier());
 		if (version != null) {
 			entry.put("version", version.getName());
-			if (StringUtils.isEmpty(ctx.getAttribute(Context.ATTRIBUTE_VERSION))) {
+			if (StringUtils.isEmpty(String.valueOf(ctx.getAttribute(Context.ATTRIBUTE_VERSION)))) {
 				ctx.setAttribute(Context.ATTRIBUTE_VERSION, version.getName(), Context.LOCAL_SCOPE);
 			}
 		}

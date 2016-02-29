@@ -3,19 +3,17 @@ package com.sharecare.cms.articles.activation.publishing;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.jcr.*;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import com.sharecare.articles.sdk.*;
 import com.sharecare.cms.articles.activation.remote.ArticleAssetProcessor;
 import com.sharecare.cms.articles.activation.remote.ArticleRequestBuilder;
 import com.sharecare.cms.articles.activation.remote.ArticlesUploadResult;
 import com.sharecare.cms.articles.configuration.ArticlesModuleConfig;
-import com.sharecare.cms.articles.configuration.RemotePublishResourceConfig;
+import com.sharecare.cms.articles.configuration.RemoteServerResourceConfig;
 import com.sharecare.cms.publishing.commons.activation.RemoteDataPublisher;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -58,7 +56,6 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 				log.info("Successfully published content item {}:{}", node.getPrimaryNodeType().getName(), node.getIdentifier());
 				return markItemsAsActivated(node, environment);
 			}
-
 		} catch (RepositoryException e) {
 			log.error("Failed Activation of article  {} ", ExceptionUtils.getFullStackTrace(e));
 		}
@@ -79,7 +76,6 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 				log.info("Successfully published content item {}:{}", node.getPrimaryNodeType().getName(), node.getIdentifier());
 				return markItemsAsDeActivated(node, environment);
 			}
-
 		} catch (RepositoryException e) {
 			log.error("Failed De-Activation of article  {} ", ExceptionUtils.getFullStackTrace(e));
 		}
@@ -89,7 +85,7 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 
 	private boolean markItemsAsDeActivated(Node node, String environment) {
 		// TODO Implement this
-			return true;
+		return true;
 	}
 
 	private boolean markItemsAsActivated(Node item, String environment) throws RepositoryException {
@@ -101,9 +97,9 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 
 			if (item.hasProperty("active-status")) {
 				Property p = item.getProperty("active-status");
-				Value[] values = Arrays.copyOf(p.getValues(), p.getValues().length + 1);
-				values[p.getValues().length] = valueFactory.createValue(environment);
-				p.setValue(values);
+				Set<Value> values = Sets.newHashSet(p.getValues());
+				values.add(valueFactory.createValue(environment));
+				p.setValue(values.toArray(new Value[values.size()]));
 			} else {
 				Value[] values = new Value[]{valueFactory.createValue(environment)};
 				item.setProperty("active-status", values);
@@ -111,7 +107,11 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 
 			session.save();
 			return true;
-		} catch (RepositoryException e) {
+		} catch (javax.jcr.ValueFormatException e) {
+			log.error("Failed to mark as activated {} ", ExceptionUtils.getFullStackTrace(e));
+			unPublish(item, environment);
+			return false;
+		} catch (javax.jcr.RepositoryException e) {
 			log.error("Failed to mark as activated {} ", ExceptionUtils.getFullStackTrace(e));
 			unPublish(item, environment);
 			return false;
@@ -119,15 +119,14 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 	}
 
 	private Map<String, ArticlesApiClient> buildApiClients(ArticlesModuleConfig articlesModuleConfig) {
-		return Maps.transformValues(articlesModuleConfig.getPublishing(), new Function<RemotePublishResourceConfig, ArticlesApiClient>() {
+		return Maps.transformValues(articlesModuleConfig.getPublishing(), new Function<RemoteServerResourceConfig, ArticlesApiClient>() {
 			@Nullable
 			@Override
-			public ArticlesApiClient apply(@Nullable RemotePublishResourceConfig config) {
+			public ArticlesApiClient apply(@Nullable RemoteServerResourceConfig config) {
 				assert config != null;
 				BasicAuthCredentials basicAuthCredentials = new BasicAuthCredentials(config.getUsername(), config.getPassword());
 				ServerInfo serverInfo = new ServerInfo(config.getHostProtocol(), config.getHostAddress(), config.getHostPort());
 				return new ArticlesApiClient(basicAuthCredentials, serverInfo);
-
 			}
 		});
 	}
