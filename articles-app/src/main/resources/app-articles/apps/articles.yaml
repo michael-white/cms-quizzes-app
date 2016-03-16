@@ -267,7 +267,7 @@ subApps:
             fields:
               - name: jcrName
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Article URI
+                label: JCR URI
               - name: en_title
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Title

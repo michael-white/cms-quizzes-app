@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Maps;
 import com.sharecare.articles.sdk.Article;
-import com.sharecare.articles.sdk.ArticleBuilder;
 import com.sharecare.articles.sdk.Tag;
+import com.sharecare.cms.articles.ui.tag.ArticleUriField;
 import com.sharecare.cms.articles.ui.tag.SecondaryTagField;
 
 public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
@@ -25,7 +25,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 
 	@Override
 	public List<Article> forNode(Node node) throws RepositoryException {
-		Map<String, ArticleBuilder> localeArticles = initArticleLocaleMap(node);
+		Map<String, Article.ArticleBuilder> localeArticles = initArticleLocaleMap(node);
 		PropertyIterator it = node.getProperties();
 		while (it.hasNext()) {
 			Property p = it.nextProperty();
@@ -35,12 +35,11 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 			if (p.isMultiple()) {
 				Value[] values = p.getValues();
 				List<String> valueList = new ArrayList<>(values.length);
-				for (Value v : values) {
+				for (Value v : values)
 					valueList.add(v.getString());
-				}
 
 				if (m.find()) {
-					ArticleBuilder builder = localeArticles.get(m.group(1));
+					Article.ArticleBuilder builder = localeArticles.get(m.group(1));
 					populateBuilderMulti(builder, m.group(2), valueList);
 				} else {
 					localeArticles.forEach((k, v) -> populateBuilderMulti(v, field, valueList));
@@ -48,7 +47,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 			} else {
 				final String value = p.getString();
 				if (m.find()) {
-					ArticleBuilder builder = localeArticles.get(m.group(1));
+					Article.ArticleBuilder builder = localeArticles.get(m.group(1));
 					populateBuilder(builder, m.group(2), value);
 				} else {
 					localeArticles.forEach((k, v) -> populateBuilder(v, field, value));
@@ -58,19 +57,18 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 
 		return localeArticles.values()
 				.stream()
-				.map(ArticleBuilder::createArticle)
+				.map(Article.ArticleBuilder::createArticle)
 				.collect(toList());
 	}
 
-	private Map<String, ArticleBuilder> initArticleLocaleMap(Node node) throws RepositoryException {
+	private Map<String, Article.ArticleBuilder> initArticleLocaleMap(Node node) throws RepositoryException {
 
-		Map<String, ArticleBuilder> map = Maps.newHashMap();
+		Map<String, Article.ArticleBuilder> map = Maps.newHashMap();
 
 		for (Locale l : Locale.values()) {
-			map.put(l.name(), new ArticleBuilder()
+			map.put(l.name(), new Article.ArticleBuilder()
 					.setId(node.getIdentifier())
 					.setNodeUuid(node.getIdentifier())
-					.setArticleUri(node.getName().replaceAll("\\s", "-").toLowerCase())
 					.setLocale(l.name())
 					.setPublishDate(new Date().getTime()));
 		}
@@ -79,7 +77,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 	}
 
 
-	private void populateBuilder(ArticleBuilder builder, String field, String value) {
+	private void populateBuilder(Article.ArticleBuilder builder, String field, String value) {
 		System.out.println("Single: " + field + " " + value);
 		if (field.equals(ArticleJCRSchema.body.name()))
 			builder.setBody(value);
@@ -87,30 +85,91 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		else if (field.equals((ArticleJCRSchema.title.name())))
 			builder.setTitle(value);
 
+		else if (field.equals((ArticleJCRSchema.subHead.name())))
+			builder.setSubHead(value);
+
 		else if (field.equals((ArticleJCRSchema.byline.name())))
 			builder.setByLine(value);
 
+		else if (field.equals((ArticleJCRSchema.bylineUrl.name())))
+			System.out.println("TODO: need to add bylineUrl to the SDK");
+
+		else if (field.equals((ArticleJCRSchema.bylineUrlOptionSelect.name())))
+			builder.setByLineOption(value);
+
+		else if (field.equals((ArticleJCRSchema.realAgeOptionSelect.name())))
+			builder.setRealAge(Boolean.valueOf(value));
+
+		else if (field.equals((ArticleJCRSchema.callOutBody.name())))
+			builder.setCallOutBody(value);
+
 		else if (field.equals((ArticleJCRSchema.videoId.name())))
-			builder.setByLine(value);
+			builder.setVideoId(value);
 
 		else if (field.equals((ArticleJCRSchema.playerId.name())))
 			builder.setByLine(value);
 
+		else if (field.equals((ArticleJCRSchema.videoTitle.name())))
+			builder.setVideoTitle(value);
+
+		else if (field.equals((ArticleJCRSchema.videoTeaser.name())))
+			builder.setVideoTeaser(value);
+
+		else if (field.equals((ArticleJCRSchema.metaTitle.name())))
+			builder.setMetaTitle(Arrays.asList(value));
+
+		else if (field.equals((ArticleJCRSchema.metaDescription.name())))
+			builder.setMetaDescription(Arrays.asList(value));
+
 		else if (field.equals((ArticleJCRSchema.metaKeywords.name())))
 			builder.setKeywords(Splitter.on(",").splitToList(value));
+
+		else if (field.equals((ArticleJCRSchema.hasSynviscComScore.name())))
+			builder.setHasSynviscComScore(Boolean.valueOf(value));
+
+		else if (field.equals((ArticleJCRSchema.ogLabel.name())))
+			builder.setOgLabel(value);
+
+		else if (field.equals((ArticleJCRSchema.disableSocialButtons.name())))
+			builder.setDisableSocialButtons(Boolean.valueOf(value));
+
+		else if (field.equals((ArticleJCRSchema.ogType.name())))
+			builder.setOgType(value);
+
+		else if (field.equals((ArticleJCRSchema.ogImage.name())))
+			builder.setOgImage(value);
+
+		else if (field.equals((ArticleJCRSchema.ogTitle.name())))
+			builder.setOgTitle(value);
+
+		else if (field.equals((ArticleJCRSchema.ogDescription.name())))
+			builder.setOgDescription(value);
+
+		else if (field.equals((ArticleJCRSchema.ogUrl.name())))
+			builder.setOgUrl(value);
+
+		else if (field.equals((ArticleJCRSchema.noIndexFollow.name())))
+			builder.setNoIndexFollow(Boolean.valueOf(value));
+
+		else if (field.equals((ArticleJCRSchema.canonicalReference.name())))
+			builder.setCanonicalReference(value);
+
+		else if (field.equals(ArticleUriField.PRIMARY_TAG))
+			builder.setPrimaryTag(new Tag(value, "tag"));
+
+		else if (field.equals(ArticleUriField.TOPIC_URI))
+			builder.setArticleUri(value);
 	}
 
 
-	private void populateBuilderMulti(ArticleBuilder builder, String field, List<String> values) {
+	private void populateBuilderMulti(Article.ArticleBuilder builder, String field, List<String> values) {
 		System.out.println("Multi : " + field + " " + String.join(",", values));
 
 		if (field.equals(ArticleJCRSchema.segmentSelect.name()))
-			System.out.println(">>> Supposed to add the Segments list in the Articles SDK here");
+			builder.setSegments(values);
 
-		else if (field.equals(SecondaryTagField.SECONDARY_TAG)) {
-			Collection<Tag> tags = values.stream().map(v -> new Tag(v, "tag")).collect(Collectors.toList());
-			builder.setSecondaryTags(tags);
-		}
+		else if (field.equals(SecondaryTagField.SECONDARY_TAG))
+			builder.setSecondaryTags(values.stream().map(v -> new Tag(v, "tag")).collect(Collectors.toList()));
 	}
 }
 

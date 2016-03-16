@@ -8,5 +8,5 @@ dependencies {
     compile project(':publishing-commons')
     compile project(':cloudinary-app')
 
-    compile "com.sharecare.articleAPI:article-api-sdk:2.0.86"
+    compile "com.sharecare.articleAPI:article-api-sdk:2.1.122"
 }
