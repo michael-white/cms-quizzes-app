@@ -444,20 +444,7 @@ subApps:
                 type: String
                 sortOptions: false
                 label: Segments visible for
-                options:
-                  - name: globalTitle
-                    label: Global
-                    selected: true
-                    value: global
-                  - name: armyTitle
-                    label: Army sites
-                    value: army
-                  - name: hcaTitle
-                    label: HCA
-                    value: hca
-                  - name: triTitle
-                    label: Trinity
-                    value: trinity
+                path: /modules/app-articles/config/segments
           - name: editorial
             label: Editorial
             fields:
