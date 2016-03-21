@@ -7,3 +7,5 @@ build/
 /publishing-ui/build
 *.log
 **/repositories/
+publishing-central.ipr
+publishing-central.iws

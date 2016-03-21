@@ -78,7 +78,6 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 
 
 	private void populateBuilder(Article.ArticleBuilder builder, String field, String value) {
-		System.out.println("Single: " + field + " " + value);
 		if (field.equals(ArticleJCRSchema.body.name()))
 			builder.setBody(value);
 
@@ -163,8 +162,6 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 
 
 	private void populateBuilderMulti(Article.ArticleBuilder builder, String field, List<String> values) {
-		System.out.println("Multi : " + field + " " + String.join(",", values));
-
 		if (field.equals(ArticleJCRSchema.segmentSelect.name()))
 			builder.setSegments(values);
 
