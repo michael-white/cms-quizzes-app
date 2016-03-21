@@ -5,7 +5,7 @@
   <displayName>Publishing Common Utilities</displayName>
   <description>Publishing Common Utilities</description>
   <versionHandler>com.sharecare.cms.publishing.commons.bootstrap.ConfigVersionHandler</versionHandler>
-  <version>1.0</version>
+  <version>1.1</version>
 
   <components>
     <id>main</id> <!-- Container ID -->
@@ -23,5 +23,15 @@
     </dependency>
   </dependencies>
 
+  <servlets>
+    <servlet>
+      <name>HealthCheckServlet</name>
+      <class>com.sharecare.cms.healthcheck.HealthcheckServlet</class>
+      <comment>Used for health check.</comment>
+      <mappings>
+        <mapping>/healthcheck</mapping>
+      </mappings>
+    </servlet>
+  </servlets>
 
 </module>
