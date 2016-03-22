@@ -24,7 +24,7 @@ subApps:
           availability:
             nodes: false
             root: true
-        - name: folder
+        - name: folderProdEnv
           label: Folder
           groups:
             - name: groupActions
@@ -51,7 +51,40 @@ subApps:
           availability:
             nodeTypes:
               - mgnl:folder
-        - name: article
+            rules:
+              - name: isAllowedForProd
+                implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForProductionRule
+        - name: folderQAEnv
+          label: Folder
+          groups:
+            - name: groupActions
+              items:
+                - name: addFolder
+                - name: editFolder
+                - name: deleteFolder
+                - name: addProduct
+            - name: adminActions
+              items:
+                - name: exportProduct
+            - name: previewEnv
+              items:
+                - name: activatePreview
+                - name: deactivatePreview
+            - name: stageEnv
+              items:
+                - name: activateStage
+                - name: deactivateStage
+            - name: prodEnv
+              items:
+                - name: activateProd
+                - name: deactivateProd
+          availability:
+            nodeTypes:
+              - mgnl:folder
+            rules:
+              - name: isAllowedForQA
+                implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForQARule
+        - name: articleProdEnv
           label: Article
           groups:
             - name: editActions
@@ -82,6 +115,43 @@ subApps:
           availability:
             nodeTypes:
               - mgnl:article
+            rules:
+              - name: isAllowedForProd
+                implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForProductionRule
+        - name: articleQAEnv
+          label: Article
+          groups:
+            - name: editActions
+              items:
+                - name: editProduct
+                - name: deleteProduct
+                - name: duplicateProduct
+            - name: versioningActions
+              items:
+                - name: showVersions
+                - name: restoreVersions
+            - name: adminActions
+              items:
+                - name: exportProduct
+                - name: selectCampaignAction
+            - name: alphaEnv
+              items:
+                - name: activateAlpha
+                - name: deactivateAlpha
+            - name: cmEnv
+              items:
+                - name: activateCM
+                - name: deactivateCM
+            - name: drwhoEnv
+              items:
+                - name: activateDrWHO
+                - name: deactivateDrWHO
+          availability:
+            nodeTypes:
+              - mgnl:article
+            rules:
+              - name: isAllowedForQA
+                implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForQARule
     actions:
       addProduct:
         subAppId: detail
@@ -182,6 +252,63 @@ subApps:
           multiple: true
       deactivateProd:
         label: Unpublish On Prod
+        environment: sc-prod
+        command: deactivateProd
+        catalog: versioned
+        icon: icon-unpublish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        recursive: true
+        availability:
+          multiple: true
+      activateAlpha:
+        label: Publish On Alpha
+        catalog: versioned
+        command: activateProd
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        recursive: true
+        availability:
+          multiple: true
+      deactivateAlpha:
+        label: Unpublish On Alpha
+        environment: sc-prod
+        command: deactivateProd
+        catalog: versioned
+        icon: icon-unpublish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        recursive: true
+        availability:
+          multiple: true
+      activateCM:
+        label: Publish On CM
+        catalog: versioned
+        command: activateProd
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        recursive: true
+        availability:
+          multiple: true
+      deactivateCM:
+        label: Unpublish On CM
+        environment: sc-prod
+        command: deactivateProd
+        catalog: versioned
+        icon: icon-unpublish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        recursive: true
+        availability:
+          multiple: true
+      activateDrWHO:
+        label: Publish On DR WHO
+        catalog: versioned
+        command: activateProd
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        recursive: true
+        availability:
+          multiple: true
+      deactivateDrWHO:
+        label: Unpublish On Dr WHO
         environment: sc-prod
         command: deactivateProd
         catalog: versioned

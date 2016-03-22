@@ -28,7 +28,7 @@ public class EmbeddedServer {
         server.addBean(mbContainer);
 
         WebAppContext webAppContext = new WebAppContext();
-        webAppContext.setContextPath("/");
+        webAppContext.setContextPath("/cmscentral");
 
         ProtectionDomain protectionDomain = EmbeddedServer.class.getProtectionDomain();
         webAppContext.setWar(protectionDomain.getCodeSource().getLocation().toExternalForm());
