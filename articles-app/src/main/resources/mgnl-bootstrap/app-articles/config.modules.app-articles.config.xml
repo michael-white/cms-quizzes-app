@@ -7,13 +7,13 @@
     <sv:value>46573448-3a35-4759-93df-ca9a7ca8378a</sv:value>
   </sv:property>
   <sv:property sv:name="environment" sv:type="String">
-    <sv:value>qa</sv:value>
+    <sv:value>prod</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:createdBy" sv:type="String">
     <sv:value>admin</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-    <sv:value>2016-03-22T14:58:00.363-04:00</sv:value>
+    <sv:value>2016-03-22T15:03:00.236-04:00</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
     <sv:value>superuser</sv:value>
@@ -172,13 +172,13 @@
       <sv:value>com.sharecare.cms.articles.configuration.RemoteServerResourceConfig</sv:value>
     </sv:property>
     <sv:property sv:name="hostAddress" sv:type="String">
-      <sv:value>localhost</sv:value>
+      <sv:value>data.mservices.sharecare.com</sv:value>
     </sv:property>
     <sv:property sv:name="hostPort" sv:type="String">
-      <sv:value>8181</sv:value>
+      <sv:value>80</sv:value>
     </sv:property>
     <sv:property sv:name="hostProtocol" sv:type="String">
-      <sv:value>http</sv:value>
+      <sv:value>https</sv:value>
     </sv:property>
     <sv:property sv:name="jcr:createdBy" sv:type="String">
       <sv:value>admin</sv:value>
@@ -190,7 +190,7 @@
       <sv:value>superuser</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-      <sv:value>2016-03-15T10:35:42.283-04:00</sv:value>
+      <sv:value>2016-03-24T12:40:42.263-04:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
       <sv:value>superuser</sv:value>
