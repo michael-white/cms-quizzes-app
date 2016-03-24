@@ -62,7 +62,7 @@ public class EnvironmentVersionCommand extends VersionCommand {
 		entry.put("uuid", node.getIdentifier());
 		if (version != null) {
 			entry.put("version", version.getName());
-			if (StringUtils.isEmpty(String.valueOf(ctx.getAttribute(Context.ATTRIBUTE_VERSION)))) {
+			if (StringUtils.isEmpty(ctx.getAttribute(Context.ATTRIBUTE_VERSION))) {
 				ctx.setAttribute(Context.ATTRIBUTE_VERSION, version.getName(), Context.LOCAL_SCOPE);
 			}
 		}

@@ -3,7 +3,10 @@ package com.sharecare.cms.articles.activation.publishing;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.jcr.*;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Maps;
@@ -41,26 +44,28 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 
 		try {
 			log.info("Publishing {}:{} content to {} ", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
-
 			ArticlesApiClient client = clientMap.get(environment);
 			List<Article> articleRequests = articleRequestBuilder.forNode(node);
 			Optional<ArticlesUploadResult> uploadResult = articleAssetProcessor.uploadAssetFrom(node);
 			if (uploadResult.isPresent()) {
 				ArticlesUploadResult response = uploadResult.get();
-				articleRequests.stream().forEach((a -> a.setImageUrl(response.getUrl())));
+				articleRequests.forEach((a -> a.setImageUrl(response.getUrl())));
 			}
 
+			log.debug("Executing PUT rest call to /articles ");
 			BasicResponse response = client.postRequest(articleRequests).toUrl("/articles").execute();
 
 			if (response.getStatusCode() == 200) {
-				log.info("Successfully published content item {}:{}", node.getPrimaryNodeType().getName(), node.getIdentifier());
-				return markItemsAsActivated(node, environment);
+				log.info("Successfully published content item {}:{} to {}", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
+				if (!activeStatusUpdater.updateStatus(node, environment, addEnvironmentCallback))
+					log.error("Failed to update node status: {}", node);
 			}
 		} catch (RepositoryException e) {
 			log.error("Failed Activation of article  {} ", ExceptionUtils.getFullStackTrace(e));
+			return false;
 		}
 
-		return false;
+		return true;
 	}
 
 	@Override
@@ -70,53 +75,79 @@ public class RemoteArticlePublisher implements RemoteDataPublisher {
 
 			log.warn("Deleting {}:{} content from {} ", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
 			ArticlesApiClient client = clientMap.get(environment);
-			BasicResponse response = client.deleteRequest().execute();
+			List<Article> articles = articleRequestBuilder.forNode(node);
+			articles.forEach(a -> {
+				String deleteUri = String.format("/articles/%s", a.getId());
+				log.debug("Executing DELETE rest call {}", deleteUri);
+				BasicResponse response = client.deleteRequest().toUrl(deleteUri).execute();
+				if (response.getStatusCode() == 200) {
+					log.info("Successfully deleted content item {} from remote", a.getArticleUri());
+					if (!activeStatusUpdater.updateStatus(node, environment, removeEnvironmentCallback))
+						log.error("Failed to update node status: {}", node);
+				}
+			});
 
-			if (response.getStatusCode() == 200) {
-				log.info("Successfully published content item {}:{}", node.getPrimaryNodeType().getName(), node.getIdentifier());
-				return markItemsAsDeActivated(node, environment);
-			}
 		} catch (RepositoryException e) {
 			log.error("Failed De-Activation of article  {} ", ExceptionUtils.getFullStackTrace(e));
+			return false;
 		}
 
-		return false;
-	}
-
-	private boolean markItemsAsDeActivated(Node node, String environment) {
-		// TODO Implement this
 		return true;
 	}
 
-	private boolean markItemsAsActivated(Node item, String environment) throws RepositoryException {
 
-		log.debug("Marking item {} as active on environment {}", item.getIdentifier(), environment);
+	private interface StatusUpdater<V,I,S> {
+		boolean updateStatus(V valueFactory, I item, S environment);
+	}
+
+	private StatusUpdater<ValueFactory,Node, String > addEnvironmentCallback = (vf, item, environment) -> {
 		try {
-			Session session = item.getSession();
-			ValueFactory valueFactory = session.getValueFactory();
-
 			if (item.hasProperty("active-status")) {
 				Property p = item.getProperty("active-status");
 				Set<Value> values = Sets.newHashSet(p.getValues());
-				values.add(valueFactory.createValue(environment));
+				values.add(vf.createValue(environment));
 				p.setValue(values.toArray(new Value[values.size()]));
 			} else {
-				Value[] values = new Value[]{valueFactory.createValue(environment)};
+				Value[] values = new Value[]{vf.createValue(environment)};
 				item.setProperty("active-status", values);
 			}
+		} catch (RepositoryException e) {
+			log.error("Failed to update JCR {} ", ExceptionUtils.getFullStackTrace(e));
+		}
 
-			session.save();
-			return true;
-		} catch (javax.jcr.ValueFormatException e) {
-			log.error("Failed to mark as activated {} ", ExceptionUtils.getFullStackTrace(e));
-			unPublish(item, environment);
-			return false;
-		} catch (javax.jcr.RepositoryException e) {
-			log.error("Failed to mark as activated {} ", ExceptionUtils.getFullStackTrace(e));
-			unPublish(item, environment);
+		return true;
+	};
+
+	private StatusUpdater<ValueFactory,Node, String > removeEnvironmentCallback = (vf, item, environment) -> {
+		try {
+			if (item.hasProperty("active-status")) {
+				Property p = item.getProperty("active-status");
+				Set<Value> values = Sets.newHashSet(p.getValues());
+				values.remove(vf.createValue(environment));
+				p.setValue(values.toArray(new Value[values.size()]));
+			}
+		} catch (RepositoryException e) {
+			log.error("Failed to update JCR {} ", ExceptionUtils.getFullStackTrace(e));
 			return false;
 		}
-	}
+
+		return true;
+	};
+
+
+	private StatusUpdater<Node, String, StatusUpdater<ValueFactory,Node, String >> activeStatusUpdater = (item, environment, statusUpdater) -> {
+		log.debug("Marking item {} as active on environment {}", item, environment);
+		try {
+			Session session = item.getSession();
+			ValueFactory valueFactory = session.getValueFactory();
+			boolean result = statusUpdater.updateStatus(valueFactory, item, environment);
+			session.save();
+			return result;
+		} catch (javax.jcr.RepositoryException e) {
+			log.error("Failed to mark as activated {} ", ExceptionUtils.getFullStackTrace(e));
+			return unPublish(item, environment);
+		}
+	};
 
 	private Map<String, ArticlesApiClient> buildApiClients(ArticlesModuleConfig articlesModuleConfig) {
 		return Maps.transformValues(articlesModuleConfig.getPublishing(), new Function<RemoteServerResourceConfig, ArticlesApiClient>() {

@@ -12,11 +12,11 @@ def MAG_LOG_LOCATION = System.getProperty("magnolia.log") != null ? System.getPr
 appender("stdout", ConsoleAppender) {
     file = "${APPLICATION_LOG_LOCATION}"
 
-//    encoder(LoggingEventCompositeJsonEncoder) {
-//        def jsprov = new LoggingEventJsonProviders()
-//        jsprov.addMessage(new ApplicationLogJsonProvider())
-//        providers=jsprov
-//    }
+    encoder(LoggingEventCompositeJsonEncoder) {
+        def jsprov = new LoggingEventJsonProviders()
+        jsprov.addMessage(new ApplicationLogJsonProvider())
+        providers=jsprov
+    }
 
     encoder(PatternLayoutEncoder) {
         pattern = "%level %logger - %msg%n"
