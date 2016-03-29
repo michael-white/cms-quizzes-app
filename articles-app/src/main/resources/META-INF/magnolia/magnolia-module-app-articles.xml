@@ -5,7 +5,7 @@
   <displayName>App Articles</displayName>
   <description>Articles Content</description>
   <class>com.sharecare.cms.articles.configuration.ArticlesModuleConfig</class>
-  <versionHandler>com.sharecare.cms.publishing.commons.bootstrap.ConfigVersionHandler</versionHandler>
+  <versionHandler>com.sharecare.cms.publishing.commons.bootstrap.GlobalVersionHandler</versionHandler>
   <version>1.3</version>
 
   <components>

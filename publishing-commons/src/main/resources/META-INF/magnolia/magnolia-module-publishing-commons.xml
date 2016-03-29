@@ -3,7 +3,6 @@
 <module>
   <name>publishing-commons</name>
   <displayName>Publishing Common Utilities</displayName>
-  <description>Publishing Common Utilities</description>
   <versionHandler>com.sharecare.cms.publishing.commons.bootstrap.ConfigVersionHandler</versionHandler>
   <version>1.1</version>
 

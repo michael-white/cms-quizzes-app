@@ -7,7 +7,7 @@ import info.magnolia.module.delta.Task;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ConfigVersionHandler extends DefaultVersionHandler {
+public class ConfigVersionHandler extends GlobalVersionHandler {
 
 	private static final String OWNER = "dandonov@sharecare.com";
 
@@ -34,6 +34,15 @@ public class ConfigVersionHandler extends DefaultVersionHandler {
 			"ZVk9Cj\n" +
 			"1ocUJ3Ci0tLS0tRU5EIFBHUCBNRVNTQUdFLS0tLS0K";
 
+	/**
+	 * Forces extraction of the module's files, like template JSPs, from
+	 * <code>classes/mgnl-files</code> into the web application's root. This
+	 * does not yield a "Magnolia needs to be updated" screen. To avoid
+	 * destroying changes, Magnolia will not override files which have been
+	 * modified in the web application.
+	 * <p>
+	 * (In Magnolia, see also Tools, Development tools, to reload at request.)
+	 */
 	@Override
 	protected List<Task> getStartupTasks(InstallContext installContext) {
 		log.info("Running ConfigVersionHandler.getStartupTasks()");

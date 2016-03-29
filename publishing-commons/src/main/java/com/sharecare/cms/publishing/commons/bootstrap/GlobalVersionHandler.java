@@ -11,7 +11,7 @@ import info.magnolia.module.delta.ModuleFilesExtraction;
 import info.magnolia.module.delta.Task;
 import info.magnolia.module.model.Version;
 
-public class DefaultVersionHandler extends DefaultModuleVersionHandler {
+public class GlobalVersionHandler extends DefaultModuleVersionHandler {
 
 	@Override
 	protected List<Task> getDefaultUpdateTasks(Version forVersion) {
@@ -29,7 +29,7 @@ public class DefaultVersionHandler extends DefaultModuleVersionHandler {
 		}
 		List<Delta> deltas = super.getDeltas(installContext, from);
 		Version currentVersion = installContext.getCurrentModuleDefinition().getVersion();
-		if ( !currentVersion.isEquivalent(from)){
+		if (!currentVersion.isEquivalent(from)) {
 			deltas.add(getDefaultUpdate(installContext));
 		}
 		return deltas;
@@ -42,7 +42,6 @@ public class DefaultVersionHandler extends DefaultModuleVersionHandler {
 	 * does not yield a "Magnolia needs to be updated" screen. To avoid
 	 * destroying changes, Magnolia will not override files which have been
 	 * modified in the web application.
-	 * <p>
 	 * (In Magnolia, see also Tools, Development tools, to reload at request.)
 	 */
 	@Override
@@ -51,11 +50,8 @@ public class DefaultVersionHandler extends DefaultModuleVersionHandler {
 		List<Task> tasks = new ArrayList<Task>();
 		//Because our ops team removes the JCR on a redeploy
 		tasks.add(new ContentModuleBootstrapTask());
-		if ("SNAPSHOT".equalsIgnoreCase(installContext
-				.getCurrentModuleDefinition().getVersion().getClassifier())) {
-			tasks.add(new ModuleFilesExtraction());
-			log.warn("Starting SNAPSHOT release; forcing reload of module files.");
-		}
+		tasks.add(new ModuleFilesExtraction());
+		log.warn("Starting SNAPSHOT release; forcing reload of module files.");
 		return tasks;
 	}
 }
