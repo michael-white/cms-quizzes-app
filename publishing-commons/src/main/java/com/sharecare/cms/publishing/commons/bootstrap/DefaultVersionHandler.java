@@ -36,6 +36,15 @@ public class DefaultVersionHandler extends DefaultModuleVersionHandler {
 	}
 
 
+	/**
+	 * Forces extraction of the module's files, like template JSPs, from
+	 * <code>classes/mgnl-files</code> into the web application's root. This
+	 * does not yield a "Magnolia needs to be updated" screen. To avoid
+	 * destroying changes, Magnolia will not override files which have been
+	 * modified in the web application.
+	 * <p>
+	 * (In Magnolia, see also Tools, Development tools, to reload at request.)
+	 */
 	@Override
 	protected List<Task> getStartupTasks(InstallContext installContext) {
 		log.info("Running GlobalVersionHandler.getStartupTasks()");
