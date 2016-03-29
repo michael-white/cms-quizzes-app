@@ -29,7 +29,7 @@ public class DefaultVersionHandler extends DefaultModuleVersionHandler {
 		}
 		List<Delta> deltas = super.getDeltas(installContext, from);
 		Version currentVersion = installContext.getCurrentModuleDefinition().getVersion();
-		if ( currentVersion.isEquivalent(from) && "SNAPSHOT".equalsIgnoreCase(currentVersion.getClassifier())){
+		if ( !currentVersion.isEquivalent(from)){
 			deltas.add(getDefaultUpdate(installContext));
 		}
 		return deltas;
