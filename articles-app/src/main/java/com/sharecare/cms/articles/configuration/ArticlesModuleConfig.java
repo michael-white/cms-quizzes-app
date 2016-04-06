@@ -8,11 +8,12 @@ import lombok.Data;
 public class ArticlesModuleConfig {
 
 	public enum Enivironments {
-		prod,qa
+		prod,qa, localhost
 	}
 
 
 	private Map<String,RemoteServerResourceConfig> publishing;
+	private Map<String,String> webHost;
 	private RemoteServerResourceConfig tagResource;
 	private String environment;
 

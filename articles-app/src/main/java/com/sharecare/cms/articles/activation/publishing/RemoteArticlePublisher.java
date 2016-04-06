@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 @Slf4j
-public class RemoteArticlePublisher implements RemoteDataPublisher {
+class RemoteArticlePublisher implements RemoteDataPublisher {
 
 	private static final String ARTICLES_NODE_TYPE = "mgnl:article";
 

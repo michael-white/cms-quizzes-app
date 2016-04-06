@@ -68,12 +68,17 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		for (Locale l : Locale.values()) {
 			map.put(l.name(), new Article.ArticleBuilder()
 					.setId(node.getIdentifier())
+					.setArticleUri(buildArticleUri(node))
 					.setNodeUuid(node.getIdentifier())
 					.setLocale(l.name())
 					.setPublishDate(new Date().getTime()));
 		}
 
 		return map;
+	}
+
+	public static String buildArticleUri(Node node) throws RepositoryException {
+		return String.format("/health/%s/article/%s", node.getProperty(ArticleUriField.TOPIC_URI).getString(), node.getName()).toLowerCase();
 	}
 
 
@@ -156,8 +161,8 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		else if (field.equals(ArticleUriField.PRIMARY_TAG))
 			builder.setPrimaryTag(new Tag(value, "tag"));
 
-		else if (field.equals(ArticleUriField.TOPIC_URI))
-			builder.setArticleUri(value);
+//		else if (field.equals(ArticleUriField.TOPIC_URI))
+//			builder.setArticleUri("/health/%s/article/%s", value, );
 	}
 
 

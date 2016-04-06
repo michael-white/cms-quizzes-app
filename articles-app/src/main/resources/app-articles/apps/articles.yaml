@@ -152,6 +152,32 @@ subApps:
             rules:
               - name: isAllowedForQA
                 implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForQARule
+        - name: articleLocalEnv
+          label: Article
+          groups:
+            - name: editActions
+              items:
+                - name: editProduct
+                - name: deleteProduct
+                - name: duplicateProduct
+            - name: versioningActions
+              items:
+                - name: showVersions
+                - name: restoreVersions
+            - name: adminActions
+              items:
+                - name: exportProduct
+                - name: selectCampaignAction
+            - name: alphaEnv
+              items:
+                - name: activateLocal
+                - name: deactivateLocal
+          availability:
+            nodeTypes:
+              - mgnl:article
+            rules:
+              - name: isAllowedForLocalhost
+                implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForLocalRule
     actions:
       addProduct:
         subAppId: detail
@@ -208,13 +234,12 @@ subApps:
         catalog: versioned
         command: activatePreview
         icon: icon-publish
-        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        class: com.sharecare.cms.articles.activation.publishing.ArticleActivationActionDefinition
         recursive: true
         availability:
           multiple: true
       deactivatePreview:
         label: Unpublish Preview
-        environment: sc-preview
         command: deactivatePreview
         catalog: versioned
         icon: icon-unpublish
@@ -227,13 +252,12 @@ subApps:
         catalog: versioned
         command: activateStage
         icon: icon-publish
-        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        class: com.sharecare.cms.articles.activation.publishing.ArticleActivationActionDefinition
         recursive: true
         availability:
           multiple: true
       deactivateStage:
         label: Unpublish On Stage
-        environment: sc-stage
         command: deactivateStage
         catalog: versioned
         icon: icon-unpublish
@@ -246,13 +270,12 @@ subApps:
         catalog: versioned
         command: activateProd
         icon: icon-publish
-        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        class: com.sharecare.cms.articles.activation.publishing.ArticleActivationActionDefinition
         recursive: true
         availability:
           multiple: true
       deactivateProd:
         label: Unpublish On Prod
-        environment: sc-prod
         command: deactivateProd
         catalog: versioned
         icon: icon-unpublish
@@ -265,13 +288,12 @@ subApps:
         catalog: versioned
         command: activateProd
         icon: icon-publish
-        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        class: com.sharecare.cms.articles.activation.publishing.ArticleActivationActionDefinition
         recursive: true
         availability:
           multiple: true
       deactivateAlpha:
         label: Unpublish On Alpha
-        environment: sc-prod
         command: deactivateProd
         catalog: versioned
         icon: icon-unpublish
@@ -284,13 +306,12 @@ subApps:
         catalog: versioned
         command: activateProd
         icon: icon-publish
-        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        class: com.sharecare.cms.articles.activation.publishing.ArticleActivationActionDefinition
         recursive: true
         availability:
           multiple: true
       deactivateCM:
         label: Unpublish On CM
-        environment: sc-prod
         command: deactivateProd
         catalog: versioned
         icon: icon-unpublish
@@ -303,14 +324,31 @@ subApps:
         catalog: versioned
         command: activateProd
         icon: icon-publish
-        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        class: com.sharecare.cms.articles.activation.publishing.ArticleActivationActionDefinition
         recursive: true
         availability:
           multiple: true
       deactivateDrWHO:
         label: Unpublish On Dr WHO
-        environment: sc-prod
         command: deactivateProd
+        catalog: versioned
+        icon: icon-unpublish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        recursive: true
+        availability:
+          multiple: true
+      activateLocal:
+        label: Publish Local
+        catalog: versioned
+        command: activateLocal
+        icon: icon-publish
+        class: com.sharecare.cms.articles.activation.publishing.ArticleActivationActionDefinition
+        recursive: true
+        availability:
+          multiple: true
+      deactivateLocal:
+        label: Unpublish Local
+        command: deactivateLocal
         catalog: versioned
         icon: icon-unpublish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
