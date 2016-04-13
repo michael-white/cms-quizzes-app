@@ -109,10 +109,12 @@ apply plugin: 'idea'
                 "info.magnolia.rest:magnolia-rest-integration:1.1.1",
                 "info.magnolia.rest:magnolia-rest-tools:1.1.1",
 
-
                 "info.magnolia.campaign:magnolia-campaign-publisher:1.0",
                 "info.magnolia.personalization:magnolia-personalization-integration:1.2.2",
                 "info.magnolia:magnolia-module-content-dependencies:1.6.1",
+
+                // GROOVY
+                "info.magnolia:magnolia-module-groovy:2.3.2",
 
 
                 // Misc
@@ -123,7 +125,7 @@ apply plugin: 'idea'
                 "ch.qos.logback:logback-classic:1.1.3",
                 "ch.qos.logback:logback-core:1.1.3",
                 "net.logstash.logback:logstash-logback-encoder:4.4",
-                "org.codehaus.groovy:groovy:2.4.3"
+                "org.codehaus.groovy:groovy:2.4.0"
 
 
                 "info.magnolia:magnolia-module-standard-templating-kit:2.9.3"

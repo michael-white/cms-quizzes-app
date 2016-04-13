@@ -66,24 +66,46 @@ subApps:
             - name: adminActions
               items:
                 - name: exportProduct
-            - name: previewEnv
+            - name: alphaEnv
               items:
-                - name: activatePreview
-                - name: deactivatePreview
-            - name: stageEnv
+                - name: activateAlpha
+                - name: deactivateAlpha
+            - name: cmEnv
               items:
-                - name: activateStage
-                - name: deactivateStage
-            - name: prodEnv
+                - name: activateCM
+                - name: deactivateCM
+            - name: drWhoEnv
               items:
-                - name: activateProd
-                - name: deactivateProd
+                - name: activateDrWHO
+                - name: deactivateDrWHO
           availability:
             nodeTypes:
               - mgnl:folder
             rules:
               - name: isAllowedForQA
                 implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForQARule
+        - name: folderLocalEnv
+          label: Folder
+          groups:
+            - name: groupActions
+              items:
+                - name: addFolder
+                - name: editFolder
+                - name: deleteFolder
+                - name: addProduct
+            - name: adminActions
+              items:
+                - name: exportProduct
+            - name: localEnv
+              items:
+                - name: activateLocal
+                - name: deactivateLocal
+          availability:
+            nodeTypes:
+              - mgnl:folder
+            rules:
+              - name: isAllowedForLocalhost
+                implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForLocalRule
         - name: articleProdEnv
           label: Article
           groups:
