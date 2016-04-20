@@ -2,8 +2,8 @@ package com.sharecare.cms.articles.activation.remote;
 
 import javax.inject.Inject;
 import javax.jcr.Node;
-import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
+import javax.jcr.Value;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,28 +13,30 @@ import java.util.Optional;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.sharecare.cms.cloudinary.dam.CloudinaryClientServiceConnector;
+import info.magnolia.dam.api.AssetProvider;
+import info.magnolia.dam.api.AssetProviderRegistry;
+import info.magnolia.dam.api.ItemKey;
+import info.magnolia.dam.jcr.JcrAsset;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
-import org.apache.jackrabbit.value.BinaryValue;
 
 @Slf4j
 public class CloudinaryArticlesAssetProcessor implements ArticleAssetProcessor {
 
 	private final Cloudinary cloudinary;
+	private final AssetProvider jcrAssetProvider;
 
 	@Inject
-	public CloudinaryArticlesAssetProcessor(CloudinaryClientServiceConnector clientServiceConnector) {
+	public CloudinaryArticlesAssetProcessor(CloudinaryClientServiceConnector clientServiceConnector, AssetProviderRegistry providerRegistry) {
+		this.jcrAssetProvider = providerRegistry.getProviderById("jcr");
 		this.cloudinary = clientServiceConnector.getClient();
 	}
 
 	@Override
 	public Optional<ArticlesUploadResult> uploadAssetFrom(Node node) throws RepositoryException {
-
-		NodeIterator it = node.getNodes(ArticleJCRSchema.image.name());
-		if (!it.hasNext()) return Optional.empty();
-
-		Node fileNode = it.nextNode();
-		File file = extractFile(fileNode);
+		Value value =  node.getProperty(ArticleJCRSchema.imageUpload.name()).getValue();
+		JcrAsset asset = (JcrAsset) jcrAssetProvider.getAsset(ItemKey.from(value.getString()));
+		File file = extractFile(asset);
 		log.debug("Uploading file {}", file.getName());
 
 		try {
@@ -51,14 +53,12 @@ public class CloudinaryArticlesAssetProcessor implements ArticleAssetProcessor {
 		}
 	}
 
-	private File extractFile(Node fileNode) throws RepositoryException {
-		String fileName = fileNode.getProperty("fileName").getValue().getString();
-		BinaryValue binary = (BinaryValue) fileNode.getProperty("jcr:data").getValue();
+	private File extractFile(JcrAsset jcrAsset) throws RepositoryException {
 
 		try {
-			File tempFile = new File("/tmp/" + fileName);
+			File tempFile = new File("/tmp/" + jcrAsset.getName());
 			tempFile.deleteOnExit();
-			IOUtils.copy(binary.getStream(), new FileOutputStream(tempFile));
+			IOUtils.copy(jcrAsset.getContentStream(), new FileOutputStream(tempFile));
 			return tempFile;
 		} catch (IOException e) {
 			throw new RepositoryException("Unable to upload asset: " + e.getMessage());

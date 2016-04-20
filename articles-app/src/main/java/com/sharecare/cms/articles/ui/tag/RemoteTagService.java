@@ -62,7 +62,7 @@ public class RemoteTagService implements TagService {
 
 	@Override
 	public TopicResult getTopicForTag(String tagId) throws ResourceNotFoundException {
-		String requestUrl = String.format("%s/%s?tag=%s", serverInfo.toBaseUrl(), TOPIC_RESOURCE_URI, tagId);
+		String requestUrl = String.format("%s/%s/%s", serverInfo.toBaseUrl(), TOPIC_RESOURCE_URI, tagId);
 		BasicResponse<TopicResult> response = new RESTTopicTemplate().forUrl(requestUrl).getItem();
 		if (response.getStatusCode() != 200)
 			throw new ResourceNotFoundException("Topic resource not found " + tagId);

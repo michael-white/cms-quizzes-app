@@ -56,8 +56,10 @@ public class SelectTagDropdown  extends CustomComponent {
 	private void removeChildren(SelectTagDropdown child) {
 		if (child != null) {
 			ComponentContainer parent = (ComponentContainer) child.getParent();
-			parent.removeComponent(child);
-			removeChildren(child.getChild());
+			if (parent != null) {
+				parent.removeComponent(child);
+				removeChildren(child.getChild());
+			}
 		}
 	}
 }

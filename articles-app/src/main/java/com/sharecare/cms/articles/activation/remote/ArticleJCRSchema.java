@@ -1,7 +1,7 @@
 package com.sharecare.cms.articles.activation.remote;
 
 public enum ArticleJCRSchema {
-
+	topicUri,
 	title,
 	subHead,
 	byline,
@@ -15,11 +15,11 @@ public enum ArticleJCRSchema {
 	videoTitle,
 	videoTeaser,
 	metaKeywords,
-	metaTitle,
+	pageAndMetaTitle,
 	metaDescription,
 	hasSynviscComScore,
 	ogLabel,
-	disableSocialButtons,
+	disableSocial,
 	ogType,
 	ogImage,
 	ogTitle,
@@ -27,7 +27,8 @@ public enum ArticleJCRSchema {
 	ogUrl,
 	noIndexFollow,
 	canonicalReference,
-	image,
+	imageUpload,
+	primaryTag,
 	segmentSelect
 
 }

@@ -422,7 +422,7 @@ subApps:
 
     imageProvider:
        class: info.magnolia.dam.app.ui.imageprovider.DamLinkImageProviderDefinition
-       damLinkPropertyName: image
+       damLinkPropertyName: imageUpload
     contentConnector:
       includeProperties: false
       workspace: articles
@@ -467,6 +467,15 @@ subApps:
               - name: en_bylineUrl
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Byline URL
+              - name: imageUpload
+                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+                targetWorkspace: dam
+                appName: assets
+                label: Select imageUpload
+                identifierToPathConverter:
+                  class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+                contentPreviewDefinition:
+                  contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
               - name: bylineUrlOptionSelect
                 class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
                 multiselect: false
@@ -479,11 +488,11 @@ subApps:
                   - name: externalLink
                     label: External Link
                     selected: true
-              - name: upload
-                class: info.magnolia.dam.app.ui.field.definition.DamUploadFieldDefinition
-                label: Upload Image
-                binaryNodeName: image
-                editFileName: true
+#              - name: upload
+#                class: info.magnolia.dam.app.ui.field.definition.DamUploadFieldDefinition
+#                label: Upload Image
+#                binaryNodeName: imageUpload
+#                editFileName: true
               - name: en_body
                 class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
                 label: Body
@@ -544,11 +553,15 @@ subApps:
                   - name: externalLink
                     label: External Link
                     selected: true
-              - name: upload
-                class: info.magnolia.dam.app.ui.field.definition.DamUploadFieldDefinition
-                label: Upload Image
-                binaryNodeName: image
-                editFileName: true
+              - name: imageUpload
+                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+                targetWorkspace: dam
+                appName: assets
+                label: Select imageUpload
+                identifierToPathConverter:
+                  class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+                contentPreviewDefinition:
+                  contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
               - name: es_body
                 class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
                 label: Body
@@ -582,7 +595,7 @@ subApps:
           - name: meta
             label: Meta
             fields:
-              - name: metaTitle
+              - name: pageAndMetaTitle
                 label: Page & Meta Title
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: metaDescription
@@ -599,7 +612,7 @@ subApps:
                 label: Open Graph
                 class: info.magnolia.ui.form.field.definition.StaticFieldDefinition
                 value: Open Graph Stuff here
-              - name: disableSocialButtons
+              - name: disableSocial
                 label: Disable Social Buttons
                 class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
                 buttonLabel: Removes all OpenGraph tags and social share bar
@@ -607,10 +620,10 @@ subApps:
                 label: OG Type
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: ogImage
-                label: OG Title
+                label: OG Image Url
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: ogTitle
-                label: OG Image Url
+                label: OG Title
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: ogDescription
                 label: OG Description

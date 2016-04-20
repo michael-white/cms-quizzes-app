@@ -3,11 +3,13 @@ package com.sharecare.cms.articles.ui.tag;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+import com.sharecare.cms.articles.activation.remote.ArticleJCRSchema;
 import com.sharecare.cms.articles.ui.tag.components.SearchFieldComponent;
 import com.sharecare.cms.articles.ui.tag.components.SearchResultsTable;
 import com.sharecare.cms.articles.ui.tag.components.SelectTagDropdown;
 import com.sharecare.cms.articles.ui.tag.remote.ResourceNotFoundException;
 import com.sharecare.cms.articles.ui.tag.remote.TagResult;
+import com.sharecare.cms.articles.ui.tag.remote.TopicResult;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.data.util.PropertysetItem;
@@ -18,10 +20,8 @@ import org.apache.commons.lang.StringUtils;
 public class ArticleUriField extends CustomField<PropertysetItem> {
 
 
-	public static final String TOPIC_URI = "topicUri";
-	public static final String PRIMARY_TAG = "primaryTag";
-	public static final String SELECTED_URI_LABEL = "Selected Uri:";
-	public static final String SELECTED_PRIMARY_TAG_LABEL = "Selected Primary Tag:";
+	private static final String SELECTED_URI_LABEL = "Selected Uri:";
+	private static final String SELECTED_PRIMARY_TAG_LABEL = "Selected Primary Tag:";
 
 	private final TagService tagService;
 
@@ -59,8 +59,8 @@ public class ArticleUriField extends CustomField<PropertysetItem> {
 	private void initSelectedLabels() {
 		PropertysetItem savedValues = getValue();
 		if (savedValues != null) {
-			String articleUri = isNullOrEmpty(savedValues.getItemProperty(TOPIC_URI));
-			String primaryTag = isNullOrEmpty(savedValues.getItemProperty(PRIMARY_TAG));
+			String articleUri = isNullOrEmpty(savedValues.getItemProperty(ArticleJCRSchema.topicUri));
+			String primaryTag = isNullOrEmpty(savedValues.getItemProperty(ArticleJCRSchema.primaryTag));
 			articleUriLabel = initLabel(SELECTED_URI_LABEL, articleUri, articleUriLabel);
 			primaryTagLabel = initLabel(SELECTED_PRIMARY_TAG_LABEL, primaryTag, primaryTagLabel);
 		}
@@ -83,20 +83,23 @@ public class ArticleUriField extends CustomField<PropertysetItem> {
 		PropertysetItem propertysetItem = new PropertysetItem();
 
 		try {
-			String newArticleUri = getTagService().getTopicForTag(tag.getId()).getUri();
-			initLabel(SELECTED_URI_LABEL, newArticleUri, articleUriLabel);
-			propertysetItem.addItemProperty(TOPIC_URI, new ObjectProperty<>(newArticleUri));
+			TopicResult topic = getTagService().getTopicForTag(tag.getId());
+			if (topic != null) {
+				String newArticleUri = topic.getUri();
+				initLabel(SELECTED_URI_LABEL, newArticleUri, articleUriLabel);
+				propertysetItem.addItemProperty(ArticleJCRSchema.topicUri, new ObjectProperty<>(newArticleUri));
+			}
 		} catch (ResourceNotFoundException r) {
 			// its ok. Tag has no associated topic
 		}
 
 		initLabel(SELECTED_PRIMARY_TAG_LABEL, tag.getId(), primaryTagLabel);
-		propertysetItem.addItemProperty(PRIMARY_TAG, new ObjectProperty<>(tag.getId()));
+		propertysetItem.addItemProperty(ArticleJCRSchema.primaryTag, new ObjectProperty<>(tag.getId()));
 
 		getPropertyDataSource().setValue(propertysetItem);
 	};
 
-	public TagService getTagService() {
+	private TagService getTagService() {
 		return tagService;
 	}
 

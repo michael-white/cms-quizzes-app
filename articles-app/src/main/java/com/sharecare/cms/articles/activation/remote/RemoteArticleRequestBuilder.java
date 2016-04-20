@@ -78,7 +78,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 	}
 
 	public static String buildArticleUri(Node node) throws RepositoryException {
-		return String.format("/health/%s/article/%s", node.getProperty(ArticleUriField.TOPIC_URI).getString(), node.getName()).toLowerCase();
+		return String.format("/health/%s/article/%s", node.getProperty(ArticleJCRSchema.topicUri.name()).getString(), node.getName()).toLowerCase();
 	}
 
 
@@ -119,11 +119,11 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		else if (field.equals((ArticleJCRSchema.videoTeaser.name())))
 			builder.setVideoTeaser(value);
 
-		else if (field.equals((ArticleJCRSchema.metaTitle.name())))
-			builder.setMetaTitle(Arrays.asList(value));
+		else if (field.equals((ArticleJCRSchema.pageAndMetaTitle.name())))
+			builder.setMetaTitle(Collections.singletonList(value));
 
 		else if (field.equals((ArticleJCRSchema.metaDescription.name())))
-			builder.setMetaDescription(Arrays.asList(value));
+			builder.setMetaDescription(Collections.singletonList(value));
 
 		else if (field.equals((ArticleJCRSchema.metaKeywords.name())))
 			builder.setKeywords(Splitter.on(",").splitToList(value));
@@ -134,7 +134,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		else if (field.equals((ArticleJCRSchema.ogLabel.name())))
 			builder.setOgLabel(value);
 
-		else if (field.equals((ArticleJCRSchema.disableSocialButtons.name())))
+		else if (field.equals((ArticleJCRSchema.disableSocial.name())))
 			builder.setDisableSocialButtons(Boolean.valueOf(value));
 
 		else if (field.equals((ArticleJCRSchema.ogType.name())))
@@ -161,8 +161,6 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		else if (field.equals(ArticleUriField.PRIMARY_TAG))
 			builder.setPrimaryTag(new Tag(value, "tag"));
 
-//		else if (field.equals(ArticleUriField.TOPIC_URI))
-//			builder.setArticleUri("/health/%s/article/%s", value, );
 	}
 
 
