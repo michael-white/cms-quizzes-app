@@ -12,8 +12,6 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Maps;
 import com.sharecare.articles.sdk.Article;
 import com.sharecare.articles.sdk.Tag;
-import com.sharecare.cms.articles.ui.tag.ArticleUriField;
-import com.sharecare.cms.articles.ui.tag.SecondaryTagField;
 
 public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 
@@ -158,7 +156,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		else if (field.equals((ArticleJCRSchema.canonicalReference.name())))
 			builder.setCanonicalReference(value);
 
-		else if (field.equals(ArticleUriField.PRIMARY_TAG))
+		else if (field.equals(ArticleJCRSchema.primaryTag.name()))
 			builder.setPrimaryTag(new Tag(value, "tag"));
 
 	}
@@ -168,7 +166,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		if (field.equals(ArticleJCRSchema.segmentSelect.name()))
 			builder.setSegments(values);
 
-		else if (field.equals(SecondaryTagField.SECONDARY_TAG))
+		else if (field.equals(ArticleJCRSchema.secondaryTag.name()))
 			builder.setSecondaryTags(values.stream().map(v -> new Tag(v, "tag")).collect(Collectors.toList()));
 	}
 }

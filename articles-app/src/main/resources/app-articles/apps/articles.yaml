@@ -488,11 +488,6 @@ subApps:
                   - name: externalLink
                     label: External Link
                     selected: true
-#              - name: upload
-#                class: info.magnolia.dam.app.ui.field.definition.DamUploadFieldDefinition
-#                label: Upload Image
-#                binaryNodeName: imageUpload
-#                editFileName: true
               - name: en_body
                 class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
                 label: Body

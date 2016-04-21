@@ -59,8 +59,8 @@ public class ArticleUriField extends CustomField<PropertysetItem> {
 	private void initSelectedLabels() {
 		PropertysetItem savedValues = getValue();
 		if (savedValues != null) {
-			String articleUri = isNullOrEmpty(savedValues.getItemProperty(ArticleJCRSchema.topicUri));
-			String primaryTag = isNullOrEmpty(savedValues.getItemProperty(ArticleJCRSchema.primaryTag));
+			String articleUri = isNullOrEmpty(savedValues.getItemProperty(ArticleJCRSchema.topicUri.name()));
+			String primaryTag = isNullOrEmpty(savedValues.getItemProperty(ArticleJCRSchema.primaryTag.name()));
 			articleUriLabel = initLabel(SELECTED_URI_LABEL, articleUri, articleUriLabel);
 			primaryTagLabel = initLabel(SELECTED_PRIMARY_TAG_LABEL, primaryTag, primaryTagLabel);
 		}

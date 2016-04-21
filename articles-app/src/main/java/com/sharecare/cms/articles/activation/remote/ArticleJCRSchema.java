@@ -29,6 +29,7 @@ public enum ArticleJCRSchema {
 	canonicalReference,
 	imageUpload,
 	primaryTag,
+	secondaryTag,
 	segmentSelect
 
 }

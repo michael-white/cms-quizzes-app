@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.function.BiConsumer;
 
 import com.google.common.collect.Lists;
+import com.sharecare.cms.articles.activation.remote.ArticleJCRSchema;
 import com.sharecare.cms.articles.ui.tag.components.SelectTagDropdown;
 import com.sharecare.cms.articles.ui.tag.remote.TagResult;
 import com.vaadin.data.Property;
@@ -15,12 +16,11 @@ import com.vaadin.ui.themes.Reindeer;
 
 public class SecondaryTagField  extends CustomField<PropertysetItem> {
 
-	public static final String SECONDARY_TAG = "secondaryTag";
 	private final TagService tagService;
 
 	private VerticalLayout savedTagsLayout;
 
-	Map<String, String> tagTrain = new HashMap<>();
+	private Map<String, String> tagTrain = new HashMap<>();
 
 	public SecondaryTagField(TagService tagService) {
 		this.tagService = tagService;
@@ -63,7 +63,7 @@ public class SecondaryTagField  extends CustomField<PropertysetItem> {
 		VerticalLayout verticalLayout = new VerticalLayout();
 		PropertysetItem savedValues = getValue();
 		if (savedValues != null) {
-			List<String> tags =  isNullOrEmpty(savedValues.getItemProperty(SECONDARY_TAG));
+			List<String> tags =  isNullOrEmpty(savedValues.getItemProperty(ArticleJCRSchema.secondaryTag.name()));
 			if (!tags.isEmpty()) {
 				tags.forEach(tag -> verticalLayout.addComponent(new Label(tag)));
 			}
@@ -91,7 +91,7 @@ public class SecondaryTagField  extends CustomField<PropertysetItem> {
 
 		PropertysetItem propertysetItem = new PropertysetItem();
 
-		propertysetItem.addItemProperty(SECONDARY_TAG, new ObjectProperty<>(tagTrain.values()));
+		propertysetItem.addItemProperty(ArticleJCRSchema.secondaryTag.name(), new ObjectProperty<>(tagTrain.values()));
 
 		getPropertyDataSource().setValue(propertysetItem);
 	};
