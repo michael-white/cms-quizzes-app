@@ -14,12 +14,9 @@ public abstract class ComponentBindingConfigurer extends AbstractGuiceComponentC
 		configureActions();
 	}
 
-	/**
-	 * Override this method to call {@link #bindAction}.
-	 */
 	protected abstract void configureActions();
 
-	protected final LinkedBindingBuilder<RemoteDataPublisher> bindAction() {
+	protected final LinkedBindingBuilder<RemoteDataPublisher> bindPublisher() {
 		return publishersBinder.addBinding();
 	}
 }

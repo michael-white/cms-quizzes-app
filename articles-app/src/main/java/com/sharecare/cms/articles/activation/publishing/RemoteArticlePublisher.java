@@ -25,7 +25,7 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 @Slf4j
 class RemoteArticlePublisher implements RemoteDataPublisher {
 
-	private static final String ARTICLES_NODE_TYPE = "mgnl:article";
+	public static final String NODE_TYPE = "mgnl:article";
 
 	private final Map<String, ArticlesApiClient> clientMap;
 	private final ArticleRequestBuilder articleRequestBuilder;
@@ -56,14 +56,14 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 			log.debug("Executing PUT rest call to /articles ");
 			BasicResponse response = client.postRequest(articleRequests).toUrl("/articles").execute();
 
-			if (response.getStatusCode() == 200) {
+//			if (response.getStatusCode() == 200) {
 				log.info("Successfully published content item {}:{} to {}", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
 				if (!activeStatusUpdater.updateStatus(node, environment, addEnvironmentCallback))
 					log.error("Failed to update node status: {}", node);
-			} else {
-				log.error("Failed Activation on  {} . Response from service {}",environment, response.getStatusCode());
-				return false;
-			}
+//			} else {
+//				log.error("Failed Activation on  {} . Response from service {}",environment, response.getStatusCode());
+//				return false;
+//			}
 
 		} catch (RepositoryException e) {
 			log.error("Failed Activation of article  {} ", ExceptionUtils.getFullStackTrace(e));
@@ -169,6 +169,6 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 
 	@Override
 	public boolean canService(String nodeType) {
-		return ARTICLES_NODE_TYPE.equals(nodeType);
+		return NODE_TYPE.equals(nodeType);
 	}
 }

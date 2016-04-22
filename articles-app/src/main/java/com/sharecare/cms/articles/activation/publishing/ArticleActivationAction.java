@@ -67,7 +67,13 @@ public class ArticleActivationAction extends ActivationAction<ArticleActivationA
 		if (jcrItem != null && jcrItem.isNode()) {
 			Node node = (Node) jcrItem;
 			try {
-				return RemoteArticleRequestBuilder.buildArticleUri(node);
+				if (node.getPrimaryNodeType().getName().equals(RemoteArticleFolderPublisher.NODE_TYPE))
+					return node.getName();
+
+				else if (node.getPrimaryNodeType().getName().equals(RemoteArticlePublisher.NODE_TYPE))
+					return RemoteArticleRequestBuilder.buildArticleUri(node);
+
+				else return "";
 			} catch (RepositoryException e) {
 				e.printStackTrace();
 			}

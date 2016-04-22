@@ -12,7 +12,8 @@ public class ArticlesPublishingBindingConfigurer extends ComponentBindingConfigu
 
 	@Override
 	protected void configureActions() {
-		bindAction().to(RemoteArticlePublisher.class);
+		bindPublisher().to(RemoteArticlePublisher.class);
+		bindPublisher().to(RemoteArticleFolderPublisher.class);
 
 		binder().bind(ArticleRequestBuilder.class).to(RemoteArticleRequestBuilder.class);
 		binder().bind(ArticleAssetProcessor.class).to(CloudinaryArticlesAssetProcessor.class);
