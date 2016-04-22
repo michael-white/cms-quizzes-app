@@ -1,4 +1,4 @@
-package com.sharecare.cms.articles.activation.remote;
+package com.sharecare.cms.articles.schema;
 
 public enum ArticleJCRSchema {
 	topicUri,
@@ -30,6 +30,7 @@ public enum ArticleJCRSchema {
 	imageUpload,
 	primaryTag,
 	secondaryTag,
-	segmentSelect
+	segmentSelect,
+	activeStatus
 
 }

@@ -657,23 +657,13 @@ subApps:
                 label: "Secondary Tag"
                 class: com.sharecare.cms.articles.ui.tag.SecondaryTagFieldDefinition
                 transformerClass: com.sharecare.cms.articles.ui.tag.ArticleUriCompositeTransformer
-          - name: activation-status
+          - name: activationStatus
             label: Activation
             fields:
-              - name: active-status
-                class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
-                multiselect: true
-                type: String
-                sortOptions: false
-                label: Active Status
-                readOnly: true
-                options:
-                  - name: preview
-                    label: Preview
-                  - name: stage
-                    label: Stage
-                  - name: prod
-                    label: Production
+              - name: activeStatus
+                label: "Activated on:"
+                class: com.sharecare.cms.articles.ui.activation.EnvironmentActivationDefinition
+                transformerClass: com.sharecare.cms.articles.ui.activation.ActivationStatusCompositeTransformer
       nodeType:
         icon: icon-items
         name: mgnl:article

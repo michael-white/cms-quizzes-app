@@ -12,6 +12,7 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Maps;
 import com.sharecare.articles.sdk.Article;
 import com.sharecare.articles.sdk.Tag;
+import com.sharecare.cms.articles.schema.ArticleJCRSchema;
 
 public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 
@@ -93,7 +94,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		else if (field.equals((ArticleJCRSchema.byline.name())))
 			builder.setByLine(value);
 
-		else if (field.equals((ArticleJCRSchema.bylineUrl.name())))
+		else if (field.equals((ArticleJCRSchema.bylineUrl.name()))) // TODO
 			System.out.println("TODO: need to add bylineUrl to the SDK");
 
 		else if (field.equals((ArticleJCRSchema.bylineUrlOptionSelect.name())))

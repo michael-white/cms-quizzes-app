@@ -12,6 +12,7 @@ import java.util.Optional;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.sharecare.cms.articles.schema.ArticleJCRSchema;
 import com.sharecare.cms.cloudinary.dam.CloudinaryClientServiceConnector;
 import info.magnolia.dam.api.AssetProvider;
 import info.magnolia.dam.api.AssetProviderRegistry;
@@ -34,7 +35,10 @@ public class CloudinaryArticlesAssetProcessor implements ArticleAssetProcessor {
 
 	@Override
 	public Optional<ArticlesUploadResult> uploadAssetFrom(Node node) throws RepositoryException {
-		Value value =  node.getProperty(ArticleJCRSchema.imageUpload.name()).getValue();
+		if (!node.hasProperty(ArticleJCRSchema.imageUpload.name()))
+			return Optional.empty();
+
+		Value value = node.getProperty(ArticleJCRSchema.imageUpload.name()).getValue();
 		JcrAsset asset = (JcrAsset) jcrAssetProvider.getAsset(ItemKey.from(value.getString()));
 		File file = extractFile(asset);
 		log.debug("Uploading file {}", file.getName());
@@ -42,12 +46,11 @@ public class CloudinaryArticlesAssetProcessor implements ArticleAssetProcessor {
 		try {
 
 			Map map = cloudinary.uploader().upload(file, ObjectUtils.asMap("public_id", file.getName(),
-																			"folder", "articles/",
-																			"use_filename", true));
-			ArticlesUploadResult result = new ArticlesUploadResult(map.get("public_id").toString() , map.get("url").toString());
+					"folder", "articles/",
+					"use_filename", true));
+			ArticlesUploadResult result = new ArticlesUploadResult(map.get("public_id").toString(), map.get("url").toString());
 			log.debug("File upload completed: {}", result.getUrl());
 			return Optional.of(result);
-
 		} catch (IOException e) {
 			throw new RepositoryException("Unable to upload asset: " + e.getMessage());
 		}

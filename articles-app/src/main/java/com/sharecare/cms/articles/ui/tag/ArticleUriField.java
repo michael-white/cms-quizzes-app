@@ -3,7 +3,7 @@ package com.sharecare.cms.articles.ui.tag;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-import com.sharecare.cms.articles.activation.remote.ArticleJCRSchema;
+import com.sharecare.cms.articles.schema.ArticleJCRSchema;
 import com.sharecare.cms.articles.ui.tag.components.SearchFieldComponent;
 import com.sharecare.cms.articles.ui.tag.components.SearchResultsTable;
 import com.sharecare.cms.articles.ui.tag.components.SelectTagDropdown;

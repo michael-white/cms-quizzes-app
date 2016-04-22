@@ -13,6 +13,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.sharecare.articles.sdk.*;
 import com.sharecare.cms.articles.activation.remote.ArticleAssetProcessor;
+import com.sharecare.cms.articles.schema.ArticleJCRSchema;
 import com.sharecare.cms.articles.activation.remote.ArticleRequestBuilder;
 import com.sharecare.cms.articles.activation.remote.ArticlesUploadResult;
 import com.sharecare.cms.articles.configuration.ArticlesModuleConfig;
@@ -59,7 +60,11 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 				log.info("Successfully published content item {}:{} to {}", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
 				if (!activeStatusUpdater.updateStatus(node, environment, addEnvironmentCallback))
 					log.error("Failed to update node status: {}", node);
+			} else {
+				log.error("Failed Activation on  {} . Response from service {}",environment, response.getStatusCode());
+				return false;
 			}
+
 		} catch (RepositoryException e) {
 			log.error("Failed Activation of article  {} ", ExceptionUtils.getFullStackTrace(e));
 			return false;
@@ -102,14 +107,14 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 
 	private StatusUpdater<ValueFactory,Node, String > addEnvironmentCallback = (vf, item, environment) -> {
 		try {
-			if (item.hasProperty("active-status")) {
-				Property p = item.getProperty("active-status");
+			if (item.hasProperty(ArticleJCRSchema.activeStatus.name())) {
+				Property p = item.getProperty(ArticleJCRSchema.activeStatus.name());
 				Set<Value> values = Sets.newHashSet(p.getValues());
 				values.add(vf.createValue(environment));
 				p.setValue(values.toArray(new Value[values.size()]));
 			} else {
 				Value[] values = new Value[]{vf.createValue(environment)};
-				item.setProperty("active-status", values);
+				item.setProperty(ArticleJCRSchema.activeStatus.name(), values);
 			}
 		} catch (RepositoryException e) {
 			log.error("Failed to update JCR {} ", ExceptionUtils.getFullStackTrace(e));
@@ -120,8 +125,8 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 
 	private StatusUpdater<ValueFactory,Node, String > removeEnvironmentCallback = (vf, item, environment) -> {
 		try {
-			if (item.hasProperty("active-status")) {
-				Property p = item.getProperty("active-status");
+			if (item.hasProperty(ArticleJCRSchema.activeStatus.name())) {
+				Property p = item.getProperty(ArticleJCRSchema.activeStatus.name());
 				Set<Value> values = Sets.newHashSet(p.getValues());
 				values.remove(vf.createValue(environment));
 				p.setValue(values.toArray(new Value[values.size()]));

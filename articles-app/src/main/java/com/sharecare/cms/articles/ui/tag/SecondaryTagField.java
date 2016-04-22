@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.function.BiConsumer;
 
 import com.google.common.collect.Lists;
-import com.sharecare.cms.articles.activation.remote.ArticleJCRSchema;
+import com.sharecare.cms.articles.schema.ArticleJCRSchema;
 import com.sharecare.cms.articles.ui.tag.components.SelectTagDropdown;
 import com.sharecare.cms.articles.ui.tag.remote.TagResult;
 import com.vaadin.data.Property;
