@@ -3,6 +3,10 @@ package com.sharecare.cms.articles.activation.remote;
 import static java.util.stream.Collectors.*;
 
 import javax.jcr.*;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -68,18 +72,24 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 			map.put(l.name(), new Article.ArticleBuilder()
 					.setId(node.getIdentifier())
 					.setArticleUri(buildArticleUri(node))
-					.setNodeUuid(node.getIdentifier())
 					.setLocale(l.name())
+					.setCreateDate(createdDate(node))
 					.setPublishDate(new Date().getTime()));
 		}
 
 		return map;
 	}
 
+	private Long createdDate(Node node) throws RepositoryException {
+		String createdTime = node.getProperty("jcr:created").getString();
+		LocalDateTime ldt = LocalDateTime.parse(createdTime, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+		Instant instant = ldt.atZone(ZoneId.systemDefault()).toInstant();
+		return instant.getEpochSecond();
+	}
+
 	public static String buildArticleUri(Node node) throws RepositoryException {
 		return String.format("/health/%s/article/%s", node.getProperty(ArticleJCRSchema.topicUri.name()).getString(), node.getName()).toLowerCase();
 	}
-
 
 	private void populateBuilder(Article.ArticleBuilder builder, String field, String value) {
 		if (field.equals(ArticleJCRSchema.body.name()))
@@ -94,8 +104,8 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		else if (field.equals((ArticleJCRSchema.byline.name())))
 			builder.setByLine(value);
 
-		else if (field.equals((ArticleJCRSchema.bylineUrl.name()))) // TODO
-			System.out.println("TODO: need to add bylineUrl to the SDK");
+		else if (field.equals((ArticleJCRSchema.bylineUrl.name())))
+			builder.setByLineUri(value);
 
 		else if (field.equals((ArticleJCRSchema.bylineUrlOptionSelect.name())))
 			builder.setByLineOption(value);
@@ -162,7 +172,6 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 
 	}
 
-
 	private void populateBuilderMulti(Article.ArticleBuilder builder, String field, List<String> values) {
 		if (field.equals(ArticleJCRSchema.segmentSelect.name()))
 			builder.setSegments(values);
@@ -170,6 +179,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		else if (field.equals(ArticleJCRSchema.secondaryTag.name()))
 			builder.setSecondaryTags(values.stream().map(v -> new Tag(v, "tag")).collect(Collectors.toList()));
 	}
+
 }
 
 
