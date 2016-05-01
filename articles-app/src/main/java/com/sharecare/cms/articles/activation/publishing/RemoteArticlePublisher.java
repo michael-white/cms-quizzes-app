@@ -55,14 +55,14 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 			log.debug("Executing PUT rest call to /articles ");
 			BasicResponse response = client.postRequest(articleRequests).toUrl("/articles").execute();
 
-			if (response.getStatusCode() == 200) {
+//			if (response.getStatusCode() == 200) {
 				log.info("Successfully published content item {}:{} to {}", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
 				if (!activeStatusUpdater.updateStatus(node, environment, addEnvironmentCallback))
 					log.error("Failed to update node status: {}", node);
-			} else {
-				log.error("Failed Activation on  {} . Response from service {}", environment, response.getStatusCode());
-				return false;
-			}
+//			} else {
+//				log.error("Failed Activation on  {} . Response from service {}", environment, response.getStatusCode());
+//				return false;
+//			}
 		} catch (RepositoryException e) {
 			log.error("Failed Activation of article  {} ", ExceptionUtils.getFullStackTrace(e));
 			return false;
@@ -83,11 +83,11 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 				String deleteUri = String.format("/articles/%s", a.getId());
 				log.debug("Executing DELETE rest call {}", deleteUri);
 				BasicResponse response = client.deleteRequest().toUrl(deleteUri).execute();
-				if (response.getStatusCode() == 200) {
+//				if (response.getStatusCode() == 200) {
 					log.info("Successfully deleted content item {} from remote", a.getArticleUri());
 					if (!activeStatusUpdater.updateStatus(node, environment, removeEnvironmentCallback))
 						log.error("Failed to update node status: {}", node);
-				}
+//				}
 			});
 		} catch (RepositoryException e) {
 			log.error("Failed De-Activation of article  {} ", ExceptionUtils.getFullStackTrace(e));

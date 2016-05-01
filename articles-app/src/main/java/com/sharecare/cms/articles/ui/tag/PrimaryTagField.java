@@ -87,7 +87,7 @@ public class PrimaryTagField extends CustomField<PropertysetItem> {
 	}
 
 	private String isNullOrEmpty(Property itemProperty) {
-		return itemProperty != null ? itemProperty.getValue().toString() : StringUtils.EMPTY;
+		return itemProperty != null ? itemProperty.toString() : StringUtils.EMPTY;
 	}
 
 
@@ -100,16 +100,16 @@ public class PrimaryTagField extends CustomField<PropertysetItem> {
 				String topicUri = topic.getUri();
 				String articleUri = buildArticleUri(topicUri, getCurrentItem().getNodeName());
 				initLabel(SELECTED_URI_LABEL, articleUri, articleUriLabel);
-				propertysetItem.addItemProperty(ArticleJCRSchema.topicUri, new ObjectProperty<>(topicUri));
-				propertysetItem.addItemProperty(ArticleJCRSchema.articleUri, new ObjectProperty<>(articleUri));
+				propertysetItem.addItemProperty(ArticleJCRSchema.topicUri.name(), new ObjectProperty<>(topicUri));
+				propertysetItem.addItemProperty(ArticleJCRSchema.articleUri.name(), new ObjectProperty<>(articleUri));
 			}
 		} catch (ResourceNotFoundException r) {
 			// its ok. Tag has no associated topic
 		}
 
 		initLabelPrimaryTagLabel(tag.getTitle(), tag.getId());
-		propertysetItem.addItemProperty(ArticleJCRSchema.primaryTag, new ObjectProperty<>(tag.getId()));
-		propertysetItem.addItemProperty(ArticleJCRSchema.primaryTagTitle, new ObjectProperty<>(tag.getTitle()));
+		propertysetItem.addItemProperty(ArticleJCRSchema.primaryTag.name(), new ObjectProperty<>(tag.getId()));
+		propertysetItem.addItemProperty(ArticleJCRSchema.primaryTagTitle.name(), new ObjectProperty<>(tag.getTitle()));
 
 		getPropertyDataSource().setValue(propertysetItem);
 	};
