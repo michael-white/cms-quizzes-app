@@ -12,7 +12,7 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 @Slf4j
 public class RemoteArticleFolderPublisher implements RemoteDataPublisher {
 
-	public static final String NODE_TYPE = "mgnl:folder";
+	static final String NODE_TYPE = "mgnl:folder";
 
 	private final RemoteArticlePublisher remoteArticlePublisher;
 

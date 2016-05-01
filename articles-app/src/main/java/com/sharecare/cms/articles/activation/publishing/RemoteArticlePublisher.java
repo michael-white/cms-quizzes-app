@@ -1,23 +1,22 @@
 package com.sharecare.cms.articles.activation.publishing;
 
-import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.jcr.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.sharecare.articles.sdk.*;
 import com.sharecare.cms.articles.activation.remote.ArticleAssetProcessor;
-import com.sharecare.cms.articles.schema.ArticleJCRSchema;
 import com.sharecare.cms.articles.activation.remote.ArticleRequestBuilder;
 import com.sharecare.cms.articles.activation.remote.ArticlesUploadResult;
 import com.sharecare.cms.articles.configuration.ArticlesModuleConfig;
 import com.sharecare.cms.articles.configuration.RemoteServerResourceConfig;
+import com.sharecare.cms.articles.schema.ArticleJCRSchema;
 import com.sharecare.cms.publishing.commons.activation.RemoteDataPublisher;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -25,7 +24,7 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 @Slf4j
 class RemoteArticlePublisher implements RemoteDataPublisher {
 
-	public static final String NODE_TYPE = "mgnl:article";
+	static final String NODE_TYPE = "mgnl:article";
 
 	private final Map<String, ArticlesApiClient> clientMap;
 	private final ArticleRequestBuilder articleRequestBuilder;
@@ -36,7 +35,7 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 								  ArticleRequestBuilder articleRequestBuilder,
 								  ArticleAssetProcessor articleAssetProcessor) {
 		this.articleAssetProcessor = articleAssetProcessor;
-		this.clientMap = buildApiClients(articlesModuleConfig);
+		this.clientMap = buildApiClients(articlesModuleConfig.getPublishing().get(articlesModuleConfig.getEnvironment()));
 		this.articleRequestBuilder = articleRequestBuilder;
 	}
 
@@ -56,15 +55,14 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 			log.debug("Executing PUT rest call to /articles ");
 			BasicResponse response = client.postRequest(articleRequests).toUrl("/articles").execute();
 
-//			if (response.getStatusCode() == 200) {
+			if (response.getStatusCode() == 200) {
 				log.info("Successfully published content item {}:{} to {}", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
 				if (!activeStatusUpdater.updateStatus(node, environment, addEnvironmentCallback))
 					log.error("Failed to update node status: {}", node);
-//			} else {
-//				log.error("Failed Activation on  {} . Response from service {}",environment, response.getStatusCode());
-//				return false;
-//			}
-
+			} else {
+				log.error("Failed Activation on  {} . Response from service {}", environment, response.getStatusCode());
+				return false;
+			}
 		} catch (RepositoryException e) {
 			log.error("Failed Activation of article  {} ", ExceptionUtils.getFullStackTrace(e));
 			return false;
@@ -91,7 +89,6 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 						log.error("Failed to update node status: {}", node);
 				}
 			});
-
 		} catch (RepositoryException e) {
 			log.error("Failed De-Activation of article  {} ", ExceptionUtils.getFullStackTrace(e));
 			return false;
@@ -101,11 +98,12 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 	}
 
 
-	private interface StatusUpdater<V,I,S> {
+	private interface StatusUpdater<V, I, S> {
+
 		boolean updateStatus(V valueFactory, I item, S environment);
 	}
 
-	private StatusUpdater<ValueFactory,Node, String > addEnvironmentCallback = (vf, item, environment) -> {
+	private StatusUpdater<ValueFactory, Node, String> addEnvironmentCallback = (vf, item, environment) -> {
 		try {
 			if (item.hasProperty(ArticleJCRSchema.activeStatus.name())) {
 				Property p = item.getProperty(ArticleJCRSchema.activeStatus.name());
@@ -123,7 +121,7 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 		return true;
 	};
 
-	private StatusUpdater<ValueFactory,Node, String > removeEnvironmentCallback = (vf, item, environment) -> {
+	private StatusUpdater<ValueFactory, Node, String> removeEnvironmentCallback = (vf, item, environment) -> {
 		try {
 			if (item.hasProperty(ArticleJCRSchema.activeStatus.name())) {
 				Property p = item.getProperty(ArticleJCRSchema.activeStatus.name());
@@ -140,7 +138,7 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 	};
 
 
-	private StatusUpdater<Node, String, StatusUpdater<ValueFactory,Node, String >> activeStatusUpdater = (item, environment, statusUpdater) -> {
+	private StatusUpdater<Node, String, StatusUpdater<ValueFactory, Node, String>> activeStatusUpdater = (item, environment, statusUpdater) -> {
 		log.debug("Marking item {} as active on environment {}", item, environment);
 		try {
 			Session session = item.getSession();
@@ -154,17 +152,17 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 		}
 	};
 
-	private Map<String, ArticlesApiClient> buildApiClients(ArticlesModuleConfig articlesModuleConfig) {
-		return Maps.transformValues(articlesModuleConfig.getPublishing(), new Function<RemoteServerResourceConfig, ArticlesApiClient>() {
-			@Nullable
-			@Override
-			public ArticlesApiClient apply(@Nullable RemoteServerResourceConfig config) {
-				assert config != null;
-				BasicAuthCredentials basicAuthCredentials = new BasicAuthCredentials(config.getUsername(), config.getPassword());
-				ServerInfo serverInfo = new ServerInfo(config.getHostProtocol(), config.getHostAddress(), config.getHostPort());
-				return new ArticlesApiClient(basicAuthCredentials, serverInfo);
-			}
-		});
+	private Map<String, ArticlesApiClient> buildApiClients(Map<String, RemoteServerResourceConfig> environmentsMap) {
+
+		return environmentsMap.entrySet()
+				.stream()
+				.collect(Collectors.toMap(Map.Entry::getKey,
+						entry -> {
+							RemoteServerResourceConfig config = entry.getValue();
+							BasicAuthCredentials basicAuthCredentials = new BasicAuthCredentials(entry.getValue().getUsername(), config.getPassword());
+							ServerInfo serverInfo = new ServerInfo(config.getHostProtocol(), config.getHostAddress(), config.getHostPort());
+							return new ArticlesApiClient(basicAuthCredentials, serverInfo);
+						}));
 	}
 
 	@Override

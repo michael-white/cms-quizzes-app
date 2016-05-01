@@ -63,6 +63,7 @@ apply plugin: 'idea'
         compile.extendsFrom provided
 
         all*.exclude group: "commons-logging", module: "commons-logging"
+        all*.exclude group: 'org.slf4j', module: 'slf4j-log4j12'
         all*.exclude group: "info.magnolia.lang"
     }
 
@@ -122,6 +123,8 @@ apply plugin: 'idea'
                 "org.apache.commons:commons-vfs2:2.0",
 
                 // Logger
+                "org.slf4j:jcl-over-slf4j:1.7.0",
+                "org.slf4j:slf4j-api:1.7.0",
                 "ch.qos.logback:logback-classic:1.1.3",
                 "ch.qos.logback:logback-core:1.1.3",
                 "net.logstash.logback:logstash-logback-encoder:4.4",

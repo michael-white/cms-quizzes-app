@@ -2,8 +2,6 @@ package com.sharecare.cms.articles.ui.activation;
 
 import javax.inject.Inject;
 
-import com.sharecare.cms.articles.ui.tag.ArticleUriField;
-import com.sharecare.cms.articles.ui.tag.ArticleUriFieldDefinition;
 import com.sharecare.cms.articles.ui.tag.TagService;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.PropertysetItem;

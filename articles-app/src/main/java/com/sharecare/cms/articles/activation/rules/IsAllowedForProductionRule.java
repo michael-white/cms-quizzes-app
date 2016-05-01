@@ -18,7 +18,7 @@ public class IsAllowedForProductionRule extends AbstractAvailabilityRule {
 
 	@Override
 	protected boolean isAvailableForItem(Object itemId) {
-		return  articlesModuleConfig.getEnvironment().equals(ArticlesModuleConfig.Enivironments.prod.name());
+		return  articlesModuleConfig.getEnvironment().equals(ArticlesModuleConfig.Enivironments.production.name());
 
 	}
 }

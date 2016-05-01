@@ -10,11 +10,15 @@ import info.magnolia.ui.api.i18n.I18NAuthoringSupport;
 import info.magnolia.ui.form.field.definition.ConfiguredFieldDefinition;
 import info.magnolia.ui.form.field.transformer.basic.BasicTransformer;
 
-public class ArticleUriCompositeTransformer extends BasicTransformer<PropertysetItem> {
+public class TagFieldCompositeTransformer extends BasicTransformer<PropertysetItem> {
 
-	private List<String> fieldsName = Lists.newArrayList(ArticleJCRSchema.topicUri.name(), ArticleJCRSchema.primaryTag.name(), ArticleJCRSchema.secondaryTag.name());
+	private List<String> fieldsName = Lists.newArrayList(ArticleJCRSchema.topicUri.name(),
+			ArticleJCRSchema.articleUri.name(),
+			ArticleJCRSchema.primaryTag.name(),
+			ArticleJCRSchema.primaryTagTitle.name(),
+			ArticleJCRSchema.secondaryTag.name());
 
-	public ArticleUriCompositeTransformer(Item relatedFormItem, ConfiguredFieldDefinition definition, Class<PropertysetItem> type, I18NAuthoringSupport i18NAuthoringSupport) {
+	public TagFieldCompositeTransformer(Item relatedFormItem, ConfiguredFieldDefinition definition, Class<PropertysetItem> type, I18NAuthoringSupport i18NAuthoringSupport) {
 		super(relatedFormItem, definition, type, i18NAuthoringSupport);
 	}
 

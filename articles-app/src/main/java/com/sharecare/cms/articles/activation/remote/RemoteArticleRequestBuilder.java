@@ -71,7 +71,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		for (Locale l : Locale.values()) {
 			map.put(l.name(), new Article.ArticleBuilder()
 					.setId(node.getIdentifier())
-					.setArticleUri(buildArticleUri(node))
+					.setArticleUri(singleValueFromNode(node, ArticleJCRSchema.articleUri))
 					.setLocale(l.name())
 					.setCreateDate(createdDate(node))
 					.setPublishDate(new Date().getTime()));
@@ -80,15 +80,15 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		return map;
 	}
 
+	private String singleValueFromNode(Node node, ArticleJCRSchema schema) throws RepositoryException {
+		return node.getProperty(schema.name()).getString();
+	}
+
 	private Long createdDate(Node node) throws RepositoryException {
 		String createdTime = node.getProperty("jcr:created").getString();
 		LocalDateTime ldt = LocalDateTime.parse(createdTime, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
 		Instant instant = ldt.atZone(ZoneId.systemDefault()).toInstant();
 		return instant.getEpochSecond();
-	}
-
-	public static String buildArticleUri(Node node) throws RepositoryException {
-		return String.format("/health/%s/article/%s", node.getProperty(ArticleJCRSchema.topicUri.name()).getString(), node.getName()).toLowerCase();
 	}
 
 	private void populateBuilder(Article.ArticleBuilder builder, String field, String value) {

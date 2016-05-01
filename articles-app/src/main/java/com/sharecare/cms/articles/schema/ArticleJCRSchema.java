@@ -1,6 +1,7 @@
 package com.sharecare.cms.articles.schema;
 
 public enum ArticleJCRSchema {
+	articleUri,
 	topicUri,
 	title,
 	subHead,
@@ -29,6 +30,7 @@ public enum ArticleJCRSchema {
 	canonicalReference,
 	imageUpload,
 	primaryTag,
+	primaryTagTitle,
 	secondaryTag,
 	segmentSelect,
 	activeStatus

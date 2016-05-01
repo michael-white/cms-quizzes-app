@@ -256,7 +256,7 @@ subApps:
         catalog: versioned
         command: activatePreview
         icon: icon-publish
-        class: com.sharecare.cms.articles.activation.publishing.ArticleActivationActionDefinition
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
         recursive: true
         availability:
           multiple: true
@@ -274,7 +274,7 @@ subApps:
         catalog: versioned
         command: activateStage
         icon: icon-publish
-        class: com.sharecare.cms.articles.activation.publishing.ArticleActivationActionDefinition
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
         recursive: true
         availability:
           multiple: true
@@ -292,7 +292,7 @@ subApps:
         catalog: versioned
         command: activateProd
         icon: icon-publish
-        class: com.sharecare.cms.articles.activation.publishing.ArticleActivationActionDefinition
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
         recursive: true
         availability:
           multiple: true
@@ -310,7 +310,7 @@ subApps:
         catalog: versioned
         command: activateProd
         icon: icon-publish
-        class: com.sharecare.cms.articles.activation.publishing.ArticleActivationActionDefinition
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
         recursive: true
         availability:
           multiple: true
@@ -328,7 +328,7 @@ subApps:
         catalog: versioned
         command: activateProd
         icon: icon-publish
-        class: com.sharecare.cms.articles.activation.publishing.ArticleActivationActionDefinition
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
         recursive: true
         availability:
           multiple: true
@@ -346,7 +346,7 @@ subApps:
         catalog: versioned
         command: activateProd
         icon: icon-publish
-        class: com.sharecare.cms.articles.activation.publishing.ArticleActivationActionDefinition
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
         recursive: true
         availability:
           multiple: true
@@ -364,7 +364,7 @@ subApps:
         catalog: versioned
         command: activateLocal
         icon: icon-publish
-        class: com.sharecare.cms.articles.activation.publishing.ArticleActivationActionDefinition
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
         recursive: true
         availability:
           multiple: true
@@ -455,6 +455,11 @@ subApps:
               - name: jcrName
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: JCR URI
+                readOnly: true
+              - name: articleUri
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Full URI
+                readOnly: true
               - name: en_title
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Title
@@ -524,6 +529,11 @@ subApps:
               - name: jcrName
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Article URI
+                readOnly: true
+              - name: articleUri
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Full URI
+                readOnly: true
               - name: es_title
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Title
@@ -651,12 +661,12 @@ subApps:
             fields:
               - name: primaryTag
                 label: "Primary Tag"
-                class: com.sharecare.cms.articles.ui.tag.ArticleUriFieldDefinition
-                transformerClass: com.sharecare.cms.articles.ui.tag.ArticleUriCompositeTransformer
+                class: com.sharecare.cms.articles.ui.tag.PrimaryTagFieldDefinition
+                transformerClass: com.sharecare.cms.articles.ui.tag.TagFieldCompositeTransformer
               - name: secondaryTag
                 label: "Secondary Tag"
                 class: com.sharecare.cms.articles.ui.tag.SecondaryTagFieldDefinition
-                transformerClass: com.sharecare.cms.articles.ui.tag.ArticleUriCompositeTransformer
+                transformerClass: com.sharecare.cms.articles.ui.tag.TagFieldCompositeTransformer
           - name: activationStatus
             label: Activation
             fields:
