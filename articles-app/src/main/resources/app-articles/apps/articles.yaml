@@ -74,17 +74,13 @@ subApps:
               items:
                 - name: activateCM
                 - name: deactivateCM
-            - name: drWhoEnv
-              items:
-                - name: activateDrWHO
-                - name: deactivateDrWHO
           availability:
             nodeTypes:
               - mgnl:folder
             rules:
               - name: isAllowedForQA
                 implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForQARule
-        - name: folderLocalEnv
+        - name: folderDevEnv
           label: Folder
           groups:
             - name: groupActions
@@ -96,16 +92,16 @@ subApps:
             - name: adminActions
               items:
                 - name: exportProduct
-            - name: localEnv
+            - name: devEnv
               items:
-                - name: activateLocal
-                - name: deactivateLocal
+                - name: activateDev
+                - name: deactivateDev
           availability:
             nodeTypes:
               - mgnl:folder
             rules:
-              - name: isAllowedForLocalhost
-                implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForLocalRule
+              - name: isAllowedForDevhost
+                implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForDevRule
         - name: articleProdEnv
           label: Article
           groups:
@@ -164,17 +160,13 @@ subApps:
               items:
                 - name: activateCM
                 - name: deactivateCM
-            - name: drwhoEnv
-              items:
-                - name: activateDrWHO
-                - name: deactivateDrWHO
           availability:
             nodeTypes:
               - mgnl:article
             rules:
               - name: isAllowedForQA
                 implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForQARule
-        - name: articleLocalEnv
+        - name: articleDevEnv
           label: Article
           groups:
             - name: editActions
@@ -192,14 +184,14 @@ subApps:
                 - name: selectCampaignAction
             - name: alphaEnv
               items:
-                - name: activateLocal
-                - name: deactivateLocal
+                - name: activateDev
+                - name: deactivateDev
           availability:
             nodeTypes:
               - mgnl:article
             rules:
-              - name: isAllowedForLocalhost
-                implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForLocalRule
+              - name: isAllowedForDevhost
+                implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForDevRule
     actions:
       addProduct:
         subAppId: detail
@@ -341,36 +333,18 @@ subApps:
         recursive: true
         availability:
           multiple: true
-      activateDrWHO:
-        label: Publish On DR WHO
+      activateDev:
+        label: Publish Dev
         catalog: versioned
-        command: activateProd
+        command: activateDev
         icon: icon-publish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
         recursive: true
         availability:
           multiple: true
-      deactivateDrWHO:
-        label: Unpublish On Dr WHO
-        command: deactivateProd
-        catalog: versioned
-        icon: icon-unpublish
-        class: info.magnolia.ui.framework.action.ActivationActionDefinition
-        recursive: true
-        availability:
-          multiple: true
-      activateLocal:
-        label: Publish Local
-        catalog: versioned
-        command: activateLocal
-        icon: icon-publish
-        class: info.magnolia.ui.framework.action.ActivationActionDefinition
-        recursive: true
-        availability:
-          multiple: true
-      deactivateLocal:
-        label: Unpublish Local
-        command: deactivateLocal
+      deactivateDev:
+        label: Unpublish Dev
+        command: deactivateDev
         catalog: versioned
         icon: icon-unpublish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
@@ -455,7 +429,6 @@ subApps:
               - name: jcrName
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: JCR URI
-                readOnly: true
               - name: articleUri
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Full URI
@@ -529,7 +502,6 @@ subApps:
               - name: jcrName
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Article URI
-                readOnly: true
               - name: articleUri
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Full URI

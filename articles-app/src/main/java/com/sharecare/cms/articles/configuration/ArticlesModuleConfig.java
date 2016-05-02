@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 public class ArticlesModuleConfig {
 
-	public enum Enivironments {
-		production ,qa, localhost
+	public enum Environments {
+		release,qa, dev
 	}
 
 

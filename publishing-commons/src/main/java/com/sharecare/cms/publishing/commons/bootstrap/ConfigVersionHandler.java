@@ -3,6 +3,8 @@ package com.sharecare.cms.publishing.commons.bootstrap;
 import java.util.List;
 
 import info.magnolia.module.InstallContext;
+import info.magnolia.module.delta.NodeExistsDelegateTask;
+import info.magnolia.module.delta.RemoveNodeTask;
 import info.magnolia.module.delta.Task;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,7 +42,6 @@ public class ConfigVersionHandler extends GlobalVersionHandler {
 	 * does not yield a "Magnolia needs to be updated" screen. To avoid
 	 * destroying changes, Magnolia will not override files which have been
 	 * modified in the web application.
-	 * <p>
 	 * (In Magnolia, see also Tools, Development tools, to reload at request.)
 	 */
 	@Override
@@ -48,25 +49,34 @@ public class ConfigVersionHandler extends GlobalVersionHandler {
 		log.info("Running ConfigVersionHandler.getStartupTasks()");
 		List<Task> tasks = super.getStartupTasks(installContext);
 
-			log.info("Running ConfigVersionHandler - updating license key.");
-			//Load license key for both auth and pub
-			tasks.add(new OverridePropertyValueTask(
-					"License",
-					"Sets up enterprise",
-					"config",
-					"/modules/enterprise/license",
-					"key",
-					"",
-					LICENSE));
+		log.info("Running ConfigVersionHandler - updating license key.");
+		//Load license key for both auth and pub
+		tasks.add(new OverridePropertyValueTask(
+				"License",
+				"Sets up enterprise",
+				"config",
+				"/modules/enterprise/license",
+				"key",
+				"",
+				LICENSE));
 
-			tasks.add(new OverridePropertyValueTask(
-					"License",
-					"Sets up enterprise",
-					"config",
-					"/modules/enterprise/license",
-					"owner",
-					"",
-					OWNER));
+		tasks.add(new OverridePropertyValueTask(
+				"License",
+				"Sets up enterprise",
+				"config",
+				"/modules/enterprise/license",
+				"owner",
+				"",
+				OWNER));
+
+		tasks.add(new NodeExistsDelegateTask("ExistingPubInstances",
+				"Checking for existing pub subscribers",
+				"config",
+				"/server/activation/subscribers",
+				new RemoveNodeTask("Removing existing pub subscribers",
+						"Activation does not need pub instances",
+						"config",
+						"/server/activation/subscribers")));
 
 		return tasks;
 	}

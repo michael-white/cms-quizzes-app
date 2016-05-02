@@ -7,18 +7,18 @@ import info.magnolia.ui.api.availability.AbstractAvailabilityRule;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class IsAllowedForLocalRule extends AbstractAvailabilityRule {
+public class IsAllowedForDevRule extends AbstractAvailabilityRule {
 
 	private final ArticlesModuleConfig articlesModuleConfig;
 
 	@Inject
-	public IsAllowedForLocalRule(ArticlesModuleConfig articlesModuleConfig) {
+	public IsAllowedForDevRule(ArticlesModuleConfig articlesModuleConfig) {
 		this.articlesModuleConfig = articlesModuleConfig;
 	}
 
 	@Override
 	protected boolean isAvailableForItem(Object itemId) {
-		return  articlesModuleConfig.getEnvironment().equals(ArticlesModuleConfig.Enivironments.localhost.name());
+		return  articlesModuleConfig.getEnvironment().equals(ArticlesModuleConfig.Environments.dev.name());
 
 	}
 }
