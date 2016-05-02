@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sharecare.cms.articles.ui.tag.remote.TagResult;
-import com.sharecare.cms.articles.ui.tag.TagService;
+import com.sharecare.cms.articles.ui.tag.remote.TagService;
 import com.vaadin.ui.*;
 
 public class SearchFieldComponent extends CustomComponent {

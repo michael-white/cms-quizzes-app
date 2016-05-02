@@ -1,4 +1,4 @@
-package com.sharecare.cms.articles.ui.tag;
+package com.sharecare.cms.articles.ui.tag.remote;
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -9,7 +9,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.sharecare.cms.articles.configuration.ArticlesModuleConfig;
 import com.sharecare.cms.articles.configuration.RemoteServerResourceConfig;
-import com.sharecare.cms.articles.ui.tag.remote.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.StatusLine;
@@ -62,7 +61,7 @@ public class RemoteTagService implements TagService {
 
 	@Override
 	public TopicResult getTopicForTag(String tagId) throws ResourceNotFoundException {
-		String requestUrl = String.format("%s/%s/%s", serverInfo.toBaseUrl(), TOPIC_RESOURCE_URI, tagId);
+		String requestUrl = String.format("%s/%s?tag=%s", serverInfo.toBaseUrl(), TOPIC_RESOURCE_URI, tagId);
 		BasicResponse<TopicResult> response = new RESTTopicTemplate().forUrl(requestUrl).getItem();
 		if (response.getStatusCode() != 200)
 			throw new ResourceNotFoundException("Topic resource not found " + tagId);
@@ -94,12 +93,12 @@ public class RemoteTagService implements TagService {
 
 		String requestUrl;
 
-		public RESTTopicTemplate forUrl(String requestUrl) {
+		RESTTopicTemplate forUrl(String requestUrl) {
 			this.requestUrl = requestUrl;
 			return this;
 		}
 
-		public BasicResponse<TopicResult> getItem() {
+		BasicResponse<TopicResult> getItem() {
 			log.debug("Executing request {}", requestUrl);
 
 			try (CloseableHttpClient httpClient = HttpClients.createDefault()) {

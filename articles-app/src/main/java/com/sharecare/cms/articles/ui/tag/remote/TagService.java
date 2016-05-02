@@ -1,4 +1,4 @@
-package com.sharecare.cms.articles.ui.tag;
+package com.sharecare.cms.articles.ui.tag.remote;
 
 import java.util.List;
 

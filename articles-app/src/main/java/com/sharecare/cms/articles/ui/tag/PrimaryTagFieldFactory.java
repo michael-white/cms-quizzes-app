@@ -2,6 +2,7 @@ package com.sharecare.cms.articles.ui.tag;
 
 import javax.inject.Inject;
 
+import com.sharecare.cms.articles.ui.tag.remote.TagService;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.PropertysetItem;
 import com.vaadin.ui.Field;

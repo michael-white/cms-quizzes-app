@@ -5,7 +5,6 @@ import javax.inject.Inject;
 import java.util.Map;
 
 import com.sharecare.cms.articles.configuration.ArticlesModuleConfig;
-import com.sharecare.cms.articles.ui.tag.TagService;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.PropertysetItem;
 import com.vaadin.ui.Field;

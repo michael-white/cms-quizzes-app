@@ -7,6 +7,7 @@ import com.google.common.collect.Lists;
 import com.sharecare.cms.articles.schema.ArticleJCRSchema;
 import com.sharecare.cms.articles.ui.tag.components.SelectTagDropdown;
 import com.sharecare.cms.articles.ui.tag.remote.TagResult;
+import com.sharecare.cms.articles.ui.tag.remote.TagService;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.data.util.PropertysetItem;

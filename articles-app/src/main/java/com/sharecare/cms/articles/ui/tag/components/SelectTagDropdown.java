@@ -5,7 +5,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import com.sharecare.cms.articles.ui.tag.remote.TagResult;
-import com.sharecare.cms.articles.ui.tag.TagService;
+import com.sharecare.cms.articles.ui.tag.remote.TagService;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.*;
