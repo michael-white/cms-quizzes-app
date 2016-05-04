@@ -51,7 +51,6 @@ public class GlobalVersionHandler extends DefaultModuleVersionHandler {
 		//Because our ops team removes the JCR on a redeploy
 		tasks.add(new ContentModuleBootstrapTask());
 		tasks.add(new ModuleFilesExtraction());
-		log.warn("Starting SNAPSHOT release; forcing reload of module files.");
 		return tasks;
 	}
 }

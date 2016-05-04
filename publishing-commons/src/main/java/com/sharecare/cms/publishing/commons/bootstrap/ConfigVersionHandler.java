@@ -1,5 +1,6 @@
 package com.sharecare.cms.publishing.commons.bootstrap;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import info.magnolia.module.InstallContext;
@@ -50,7 +51,7 @@ public class ConfigVersionHandler extends GlobalVersionHandler {
 		List<Task> tasks = super.getStartupTasks(installContext);
 
 		log.info("Running ConfigVersionHandler - updating license key.");
-		//Load license key for both auth and pub
+
 		tasks.add(new OverridePropertyValueTask(
 				"License",
 				"Sets up enterprise",
@@ -79,5 +80,12 @@ public class ConfigVersionHandler extends GlobalVersionHandler {
 						"/server/activation/subscribers")));
 
 		return tasks;
+	}
+
+	@Override
+	protected List<Task> getExtraInstallTasks(InstallContext ctx) {
+
+		log.info("Running ConfigVersionHandler.getExtraInstallTasks()");
+		return super.getExtraInstallTasks(ctx);
 	}
 }
