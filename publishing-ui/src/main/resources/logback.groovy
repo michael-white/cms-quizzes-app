@@ -5,6 +5,7 @@ import net.logstash.logback.composite.loggingevent.LoggingEventJsonProviders
 import net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder
 
 import static ch.qos.logback.classic.Level.DEBUG
+import static ch.qos.logback.classic.Level.ERROR
 import static ch.qos.logback.classic.Level.WARN
 
 def MAG_LOG_LOCATION = System.getProperty("magnolia.log") != null ? System.getProperty("magnolia.log") : "/tmp/magnolia.log"
@@ -23,6 +24,6 @@ appender("stdout", ConsoleAppender) {
     }
 }
 
-root(WARN, ["stdout"])
+root(ERROR, ["stdout"])
 logger("com.sharecare", DEBUG, ["stdout"])
 //logger("org.eclipse.jetty", WARN, ["stdout"])
