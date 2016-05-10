@@ -121,15 +121,16 @@ apply plugin: 'idea'
                 // Misc
                 "org.projectlombok:lombok:1.16.6",
                 "org.apache.commons:commons-vfs2:2.0",
+                "org.json:json:20160212",
 
                 // Logger
-                "org.slf4j:jcl-over-slf4j:1.7.0",
-                "org.slf4j:slf4j-api:1.7.0",
-                "org.slf4j:slf4j-simple:1.7.0",
-                "ch.qos.logback:logback-classic:1.1.3",
-                "ch.qos.logback:logback-core:1.1.3",
-                "net.logstash.logback:logstash-logback-encoder:4.4",
-                "org.codehaus.groovy:groovy:2.4.0"
+                "org.slf4j:jcl-over-slf4j:1.7.21",
+                "org.slf4j:slf4j-api:1.7.21",
+                "org.slf4j:slf4j-simple:1.7.21",
+                "ch.qos.logback:logback-classic:1.1.7",
+                "ch.qos.logback:logback-core:1.1.7",
+                "net.logstash.logback:logstash-logback-encoder:4.6",
+                "org.codehaus.groovy:groovy:2.4.6"
 
 
                 "info.magnolia:magnolia-module-standard-templating-kit:2.9.3"
