@@ -71,25 +71,23 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		for (Locale l : Locale.values()) {
 			map.put(l.name(), new Article.ArticleBuilder()
 					.setId(node.getIdentifier())
-					.setArticleUri(singleValueFromNode(node, ArticleJCRSchema.articleUri))
-					.setLocale(l.name())
-					.setCreateDate(createdDate(node))
-					.setPublishDate(new Date().getTime()));
+					.setArticleUri(articleUri(node))
+					.setLocale(l.name()));
 		}
 
 		return map;
 	}
 
-	private String singleValueFromNode(Node node, ArticleJCRSchema schema) throws RepositoryException {
-		return node.getProperty(schema.name()).getString();
+	private String articleUri(Node node) throws RepositoryException {
+		return node.getProperty(ArticleJCRSchema.topicUri.name()).getString() + "-" + node.getName();
 	}
 
-	private Long createdDate(Node node) throws RepositoryException {
-		String createdTime = node.getProperty("jcr:created").getString();
-		LocalDateTime ldt = LocalDateTime.parse(createdTime, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-		Instant instant = ldt.atZone(ZoneId.systemDefault()).toInstant();
-		return instant.getEpochSecond();
-	}
+//	private Long createdDate(Node node) throws RepositoryException {
+//		String createdTime = node.getProperty("jcr:created").getString();
+//		LocalDateTime ldt = LocalDateTime.parse(createdTime, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+//		Instant instant = ldt.atZone(ZoneId.systemDefault()).toInstant();
+//		return instant.getEpochSecond();
+//	}
 
 	private void populateBuilder(Article.ArticleBuilder builder, String field, String value) {
 		if (field.equals(ArticleJCRSchema.body.name()))

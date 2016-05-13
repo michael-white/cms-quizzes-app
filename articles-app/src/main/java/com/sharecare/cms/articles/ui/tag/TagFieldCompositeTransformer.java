@@ -13,7 +13,7 @@ import info.magnolia.ui.form.field.transformer.basic.BasicTransformer;
 public class TagFieldCompositeTransformer extends BasicTransformer<PropertysetItem> {
 
 	private List<String> fieldsName = Lists.newArrayList(ArticleJCRSchema.topicUri.name(),
-			ArticleJCRSchema.articleUri.name(),
+			ArticleJCRSchema.articleUriWebPath.name(),
 			ArticleJCRSchema.primaryTag.name(),
 			ArticleJCRSchema.primaryTagTitle.name(),
 			ArticleJCRSchema.secondaryTag.name());

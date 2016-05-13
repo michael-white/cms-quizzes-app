@@ -45,7 +45,7 @@ public class EnvironmentActivationField  extends CustomField<PropertysetItem> {
 
 	private Component generateLink(String environment) {
 		String host = webHosts.get(environment);
-		String articleUri = getCurrentItem().getItemProperty(ArticleJCRSchema.articleUri.name()).toString();
+		String articleUri = getCurrentItem().getItemProperty(ArticleJCRSchema.articleUriWebPath.name()).toString();
 		Link link = new Link(environment.toUpperCase(), new ExternalResource(host + articleUri));
 		link.setTargetName("_blank");
 		return link;

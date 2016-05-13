@@ -65,7 +65,7 @@ public class PrimaryTagField extends CustomField<PropertysetItem> {
 	private void initSelectedLabels() {
 		PropertysetItem savedValues = getValue();
 		if (savedValues != null) {
-			String articleUri = isNullOrEmpty(savedValues.getItemProperty(ArticleJCRSchema.articleUri.name()));
+			String articleUri = isNullOrEmpty(savedValues.getItemProperty(ArticleJCRSchema.articleUriWebPath.name()));
 			String primaryTag = isNullOrEmpty(savedValues.getItemProperty(ArticleJCRSchema.primaryTag.name()));
 			String primaryTagTitle = isNullOrEmpty(savedValues.getItemProperty(ArticleJCRSchema.primaryTagTitle.name()));
 			articleUriLabel = initLabel(SELECTED_URI_LABEL, articleUri, articleUriLabel);
@@ -98,10 +98,10 @@ public class PrimaryTagField extends CustomField<PropertysetItem> {
 			TopicResult topic = getTagService().getTopicForTag(tag.getId());
 			if (topic != null) {
 				String topicUri = topic.getUri();
-				String articleUri = buildArticleUri(topicUri, getCurrentItem().getNodeName());
-				initLabel(SELECTED_URI_LABEL, articleUri, articleUriLabel);
+				String articleUriFullPath = buildArticleUriLabel(topicUri, getCurrentItem().getNodeName());
+				initLabel(SELECTED_URI_LABEL, articleUriFullPath, articleUriLabel);
 				propertysetItem.addItemProperty(ArticleJCRSchema.topicUri.name(), new ObjectProperty<>(topicUri));
-				propertysetItem.addItemProperty(ArticleJCRSchema.articleUri.name(), new ObjectProperty<>(articleUri));
+				propertysetItem.addItemProperty(ArticleJCRSchema.articleUriWebPath.name(), new ObjectProperty<>(articleUriFullPath));
 			}
 		} catch (ResourceNotFoundException r) {
 			// its ok. Tag has no associated topic
@@ -132,8 +132,12 @@ public class PrimaryTagField extends CustomField<PropertysetItem> {
 	}
 
 
-	private String buildArticleUri(String topicUri, String nodeName) {
+	private String buildArticleUriLabel(String topicUri, String nodeName) {
 		return String.format("/health/%s/article/%s", topicUri, nodeName).toLowerCase();
+	}
+
+	private String buildArticleUri(String topicUri, String nodeName) {
+		return String.format("%s-%s", topicUri, nodeName).toLowerCase();
 	}
 
 	@Override

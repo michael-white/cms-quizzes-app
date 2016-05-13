@@ -1,7 +1,7 @@
 package com.sharecare.cms.articles.schema;
 
 public enum ArticleJCRSchema {
-	articleUri,
+	articleUriWebPath,
 	topicUri,
 	title,
 	subHead,
