@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.cloudinary.Cloudinary;
+import com.cloudinary.ResponsiveBreakpoint;
 import com.cloudinary.utils.ObjectUtils;
 import com.sharecare.cms.articles.schema.ArticleJCRSchema;
 import com.sharecare.cms.cloudinary.dam.CloudinaryClientServiceConnector;
@@ -45,9 +46,13 @@ public class CloudinaryArticlesAssetProcessor implements ArticleAssetProcessor {
 
 		try {
 
-			Map map = cloudinary.uploader().upload(file, ObjectUtils.asMap("public_id", file.getName(),
+			Map map = cloudinary.uploader().upload(file, ObjectUtils.asMap(
+					"public_id", file.getName(),
 					"folder", "articles/",
-					"use_filename", true));
+					"use_filename", true,
+					"responsive_breakpoints", new ResponsiveBreakpoint()
+							.createDerived(true)
+							.minWidth(60).maxWidth(600).maxImages(3)));
 			ArticlesUploadResult result = new ArticlesUploadResult(map.get("public_id").toString(), map.get("url").toString());
 			log.debug("File upload completed: {}", result.getUrl());
 			return Optional.of(result);

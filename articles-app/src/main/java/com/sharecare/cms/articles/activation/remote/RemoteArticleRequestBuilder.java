@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Maps;
-import com.sharecare.articles.sdk.Article;
-import com.sharecare.articles.sdk.Tag;
+import com.sharecare.articles.sdk.model.Article;
+import com.sharecare.articles.sdk.model.Tag;
 import com.sharecare.cms.articles.schema.ArticleJCRSchema;
 
 public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {

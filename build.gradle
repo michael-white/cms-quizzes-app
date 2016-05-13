@@ -33,6 +33,15 @@ apply plugin: 'idea'
         }
 
         maven {
+            credentials {
+                username artUsername
+                password artPassword
+            }
+            url "http://artifactory.be.sharecare.com/JAM-snapshot-local"
+            name = "maven-jamp-snapshot"
+        }
+
+        maven {
             name "magnolia.public"
             url "https://nexus.magnolia-cms.com/content/groups/public"
         }

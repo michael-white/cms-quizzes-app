@@ -6,11 +6,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.Sets;
-import com.sharecare.articles.sdk.*;
+import com.sharecare.articles.sdk.ArticlesApiClient;
+import com.sharecare.articles.sdk.BasicResponse;
+import com.sharecare.articles.sdk.configuration.BasicAuthCredentials;
+import com.sharecare.articles.sdk.configuration.ServerInfo;
+import com.sharecare.articles.sdk.model.Article;
 import com.sharecare.cms.articles.activation.remote.ArticleAssetProcessor;
 import com.sharecare.cms.articles.activation.remote.ArticleRequestBuilder;
 import com.sharecare.cms.articles.activation.remote.ArticlesUploadResult;
@@ -53,16 +56,16 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 			}
 
 			log.debug("Executing PUT rest call to /articles ");
-			BasicResponse response = client.postRequest(articleRequests).toUrl("/articles").execute();
+			BasicResponse response = client.upsertRequest().withData(articleRequests).execute();
 
-//			if (response.getStatusCode() == 200) {
+			if (String.valueOf(response.getStatusCode()).startsWith("20")) {
 				log.info("Successfully published content item {}:{} to {}", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
 				if (!activeStatusUpdater.updateStatus(node, environment, addEnvironmentCallback))
 					log.error("Failed to update node status: {}", node);
-//			} else {
-//				log.error("Failed Activation on  {} . Response from service {}", environment, response.getStatusCode());
-//				return false;
-//			}
+			} else {
+				log.error("Failed Activation on  {} . Response from service {}", environment, response.getStatusCode());
+				return false;
+			}
 		} catch (RepositoryException e) {
 			log.error("Failed Activation of article  {} ", ExceptionUtils.getFullStackTrace(e));
 			return false;
@@ -80,14 +83,13 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 			ArticlesApiClient client = clientMap.get(environment);
 			List<Article> articles = articleRequestBuilder.forNode(node);
 			articles.forEach(a -> {
-				String deleteUri = String.format("/articles/%s", a.getId());
-				log.debug("Executing DELETE rest call {}", deleteUri);
-				BasicResponse response = client.deleteRequest().toUrl(deleteUri).execute();
-//				if (response.getStatusCode() == 200) {
+				log.debug("Executing DELETE rest call {}", a.getArticleUri());
+				BasicResponse response = client.deleteRequest().withUri(a.getArticleUri()).execute();
+				if (response.getStatusCode() == 200) {
 					log.info("Successfully deleted content item {} from remote", a.getArticleUri());
 					if (!activeStatusUpdater.updateStatus(node, environment, removeEnvironmentCallback))
 						log.error("Failed to update node status: {}", node);
-//				}
+				}
 			});
 		} catch (RepositoryException e) {
 			log.error("Failed De-Activation of article  {} ", ExceptionUtils.getFullStackTrace(e));
@@ -160,7 +162,11 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 						entry -> {
 							RemoteServerResourceConfig config = entry.getValue();
 							BasicAuthCredentials basicAuthCredentials = new BasicAuthCredentials(entry.getValue().getUsername(), config.getPassword());
-							ServerInfo serverInfo = new ServerInfo(config.getHostProtocol(), config.getHostAddress(), config.getHostPort());
+							ServerInfo serverInfo =  ServerInfo.builder().protocol(config.getHostProtocol())
+									.hostName(config.getHostAddress())
+									.port(config.getHostPort())
+									.basePath("/articles")
+									.build();
 							return new ArticlesApiClient(basicAuthCredentials, serverInfo);
 						}));
 	}

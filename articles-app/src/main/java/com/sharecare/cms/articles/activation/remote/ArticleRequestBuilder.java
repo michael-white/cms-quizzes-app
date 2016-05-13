@@ -5,7 +5,8 @@ import javax.jcr.RepositoryException;
 
 import java.util.List;
 
-import com.sharecare.articles.sdk.Article;
+import com.sharecare.articles.sdk.model.Article;
+
 
 public interface ArticleRequestBuilder {
 
