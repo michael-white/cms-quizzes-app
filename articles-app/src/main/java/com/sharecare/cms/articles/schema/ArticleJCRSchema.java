@@ -33,6 +33,13 @@ public enum ArticleJCRSchema {
 	primaryTagTitle,
 	secondaryTag,
 	segmentSelect,
-	activeStatus
+	activeStatus;
 
+	public static ArticleJCRSchema forName(String field) {
+		for(ArticleJCRSchema v : values()) {
+			if (v.name().equals(field))
+				return v;
+		}
+		return null;
+	}
 }

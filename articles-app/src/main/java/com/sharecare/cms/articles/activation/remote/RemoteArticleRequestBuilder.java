@@ -3,11 +3,10 @@ package com.sharecare.cms.articles.activation.remote;
 import static java.util.stream.Collectors.*;
 
 import javax.jcr.*;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -71,103 +70,71 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		for (Locale l : Locale.values()) {
 			map.put(l.name(), new Article.ArticleBuilder()
 					.setId(node.getIdentifier())
-					.setArticleUri(articleUri(node))
+					.setArticleUri(node.getName())
 					.setLocale(l.name()));
 		}
-
 		return map;
 	}
 
-	private String articleUri(Node node) throws RepositoryException {
-		return node.getProperty(ArticleJCRSchema.topicUri.name()).getString() + "-" + node.getName();
-	}
-
-//	private Long createdDate(Node node) throws RepositoryException {
-//		String createdTime = node.getProperty("jcr:created").getString();
-//		LocalDateTime ldt = LocalDateTime.parse(createdTime, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-//		Instant instant = ldt.atZone(ZoneId.systemDefault()).toInstant();
-//		return instant.getEpochSecond();
-//	}
-
 	private void populateBuilder(Article.ArticleBuilder builder, String field, String value) {
-		if (field.equals(ArticleJCRSchema.body.name()))
-			builder.setBody(value);
 
-		else if (field.equals((ArticleJCRSchema.title.name())))
-			builder.setTitle(value);
+		ArticleJCRSchema fieldName = ArticleJCRSchema.forName(field);
+		if (fieldName == null) return;
 
-		else if (field.equals((ArticleJCRSchema.subHead.name())))
-			builder.setSubHead(value);
-
-		else if (field.equals((ArticleJCRSchema.byline.name())))
-			builder.setByLine(value);
-
-		else if (field.equals((ArticleJCRSchema.bylineUrl.name())))
-			builder.setByLineUri(value);
-
-		else if (field.equals((ArticleJCRSchema.bylineUrlOptionSelect.name())))
-			builder.setByLineOption(value);
-
-		else if (field.equals((ArticleJCRSchema.realAgeOptionSelect.name())))
-			builder.setRealAge(Boolean.valueOf(value));
-
-		else if (field.equals((ArticleJCRSchema.callOutBody.name())))
-			builder.setCallOutBody(value);
-
-		else if (field.equals((ArticleJCRSchema.videoId.name())))
-			builder.setVideoId(value);
-
-		else if (field.equals((ArticleJCRSchema.playerId.name())))
-			builder.setByLine(value);
-
-		else if (field.equals((ArticleJCRSchema.videoTitle.name())))
-			builder.setVideoTitle(value);
-
-		else if (field.equals((ArticleJCRSchema.videoTeaser.name())))
-			builder.setVideoTeaser(value);
-
-		else if (field.equals((ArticleJCRSchema.pageAndMetaTitle.name())))
-			builder.setMetaTitle(Collections.singletonList(value));
-
-		else if (field.equals((ArticleJCRSchema.metaDescription.name())))
-			builder.setMetaDescription(Collections.singletonList(value));
-
-		else if (field.equals((ArticleJCRSchema.metaKeywords.name())))
-			builder.setKeywords(Splitter.on(",").splitToList(value));
-
-		else if (field.equals((ArticleJCRSchema.hasSynviscComScore.name())))
-			builder.setHasSynviscComScore(Boolean.valueOf(value));
-
-		else if (field.equals((ArticleJCRSchema.ogLabel.name())))
-			builder.setOgLabel(value);
-
-		else if (field.equals((ArticleJCRSchema.disableSocial.name())))
-			builder.setDisableSocialButtons(Boolean.valueOf(value));
-
-		else if (field.equals((ArticleJCRSchema.ogType.name())))
-			builder.setOgType(value);
-
-		else if (field.equals((ArticleJCRSchema.ogImage.name())))
-			builder.setOgImage(value);
-
-		else if (field.equals((ArticleJCRSchema.ogTitle.name())))
-			builder.setOgTitle(value);
-
-		else if (field.equals((ArticleJCRSchema.ogDescription.name())))
-			builder.setOgDescription(value);
-
-		else if (field.equals((ArticleJCRSchema.ogUrl.name())))
-			builder.setOgUrl(value);
-
-		else if (field.equals((ArticleJCRSchema.noIndexFollow.name())))
-			builder.setNoIndexFollow(Boolean.valueOf(value));
-
-		else if (field.equals((ArticleJCRSchema.canonicalReference.name())))
-			builder.setCanonicalReference(value);
-
-		else if (field.equals(ArticleJCRSchema.primaryTag.name()))
-			builder.setPrimaryTag(new Tag(value, "tag"));
-
+		switch (fieldName) {
+			case body:
+				builder.setBody(value);
+			case title:
+				builder.setBody(value);
+			case subHead:
+				builder.setSubHead(value);
+			case bylineUrl:
+				builder.setByLineUri(value);
+			case byline:
+				builder.setByLine(value);
+			case bylineUrlOptionSelect:
+				builder.setByLineOption(value);
+			case realAgeOptionSelect:
+				builder.setRealAge(Boolean.valueOf(value));
+			case callOutBody:
+				builder.setCallOutBody(value);
+			case videoId:
+				builder.setVideoId(value);
+			case playerId:
+				builder.setByLine(value);
+			case videoTitle:
+				builder.setVideoTitle(value);
+			case videoTeaser:
+				builder.setVideoTeaser(value);
+			case pageAndMetaTitle:
+				builder.setMetaTitle(Collections.singletonList(value));
+			case metaDescription:
+				builder.setMetaDescription(Collections.singletonList(value));
+			case metaKeywords:
+				builder.setKeywords(Splitter.on(",").splitToList(value));
+			case hasSynviscComScore:
+				builder.setHasSynviscComScore(Boolean.valueOf(value));
+			case ogLabel:
+				builder.setOgLabel(value);
+			case disableSocial:
+				builder.setDisableSocialButtons(Boolean.valueOf(value));
+			case ogType:
+				builder.setOgType(value);
+			case ogImage:
+				builder.setOgImage(value);
+			case ogTitle:
+				builder.setOgTitle(value);
+			case ogDescription:
+				builder.setOgDescription(value);
+			case ogUrl:
+				builder.setOgUrl(value);
+			case noIndexFollow:
+				builder.setNoIndexFollow(Boolean.valueOf(value));
+			case canonicalReference:
+				builder.setCanonicalReference(value);
+			case primaryTag:
+				builder.setPrimaryTag(new Tag(value, "tag"));
+		}
 	}
 
 	private void populateBuilderMulti(Article.ArticleBuilder builder, String field, List<String> values) {
@@ -177,7 +144,6 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 		else if (field.equals(ArticleJCRSchema.secondaryTag.name()))
 			builder.setSecondaryTags(values.stream().map(v -> new Tag(v, "tag")).collect(Collectors.toList()));
 	}
-
 }
 
 
