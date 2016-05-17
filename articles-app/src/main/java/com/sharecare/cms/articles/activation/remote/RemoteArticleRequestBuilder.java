@@ -3,10 +3,7 @@ package com.sharecare.cms.articles.activation.remote;
 import static java.util.stream.Collectors.*;
 
 import javax.jcr.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -16,7 +13,9 @@ import com.google.common.collect.Maps;
 import com.sharecare.articles.sdk.model.Article;
 import com.sharecare.articles.sdk.model.Tag;
 import com.sharecare.cms.articles.schema.ArticleJCRSchema;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 
 	private static final Pattern LOCALE_PATTERN = Pattern.compile("(\\w{2})_(\\w+)");
@@ -26,8 +25,8 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 	}
 
 	@Override
-	public List<Article> forNode(Node node) throws RepositoryException {
-		Map<String, Article.ArticleBuilder> localeArticles = initArticleLocaleMap(node);
+	public List<Article> forNode(Node node, String imageUrl) throws RepositoryException {
+		Map<String, Article.ArticleBuilder> localeArticles = initArticleLocaleMap(node, imageUrl);
 		PropertyIterator it = node.getProperties();
 		while (it.hasNext()) {
 			Property p = it.nextProperty();
@@ -55,23 +54,25 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 					localeArticles.forEach((k, v) -> populateBuilder(v, field, value));
 				}
 			}
+
 		}
 
 		return localeArticles.values()
 				.stream()
-				.map(Article.ArticleBuilder::createArticle)
+				.map(Article.ArticleBuilder::build)
 				.collect(toList());
 	}
 
-	private Map<String, Article.ArticleBuilder> initArticleLocaleMap(Node node) throws RepositoryException {
+	private Map<String, Article.ArticleBuilder> initArticleLocaleMap(Node node,String imageUrl) throws RepositoryException {
 
 		Map<String, Article.ArticleBuilder> map = Maps.newHashMap();
 
 		for (Locale l : Locale.values()) {
-			map.put(l.name(), new Article.ArticleBuilder()
-					.setId(node.getIdentifier())
-					.setArticleUri(node.getName())
-					.setLocale(l.name()));
+			map.put(l.name(),  Article.builder()
+					.id(node.getIdentifier())
+					.articleUri(node.getName())
+					.imageUrl(imageUrl)
+					.locale(l.name()));
 		}
 		return map;
 	}
@@ -83,66 +84,93 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 
 		switch (fieldName) {
 			case body:
-				builder.setBody(value);
+				builder.body(value);
+				break;
 			case title:
-				builder.setBody(value);
+				builder.title(value);
+				break;
 			case subHead:
-				builder.setSubHead(value);
+				builder.subHead(value);
+				break;
 			case bylineUrl:
-				builder.setByLineUri(value);
+				builder.byLineUri(value);
+				break;
 			case byline:
-				builder.setByLine(value);
+				builder.byLine(value);
+				break;
 			case bylineUrlOptionSelect:
-				builder.setByLineOption(value);
+				builder.byLineOption(value);
+				break;
 			case realAgeOptionSelect:
-				builder.setRealAge(Boolean.valueOf(value));
+				builder.realAge(Boolean.valueOf(value));
+				break;
 			case callOutBody:
-				builder.setCallOutBody(value);
+				builder.callOutBody(value);
+				break;
 			case videoId:
-				builder.setVideoId(value);
+				builder.videoId(value);
+				break;
 			case playerId:
-				builder.setByLine(value);
+				builder.playerId(value);
+				break;
 			case videoTitle:
-				builder.setVideoTitle(value);
+				builder.videoTitle(value);
 			case videoTeaser:
-				builder.setVideoTeaser(value);
+				builder.videoTeaser(value);
+				break;
 			case pageAndMetaTitle:
-				builder.setMetaTitle(Collections.singletonList(value));
+				builder.metaTitle(Collections.singletonList(value));
+				break;
 			case metaDescription:
-				builder.setMetaDescription(Collections.singletonList(value));
+				builder.metaDescription(Collections.singletonList(value));
+				break;
 			case metaKeywords:
-				builder.setKeywords(Splitter.on(",").splitToList(value));
+				builder.keywords(Splitter.on(",").splitToList(value));
+				break;
 			case hasSynviscComScore:
-				builder.setHasSynviscComScore(Boolean.valueOf(value));
+				builder.hasSynviscComScore(Boolean.valueOf(value));
+				break;
 			case ogLabel:
-				builder.setOgLabel(value);
+				builder.ogLabel(value);
+				break;
 			case disableSocial:
-				builder.setDisableSocialButtons(Boolean.valueOf(value));
+				builder.disableSocialButtons(Boolean.valueOf(value));
+				break;
 			case ogType:
-				builder.setOgType(value);
+				builder.ogType(value);
+				break;
 			case ogImage:
-				builder.setOgImage(value);
+				builder.ogImage(value);
+				break;
 			case ogTitle:
-				builder.setOgTitle(value);
+				builder.ogTitle(value);
+				break;
 			case ogDescription:
-				builder.setOgDescription(value);
+				builder.ogDescription(value);
+				break;
 			case ogUrl:
-				builder.setOgUrl(value);
+				builder.ogUrl(value);
+				break;
 			case noIndexFollow:
-				builder.setNoIndexFollow(Boolean.valueOf(value));
+				builder.noIndexFollow(Boolean.valueOf(value));
+				break;
 			case canonicalReference:
-				builder.setCanonicalReference(value);
+				builder.canonicalReference(value);
+				break;
 			case primaryTag:
-				builder.setPrimaryTag(new Tag(value, "tag"));
+				builder.primaryTag(new Tag(value, "tag"));
+				break;
+			default:
+				break;
 		}
 	}
 
 	private void populateBuilderMulti(Article.ArticleBuilder builder, String field, List<String> values) {
 		if (field.equals(ArticleJCRSchema.segmentSelect.name()))
-			builder.setSegments(values);
+			builder.segments(values);
 
 		else if (field.equals(ArticleJCRSchema.secondaryTag.name()))
-			builder.setSecondaryTags(values.stream().map(v -> new Tag(v, "tag")).collect(Collectors.toList()));
+			builder.secondaryTags(values.stream().map(v -> new Tag(v, "tag")).collect(Collectors.toList()));
 	}
 }
 

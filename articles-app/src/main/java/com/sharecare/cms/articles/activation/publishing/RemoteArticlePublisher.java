@@ -48,15 +48,10 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 		try {
 			log.info("Publishing {}:{} content to {} ", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
 			ArticlesApiClient client = clientMap.get(environment);
-			List<Article> articleRequests = articleRequestBuilder.forNode(node);
 			Optional<ArticlesUploadResult> uploadResult = articleAssetProcessor.uploadAssetFrom(node);
-			if (uploadResult.isPresent()) {
-				ArticlesUploadResult response = uploadResult.get();
-				articleRequests.forEach((a -> a.setImageUrl(response.getUrl())));
-			}
+			List<Article> articleRequests = articleRequestBuilder.forNode(node, uploadResult.isPresent() ? uploadResult.get().getUrl() : "");
 
-			log.debug("Executing PUT rest call to /articles ");
-			BasicResponse response = client.upsertRequest().withData(articleRequests).execute();
+			BasicResponse response = client.saveRequest().withData(articleRequests).execute();
 
 			if (String.valueOf(response.getStatusCode()).startsWith("20")) {
 				log.info("Successfully published content item {}:{} to {}", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
@@ -81,16 +76,13 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 
 			log.warn("Deleting {}:{} content from {} ", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
 			ArticlesApiClient client = clientMap.get(environment);
-			List<Article> articles = articleRequestBuilder.forNode(node);
-			articles.forEach(a -> {
-				log.debug("Executing DELETE rest call {}", a.getArticleUri());
-				BasicResponse response = client.deleteRequest().withUri(a.getArticleUri()).execute();
-				if (response.getStatusCode() == 200) {
-					log.info("Successfully deleted content item {} from remote", a.getArticleUri());
-					if (!activeStatusUpdater.updateStatus(node, environment, removeEnvironmentCallback))
-						log.error("Failed to update node status: {}", node);
-				}
-			});
+			log.debug("Executing DELETE rest call {}", node.getName());
+			BasicResponse response = client.deleteRequest().withUri(node.getName()).execute();
+			if (response.getStatusCode() == 200) {
+				log.info("Successfully deleted content item {} from remote", node.getName());
+				if (!activeStatusUpdater.updateStatus(node, environment, removeEnvironmentCallback))
+					log.error("Failed to update node status: {}", node);
+			}
 		} catch (RepositoryException e) {
 			log.error("Failed De-Activation of article  {} ", ExceptionUtils.getFullStackTrace(e));
 			return false;
@@ -162,7 +154,7 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 						entry -> {
 							RemoteServerResourceConfig config = entry.getValue();
 							BasicAuthCredentials basicAuthCredentials = new BasicAuthCredentials(entry.getValue().getUsername(), config.getPassword());
-							ServerInfo serverInfo =  ServerInfo.builder().protocol(config.getHostProtocol())
+							ServerInfo serverInfo = ServerInfo.builder().protocol(config.getHostProtocol())
 									.hostName(config.getHostAddress())
 									.port(config.getHostPort())
 									.basePath("/articles")
