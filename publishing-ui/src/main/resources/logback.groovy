@@ -1,16 +1,14 @@
-import ch.qos.logback.core.ConsoleAppender
-import ch.qos.logback.core.rolling.TimeBasedRollingPolicy
+import ch.qos.logback.core.FileAppender
 import com.sharecare.cms.logging.ApplicationLogJsonProvider
 import net.logstash.logback.composite.loggingevent.LoggingEventJsonProviders
 import net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder
 
 import static ch.qos.logback.classic.Level.DEBUG
 import static ch.qos.logback.classic.Level.ERROR
-import static ch.qos.logback.classic.Level.WARN
 
-def MAG_LOG_LOCATION = System.getProperty("magnolia.log") != null ? System.getProperty("magnolia.log") : "/tmp/magnolia.log"
+def APPLICATION_LOG_LOCATION = System.getProperty("app.log") != null ? System.getProperty("app.log") : "/tmp/magnolia.log"
 
-appender("stdout", ConsoleAppender) {
+appender("APP_LOG", FileAppender) {
     file = "${APPLICATION_LOG_LOCATION}"
 
     encoder(LoggingEventCompositeJsonEncoder) {
@@ -18,12 +16,8 @@ appender("stdout", ConsoleAppender) {
         jsprov.addMessage(new ApplicationLogJsonProvider())
         providers=jsprov
     }
-
-    rollingPolicy(TimeBasedRollingPolicy) {
-        fileNamePattern = "${MAG_LOG_LOCATION}/MAG_LOG.log.%d{.yyyy-MM-dd.HH-mm}"
-    }
 }
 
-root(ERROR, ["stdout"])
-logger("com.sharecare", DEBUG, ["stdout"])
+root(ERROR, ["APP_LOG"])
+logger("com.sharecare", DEBUG, ["APP_LOG"])
 //logger("org.eclipse.jetty", WARN, ["stdout"])
