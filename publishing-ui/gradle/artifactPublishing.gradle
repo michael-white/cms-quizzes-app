@@ -13,7 +13,7 @@ buildscript {
 
 import org.joda.time.LocalDateTime
 
-def env = System.getProperty("BuildEnv") != null ? System.getProperty("BuildEnv") :  "BuildEnv"
+def env = System.getProperty("BuildEnv") != null ? System.getProperty("BuildEnv") :  "dev"
 def curTime = new LocalDateTime().toString('yyyyMMdd-HHmm')
 
 s3 {
