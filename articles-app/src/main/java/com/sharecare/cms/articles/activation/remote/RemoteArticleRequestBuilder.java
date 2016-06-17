@@ -162,17 +162,32 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 			case primaryTag:
 				builder.primaryTag(new Tag(value, "tag"));
 				break;
+			case contentFlags:
+				builder.contentFlags(Collections.singletonList(value));
+				break;
 			default:
 				break;
 		}
 	}
 
 	private void populateBuilderMulti(Article.ArticleBuilder builder, String field, List<String> values) {
-		if (field.equals(ArticleJCRSchema.segmentSelect.name()))
-			builder.segments(values);
 
-		else if (field.equals(ArticleJCRSchema.secondaryTag.name()))
-			builder.secondaryTags(values.stream().map(v -> new Tag(v, "tag")).collect(Collectors.toList()));
+		ArticleJCRSchema fieldName = ArticleJCRSchema.forName(field);
+		if (fieldName == null) return;
+
+		switch (fieldName) {
+			case segmentSelect:
+				builder.segments(values);
+				break;
+			case secondaryTag:
+				builder.secondaryTags(values.stream().map(v -> new Tag(v, "tag")).collect(Collectors.toList()));
+				break;
+			case contentFlags:
+				builder.contentFlags(values);
+				break;
+			default:
+				break;
+		}
 	}
 }
 

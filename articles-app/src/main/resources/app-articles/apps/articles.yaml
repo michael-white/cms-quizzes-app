@@ -581,6 +581,26 @@ subApps:
               - name: metaKeywords
                 label: Meta Keywords
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: contentFlags
+                class: info.magnolia.ui.form.field.definition.TwinColSelectFieldDefinition
+                type: String
+                label: Content Flags
+                options:
+                  - name: highQuality
+                    label: HIGH_QUALITY
+                    value: HIGH_QUALITY
+                  - name: minor
+                    label: MINOR
+                    value: MINOR
+                  - name: physicianProfile
+                    label: PHYSICIAN_PROFILE
+                    value: PHYSICIAN_PROFILE
+                  - name: sponsor
+                    label: SPONSOR
+                    value: SPONSOR
+                  - name: user
+                    label: USER
+                    value: USER
               - name: hasSynviscComScore
                 label: Add Synvisc comscore tag
                 class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition

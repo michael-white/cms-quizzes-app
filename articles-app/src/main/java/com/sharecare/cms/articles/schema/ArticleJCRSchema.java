@@ -32,6 +32,7 @@ public enum ArticleJCRSchema {
 	primaryTag,
 	primaryTagTitle,
 	secondaryTag,
+	contentFlags,
 	segmentSelect,
 	activeStatus;
 
