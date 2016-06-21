@@ -66,14 +66,10 @@ subApps:
             - name: adminActions
               items:
                 - name: exportProduct
-            - name: alphaEnv
+            - name: qaEnv
               items:
-                - name: activateAlpha
-                - name: deactivateAlpha
-            - name: cmEnv
-              items:
-                - name: activateCM
-                - name: deactivateCM
+                - name: activateQA
+                - name: deactivateQA
           availability:
             nodeTypes:
               - mgnl:folder
@@ -152,14 +148,10 @@ subApps:
               items:
                 - name: exportProduct
                 - name: selectCampaignAction
-            - name: alphaEnv
+            - name: qaEnv
               items:
-                - name: activateAlpha
-                - name: deactivateAlpha
-            - name: cmEnv
-              items:
-                - name: activateCM
-                - name: deactivateCM
+                - name: activateQA
+                - name: deactivateQA
           availability:
             nodeTypes:
               - mgnl:article
@@ -297,36 +289,18 @@ subApps:
         recursive: true
         availability:
           multiple: true
-      activateAlpha:
-        label: Publish On Alpha
+      activateQA:
+        label: Publish On QA
         catalog: versioned
-        command: activateProd
+        command: activateQA
         icon: icon-publish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
         recursive: true
         availability:
           multiple: true
-      deactivateAlpha:
-        label: Unpublish On Alpha
-        command: deactivateProd
-        catalog: versioned
-        icon: icon-unpublish
-        class: info.magnolia.ui.framework.action.ActivationActionDefinition
-        recursive: true
-        availability:
-          multiple: true
-      activateCM:
-        label: Publish On CM
-        catalog: versioned
-        command: activateProd
-        icon: icon-publish
-        class: info.magnolia.ui.framework.action.ActivationActionDefinition
-        recursive: true
-        availability:
-          multiple: true
-      deactivateCM:
-        label: Unpublish On CM
-        command: deactivateProd
+      deactivateQA:
+        label: Unpublish On QA
+        command: deactivateQA
         catalog: versioned
         icon: icon-unpublish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition

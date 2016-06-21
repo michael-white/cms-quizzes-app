@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sv:node sv:name="deactivateAlpha" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<sv:node sv:name="activateQA" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <sv:property sv:name="jcr:primaryType" sv:type="Name">
     <sv:value>mgnl:contentNode</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>7ae3449b-1bbd-4f61-be2f-1f48936612a6</sv:value>
+    <sv:value>2363a318-758d-4dc1-946f-e544d4152dfa</sv:value>
   </sv:property>
   <sv:property sv:name="class" sv:type="String">
-    <sv:value>com.sharecare.cms.publishing.commons.activation.UnpublishingRemoteDataActivationCommand</sv:value>
+    <sv:value>com.sharecare.cms.publishing.commons.activation.PublishingRemoteDataActivationCommand</sv:value>
   </sv:property>
   <sv:property sv:name="environment" sv:type="String">
-    <sv:value>alpha</sv:value>
+    <sv:value>qa</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:createdBy" sv:type="String">
     <sv:value>admin</sv:value>
@@ -19,19 +19,19 @@
     <sv:value>false</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:created" sv:type="Date">
-    <sv:value>2016-05-02T11:34:10.680-04:00</sv:value>
+    <sv:value>2016-06-21T10:37:30.128-04:00</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:createdBy" sv:type="String">
     <sv:value>superuser</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
-    <sv:value>2016-05-02T11:34:10.681-04:00</sv:value>
+    <sv:value>2016-06-21T10:37:30.129-04:00</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
     <sv:value>superuser</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-    <sv:value>2016-05-02T11:34:19.869-04:00</sv:value>
+    <sv:value>2016-06-21T10:37:40.360-04:00</sv:value>
   </sv:property>
   <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
     <sv:value>superuser</sv:value>
