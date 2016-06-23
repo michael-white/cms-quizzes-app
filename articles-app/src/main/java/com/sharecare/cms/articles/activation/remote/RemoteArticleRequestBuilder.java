@@ -91,6 +91,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 				break;
 			case subHead:
 				builder.subHead(value);
+				break;
 			case topicUri:
 				builder.topicUri(value);
 				break;
