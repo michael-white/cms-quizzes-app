@@ -18,178 +18,185 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 
-	private static final Pattern LOCALE_PATTERN = Pattern.compile("(\\w{2})_(\\w+)");
+    private static final Pattern LOCALE_PATTERN = Pattern.compile("(\\w{2})_(\\w+)");
 
-	private enum Locale {
-		en, es
-	}
+    private enum Locale {
+        en, es
+    }
 
-	@Override
-	public List<Article> forNode(Node node, String imageUrl) throws RepositoryException {
-		Map<String, Article.ArticleBuilder> localeArticles = initArticleLocaleMap(node, imageUrl);
-		PropertyIterator it = node.getProperties();
-		while (it.hasNext()) {
-			Property p = it.nextProperty();
-			final String field = p.getName();
-			Matcher m = LOCALE_PATTERN.matcher(field);
+    @Override
+    public List<Article> forNode(Node node, Optional<ArticlesUploadResult> uploadResult) throws RepositoryException {
+        Map<String, Article.ArticleBuilder> localeArticles = initArticleLocaleMap(node, uploadResult);
+        PropertyIterator it = node.getProperties();
+        while (it.hasNext()) {
+            Property p = it.nextProperty();
+            final String field = p.getName();
+            Matcher m = LOCALE_PATTERN.matcher(field);
 
-			if (p.isMultiple()) {
-				Value[] values = p.getValues();
-				List<String> valueList = new ArrayList<>(values.length);
-				for (Value v : values)
-					valueList.add(v.getString());
+            if (p.isMultiple()) {
+                Value[] values = p.getValues();
+                List<String> valueList = new ArrayList<>(values.length);
+                for (Value v : values)
+                    valueList.add(v.getString());
 
-				if (m.find()) {
-					Article.ArticleBuilder builder = localeArticles.get(m.group(1));
-					populateBuilderMulti(builder, m.group(2), valueList);
-				} else {
-					localeArticles.forEach((k, v) -> populateBuilderMulti(v, field, valueList));
-				}
-			} else {
-				final String value = p.getString();
-				if (m.find()) {
-					Article.ArticleBuilder builder = localeArticles.get(m.group(1));
-					populateBuilder(builder, m.group(2), value);
-				} else {
-					localeArticles.forEach((k, v) -> populateBuilder(v, field, value));
-				}
-			}
+                if (m.find()) {
+                    Article.ArticleBuilder builder = localeArticles.get(m.group(1));
+                    populateBuilderMulti(builder, m.group(2), valueList);
+                } else {
+                    localeArticles.forEach((k, v) -> populateBuilderMulti(v, field, valueList));
+                }
+            } else {
+                final String value = p.getString();
+                if (m.find()) {
+                    Article.ArticleBuilder builder = localeArticles.get(m.group(1));
+                    populateBuilder(builder, m.group(2), value);
+                } else {
+                    localeArticles.forEach((k, v) -> populateBuilder(v, field, value));
+                }
+            }
 
-		}
+        }
 
-		return localeArticles.values()
-				.stream()
-				.map(Article.ArticleBuilder::build)
-				.collect(toList());
-	}
+        return localeArticles.values()
+                             .stream()
+                             .map(Article.ArticleBuilder::build)
+                             .collect(toList());
+    }
 
-	private Map<String, Article.ArticleBuilder> initArticleLocaleMap(Node node,String imageUrl) throws RepositoryException {
+    private Map<String, Article.ArticleBuilder> initArticleLocaleMap(Node node, Optional<ArticlesUploadResult> uploadResult) throws RepositoryException {
 
-		Map<String, Article.ArticleBuilder> map = Maps.newHashMap();
+        Map<String, Article.ArticleBuilder> map = Maps.newHashMap();
 
-		for (Locale l : Locale.values()) {
-			map.put(l.name(),  Article.builder()
-					.id(node.getIdentifier())
-					.articleUri(node.getName())
-					.imageUrl(imageUrl)
-					.locale(l.name()));
-		}
-		return map;
-	}
+        for (Locale l : Locale.values()) {
+            Article.ArticleBuilder builder = Article.builder()
+                                                    .id(node.getIdentifier())
+                                                    .articleUri(node.getName())
+                                                    .locale(l.name());
 
-	private void populateBuilder(Article.ArticleBuilder builder, String field, String value) {
+            if (uploadResult.isPresent()) {
+                ArticlesUploadResult ur = uploadResult.get();
+                builder.imageUrl(ur.getUrl())
+                        .imageId(ur.getId());
+            }
 
-		ArticleJCRSchema fieldName = ArticleJCRSchema.forName(field);
-		if (fieldName == null) return;
+            map.put(l.name(), builder);
+        }
+        return map;
+    }
 
-		switch (fieldName) {
-			case body:
-				builder.body(value);
-				break;
-			case title:
-				builder.title(value);
-				break;
-			case subHead:
-				builder.subHead(value);
-				break;
-			case topicUri:
-				builder.topicUri(value);
-				break;
-			case bylineUrl:
-				builder.byLineUri(value);
-				break;
-			case byline:
-				builder.byLine(value);
-				break;
-			case bylineUrlOptionSelect:
-				builder.byLineOption(value);
-				break;
-			case realAgeOptionSelect:
-				builder.realAge(Boolean.valueOf(value));
-				break;
-			case callOutBody:
-				builder.callOutBody(value);
-				break;
-			case videoId:
-				builder.videoId(value);
-				break;
-			case playerId:
-				builder.playerId(value);
-				break;
-			case videoTitle:
-				builder.videoTitle(value);
-			case videoTeaser:
-				builder.videoTeaser(value);
-				break;
-			case pageAndMetaTitle:
-				builder.metaTitle(Collections.singletonList(value));
-				break;
-			case metaDescription:
-				builder.metaDescription(Collections.singletonList(value));
-				break;
-			case metaKeywords:
-				builder.keywords(Splitter.on(",").splitToList(value));
-				break;
-			case hasSynviscComScore:
-				builder.hasSynviscComScore(Boolean.valueOf(value));
-				break;
-			case ogLabel:
-				builder.ogLabel(value);
-				break;
-			case disableSocial:
-				builder.disableSocialButtons(Boolean.valueOf(value));
-				break;
-			case ogType:
-				builder.ogType(value);
-				break;
-			case ogImage:
-				builder.ogImage(value);
-				break;
-			case ogTitle:
-				builder.ogTitle(value);
-				break;
-			case ogDescription:
-				builder.ogDescription(value);
-				break;
-			case ogUrl:
-				builder.ogUrl(value);
-				break;
-			case noIndexFollow:
-				builder.noIndexFollow(Boolean.valueOf(value));
-				break;
-			case canonicalReference:
-				builder.canonicalReference(value);
-				break;
-			case primaryTag:
-				builder.primaryTag(new Tag(value, "tag"));
-				break;
-			case contentFlags:
-				builder.contentFlags(Collections.singletonList(value));
-				break;
-			default:
-				break;
-		}
-	}
+    private void populateBuilder(Article.ArticleBuilder builder, String field, String value) {
 
-	private void populateBuilderMulti(Article.ArticleBuilder builder, String field, List<String> values) {
+        ArticleJCRSchema fieldName = ArticleJCRSchema.forName(field);
+        if (fieldName == null) return;
 
-		ArticleJCRSchema fieldName = ArticleJCRSchema.forName(field);
-		if (fieldName == null) return;
+        switch (fieldName) {
+            case body:
+                builder.body(value);
+                break;
+            case title:
+                builder.title(value);
+                break;
+            case subHead:
+                builder.subHead(value);
+                break;
+            case topicUri:
+                builder.topicUri(value);
+                break;
+            case bylineUrl:
+                builder.byLineUri(value);
+                break;
+            case byline:
+                builder.byLine(value);
+                break;
+            case bylineUrlOptionSelect:
+                builder.byLineOption(value);
+                break;
+            case realAgeOptionSelect:
+                builder.realAge(Boolean.valueOf(value));
+                break;
+            case callOutBody:
+                builder.callOutBody(value);
+                break;
+            case videoId:
+                builder.videoId(value);
+                break;
+            case playerId:
+                builder.playerId(value);
+                break;
+            case videoTitle:
+                builder.videoTitle(value);
+            case videoTeaser:
+                builder.videoTeaser(value);
+                break;
+            case pageAndMetaTitle:
+                builder.metaTitle(Collections.singletonList(value));
+                break;
+            case metaDescription:
+                builder.metaDescription(Collections.singletonList(value));
+                break;
+            case metaKeywords:
+                builder.keywords(Splitter.on(",").splitToList(value));
+                break;
+            case hasSynviscComScore:
+                builder.hasSynviscComScore(Boolean.valueOf(value));
+                break;
+            case ogLabel:
+                builder.ogLabel(value);
+                break;
+            case disableSocial:
+                builder.disableSocialButtons(Boolean.valueOf(value));
+                break;
+            case ogType:
+                builder.ogType(value);
+                break;
+            case ogImage:
+                builder.ogImage(value);
+                break;
+            case ogTitle:
+                builder.ogTitle(value);
+                break;
+            case ogDescription:
+                builder.ogDescription(value);
+                break;
+            case ogUrl:
+                builder.ogUrl(value);
+                break;
+            case noIndexFollow:
+                builder.noIndexFollow(Boolean.valueOf(value));
+                break;
+            case canonicalReference:
+                builder.canonicalReference(value);
+                break;
+            case primaryTag:
+                builder.primaryTag(new Tag(value, "tag"));
+                break;
+            case contentFlags:
+                builder.contentFlags(Collections.singletonList(value));
+                break;
+            default:
+                break;
+        }
+    }
 
-		switch (fieldName) {
-			case segmentSelect:
-				builder.segments(values);
-				break;
-			case secondaryTag:
-				builder.secondaryTags(values.stream().map(v -> new Tag(v, "tag")).collect(Collectors.toList()));
-				break;
-			case contentFlags:
-				builder.contentFlags(values);
-				break;
-			default:
-				break;
-		}
-	}
+    private void populateBuilderMulti(Article.ArticleBuilder builder, String field, List<String> values) {
+
+        ArticleJCRSchema fieldName = ArticleJCRSchema.forName(field);
+        if (fieldName == null) return;
+
+        switch (fieldName) {
+            case segmentSelect:
+                builder.segments(values);
+                break;
+            case secondaryTag:
+                builder.secondaryTags(values.stream().map(v -> new Tag(v, "tag")).collect(Collectors.toList()));
+                break;
+            case contentFlags:
+                builder.contentFlags(values);
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 

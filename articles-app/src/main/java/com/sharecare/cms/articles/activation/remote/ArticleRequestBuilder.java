@@ -11,5 +11,5 @@ import com.sharecare.articles.sdk.model.Article;
 
 public interface ArticleRequestBuilder {
 
-	List<Article> forNode(Node node, String imageUrl) throws RepositoryException;
+	List<Article> forNode(Node node, Optional<ArticlesUploadResult> uploadResult) throws RepositoryException;
 }

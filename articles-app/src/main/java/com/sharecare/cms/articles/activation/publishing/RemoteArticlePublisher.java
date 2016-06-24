@@ -49,7 +49,7 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 			log.info("Publishing {}:{} content to {} ", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
 			ArticlesApiClient client = clientMap.get(environment);
 			Optional<ArticlesUploadResult> uploadResult = articleAssetProcessor.uploadAssetFrom(node);
-			List<Article> articleRequests = articleRequestBuilder.forNode(node, uploadResult.isPresent() ? uploadResult.get().getUrl() : "");
+			List<Article> articleRequests = articleRequestBuilder.forNode(node, uploadResult);
 
 			BasicResponse response = client.saveRequest().withData(articleRequests).execute();
 
