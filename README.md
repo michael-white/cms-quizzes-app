@@ -1,4 +1,4 @@
-# Publish Central
+# Publishing Central
 
 Quick Start:
 
@@ -25,4 +25,5 @@ Should see:
     Provider       : Magnolia International Ltd. (info@magnolia-cms.com)
     > Building 93% > :publishing-ui:jettyRun > Running at http://localhost:8080/publishing-ui
 
-username : admin, password: password
+#username : admin
+#password: password
