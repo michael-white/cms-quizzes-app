@@ -46,7 +46,7 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 	public boolean publish(Node node, String environment) {
 
 		try {
-			log.info("Publishing {}:{} content to {} ", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
+			log.info("Publishing {}:{} content to {} ", node.getName(), node.getIdentifier(), environment);
 			ArticlesApiClient client = clientMap.get(environment);
 			Optional<ArticlesUploadResult> uploadResult = articleAssetProcessor.uploadAssetFrom(node);
 			List<Article> articleRequests = articleRequestBuilder.forNode(node, uploadResult);
@@ -61,7 +61,7 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 				log.error("Failed Activation on  {} . Response from service {}", environment, response.getStatusCode());
 				return false;
 			}
-		} catch (RepositoryException e) {
+		} catch (Exception e) {
 			log.error("Failed Activation of article  {} ", ExceptionUtils.getFullStackTrace(e));
 			return false;
 		}
@@ -74,7 +74,7 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 
 		try {
 
-			log.warn("Deleting {}:{} content from {} ", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
+			log.warn("Deleting {}:{} content from {} ", node.getName(), node.getIdentifier(), environment);
 			ArticlesApiClient client = clientMap.get(environment);
 			log.debug("Executing DELETE rest call {}", node.getName());
 			BasicResponse response = client.deleteRequest().withUri(node.getName()).execute();
@@ -83,7 +83,7 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 				if (!activeStatusUpdater.updateStatus(node, environment, removeEnvironmentCallback))
 					log.error("Failed to update node status: {}", node);
 			}
-		} catch (RepositoryException e) {
+		} catch (Exception e) {
 			log.error("Failed De-Activation of article  {} ", ExceptionUtils.getFullStackTrace(e));
 			return false;
 		}

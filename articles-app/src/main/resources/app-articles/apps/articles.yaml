@@ -241,6 +241,9 @@ subApps:
         command: activatePreview
         icon: icon-publish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
         recursive: true
         availability:
           multiple: true
@@ -250,6 +253,9 @@ subApps:
         catalog: versioned
         icon: icon-unpublish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "De-Activation Failed"
+        failureMessage: "De-Activation Failed"
+        successMessage: "De-Activation Success"
         recursive: true
         availability:
           multiple: true
@@ -259,6 +265,9 @@ subApps:
         command: activateStage
         icon: icon-publish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
         recursive: true
         availability:
           multiple: true
@@ -268,6 +277,9 @@ subApps:
         catalog: versioned
         icon: icon-unpublish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "De-Activation Failed"
+        failureMessage: "De-Activation Failed"
+        successMessage: "De-Activation Success"
         recursive: true
         availability:
           multiple: true
@@ -277,6 +289,9 @@ subApps:
         command: activateProd
         icon: icon-publish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
         recursive: true
         availability:
           multiple: true
@@ -286,6 +301,9 @@ subApps:
         catalog: versioned
         icon: icon-unpublish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "De-Activation Failed"
+        failureMessage: "De-Activation Failed"
+        successMessage: "De-Activation Success"
         recursive: true
         availability:
           multiple: true
@@ -295,6 +313,9 @@ subApps:
         command: activateQA
         icon: icon-publish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
         recursive: true
         availability:
           multiple: true
@@ -304,6 +325,9 @@ subApps:
         catalog: versioned
         icon: icon-unpublish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "De-Activation Failed"
+        failureMessage: "De-Activation Failed"
+        successMessage: "De-Activation Success"
         recursive: true
         availability:
           multiple: true
@@ -313,6 +337,9 @@ subApps:
         command: activateDev
         icon: icon-publish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
         recursive: true
         availability:
           multiple: true
@@ -322,6 +349,9 @@ subApps:
         catalog: versioned
         icon: icon-unpublish
         class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "De-Activation Failed"
+        failureMessage: "De-Activation Failed"
+        successMessage: "De-Activation Success"
         recursive: true
         availability:
           multiple: true
