@@ -1,16 +1,12 @@
-package com.sharecare.cms.articles.ui.tag;
+package com.sharecare.cms.publishing.commons.ui.taglib.tag;
 
-import java.util.List;
-import java.util.function.BiConsumer;
-
-import com.sharecare.cms.articles.schema.ArticleJCRSchema;
-import com.sharecare.cms.articles.ui.tag.components.SearchFieldComponent;
-import com.sharecare.cms.articles.ui.tag.components.SearchResultsTable;
-import com.sharecare.cms.articles.ui.tag.components.SelectTagDropdown;
-import com.sharecare.cms.articles.ui.tag.remote.ResourceNotFoundException;
-import com.sharecare.cms.articles.ui.tag.remote.TagResult;
-import com.sharecare.cms.articles.ui.tag.remote.TagService;
-import com.sharecare.cms.articles.ui.tag.remote.TopicResult;
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.components.SearchFieldComponent;
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.components.SearchResultsTable;
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.components.SelectTagDropdown;
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.ResourceNotFoundException;
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TagResult;
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TagService;
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TopicResult;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.data.util.PropertysetItem;
@@ -20,14 +16,21 @@ import info.magnolia.ui.vaadin.integration.jcr.JcrNodeAdapter;
 import lombok.Getter;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.List;
+import java.util.function.BiConsumer;
+
 @Getter
 public class PrimaryTagField extends CustomField<PropertysetItem> {
 
 
+	public static final String PRIMARY_TAG_FIELD = "primaryTag";
+	public static final String PRIMARY_TAG_TITLE_FIELD = "primaryTagTitle";
+	public static final String TOPIC_URI_FIELD = "topicUri";
+
 	private static final String SELECTED_URI_LABEL = "Selected Article Uri:";
 	private static final String SELECTED_PRIMARY_TAG_LABEL = "Selected Primary Tag:";
 
-	private final TagService tagService;
+	private final TagService     tagService;
 	private final JcrNodeAdapter currentItem;
 
 	public PrimaryTagField(TagService tagService, JcrNodeAdapter currentItem) {
@@ -65,9 +68,9 @@ public class PrimaryTagField extends CustomField<PropertysetItem> {
 	private void initSelectedLabels() {
 		PropertysetItem savedValues = getValue();
 		if (savedValues != null) {
-			String articleUri = isNullOrEmpty(savedValues.getItemProperty(ArticleJCRSchema.articleUriWebPath.name()));
-			String primaryTag = isNullOrEmpty(savedValues.getItemProperty(ArticleJCRSchema.primaryTag.name()));
-			String primaryTagTitle = isNullOrEmpty(savedValues.getItemProperty(ArticleJCRSchema.primaryTagTitle.name()));
+			String articleUri = isNullOrEmpty(savedValues.getItemProperty("articleUriWebPath")); // TODO FIX THIS
+			String primaryTag = isNullOrEmpty(savedValues.getItemProperty(PRIMARY_TAG_FIELD));
+			String primaryTagTitle = isNullOrEmpty(savedValues.getItemProperty(PRIMARY_TAG_TITLE_FIELD));
 			articleUriLabel = initLabel(SELECTED_URI_LABEL, articleUri, articleUriLabel);
 			primaryTagLabel = initLabelPrimaryTagLabel(primaryTagTitle, primaryTag);
 		}
@@ -100,16 +103,16 @@ public class PrimaryTagField extends CustomField<PropertysetItem> {
 				String topicUri = topic.getUri();
 				String articleUriFullPath = buildArticleUriLabel(topicUri, getCurrentItem().getNodeName());
 				initLabel(SELECTED_URI_LABEL, articleUriFullPath, articleUriLabel);
-				propertysetItem.addItemProperty(ArticleJCRSchema.topicUri.name(), new ObjectProperty<>(topicUri));
-				propertysetItem.addItemProperty(ArticleJCRSchema.articleUriWebPath.name(), new ObjectProperty<>(articleUriFullPath));
+				propertysetItem.addItemProperty(TOPIC_URI_FIELD, new ObjectProperty<>(topicUri));
+				propertysetItem.addItemProperty("articleUriWebPath", new ObjectProperty<>(articleUriFullPath)); // TODO FIX THIS
 			}
 		} catch (ResourceNotFoundException r) {
 			// its ok. Tag has no associated topic
 		}
 
 		initLabelPrimaryTagLabel(tag.getTitle(), tag.getId());
-		propertysetItem.addItemProperty(ArticleJCRSchema.primaryTag.name(), new ObjectProperty<>(tag.getId()));
-		propertysetItem.addItemProperty(ArticleJCRSchema.primaryTagTitle.name(), new ObjectProperty<>(tag.getTitle()));
+		propertysetItem.addItemProperty(PRIMARY_TAG_FIELD, new ObjectProperty<>(tag.getId()));
+		propertysetItem.addItemProperty(PRIMARY_TAG_TITLE_FIELD, new ObjectProperty<>(tag.getTitle()));
 
 		getPropertyDataSource().setValue(propertysetItem);
 	};
@@ -134,10 +137,6 @@ public class PrimaryTagField extends CustomField<PropertysetItem> {
 
 	private String buildArticleUriLabel(String topicUri, String nodeName) {
 		return String.format("/health/%s/article/%s", topicUri, nodeName).toLowerCase();
-	}
-
-	private String buildArticleUri(String topicUri, String nodeName) {
-		return String.format("%s-%s", topicUri, nodeName).toLowerCase();
 	}
 
 	@Override

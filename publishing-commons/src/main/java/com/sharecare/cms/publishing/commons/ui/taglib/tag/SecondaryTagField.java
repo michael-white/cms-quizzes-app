@@ -1,13 +1,9 @@
-package com.sharecare.cms.articles.ui.tag;
-
-import java.util.*;
-import java.util.function.BiConsumer;
+package com.sharecare.cms.publishing.commons.ui.taglib.tag;
 
 import com.google.common.collect.Lists;
-import com.sharecare.cms.articles.schema.ArticleJCRSchema;
-import com.sharecare.cms.articles.ui.tag.components.SelectTagDropdown;
-import com.sharecare.cms.articles.ui.tag.remote.TagResult;
-import com.sharecare.cms.articles.ui.tag.remote.TagService;
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.components.SelectTagDropdown;
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TagResult;
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TagService;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.data.util.PropertysetItem;
@@ -15,7 +11,15 @@ import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.Reindeer;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.function.BiConsumer;
+
 public class SecondaryTagField  extends CustomField<PropertysetItem> {
+
+	public static final String SECONDARY_TAG_FIELD = "secondaryTag";
 
 	private final TagService tagService;
 
@@ -64,7 +68,7 @@ public class SecondaryTagField  extends CustomField<PropertysetItem> {
 		VerticalLayout verticalLayout = new VerticalLayout();
 		PropertysetItem savedValues = getValue();
 		if (savedValues != null) {
-			List<String> tags =  isNullOrEmpty(savedValues.getItemProperty(ArticleJCRSchema.secondaryTag.name()));
+			List<String> tags =  isNullOrEmpty(savedValues.getItemProperty(SECONDARY_TAG_FIELD));
 			if (!tags.isEmpty()) {
 				tags.forEach(tag -> verticalLayout.addComponent(new Label(tag)));
 			}
@@ -92,7 +96,7 @@ public class SecondaryTagField  extends CustomField<PropertysetItem> {
 
 		PropertysetItem propertysetItem = new PropertysetItem();
 
-		propertysetItem.addItemProperty(ArticleJCRSchema.secondaryTag.name(), new ObjectProperty<>(tagTrain.values()));
+		propertysetItem.addItemProperty(SECONDARY_TAG_FIELD, new ObjectProperty<>(tagTrain.values()));
 
 		getPropertyDataSource().setValue(propertysetItem);
 	};

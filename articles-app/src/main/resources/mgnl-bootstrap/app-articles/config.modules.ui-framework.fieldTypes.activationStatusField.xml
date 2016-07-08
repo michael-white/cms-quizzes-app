@@ -10,10 +10,10 @@
     <sv:value>432f1124-f07e-49e8-b06d-a6c191396380</sv:value>
   </sv:property>
   <sv:property sv:name="definitionClass" sv:type="String">
-    <sv:value>com.sharecare.cms.articles.ui.activation.EnvironmentActivationDefinition</sv:value>
+    <sv:value>com.sharecare.cms.publishing.commons.ui.taglib.activation.EnvironmentActivationDefinition</sv:value>
   </sv:property>
   <sv:property sv:name="factoryClass" sv:type="String">
-    <sv:value>com.sharecare.cms.articles.ui.activation.EnvironmentActivationFieldFactory</sv:value>
+    <sv:value>com.sharecare.cms.publishing.commons.ui.taglib.activation.EnvironmentActivationFieldFactory</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:createdBy" sv:type="String">
     <sv:value>admin</sv:value>

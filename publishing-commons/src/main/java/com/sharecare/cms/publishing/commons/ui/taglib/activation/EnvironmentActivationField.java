@@ -1,18 +1,22 @@
-package com.sharecare.cms.articles.ui.activation;
+package com.sharecare.cms.publishing.commons.ui.taglib.activation;
+
+import com.vaadin.data.Property;
+import com.vaadin.data.util.PropertysetItem;
+import com.vaadin.server.ExternalResource;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.CustomField;
+import com.vaadin.ui.Link;
+import com.vaadin.ui.VerticalLayout;
+import info.magnolia.ui.vaadin.integration.jcr.JcrItemAdapter;
+import lombok.Getter;
 
 import java.util.List;
 import java.util.Map;
 
-import com.sharecare.cms.articles.schema.ArticleJCRSchema;
-import com.vaadin.data.Property;
-import com.vaadin.data.util.PropertysetItem;
-import com.vaadin.server.ExternalResource;
-import com.vaadin.ui.*;
-import info.magnolia.ui.vaadin.integration.jcr.JcrItemAdapter;
-import lombok.Getter;
-
 @Getter
 public class EnvironmentActivationField  extends CustomField<PropertysetItem> {
+	
+	public static final String ACTIVE_STATUS_FIELD = "activeStatus";
 
 	private  JcrItemAdapter currentItem;
 	private  Map<String, String> webHosts;
@@ -32,7 +36,7 @@ public class EnvironmentActivationField  extends CustomField<PropertysetItem> {
 
 		PropertysetItem savedValues = getValue();
 		if (savedValues != null) {
-			Property savedProperty = savedValues.getItemProperty(ArticleJCRSchema.activeStatus.name());
+			Property savedProperty = savedValues.getItemProperty(ACTIVE_STATUS_FIELD);
 
 			if (savedProperty != null && savedProperty.getValue() instanceof List) {
 				List<String> envList = (List<String>)savedProperty.getValue();
@@ -45,7 +49,7 @@ public class EnvironmentActivationField  extends CustomField<PropertysetItem> {
 
 	private Component generateLink(String environment) {
 		String host = webHosts.get(environment);
-		String articleUri = getCurrentItem().getItemProperty(ArticleJCRSchema.articleUriWebPath.name()).toString();
+		String articleUri = getCurrentItem().getItemProperty("articleUriWebPath").toString(); // TODO Fix this
 		Link link = new Link(environment.toUpperCase(), new ExternalResource(host + articleUri));
 		link.setTargetName("_blank");
 		return link;

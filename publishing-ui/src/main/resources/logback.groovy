@@ -7,6 +7,7 @@ import net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder
 
 import static ch.qos.logback.classic.Level.DEBUG
 import static ch.qos.logback.classic.Level.ERROR
+import static ch.qos.logback.classic.Level.INFO
 
 if ("dev".equals(System.getProperty("env"))) {
     appender("APP_LOG", ConsoleAppender) {
@@ -14,6 +15,11 @@ if ("dev".equals(System.getProperty("env"))) {
             pattern = "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
         }
     }
+
+    root(INFO, ["APP_LOG"])
+    logger("com.sharecare", DEBUG, ["APP_LOG"])
+    //logger("org.eclipse.jetty", WARN, ["stdout"])
+
 } else {
     appender("APP_LOG", FileAppender) {
         file = System.getProperty("app.log")
@@ -24,11 +30,11 @@ if ("dev".equals(System.getProperty("env"))) {
             providers = jsprov
         }
     }
+
+    root(ERROR, ["APP_LOG"])
+    logger("com.sharecare", DEBUG, ["APP_LOG"])
 }
 
 
 
 
-root(ERROR, ["APP_LOG"])
-logger("com.sharecare", DEBUG, ["APP_LOG"])
-//logger("org.eclipse.jetty", WARN, ["stdout"])

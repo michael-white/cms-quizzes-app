@@ -3,22 +3,23 @@ package com.sharecare.cms.articles.activation.rules;
 import javax.inject.Inject;
 
 import com.sharecare.cms.articles.configuration.ArticlesModuleConfig;
+import com.sharecare.cms.publishing.commons.configuration.CommonsModuleConfig;
 import info.magnolia.ui.api.availability.AbstractAvailabilityRule;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class IsAllowedForDevRule extends AbstractAvailabilityRule {
 
-	private final ArticlesModuleConfig articlesModuleConfig;
+	private final CommonsModuleConfig commonsModuleConfig;
 
 	@Inject
-	public IsAllowedForDevRule(ArticlesModuleConfig articlesModuleConfig) {
-		this.articlesModuleConfig = articlesModuleConfig;
+	public IsAllowedForDevRule(CommonsModuleConfig commonsModuleConfig) {
+		this.commonsModuleConfig = commonsModuleConfig;
 	}
 
 	@Override
 	protected boolean isAvailableForItem(Object itemId) {
-		return  articlesModuleConfig.getEnvironment().equals(ArticlesModuleConfig.Environments.dev.name());
+		return  commonsModuleConfig.getEnvironment().equals(CommonsModuleConfig.Environments.dev.name());
 
 	}
 }

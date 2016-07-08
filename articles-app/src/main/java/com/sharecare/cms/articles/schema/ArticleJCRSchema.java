@@ -29,12 +29,10 @@ public enum ArticleJCRSchema {
 	noIndexFollow,
 	canonicalReference,
 	imageUpload,
-	primaryTag,
-	primaryTagTitle,
-	secondaryTag,
 	contentFlags,
 	segmentSelect,
-	activeStatus;
+	mentions,
+	authors;
 
 	public static ArticleJCRSchema forName(String field) {
 		for(ArticleJCRSchema v : values()) {

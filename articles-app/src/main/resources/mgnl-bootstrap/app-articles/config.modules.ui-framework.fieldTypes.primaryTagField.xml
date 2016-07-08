@@ -7,10 +7,10 @@
     <sv:value>mix:lockable</sv:value>
   </sv:property>
   <sv:property sv:name="definitionClass" sv:type="String">
-    <sv:value>com.sharecare.cms.articles.ui.tag.PrimaryTagFieldDefinition</sv:value>
+    <sv:value>com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagFieldDefinition</sv:value>
   </sv:property>
   <sv:property sv:name="factoryClass" sv:type="String">
-    <sv:value>com.sharecare.cms.articles.ui.tag.PrimaryTagFieldFactory</sv:value>
+    <sv:value>com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagFieldFactory</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:createdBy" sv:type="String">
     <sv:value>admin</sv:value>

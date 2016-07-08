@@ -3,8 +3,9 @@
 <module>
   <name>publishing-commons</name>
   <displayName>Publishing Common Utilities</displayName>
+  <class>com.sharecare.cms.publishing.commons.configuration.CommonsModuleConfig</class>
   <versionHandler>com.sharecare.cms.publishing.commons.bootstrap.ConfigVersionHandler</versionHandler>
-  <version>1.1</version>
+  <version>1.4</version>
 
   <components>
     <id>main</id> <!-- Container ID -->

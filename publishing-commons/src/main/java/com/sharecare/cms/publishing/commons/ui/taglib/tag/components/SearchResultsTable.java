@@ -1,18 +1,18 @@
-package com.sharecare.cms.articles.ui.tag.components;
+package com.sharecare.cms.publishing.commons.ui.taglib.tag.components;
+
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TagResult;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.CustomComponent;
+import com.vaadin.ui.Table;
 
 import java.util.List;
 import java.util.function.BiConsumer;
 
-import com.google.common.base.Strings;
-import com.sharecare.cms.articles.ui.tag.remote.TagResult;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.CustomComponent;
-import com.vaadin.ui.Table;
-import static com.google.common.base.Strings.*;
+import static com.google.common.base.Strings.nullToEmpty;
 
 public class SearchResultsTable extends CustomComponent {
 
-	private final BiConsumer<Component, TagResult>  tagSelectedConsumer;
+	private final BiConsumer<Component, TagResult> tagSelectedConsumer;
 
 	public SearchResultsTable(BiConsumer<Component, TagResult> tagSelectedConsumer) {
 		this.tagSelectedConsumer = tagSelectedConsumer;

@@ -1,12 +1,12 @@
-package com.sharecare.cms.articles.ui.tag.components;
+package com.sharecare.cms.publishing.commons.ui.taglib.tag.components;
 
+
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TagResult;
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TagService;
+import com.vaadin.ui.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.sharecare.cms.articles.ui.tag.remote.TagResult;
-import com.sharecare.cms.articles.ui.tag.remote.TagService;
-import com.vaadin.ui.*;
 
 public class SearchFieldComponent extends CustomComponent {
 
@@ -42,7 +42,7 @@ public class SearchFieldComponent extends CustomComponent {
 		private final TextField tagIdField;
 		private final TextField keywordField;
 
-		public SearchTagButton(TextField tagIdField, TextField keywordField) {
+		SearchTagButton(TextField tagIdField, TextField keywordField) {
 			this.tagIdField = tagIdField;
 			this.keywordField = keywordField;
 
@@ -51,7 +51,7 @@ public class SearchFieldComponent extends CustomComponent {
 			setCompositionRoot(button);
 		}
 
-		public void search(Button.ClickEvent event) {
+		void search(Button.ClickEvent event) {
 			resultsTable.populateResultsTable(searchTags());
 			resultsTable.setVisible(true);
 		}

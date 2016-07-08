@@ -1,24 +1,19 @@
-package com.sharecare.cms.articles.ui.tag;
-
-import java.util.List;
+package com.sharecare.cms.publishing.commons.ui.taglib.activation;
 
 import com.google.common.collect.Lists;
-import com.sharecare.cms.articles.schema.ArticleJCRSchema;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.PropertysetItem;
 import info.magnolia.ui.api.i18n.I18NAuthoringSupport;
 import info.magnolia.ui.form.field.definition.ConfiguredFieldDefinition;
 import info.magnolia.ui.form.field.transformer.basic.BasicTransformer;
 
-public class TagFieldCompositeTransformer extends BasicTransformer<PropertysetItem> {
+import java.util.List;
 
-	private List<String> fieldsName = Lists.newArrayList(ArticleJCRSchema.topicUri.name(),
-			ArticleJCRSchema.articleUriWebPath.name(),
-			ArticleJCRSchema.primaryTag.name(),
-			ArticleJCRSchema.primaryTagTitle.name(),
-			ArticleJCRSchema.secondaryTag.name());
+public class ActivationStatusCompositeTransformer extends BasicTransformer<PropertysetItem> {
 
-	public TagFieldCompositeTransformer(Item relatedFormItem, ConfiguredFieldDefinition definition, Class<PropertysetItem> type, I18NAuthoringSupport i18NAuthoringSupport) {
+	private List<String> fieldsName = Lists.newArrayList(EnvironmentActivationField.ACTIVE_STATUS_FIELD);
+
+	public ActivationStatusCompositeTransformer(Item relatedFormItem, ConfiguredFieldDefinition definition, Class<PropertysetItem> type, I18NAuthoringSupport i18NAuthoringSupport) {
 		super(relatedFormItem, definition, type, i18NAuthoringSupport);
 	}
 

@@ -1,14 +1,10 @@
-package com.sharecare.cms.articles.ui.tag.remote;
-
-import javax.inject.Inject;
-import java.io.IOException;
-import java.util.List;
+package com.sharecare.cms.publishing.commons.ui.taglib.tag.remote;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.sharecare.cms.articles.configuration.ArticlesModuleConfig;
-import com.sharecare.cms.articles.configuration.RemoteServerResourceConfig;
+import com.sharecare.cms.publishing.commons.configuration.CommonsModuleConfig;
+import com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.StatusLine;
@@ -21,6 +17,10 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
+import javax.inject.Inject;
+import java.io.IOException;
+import java.util.List;
+
 @Slf4j
 public class RemoteTagService implements TagService {
 
@@ -32,8 +32,8 @@ public class RemoteTagService implements TagService {
 	private final BasicAuthCredentials basicAuthCredentials;
 
 	@Inject
-	public RemoteTagService(ArticlesModuleConfig articlesModuleConfig) {
-		RemoteServerResourceConfig tagResource = articlesModuleConfig.getTagResource();
+	public RemoteTagService(CommonsModuleConfig commonsModuleConfig) {
+		RemoteServerResourceConfig tagResource = commonsModuleConfig.getTagResource();
 		this.serverInfo = new ServerInfo(tagResource.getHostProtocol(), tagResource.getHostAddress(), tagResource.getHostPort());
 		this.basicAuthCredentials = new BasicAuthCredentials(tagResource.getUsername(), tagResource.getPassword());
 	}

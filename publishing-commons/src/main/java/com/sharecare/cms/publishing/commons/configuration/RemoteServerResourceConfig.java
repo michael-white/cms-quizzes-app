@@ -1,4 +1,4 @@
-package com.sharecare.cms.articles.configuration;
+package com.sharecare.cms.publishing.commons.configuration;
 
 import lombok.Data;
 import lombok.Getter;

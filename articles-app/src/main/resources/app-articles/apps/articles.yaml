@@ -651,25 +651,38 @@ subApps:
             fields:
               - name: Notes
                 label: Notes
+                height: 300
                 class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+              - name: authors
+                class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
+                label: Authors
+                field:
+                    name: author
+                    class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: mentions
+                class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
+                label: Authors
+                field:
+                    name: mention
+                    class: info.magnolia.ui.form.field.definition.TextFieldDefinition
           - name: tags
             label: Tags
             fields:
               - name: primaryTag
                 label: "Primary Tag"
-                class: com.sharecare.cms.articles.ui.tag.PrimaryTagFieldDefinition
-                transformerClass: com.sharecare.cms.articles.ui.tag.TagFieldCompositeTransformer
+                class: com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagFieldDefinition
+                transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.tag.TagFieldCompositeTransformer
               - name: secondaryTag
                 label: "Secondary Tag"
-                class: com.sharecare.cms.articles.ui.tag.SecondaryTagFieldDefinition
-                transformerClass: com.sharecare.cms.articles.ui.tag.TagFieldCompositeTransformer
+                class: com.sharecare.cms.publishing.commons.ui.taglib.tag.SecondaryTagFieldDefinition
+                transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.tag.TagFieldCompositeTransformer
           - name: activationStatus
             label: Activation
             fields:
               - name: activeStatus
                 label: "Activated on:"
-                class: com.sharecare.cms.articles.ui.activation.EnvironmentActivationDefinition
-                transformerClass: com.sharecare.cms.articles.ui.activation.ActivationStatusCompositeTransformer
+                class: com.sharecare.cms.publishing.commons.ui.taglib.activation.EnvironmentActivationDefinition
+                transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.activation.ActivationStatusCompositeTransformer
       nodeType:
         icon: icon-items
         name: mgnl:article

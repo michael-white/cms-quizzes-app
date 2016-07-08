@@ -13,6 +13,8 @@ import com.google.common.collect.Maps;
 import com.sharecare.articles.sdk.model.Article;
 import com.sharecare.articles.sdk.model.Tag;
 import com.sharecare.cms.articles.schema.ArticleJCRSchema;
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagField;
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.SecondaryTagField;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -76,7 +78,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
             if (uploadResult.isPresent()) {
                 ArticlesUploadResult ur = uploadResult.get();
                 builder.imageUrl(ur.getUrl())
-                        .imageId(ur.getId());
+                       .imageId(ur.getId());
             }
 
             map.put(l.name(), builder);
@@ -86,115 +88,125 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 
     private void populateBuilder(Article.ArticleBuilder builder, String field, String value) {
 
-        ArticleJCRSchema fieldName = ArticleJCRSchema.forName(field);
-        if (fieldName == null) return;
+        if (PrimaryTagField.PRIMARY_TAG_FIELD.equals(field)) {
+            builder.primaryTag(new Tag(value, "tag"));
+        } else {
+            ArticleJCRSchema fieldName = ArticleJCRSchema.forName(field);
+            if (fieldName == null) return;
 
-        switch (fieldName) {
-            case body:
-                builder.body(value);
-                break;
-            case title:
-                builder.title(value);
-                break;
-            case subHead:
-                builder.subHead(value);
-                break;
-            case topicUri:
-                builder.topicUri(value);
-                break;
-            case bylineUrl:
-                builder.byLineUri(value);
-                break;
-            case byline:
-                builder.byLine(value);
-                break;
-            case bylineUrlOptionSelect:
-                builder.byLineOption(value);
-                break;
-            case realAgeOptionSelect:
-                builder.realAge(Boolean.valueOf(value));
-                break;
-            case callOutBody:
-                builder.callOutBody(value);
-                break;
-            case videoId:
-                builder.videoId(value);
-                break;
-            case playerId:
-                builder.playerId(value);
-                break;
-            case videoTitle:
-                builder.videoTitle(value);
-            case videoTeaser:
-                builder.videoTeaser(value);
-                break;
-            case pageAndMetaTitle:
-                builder.metaTitle(Collections.singletonList(value));
-                break;
-            case metaDescription:
-                builder.metaDescription(Collections.singletonList(value));
-                break;
-            case metaKeywords:
-                builder.keywords(Splitter.on(",").splitToList(value));
-                break;
-            case hasSynviscComScore:
-                builder.hasSynviscComScore(Boolean.valueOf(value));
-                break;
-            case ogLabel:
-                builder.ogLabel(value);
-                break;
-            case disableSocial:
-                builder.disableSocialButtons(Boolean.valueOf(value));
-                break;
-            case ogType:
-                builder.ogType(value);
-                break;
-            case ogImage:
-                builder.ogImage(value);
-                break;
-            case ogTitle:
-                builder.ogTitle(value);
-                break;
-            case ogDescription:
-                builder.ogDescription(value);
-                break;
-            case ogUrl:
-                builder.ogUrl(value);
-                break;
-            case noIndexFollow:
-                builder.noIndexFollow(Boolean.valueOf(value));
-                break;
-            case canonicalReference:
-                builder.canonicalReference(value);
-                break;
-            case primaryTag:
-                builder.primaryTag(new Tag(value, "tag"));
-                break;
-            case contentFlags:
-                builder.contentFlags(Collections.singletonList(value));
-                break;
-            default:
-                break;
+            switch (fieldName) {
+                case body:
+                    builder.body(value);
+                    break;
+                case title:
+                    builder.title(value);
+                    break;
+                case subHead:
+                    builder.subHead(value);
+                    break;
+                case topicUri:
+                    builder.topicUri(value);
+                    break;
+                case bylineUrl:
+                    builder.byLineUri(value);
+                    break;
+                case byline:
+                    builder.byLine(value);
+                    break;
+                case bylineUrlOptionSelect:
+                    builder.byLineOption(value);
+                    break;
+                case realAgeOptionSelect:
+                    builder.realAge(Boolean.valueOf(value));
+                    break;
+                case callOutBody:
+                    builder.callOutBody(value);
+                    break;
+                case videoId:
+                    builder.videoId(value);
+                    break;
+                case playerId:
+                    builder.playerId(value);
+                    break;
+                case videoTitle:
+                    builder.videoTitle(value);
+                case videoTeaser:
+                    builder.videoTeaser(value);
+                    break;
+                case pageAndMetaTitle:
+                    builder.metaTitle(Collections.singletonList(value));
+                    break;
+                case metaDescription:
+                    builder.metaDescription(Collections.singletonList(value));
+                    break;
+                case metaKeywords:
+                    builder.keywords(Splitter.on(",").splitToList(value));
+                    break;
+                case hasSynviscComScore:
+                    builder.hasSynviscComScore(Boolean.valueOf(value));
+                    break;
+                case ogLabel:
+                    builder.ogLabel(value);
+                    break;
+                case disableSocial:
+                    builder.disableSocialButtons(Boolean.valueOf(value));
+                    break;
+                case ogType:
+                    builder.ogType(value);
+                    break;
+                case ogImage:
+                    builder.ogImage(value);
+                    break;
+                case ogTitle:
+                    builder.ogTitle(value);
+                    break;
+                case ogDescription:
+                    builder.ogDescription(value);
+                    break;
+                case ogUrl:
+                    builder.ogUrl(value);
+                    break;
+                case noIndexFollow:
+                    builder.noIndexFollow(Boolean.valueOf(value));
+                    break;
+                case canonicalReference:
+                    builder.canonicalReference(value);
+                    break;
+                case contentFlags:
+                    builder.contentFlags(Collections.singletonList(value));
+                    break;
+                default:
+                    break;
+
+            }
         }
     }
 
     private void populateBuilderMulti(Article.ArticleBuilder builder, String field, List<String> values) {
 
-        ArticleJCRSchema fieldName = ArticleJCRSchema.forName(field);
-        if (fieldName == null) return;
+        if (SecondaryTagField.SECONDARY_TAG_FIELD.equals(field)) {
+            builder.secondaryTags(values.stream().map(v -> new Tag(v, "tag")).collect(Collectors.toList()));
+        } else {
 
-        switch (fieldName) {
-            case segmentSelect:
-                builder.segments(values);
-                break;
-            case secondaryTag:
-                builder.secondaryTags(values.stream().map(v -> new Tag(v, "tag")).collect(Collectors.toList()));
-                break;
-            case contentFlags:
-                builder.contentFlags(values);
-                break;
-            default:
-                break;
+            ArticleJCRSchema fieldName = ArticleJCRSchema.forName(field);
+            if (fieldName == null) return;
+
+            switch (fieldName) {
+                case segmentSelect:
+                    builder.segments(values);
+                    break;
+                case contentFlags:
+                    builder.contentFlags(values);
+                    break;
+                case authors:
+                    // builder.contentFlags(values);
+                    break;
+                case mentions:
+                    // builder.contentFlags(values);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

@@ -1,11 +1,11 @@
-package com.sharecare.cms.articles.ui.tag.components;
+package com.sharecare.cms.publishing.commons.ui.taglib.tag.components;
 
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import com.sharecare.cms.articles.ui.tag.remote.TagResult;
-import com.sharecare.cms.articles.ui.tag.remote.TagService;
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TagResult;
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TagService;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.*;
@@ -16,7 +16,7 @@ import org.apache.commons.collections.CollectionUtils;
 public class SelectTagDropdown  extends CustomComponent {
 
 	private final BiConsumer<Component, TagResult> tagSelectedConsumer;
-	private final TagService tagService;
+	private final TagService                       tagService;
 
 
 	private SelectTagDropdown child;

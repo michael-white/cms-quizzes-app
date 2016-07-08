@@ -1,9 +1,6 @@
-package com.sharecare.cms.articles.ui.tag.remote;
+package com.sharecare.cms.publishing.commons.ui.taglib.tag.remote;
 
 import java.util.List;
-
-import com.sharecare.cms.articles.ui.tag.remote.TagResult;
-import com.sharecare.cms.articles.ui.tag.remote.TopicResult;
 
 public interface TagService {
 

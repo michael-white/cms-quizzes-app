@@ -10,10 +10,10 @@
     <sv:value>aa8763ab-b5a4-4212-9ccf-be51f94e0727</sv:value>
   </sv:property>
   <sv:property sv:name="definitionClass" sv:type="String">
-    <sv:value>com.sharecare.cms.articles.ui.tag.SecondaryTagFieldDefinition</sv:value>
+    <sv:value>com.sharecare.cms.publishing.commons.ui.taglib.tag.SecondaryTagFieldDefinition</sv:value>
   </sv:property>
   <sv:property sv:name="factoryClass" sv:type="String">
-    <sv:value>com.sharecare.cms.articles.ui.tag.SecondaryTagFieldFactory</sv:value>
+    <sv:value>com.sharecare.cms.publishing.commons.ui.taglib.tag.SecondaryTagFieldFactory</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:createdBy" sv:type="String">
     <sv:value>admin</sv:value>

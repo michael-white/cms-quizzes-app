@@ -3,21 +3,6 @@
   <sv:property sv:name="jcr:primaryType" sv:type="Name">
     <sv:value>mgnl:contentNode</sv:value>
   </sv:property>
-  <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>46573448-3a35-4759-93df-ca9a7ca8378a</sv:value>
-  </sv:property>
-  <sv:property sv:name="environment" sv:type="String">
-    <sv:value>qa</sv:value>
-  </sv:property>
-  <sv:property sv:name="jcr:createdBy" sv:type="String">
-    <sv:value>admin</sv:value>
-  </sv:property>
-  <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-    <sv:value>2016-06-21T10:36:28.541-04:00</sv:value>
-  </sv:property>
-  <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
-    <sv:value>superuser</sv:value>
-  </sv:property>
   <sv:node sv:name="publishing">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
       <sv:value>mgnl:contentNode</sv:value>
@@ -64,7 +49,7 @@
           <sv:value>3ed4a652-0cf3-4487-bf7e-ce93f571afaa</sv:value>
         </sv:property>
         <sv:property sv:name="class" sv:type="String">
-          <sv:value>com.sharecare.cms.articles.configuration.RemoteServerResourceConfig</sv:value>
+          <sv:value>com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig</sv:value>
         </sv:property>
         <sv:property sv:name="hostAddress" sv:type="String">
           <sv:value>localhost</sv:value>
@@ -128,7 +113,7 @@
           <sv:value>bedc3a18-32a1-4161-adaf-1b4b8d6f0c69</sv:value>
         </sv:property>
         <sv:property sv:name="class" sv:type="String">
-          <sv:value>com.sharecare.cms.articles.configuration.RemoteServerResourceConfig</sv:value>
+          <sv:value>com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig</sv:value>
         </sv:property>
         <sv:property sv:name="hostAddress" sv:type="String">
           <sv:value>api.mservices.sharecare.com</sv:value>
@@ -201,7 +186,7 @@
           <sv:value>65de68db-391a-46d7-87a8-5ef655adc393</sv:value>
         </sv:property>
         <sv:property sv:name="class" sv:type="String">
-          <sv:value>com.sharecare.cms.articles.configuration.RemoteServerResourceConfig</sv:value>
+          <sv:value>com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig</sv:value>
         </sv:property>
         <sv:property sv:name="hostAddress" sv:type="String">
           <sv:value>api.preview.sharecare.com</sv:value>
@@ -251,7 +236,7 @@
           <sv:value>76c250e2-b438-4f82-a7c4-ae1ad124ab00</sv:value>
         </sv:property>
         <sv:property sv:name="class" sv:type="String">
-          <sv:value>com.sharecare.cms.articles.configuration.RemoteServerResourceConfig</sv:value>
+          <sv:value>com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig</sv:value>
         </sv:property>
         <sv:property sv:name="hostAddress" sv:type="String">
           <sv:value>api.stage.sharecare.com</sv:value>
@@ -286,7 +271,7 @@
           <sv:value>b807c667-4f46-486a-93ee-709f77754ff7</sv:value>
         </sv:property>
         <sv:property sv:name="class" sv:type="String">
-          <sv:value>com.sharecare.cms.articles.configuration.RemoteServerResourceConfig</sv:value>
+          <sv:value>com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig</sv:value>
         </sv:property>
         <sv:property sv:name="hostAddress" sv:type="String">
           <sv:value>api.sharecare.com</sv:value>
@@ -329,35 +314,6 @@
         </sv:property>
       </sv:node>
     </sv:node>
-  </sv:node>
-  <sv:node sv:name="tagResource">
-    <sv:property sv:name="jcr:primaryType" sv:type="Name">
-      <sv:value>mgnl:contentNode</sv:value>
-    </sv:property>
-    <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>09646e3a-4f89-41df-a3bc-b7dc856c759f</sv:value>
-    </sv:property>
-    <sv:property sv:name="class" sv:type="String">
-      <sv:value>com.sharecare.cms.articles.configuration.RemoteServerResourceConfig</sv:value>
-    </sv:property>
-    <sv:property sv:name="hostAddress" sv:type="String">
-      <sv:value>data.mservices.sharecare.com</sv:value>
-    </sv:property>
-    <sv:property sv:name="hostPort" sv:type="String">
-      <sv:value>80</sv:value>
-    </sv:property>
-    <sv:property sv:name="hostProtocol" sv:type="String">
-      <sv:value>http</sv:value>
-    </sv:property>
-    <sv:property sv:name="jcr:createdBy" sv:type="String">
-      <sv:value>admin</sv:value>
-    </sv:property>
-    <sv:property sv:name="password" sv:type="String">
-      <sv:value>hswi</sv:value>
-    </sv:property>
-    <sv:property sv:name="username" sv:type="String">
-      <sv:value>sharecare</sv:value>
-    </sv:property>
   </sv:node>
   <sv:node sv:name="segments">
     <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -489,40 +445,5 @@
         <sv:value>hca&gt;hca-va&gt;rock-10</sv:value>
       </sv:property>
     </sv:node>
-  </sv:node>
-  <sv:node sv:name="webHost">
-    <sv:property sv:name="jcr:primaryType" sv:type="Name">
-      <sv:value>mgnl:contentNode</sv:value>
-    </sv:property>
-    <sv:property sv:name="jcr:uuid" sv:type="String">
-      <sv:value>8f3e6042-777e-41f4-9bf1-6bf39a86b885</sv:value>
-    </sv:property>
-    <sv:property sv:name="jcr:createdBy" sv:type="String">
-      <sv:value>admin</sv:value>
-    </sv:property>
-    <sv:property sv:name="localhost" sv:type="String">
-      <sv:value>http://localhost</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:created" sv:type="Date">
-      <sv:value>2016-04-06T14:54:35.278-04:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:createdBy" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-      <sv:value>2016-04-06T14:55:50.186-04:00</sv:value>
-    </sv:property>
-    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
-      <sv:value>superuser</sv:value>
-    </sv:property>
-    <sv:property sv:name="preview" sv:type="String">
-      <sv:value>https://preview.sharecare.com</sv:value>
-    </sv:property>
-    <sv:property sv:name="prod" sv:type="String">
-      <sv:value>https://sharecare.com</sv:value>
-    </sv:property>
-    <sv:property sv:name="stage" sv:type="String">
-      <sv:value>https://stage.sharecare.com</sv:value>
-    </sv:property>
   </sv:node>
 </sv:node>

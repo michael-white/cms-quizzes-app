@@ -1,13 +1,5 @@
 package com.sharecare.cms.articles.activation.publishing;
 
-import javax.inject.Inject;
-import javax.jcr.*;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.google.common.collect.Sets;
 import com.sharecare.articles.sdk.ArticlesApiClient;
 import com.sharecare.articles.sdk.BasicResponse;
@@ -18,11 +10,21 @@ import com.sharecare.cms.articles.activation.remote.ArticleAssetProcessor;
 import com.sharecare.cms.articles.activation.remote.ArticleRequestBuilder;
 import com.sharecare.cms.articles.activation.remote.ArticlesUploadResult;
 import com.sharecare.cms.articles.configuration.ArticlesModuleConfig;
-import com.sharecare.cms.articles.configuration.RemoteServerResourceConfig;
-import com.sharecare.cms.articles.schema.ArticleJCRSchema;
 import com.sharecare.cms.publishing.commons.activation.RemoteDataPublisher;
+import com.sharecare.cms.publishing.commons.configuration.CommonsModuleConfig;
+import com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.exception.ExceptionUtils;
+
+import javax.inject.Inject;
+import javax.jcr.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static com.sharecare.cms.publishing.commons.ui.taglib.activation.EnvironmentActivationField.ACTIVE_STATUS_FIELD;
 
 @Slf4j
 class RemoteArticlePublisher implements RemoteDataPublisher {
@@ -35,10 +37,11 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 
 	@Inject
 	public RemoteArticlePublisher(ArticlesModuleConfig articlesModuleConfig,
+								  CommonsModuleConfig commonsModuleConfig,
 								  ArticleRequestBuilder articleRequestBuilder,
 								  ArticleAssetProcessor articleAssetProcessor) {
 		this.articleAssetProcessor = articleAssetProcessor;
-		this.clientMap = buildApiClients(articlesModuleConfig.getPublishing().get(articlesModuleConfig.getEnvironment()));
+		this.clientMap = buildApiClients(articlesModuleConfig.getPublishing().get(commonsModuleConfig.getEnvironment()));
 		this.articleRequestBuilder = articleRequestBuilder;
 	}
 
@@ -99,14 +102,14 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 
 	private StatusUpdater<ValueFactory, Node, String> addEnvironmentCallback = (vf, item, environment) -> {
 		try {
-			if (item.hasProperty(ArticleJCRSchema.activeStatus.name())) {
-				Property p = item.getProperty(ArticleJCRSchema.activeStatus.name());
+			if (item.hasProperty(ACTIVE_STATUS_FIELD)) {
+				Property p = item.getProperty(ACTIVE_STATUS_FIELD);
 				Set<Value> values = Sets.newHashSet(p.getValues());
 				values.add(vf.createValue(environment));
 				p.setValue(values.toArray(new Value[values.size()]));
 			} else {
 				Value[] values = new Value[]{vf.createValue(environment)};
-				item.setProperty(ArticleJCRSchema.activeStatus.name(), values);
+				item.setProperty(ACTIVE_STATUS_FIELD, values);
 			}
 		} catch (RepositoryException e) {
 			log.error("Failed to update JCR {} ", ExceptionUtils.getFullStackTrace(e));
@@ -117,8 +120,8 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 
 	private StatusUpdater<ValueFactory, Node, String> removeEnvironmentCallback = (vf, item, environment) -> {
 		try {
-			if (item.hasProperty(ArticleJCRSchema.activeStatus.name())) {
-				Property p = item.getProperty(ArticleJCRSchema.activeStatus.name());
+			if (item.hasProperty(ACTIVE_STATUS_FIELD)) {
+				Property p = item.getProperty(ACTIVE_STATUS_FIELD);
 				Set<Value> values = Sets.newHashSet(p.getValues());
 				values.remove(vf.createValue(environment));
 				p.setValue(values.toArray(new Value[values.size()]));

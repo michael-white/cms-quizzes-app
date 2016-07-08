@@ -1,4 +1,4 @@
-package com.sharecare.cms.articles.ui.activation;
+package com.sharecare.cms.publishing.commons.ui.taglib.activation;
 
 import info.magnolia.ui.form.field.definition.ConfiguredFieldDefinition;
 

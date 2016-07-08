@@ -1,4 +1,4 @@
-package com.sharecare.cms.articles.ui.tag.remote;
+package com.sharecare.cms.publishing.commons.ui.taglib.tag.remote;
 
 public class BasicAuthCredentials {
 

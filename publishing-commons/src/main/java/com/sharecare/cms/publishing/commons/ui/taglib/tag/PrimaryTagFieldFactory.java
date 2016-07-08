@@ -1,8 +1,6 @@
-package com.sharecare.cms.articles.ui.tag;
+package com.sharecare.cms.publishing.commons.ui.taglib.tag;
 
-import javax.inject.Inject;
-
-import com.sharecare.cms.articles.ui.tag.remote.TagService;
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TagService;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.PropertysetItem;
 import com.vaadin.ui.Field;
@@ -11,9 +9,11 @@ import info.magnolia.ui.api.i18n.I18NAuthoringSupport;
 import info.magnolia.ui.form.field.factory.AbstractFieldFactory;
 import info.magnolia.ui.vaadin.integration.jcr.JcrNodeAdapter;
 
+import javax.inject.Inject;
+
 public class PrimaryTagFieldFactory extends AbstractFieldFactory<PrimaryTagFieldDefinition, PropertysetItem> {
 
-	private final TagService tagService;
+	private final TagService     tagService;
 	private final JcrNodeAdapter currentItem;
 
 

@@ -1,7 +1,6 @@
-package com.sharecare.cms.articles.ui.tag;
+package com.sharecare.cms.publishing.commons.ui.taglib.tag;
 
 import info.magnolia.ui.form.field.definition.ConfiguredFieldDefinition;
-import lombok.Data;
 
 public class PrimaryTagFieldDefinition extends ConfiguredFieldDefinition {
 
