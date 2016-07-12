@@ -93,9 +93,9 @@ apply plugin: 'idea'
 //
                 // Templating
                 "info.magnolia:magnolia-rendering:$magV",
-                "info.magnolia.templating:magnolia-templating-essentials-models:1.0-SNAPSHOT",
-                "info.magnolia.templating:magnolia-templating-essentials-parent:1.0-SNAPSHOT",
-                "info.magnolia.templating:magnolia-templating-essentials-imaging:1.0-SNAPSHOT",
+                "info.magnolia.templating:magnolia-templating-essentials-models:1.0-m7",
+                "info.magnolia.templating:magnolia-templating-essentials-parent:1.0-m7",
+                "info.magnolia.templating:magnolia-templating-essentials-imaging:1.0-m7",
                 "info.magnolia:magnolia-module-inplace-templating:2.4.2",
 
                 // Enterprise
