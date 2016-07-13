@@ -655,16 +655,13 @@ subApps:
                 class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
               - name: authors
                 class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
-                label: Authors
+                transformerClass: info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodePropertiesTransformer
+                label: "Authors"
                 field:
-                    name: author
-                    class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: mentions
-                class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
-                label: Authors
-                field:
-                    name: mention
-                    class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                    class: com.sharecare.cms.publishing.commons.ui.taglib.attribution.AuthorTagFieldDefinition
+                    label: Author
+                    transformerClass: info.magnolia.ui.form.field.transformer.composite.NoOpCompositeTransformer
+                    transformerClass: info.magnolia.ui.form.field.transformer.composite.NoOpCompositeTransformer
           - name: tags
             label: Tags
             fields:

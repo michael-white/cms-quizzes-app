@@ -16,7 +16,7 @@ buildscript {
 
 allprojects {
     apply plugin: 'java'
-apply plugin: 'idea'
+    apply plugin: 'idea'
     group 'com.sharecare.cms'
 
 
@@ -79,8 +79,10 @@ apply plugin: 'idea'
     dependencies {
 
         compile "info.magnolia:magnolia-core:$magV",
-
-                 // UI
+                compile("info.magnolia:magnolia-core:$magV") {
+                    exclude group: 'org.apache.httpcomponents'
+                },
+                // UI
                 "info.magnolia.ui:magnolia-ui-admincentral:$magV",
                 "info.magnolia.ui:magnolia-ui-workbench:$magV",
                 "info.magnolia.ui:magnolia-ui-api:$magV",
@@ -92,16 +94,19 @@ apply plugin: 'idea'
                 "info.magnolia.activation:magnolia-module-activation:5.4.2",
 //
                 // Templating
+                "info.magnolia:magnolia-templating:$magV",
                 "info.magnolia:magnolia-rendering:$magV",
                 "info.magnolia.templating:magnolia-templating-essentials-models:0.11",
                 "info.magnolia.templating:magnolia-templating-kit:0.11",
                 "info.magnolia.templating:magnolia-templating-essentials-imaging:0.11",
                 "info.magnolia:magnolia-module-inplace-templating:2.4.2",
+                "info.magnolia.pages:magnolia-pages:$magV",
+                "info.magnolia.pages:magnolia-pages-app:$magV",
+                "info.magnolia:magnolia-module-imaging:3.2.6",
 
                 // Enterprise
                 "info.magnolia.enterprise:magnolia-module-enterprise:$magV",
 
-                // DO I need this ?
                 "info.magnolia:magnolia-empty-webapp:$magV",
 
                 // DAM
@@ -144,7 +149,7 @@ apply plugin: 'idea'
                 "org.codehaus.groovy:groovy:2.4.3"
 
 
-                "info.magnolia:magnolia-module-standard-templating-kit:2.9.3"
+        "info.magnolia:magnolia-module-standard-templating-kit:2.9.5"
 
         testCompile group: 'junit', name: 'junit', version: '4.11'
 
