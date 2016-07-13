@@ -1,6 +1,15 @@
 package com.sharecare.cms.articles.activation.remote;
 
-import static java.util.stream.Collectors.*;
+import com.google.common.base.Splitter;
+import com.google.common.collect.Maps;
+import com.sharecare.articles.sdk.model.Article;
+import com.sharecare.articles.sdk.model.Author;
+import com.sharecare.articles.sdk.model.Tag;
+import com.sharecare.cms.articles.schema.ArticleJCRSchema;
+import com.sharecare.cms.publishing.commons.ui.taglib.attribution.AuthorTagField;
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagField;
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.SecondaryTagField;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.jcr.*;
 import java.util.*;
@@ -8,14 +17,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import com.google.common.base.Splitter;
-import com.google.common.collect.Maps;
-import com.sharecare.articles.sdk.model.Article;
-import com.sharecare.articles.sdk.model.Tag;
-import com.sharecare.cms.articles.schema.ArticleJCRSchema;
-import com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagField;
-import com.sharecare.cms.publishing.commons.ui.taglib.tag.SecondaryTagField;
-import lombok.extern.slf4j.Slf4j;
+import static java.util.stream.Collectors.toList;
 
 @Slf4j
 public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
@@ -29,7 +31,53 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
     @Override
     public List<Article> forNode(Node node, Optional<ArticlesUploadResult> uploadResult) throws RepositoryException {
         Map<String, Article.ArticleBuilder> localeArticles = initArticleLocaleMap(node, uploadResult);
-        PropertyIterator it = node.getProperties();
+
+        processSubNodes(node, localeArticles);
+        processProperties(node, localeArticles);
+
+        return localeArticles.values()
+                             .stream()
+                             .map(Article.ArticleBuilder::build)
+                             .collect(toList());
+    }
+
+    private void processSubNodes(Node node, Map<String, Article.ArticleBuilder> localeArticles) throws RepositoryException {
+        NodeIterator ni = node.getNodes();
+        while (ni.hasNext()) {
+            Node subNode = ni.nextNode();
+            ArticleJCRSchema fieldName = ArticleJCRSchema.forName(subNode.getName());
+            if (fieldName != null) {
+                final List<Author> authors = extractAuthors(subNode);
+                switch (fieldName) {
+                    case authors:
+                        localeArticles.forEach((l, b) -> b.authors(authors));
+                        break;
+                    case mentions:
+                        localeArticles.forEach((l, b) -> b.mentions(authors));
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
+    private List<Author> extractAuthors(Node subNode) throws RepositoryException {
+        NodeIterator authorsNodes = subNode.getNodes();
+        List<Author> authors = new ArrayList<>();
+        while (authorsNodes.hasNext()) {
+            Node n = authorsNodes.nextNode();
+            Property dataUriProp = n.getProperty(AuthorTagField.AUTHOR_DATA_URI_FIELD);
+            Property webUriProp = n.getProperty(AuthorTagField.AUTHOR_WEB_URI_FIELD);
+
+            Author author = new Author(dataUriProp.getString(), webUriProp.getString());
+            authors.add(author);
+        }
+        return authors;
+    }
+
+    private void processProperties(Node n, Map<String, Article.ArticleBuilder> localeArticles) throws RepositoryException {
+        PropertyIterator it = n.getProperties();
         while (it.hasNext()) {
             Property p = it.nextProperty();
             final String field = p.getName();
@@ -56,13 +104,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
                     localeArticles.forEach((k, v) -> populateBuilder(v, field, value));
                 }
             }
-
         }
-
-        return localeArticles.values()
-                             .stream()
-                             .map(Article.ArticleBuilder::build)
-                             .collect(toList());
     }
 
     private Map<String, Article.ArticleBuilder> initArticleLocaleMap(Node node, Optional<ArticlesUploadResult> uploadResult) throws RepositoryException {
@@ -197,12 +239,6 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
                     break;
                 case contentFlags:
                     builder.contentFlags(values);
-                    break;
-                case authors:
-                    // builder.contentFlags(values);
-                    break;
-                case mentions:
-                    // builder.contentFlags(values);
                     break;
                 default:
                     break;

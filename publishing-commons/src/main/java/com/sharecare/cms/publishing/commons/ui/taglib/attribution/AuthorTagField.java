@@ -13,10 +13,10 @@ import java.util.function.Consumer;
 public class AuthorTagField extends CustomField<PropertysetItem> {
 
 
-    private final String AUTHOR_ID_FIELD       = "id";
-    private final String AUTHOR_NAME_FIELD     = "name";
-    private final String AUTHOR_DATA_URI_FIELD = "dataUri";
-    private final String AUTHOR_WEB_URI_FIELD  = "webUri";
+    public static final String AUTHOR_ID_FIELD       = "id";
+    public static final String AUTHOR_NAME_FIELD     = "name";
+    public static final String AUTHOR_DATA_URI_FIELD = "dataUri";
+    public static final String AUTHOR_WEB_URI_FIELD  = "webUri";
 
     private VerticalLayout rootLayout;
 
@@ -90,11 +90,11 @@ public class AuthorTagField extends CustomField<PropertysetItem> {
 
     private Author hydrateStoredValue(PropertysetItem pi) {
         return Author.builder()
-                .id(pi.getItemProperty(AUTHOR_ID_FIELD).getValue().toString())
-                .name(pi.getItemProperty(AUTHOR_NAME_FIELD).getValue().toString())
-                .dataUri(pi.getItemProperty(AUTHOR_DATA_URI_FIELD).getValue().toString())
-                .webUri(pi.getItemProperty(AUTHOR_WEB_URI_FIELD).toString())
-                .build();
+                     .id(pi.getItemProperty(AUTHOR_ID_FIELD).getValue().toString())
+                     .name(pi.getItemProperty(AUTHOR_NAME_FIELD).getValue().toString())
+                     .dataUri(pi.getItemProperty(AUTHOR_DATA_URI_FIELD).getValue().toString())
+                     .webUri(pi.getItemProperty(AUTHOR_WEB_URI_FIELD).toString())
+                     .build();
     }
 
     @Override

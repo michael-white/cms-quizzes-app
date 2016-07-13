@@ -656,11 +656,18 @@ subApps:
               - name: authors
                 class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
                 transformerClass: info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodePropertiesTransformer
-                label: "Authors"
+                label: Authors
                 field:
                     class: com.sharecare.cms.publishing.commons.ui.taglib.attribution.AuthorTagFieldDefinition
                     label: Author
                     transformerClass: info.magnolia.ui.form.field.transformer.composite.NoOpCompositeTransformer
+              - name: mentions
+                class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
+                transformerClass: info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodePropertiesTransformer
+                label: Mentions
+                field:
+                    class: com.sharecare.cms.publishing.commons.ui.taglib.attribution.AuthorTagFieldDefinition
+                    label: Mention
                     transformerClass: info.magnolia.ui.form.field.transformer.composite.NoOpCompositeTransformer
           - name: tags
             label: Tags
