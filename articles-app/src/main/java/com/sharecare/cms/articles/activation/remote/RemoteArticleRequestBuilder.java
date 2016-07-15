@@ -2,7 +2,7 @@ package com.sharecare.cms.articles.activation.remote;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Maps;
-import com.sharecare.articles.sdk.model.Article;
+import com.sharecare.articles.sdk.model.ArticleRequest;
 import com.sharecare.articles.sdk.model.Tag;
 import com.sharecare.cms.articles.schema.ArticleJCRSchema;
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagField;
@@ -27,18 +27,18 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
     }
 
     @Override
-    public List<Article> forNode(Node node, Optional<ArticlesUploadResult> uploadResult) throws RepositoryException {
-        Map<String, Article.ArticleBuilder> localeArticles = initArticleLocaleMap(node, uploadResult);
+    public List<ArticleRequest> forNode(Node node, Optional<ArticlesUploadResult> uploadResult) throws RepositoryException {
+        Map<String, ArticleRequest.ArticleRequestBuilder> localeArticles = initArticleLocaleMap(node, uploadResult);
 
         processProperties(node, localeArticles);
 
         return localeArticles.values()
                              .stream()
-                             .map(Article.ArticleBuilder::build)
+                             .map(ArticleRequest.ArticleRequestBuilder::build)
                              .collect(toList());
     }
 
-    private void processProperties(Node n, Map<String, Article.ArticleBuilder> localeArticles) throws RepositoryException {
+    private void processProperties(Node n, Map<String, ArticleRequest.ArticleRequestBuilder> localeArticles) throws RepositoryException {
         PropertyIterator it = n.getProperties();
         while (it.hasNext()) {
             Property p = it.nextProperty();
@@ -52,7 +52,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
                     valueList.add(v.getString());
 
                 if (m.find()) {
-                    Article.ArticleBuilder builder = localeArticles.get(m.group(1));
+                    ArticleRequest.ArticleRequestBuilder builder = localeArticles.get(m.group(1));
                     populateBuilderMulti(builder, m.group(2), valueList);
                 } else {
                     localeArticles.forEach((k, v) -> populateBuilderMulti(v, field, valueList));
@@ -60,7 +60,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
             } else {
                 final String value = p.getString();
                 if (m.find()) {
-                    Article.ArticleBuilder builder = localeArticles.get(m.group(1));
+                    ArticleRequest.ArticleRequestBuilder builder = localeArticles.get(m.group(1));
                     populateBuilder(builder, m.group(2), value);
                 } else {
                     localeArticles.forEach((k, v) -> populateBuilder(v, field, value));
@@ -69,12 +69,12 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
         }
     }
 
-    private Map<String, Article.ArticleBuilder> initArticleLocaleMap(Node node, Optional<ArticlesUploadResult> uploadResult) throws RepositoryException {
+    private Map<String, ArticleRequest.ArticleRequestBuilder> initArticleLocaleMap(Node node, Optional<ArticlesUploadResult> uploadResult) throws RepositoryException {
 
-        Map<String, Article.ArticleBuilder> map = Maps.newHashMap();
+        Map<String, ArticleRequest.ArticleRequestBuilder> map = Maps.newHashMap();
 
         for (Locale l : Locale.values()) {
-            Article.ArticleBuilder builder = Article.builder()
+            ArticleRequest.ArticleRequestBuilder builder = ArticleRequest.builder()
                                                     .id(node.getIdentifier())
                                                     .articleUri(node.getName())
                                                     .locale(l.name());
@@ -90,7 +90,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
         return map;
     }
 
-    private void populateBuilder(Article.ArticleBuilder builder, String field, String value) {
+    private void populateBuilder(ArticleRequest.ArticleRequestBuilder builder, String field, String value) {
 
         if (PrimaryTagField.PRIMARY_TAG_FIELD.equals(field)) {
             builder.primaryTag(new Tag(value, "tag"));
@@ -186,7 +186,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
         }
     }
 
-    private void populateBuilderMulti(Article.ArticleBuilder builder, String field, List<String> values) {
+    private void populateBuilderMulti(ArticleRequest.ArticleRequestBuilder builder, String field, List<String> values) {
 
         if (SecondaryTagField.SECONDARY_TAG_FIELD.equals(field)) {
             builder.secondaryTags(values.stream().map(v -> new Tag(v, "tag")).collect(Collectors.toList()));

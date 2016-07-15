@@ -5,7 +5,7 @@ import com.sharecare.articles.sdk.ArticlesApiClient;
 import com.sharecare.articles.sdk.BasicResponse;
 import com.sharecare.articles.sdk.configuration.BasicAuthCredentials;
 import com.sharecare.articles.sdk.configuration.ServerInfo;
-import com.sharecare.articles.sdk.model.Article;
+import com.sharecare.articles.sdk.model.ArticleRequest;
 import com.sharecare.cms.articles.activation.remote.ArticleAssetProcessor;
 import com.sharecare.cms.articles.activation.remote.ArticleRequestBuilder;
 import com.sharecare.cms.articles.activation.remote.ArticlesUploadResult;
@@ -52,7 +52,7 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 			log.info("Publishing {}:{} content to {} ", node.getName(), node.getIdentifier(), environment);
 			ArticlesApiClient client = clientMap.get(environment);
 			Optional<ArticlesUploadResult> uploadResult = articleAssetProcessor.uploadAssetFrom(node);
-			List<Article> articleRequests = articleRequestBuilder.forNode(node, uploadResult);
+			List<ArticleRequest> articleRequests = articleRequestBuilder.forNode(node, uploadResult);
 
 			BasicResponse response = client.saveRequest().withData(articleRequests).execute();
 
