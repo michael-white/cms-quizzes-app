@@ -29,7 +29,7 @@
       <sv:value>com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig</sv:value>
     </sv:property>
     <sv:property sv:name="hostAddress" sv:type="String">
-      <sv:value>data.mservices.sharecare.com</sv:value>
+      <sv:value>data.sharecare.com</sv:value>
     </sv:property>
     <sv:property sv:name="hostPort" sv:type="String">
       <sv:value>80</sv:value>
