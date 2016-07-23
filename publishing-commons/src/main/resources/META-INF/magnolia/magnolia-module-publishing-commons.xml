@@ -5,7 +5,7 @@
   <displayName>Publishing Common Utilities</displayName>
   <class>com.sharecare.cms.publishing.commons.configuration.CommonsModuleConfig</class>
   <versionHandler>com.sharecare.cms.publishing.commons.bootstrap.ConfigVersionHandler</versionHandler>
-  <version>1.6</version>
+  <version>1.7</version>
 
   <components>
     <id>main</id> <!-- Container ID -->

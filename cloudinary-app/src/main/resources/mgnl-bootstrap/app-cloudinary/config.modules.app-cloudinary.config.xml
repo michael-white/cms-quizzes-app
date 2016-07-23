@@ -7,10 +7,10 @@
     <sv:value>1dcf343f-b4c1-4620-9f24-c6e68a1252b4</sv:value>
   </sv:property>
   <sv:property sv:name="apiKey" sv:type="String">
-    <sv:value>118291969656326</sv:value>
+    <sv:value>743131816472397</sv:value>
   </sv:property>
   <sv:property sv:name="cloudName" sv:type="String">
-    <sv:value>dandonov</sv:value>
+    <sv:value>sharecareqa</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:createdBy" sv:type="String">
     <sv:value>admin</sv:value>
@@ -28,6 +28,6 @@
     <sv:value>superuser</sv:value>
   </sv:property>
   <sv:property sv:name="secretAccessKey" sv:type="String">
-    <sv:value>rGzQp9AEy1s3ByE73-mUoYhtz5E</sv:value>
+    <sv:value>vJvVb7zIN21zSEpK80jxqPsJxAE</sv:value>
   </sv:property>
 </sv:node>
