@@ -640,12 +640,11 @@ subApps:
                 label: Canonical Reference
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: segmentSelect
-                class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+                class: com.sharecare.cms.publishing.commons.ui.taglib.segmentation.SegmentOptionGroupDefintion
                 multiselect: true
                 type: String
                 sortOptions: false
                 label: Segments visible for
-                path: /modules/app-articles/config/segments
           - name: editorial
             label: Editorial
             fields:

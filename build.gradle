@@ -14,6 +14,31 @@ buildscript {
     }
 }
 
+configurations.all {
+    resolutionStrategy {
+        // fail eagerly on version conflict (includes transitive dependencies)
+        // e.g. multiple different versions of the same dependency (group and name are equal)
+        force 'org.apache.httpcomponents:httpclient:4.3.5'
+
+//        failOnVersionConflict()
+
+        // force certain versions of dependencies (including transitive)
+        //  *append new forced modules:
+        //  *replace existing forced modules with new ones:
+
+        // add dependency substitution rules
+//        dependencySubstitution {
+//            substitute module('org.gradle:api') with project(':api')
+//            substitute project(':util') with module('org.gradle:util:3.0')
+//        }
+//
+//        // cache dynamic versions for 10 minutes
+//        cacheDynamicVersionsFor 10*60, 'seconds'
+//        // don't cache changing modules at all
+//        cacheChangingModulesFor 0, 'seconds'
+    }
+}
+
 allprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
@@ -140,6 +165,7 @@ allprojects {
                 "org.projectlombok:lombok:1.16.6",
                 "org.apache.commons:commons-vfs2:2.0",
                 "org.json:json:20160212",
+                "org.apache.httpcomponents:httpclient:4.3.5",
 
                 // Logger
                 "org.slf4j:jcl-over-slf4j:1.7.0",
