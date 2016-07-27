@@ -20,28 +20,31 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 @Getter
-public class PrimaryTagField extends CustomField<PropertysetItem> {
+public abstract class PrimaryTagField extends CustomField<PropertysetItem> {
 
 
 	public static final String PRIMARY_TAG_FIELD = "primaryTag";
 	public static final String PRIMARY_TAG_TITLE_FIELD = "primaryTagTitle";
 	public static final String TOPIC_URI_FIELD = "topicUri";
 
-	private static final String SELECTED_URI_LABEL = "Selected Article Uri:";
+	private static final String SELECTED_URI_LABEL = "Selected Content Uri:";
 	private static final String SELECTED_PRIMARY_TAG_LABEL = "Selected Primary Tag:";
 
 	private final TagService     tagService;
 	private final JcrNodeAdapter currentItem;
 
-	public PrimaryTagField(TagService tagService, JcrNodeAdapter currentItem) {
+	private final String contentUriJCRFieldName;
+
+	public PrimaryTagField(TagService tagService, JcrNodeAdapter currentItem, String contentUriJCRFieldName) {
 		this.tagService = tagService;
 		this.currentItem = currentItem;
+		this.contentUriJCRFieldName = contentUriJCRFieldName;
 	}
 
 
 	private VerticalLayout rootLayout;
 
-	private Label articleUriLabel;
+	private Label contentUriLabel;
 	private Label primaryTagLabel;
 
 	@Override
@@ -51,7 +54,7 @@ public class PrimaryTagField extends CustomField<PropertysetItem> {
 		rootLayout.setSizeFull();
 		rootLayout.setSpacing(true);
 
-		SearchResultsTable resultsTable = new SearchResultsTable(onTagSelected);
+		SearchResultsTable resultsTable = new SearchResultsTable(getOnTagSelected());
 		SearchFieldComponent searchFieldComponent = new SearchFieldComponent(resultsTable, tagService);
 		rootLayout.addComponent(searchFieldComponent);
 		rootLayout.addComponent(resultsTable);
@@ -68,10 +71,10 @@ public class PrimaryTagField extends CustomField<PropertysetItem> {
 	private void initSelectedLabels() {
 		PropertysetItem savedValues = getValue();
 		if (savedValues != null) {
-			String articleUri = isNullOrEmpty(savedValues.getItemProperty("articleUriWebPath")); // TODO FIX THIS
+			String contentUri = isNullOrEmpty(savedValues.getItemProperty(getContentUriJCRFieldName()));
 			String primaryTag = isNullOrEmpty(savedValues.getItemProperty(PRIMARY_TAG_FIELD));
 			String primaryTagTitle = isNullOrEmpty(savedValues.getItemProperty(PRIMARY_TAG_TITLE_FIELD));
-			articleUriLabel = initLabel(SELECTED_URI_LABEL, articleUri, articleUriLabel);
+			contentUriLabel = initLabel(SELECTED_URI_LABEL, contentUri, contentUriLabel);
 			primaryTagLabel = initLabelPrimaryTagLabel(primaryTagTitle, primaryTag);
 		}
 	}
@@ -82,9 +85,9 @@ public class PrimaryTagField extends CustomField<PropertysetItem> {
 
 
 	private HorizontalLayout initSelectTagComponents() {
-		List<TagResult> topLevelTags = tagService.getAllTopLevelTags();
+		List<TagResult> topLevelTags = getTagService().getAllTopLevelTags();
 		HorizontalLayout selectMenuLayout = new HorizontalLayout();
-		selectMenuLayout.addComponent(new SelectTagDropdown(topLevelTags, onTagSelected, tagService, selectMenuLayout));
+		selectMenuLayout.addComponent(new SelectTagDropdown(topLevelTags, getOnTagSelected(), getTagService(), selectMenuLayout));
 
 		return selectMenuLayout;
 	}
@@ -93,7 +96,6 @@ public class PrimaryTagField extends CustomField<PropertysetItem> {
 		return itemProperty != null ? itemProperty.toString() : StringUtils.EMPTY;
 	}
 
-
 	private BiConsumer<Component, TagResult> onTagSelected = (parent,tag) -> {
 		PropertysetItem propertysetItem = new PropertysetItem();
 
@@ -101,10 +103,10 @@ public class PrimaryTagField extends CustomField<PropertysetItem> {
 			TopicResult topic = getTagService().getTopicForTag(tag.getId());
 			if (topic != null) {
 				String topicUri = topic.getUri();
-				String articleUriFullPath = buildArticleUriLabel(topicUri, getCurrentItem().getNodeName());
-				initLabel(SELECTED_URI_LABEL, articleUriFullPath, articleUriLabel);
+				String contentUriFullPath = buildContentUriLabel(topicUri, getCurrentItem().getNodeName());
+				initLabel(SELECTED_URI_LABEL, contentUriFullPath, contentUriLabel);
 				propertysetItem.addItemProperty(TOPIC_URI_FIELD, new ObjectProperty<>(topicUri));
-				propertysetItem.addItemProperty("articleUriWebPath", new ObjectProperty<>(articleUriFullPath)); // TODO FIX THIS
+				propertysetItem.addItemProperty(getContentUriJCRFieldName(), new ObjectProperty<>(contentUriFullPath));
 			}
 		} catch (ResourceNotFoundException r) {
 			// its ok. Tag has no associated topic
@@ -116,6 +118,10 @@ public class PrimaryTagField extends CustomField<PropertysetItem> {
 
 		getPropertyDataSource().setValue(propertysetItem);
 	};
+
+	private String getContentUriJCRFieldName() {
+		return this.contentUriJCRFieldName;
+	}
 
 	private TagService getTagService() {
 		return tagService;
@@ -135,9 +141,8 @@ public class PrimaryTagField extends CustomField<PropertysetItem> {
 	}
 
 
-	private String buildArticleUriLabel(String topicUri, String nodeName) {
-		return String.format("/health/%s/article/%s", topicUri, nodeName).toLowerCase();
-	}
+	protected abstract String buildContentUriLabel(String topicUri, String nodeName);
+
 
 	@Override
 	public Class<? extends PropertysetItem> getType() {
