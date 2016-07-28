@@ -17,14 +17,16 @@ import java.util.Map;
 public class EnvironmentActivationField  extends CustomField<PropertysetItem> {
 	
 	public static final String ACTIVE_STATUS_FIELD = "activeStatus";
+	private final String webUriField;
 
 	private  JcrItemAdapter currentItem;
 	private  Map<String, String> webHosts;
 
-	public EnvironmentActivationField(JcrItemAdapter currentItem, Map<String, String> webHosts) {
+	public EnvironmentActivationField(JcrItemAdapter currentItem, Map<String, String> webHosts, String webUriField) {
 		super();
 		this.currentItem = currentItem;
 		this.webHosts = webHosts;
+		this.webUriField = webUriField;
 	}
 
 	@Override
@@ -49,7 +51,7 @@ public class EnvironmentActivationField  extends CustomField<PropertysetItem> {
 
 	private Component generateLink(String environment) {
 		String host = webHosts.get(environment);
-		String articleUri = getCurrentItem().getItemProperty("articleUriWebPath").toString(); // TODO Fix this
+		String articleUri = getCurrentItem().getItemProperty(webUriField).toString();
 		Link link = new Link(environment.toUpperCase(), new ExternalResource(host + articleUri));
 		link.setTargetName("_blank");
 		return link;

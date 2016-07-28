@@ -32,6 +32,6 @@ public class EnvironmentActivationFieldFactory extends AbstractFieldFactory<Envi
 
 	@Override
 	protected Field<PropertysetItem> createFieldComponent() {
-		return new EnvironmentActivationField(currentItem, webHosts);
+		return new EnvironmentActivationField(currentItem, webHosts, definition.getWebUriField());
 	}
 }
