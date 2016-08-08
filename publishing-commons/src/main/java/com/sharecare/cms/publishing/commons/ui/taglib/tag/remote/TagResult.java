@@ -1,15 +1,15 @@
 package com.sharecare.cms.publishing.commons.ui.taglib.tag.remote;
 
-import java.io.Serializable;
-
 import lombok.*;
+
+import java.io.Serializable;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class TagResult implements Serializable {
+public class TagResult implements Serializable, Comparable<TagResult> {
 
 	private String _id;
 	private String title;
@@ -18,6 +18,11 @@ public class TagResult implements Serializable {
 
 	public String getId() {
 		return _id;
+	}
+
+	@SuppressWarnings("NullableProblems")
+	public int compareTo(TagResult tagResult) {
+		return title.compareTo(tagResult.title);
 	}
 
 	@Getter

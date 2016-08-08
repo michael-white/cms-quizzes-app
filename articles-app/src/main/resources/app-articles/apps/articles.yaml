@@ -18,6 +18,7 @@ subApps:
                 - name: addFolder
                 - name: editFolder
                 - name: deleteFolder
+                - name: addProduct
             - name: adminActions
               items:
                 - name: exportProduct
@@ -374,7 +375,6 @@ subApps:
           columns: &myColumns
             - name: name
               editable: true
-              sortable: true
               propertyName: jcrName
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
             - name: status
@@ -384,7 +384,6 @@ subApps:
               class: com.sharecare.cms.articles.formatter.MultiSiteActivationStatusDefinition
             - name: moddate
               width: 160
-              sortable: true
               displayInChooseDialog: false
               formatterClass: info.magnolia.ui.workbench.column.DateColumnFormatter
               propertyName: mgnl:lastModified
@@ -449,15 +448,6 @@ subApps:
               - name: en_bylineUrl
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Byline URL
-              - name: imageUpload
-                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
-                targetWorkspace: dam
-                appName: assets
-                label: Select imageUpload
-                identifierToPathConverter:
-                  class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
-                contentPreviewDefinition:
-                  contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
               - name: bylineUrlOptionSelect
                 class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
                 multiselect: false
@@ -470,6 +460,15 @@ subApps:
                   - name: externalLink
                     label: External Link
                     selected: true
+              - name: imageUpload
+                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+                targetWorkspace: dam
+                appName: assets
+                label: Select imageUpload
+                identifierToPathConverter:
+                  class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+                contentPreviewDefinition:
+                  contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
               - name: en_body
                 class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
                 label: Body
@@ -480,10 +479,10 @@ subApps:
                 label: Real Age Benefit Title
                 options:
                   - name: yes
-                    label: Yes
+                    label: "Yes "
                     selected: false
                   - name: no
-                    label: No
+                    label: "No "
                     selected: true
               - name: en_callOutBody
                 class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
@@ -553,10 +552,10 @@ subApps:
                 label: Real Age Benefit Title
                 options:
                   - name: yes
-                    label: Yes
+                    label: "Yes "
                     selected: false
                   - name: no
-                    label: No
+                    label: "No "
                     selected: true
               - name: es_callOutBody
                 class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
