@@ -166,6 +166,7 @@ allprojects {
                 "org.apache.commons:commons-vfs2:2.0",
                 "org.json:json:20160212",
                 "org.apache.httpcomponents:httpclient:4.3.5",
+                "com.sharecare.services:x-flow-java:0.1.0-SNAPSHOT",
 
                 // Logger
                 "org.slf4j:jcl-over-slf4j:1.7.0",
