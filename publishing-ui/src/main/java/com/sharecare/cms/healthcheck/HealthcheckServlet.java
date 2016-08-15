@@ -21,13 +21,13 @@ public class HealthcheckServlet extends HttpServlet {
 			MgnlContext.getJCRSession("website");
 			response.setContentType(MediaType.APPLICATION_JSON);
 			PrintWriter out = response.getWriter();
-			out.println("Healthcheck Success");
+			out.println("Ok");
 
 		} catch (RepositoryException e) {
 			response.setContentType(MediaType.APPLICATION_JSON);
-			response.setStatus(500);
+			response.setStatus(503);
 			PrintWriter out = response.getWriter();
-			out.println("Healthcheck Failed");
+			out.println("Failed");
 
 		}
 
