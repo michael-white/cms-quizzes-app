@@ -8,6 +8,8 @@ ext {
 }
 
 dependencies {
-    compile group: 'com.cloudinary', name: 'cloudinary-http44', version: cloudinaryV
+    compile (group: 'com.cloudinary', name: 'cloudinary-http44', version: cloudinaryV) {
+        exclude group: 'org.apache.httpcomponents'
+    }
 }
 
