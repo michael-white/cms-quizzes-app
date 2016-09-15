@@ -22,8 +22,9 @@ subApps:
             - name: adminActions
               items:
                 - name: exportProduct
+                - name: importProduct
           availability:
-            nodes: false
+            nodes: true
             root: true
         - name: folderProdEnv
           label: Folder
@@ -37,6 +38,7 @@ subApps:
             - name: adminActions
               items:
                 - name: exportProduct
+                - name: importProduct
             - name: previewEnv
               items:
                 - name: activatePreview
@@ -67,6 +69,7 @@ subApps:
             - name: adminActions
               items:
                 - name: exportProduct
+                - name: importProduct
             - name: qaEnv
               items:
                 - name: activateQA
@@ -89,6 +92,7 @@ subApps:
             - name: adminActions
               items:
                 - name: exportProduct
+                - name: importProduct
             - name: devEnv
               items:
                 - name: activateDev
@@ -236,6 +240,15 @@ subApps:
         icon: icon-export
         command: export
         class: info.magnolia.ui.framework.action.ExportActionDefinition
+        availability:
+          root: true
+      importProduct:
+        label: Import items
+        icon: icon-import
+        dialogName: ui-admincentral:import
+        class: info.magnolia.ui.framework.action.OpenCreateDialogActionDefinition
+        availability:
+          root: true
       activatePreview:
         label: Publish On Preview
         catalog: versioned
