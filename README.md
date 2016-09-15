@@ -2,7 +2,7 @@
 
 Quick Start:
 
-    $gradle jettyRun
+    $gradle jettyRun -Daccess.log=/tmp/magnolia.access -Denv=dev -Dmagnolia.root=/tmp/mag_home -Dmagnolia.home=/tmp/mag_home -Dserver.port=9090 :publishing-ui:jettyRun
 
     Optional startup flags:
     - Dapp.log=/tmp/debug.log # Enables production like log ( JSON format ) in user selected directory
