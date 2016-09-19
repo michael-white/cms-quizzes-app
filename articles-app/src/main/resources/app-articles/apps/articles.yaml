@@ -24,7 +24,7 @@ subApps:
                 - name: exportProduct
                 - name: importProduct
           availability:
-            nodes: true
+            nodes: false
             root: true
         - name: folderProdEnv
           label: Folder
