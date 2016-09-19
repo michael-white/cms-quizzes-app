@@ -45,9 +45,9 @@ public class CloudinaryArticlesAssetProcessor implements ArticleAssetProcessor {
 		log.debug("Uploading file {}", file.getName());
 
 		try {
-
+			String publicId =  file.getName().substring(0, file.getName().lastIndexOf("."));
 			Map map = cloudinary.uploader().upload(file, ObjectUtils.asMap(
-					"public_id", file.getName(),
+					"public_id", publicId,
 					"folder", "articles/",
 					"use_filename", true,
 					"responsive_breakpoints", new ResponsiveBreakpoint()
