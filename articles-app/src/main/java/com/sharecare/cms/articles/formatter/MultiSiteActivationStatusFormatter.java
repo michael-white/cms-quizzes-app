@@ -5,6 +5,7 @@ import javax.jcr.Node;
 import javax.jcr.Property;
 import javax.jcr.RepositoryException;
 
+import com.sharecare.cms.publishing.commons.ui.taglib.activation.EnvironmentActivationField;
 import com.vaadin.ui.Table;
 import info.magnolia.jcr.util.NodeTypes;
 import info.magnolia.jcr.util.NodeUtil;
@@ -29,8 +30,8 @@ public class MultiSiteActivationStatusFormatter extends AbstractColumnFormatter<
 				if (NodeUtil.isNodeType(node, NodeTypes.Content.NAME)) {
 					String icon = "<span class=\"icon-shape-circle activation-status  %s \"></span>";
 
-					if ( node.hasProperty("active-status")) {
-						Property p = node.getProperty("active-status");
+					if ( node.hasProperty(EnvironmentActivationField.ACTIVE_STATUS_FIELD)) {
+						Property p = node.getProperty(EnvironmentActivationField.ACTIVE_STATUS_FIELD);
 						if (p.getValues() != null && p.getValues().length > 0) {
 							return String.format(icon, "color-green");
 						}
