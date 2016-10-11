@@ -1,4 +1,4 @@
-package com.sharecare.cms.articles.activation.publishing;
+package com.sharecare.cms.slideshows.activation.publishing;
 
 import javax.inject.Inject;
 import javax.jcr.Node;

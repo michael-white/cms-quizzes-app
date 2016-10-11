@@ -4,14 +4,14 @@
   <name>app-articles</name>
   <displayName>App Articles</displayName>
   <description>Slideshows Content</description>
-  <class>com.sharecare.cms.articles.configuration.SlideshowsModuleConfig</class>
+  <class>com.sharecare.cms.slideshows.configuration.SlideshowsModuleConfig</class>
   <versionHandler>com.sharecare.cms.publishing.commons.bootstrap.GlobalVersionHandler</versionHandler>
   <version>1.14</version>
 
   <components>
     <id>main</id> <!-- Container ID -->
     <configurer>
-      <class>com.sharecare.cms.articles.activation.publishing.SlideshowsPublishingBindingConfigurer</class>
+      <class>com.sharecare.cms.slideshows.activation.publishing.SlideshowsPublishingBindingConfigurer</class>
     </configurer>
   </components>
 

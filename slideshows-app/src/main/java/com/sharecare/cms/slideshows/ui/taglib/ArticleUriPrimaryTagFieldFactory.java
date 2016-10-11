@@ -1,4 +1,4 @@
-package com.sharecare.cms.articles.ui.taglib;
+package com.sharecare.cms.slideshows.ui.taglib;
 
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagFieldDefinition;
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TagService;

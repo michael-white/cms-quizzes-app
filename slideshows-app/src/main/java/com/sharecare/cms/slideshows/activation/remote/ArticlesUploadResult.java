@@ -1,4 +1,4 @@
-package com.sharecare.cms.articles.activation.remote;
+package com.sharecare.cms.slideshows.activation.remote;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

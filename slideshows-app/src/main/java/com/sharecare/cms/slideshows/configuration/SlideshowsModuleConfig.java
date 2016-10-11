@@ -1,4 +1,4 @@
-package com.sharecare.cms.articles.configuration;
+package com.sharecare.cms.slideshows.configuration;
 
 import java.util.Map;
 

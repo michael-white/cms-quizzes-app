@@ -1,6 +1,6 @@
-package com.sharecare.cms.articles.schema;
+package com.sharecare.cms.slideshows.schema;
 
-public enum ArticleJCRSchema {
+public enum SlideshowsJCRSchema {
 	topicUri,
 	title,
 	subHead,
@@ -33,8 +33,8 @@ public enum ArticleJCRSchema {
 	mentions,
 	authors;
 
-	public static ArticleJCRSchema forName(String field) {
-		for(ArticleJCRSchema v : values()) {
+	public static SlideshowsJCRSchema forName(String field) {
+		for(SlideshowsJCRSchema v : values()) {
 			if (v.name().equals(field))
 				return v;
 		}

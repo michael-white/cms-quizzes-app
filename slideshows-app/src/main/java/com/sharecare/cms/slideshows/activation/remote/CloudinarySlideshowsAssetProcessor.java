@@ -1,4 +1,4 @@
-package com.sharecare.cms.articles.activation.remote;
+package com.sharecare.cms.slideshows.activation.remote;
 
 import javax.inject.Inject;
 import javax.jcr.Node;
@@ -13,7 +13,7 @@ import java.util.Optional;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.ResponsiveBreakpoint;
 import com.cloudinary.utils.ObjectUtils;
-import com.sharecare.cms.articles.schema.ArticleJCRSchema;
+import com.sharecare.cms.slideshows.schema.SlideshowsJCRSchema;
 import com.sharecare.cms.cloudinary.dam.CloudinaryClientServiceConnector;
 import info.magnolia.dam.api.AssetProvider;
 import info.magnolia.dam.api.AssetProviderRegistry;
@@ -23,23 +23,23 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 
 @Slf4j
-public class CloudinaryArticlesAssetProcessor implements ArticleAssetProcessor {
+public class CloudinarySlideshowsAssetProcessor implements SlideshowsAssetProcessor {
 
 	private final Cloudinary cloudinary;
 	private final AssetProvider jcrAssetProvider;
 
 	@Inject
-	public CloudinaryArticlesAssetProcessor(CloudinaryClientServiceConnector clientServiceConnector, AssetProviderRegistry providerRegistry) {
+	public CloudinarySlideshowsAssetProcessor(CloudinaryClientServiceConnector clientServiceConnector, AssetProviderRegistry providerRegistry) {
 		this.jcrAssetProvider = providerRegistry.getProviderById("jcr");
 		this.cloudinary = clientServiceConnector.getClient();
 	}
 
 	@Override
 	public Optional<ArticlesUploadResult> uploadAssetFrom(Node node) throws RepositoryException {
-		if (!node.hasProperty(ArticleJCRSchema.imageUpload.name()))
+		if (!node.hasProperty(SlideshowsJCRSchema.imageUpload.name()))
 			return Optional.empty();
 
-		Value value = node.getProperty(ArticleJCRSchema.imageUpload.name()).getValue();
+		Value value = node.getProperty(SlideshowsJCRSchema.imageUpload.name()).getValue();
 		JcrAsset asset = (JcrAsset) jcrAssetProvider.getAsset(ItemKey.from(value.getString()));
 		File file = extractFile(asset);
 		log.debug("Uploading file {}", file.getName());
