@@ -29,6 +29,9 @@ public enum ArticleJCRSchema {
 	canonicalReference,
 	imageUpload,
 	contentFlags,
+	propensityScore,
+	expirationDate,
+	livingInTheGreenScale,
 	segmentSelect,
 	mentions,
 	authors;

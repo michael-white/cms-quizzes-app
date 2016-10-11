@@ -8,8 +8,10 @@ import com.sharecare.cms.articles.schema.ArticleJCRSchema;
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagField;
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.SecondaryTagField;
 import lombok.extern.slf4j.Slf4j;
+import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 
 import javax.jcr.*;
+import javax.xml.bind.DatatypeConverter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -179,11 +181,36 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
                 case contentFlags:
                     builder.contentFlags(Collections.singletonList(value));
                     break;
+                case propensityScore:
+                    builder.propensityScore(Long.parseLong(StringUtils.defaultIfBlank(value, "0")));
+                    break;
+                case expirationDate:
+                    // Default date should be a safe time in the future like : 31 Dec 2050 = 2556075600000
+                    long milis = parseIsoDateTextToLong(value, 2556075600000L);
+                    builder.expirationDate(milis);
+                    break;
+                case livingInTheGreenScale:
+                    builder.livingInTheGreenScale(Long.parseLong(StringUtils.defaultIfBlank(value, "0")));
                 default:
                     break;
 
             }
         }
+    }
+
+    /**
+     * Use the DatatypeConverter to parse the iso date text from the UI.
+     */
+    protected long parseIsoDateTextToLong(String iso8601text, long defaultResult) {
+        long rslt = defaultResult;
+        try {
+            Calendar cal = DatatypeConverter.parseDateTime(iso8601text);
+            rslt = cal.getTimeInMillis();
+        }
+        catch (Exception e) {
+            log.info("Error parsing iso date", e);
+        }
+        return rslt;
     }
 
     private void populateBuilderMulti(ArticleRequest.ArticleRequestBuilder builder, String field, List<String> values) {
