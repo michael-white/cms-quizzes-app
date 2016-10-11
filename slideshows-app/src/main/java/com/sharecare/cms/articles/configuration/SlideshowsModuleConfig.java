@@ -6,7 +6,7 @@ import com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceCo
 import lombok.Data;
 
 @Data
-public class ArticlesModuleConfig {
+public class SlideshowsModuleConfig {
 
     private Map<String, Map<String, RemoteServerResourceConfig>> publishing;
 

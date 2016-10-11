@@ -56,7 +56,7 @@ subApps:
               - mgnl:folder
             rules:
               - name: isAllowedForProd
-                implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForProductionRule
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForProductionRule
         - name: folderQAEnv
           label: Folder
           groups:
@@ -79,7 +79,7 @@ subApps:
               - mgnl:folder
             rules:
               - name: isAllowedForQA
-                implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForQARule
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForQARule
         - name: folderDevEnv
           label: Folder
           groups:
@@ -102,7 +102,7 @@ subApps:
               - mgnl:folder
             rules:
               - name: isAllowedForDevhost
-                implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForDevRule
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForDevRule
         - name: articleProdEnv
           label: Article
           groups:
@@ -136,7 +136,7 @@ subApps:
               - mgnl:article
             rules:
               - name: isAllowedForProd
-                implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForProductionRule
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForProductionRule
         - name: articleQAEnv
           label: Article
           groups:
@@ -162,7 +162,7 @@ subApps:
               - mgnl:article
             rules:
               - name: isAllowedForQA
-                implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForQARule
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForQARule
         - name: articleDevEnv
           label: Article
           groups:
@@ -188,7 +188,7 @@ subApps:
               - mgnl:article
             rules:
               - name: isAllowedForDevhost
-                implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForDevRule
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForDevRule
     actions:
       addProduct:
         subAppId: detail
@@ -393,8 +393,8 @@ subApps:
             - name: status
               width: 160
               displayInChooseDialog: false
-              formatterClass: com.sharecare.cms.articles.formatter.MultiSiteActivationStatusFormatter
-              class: com.sharecare.cms.articles.formatter.MultiSiteActivationStatusDefinition
+              formatterClass: com.sharecare.cms.publishing.commons.formatter.MultiSiteActivationStatusFormatter
+              class: com.sharecare.cms.publishing.commons.formatter.MultiSiteActivationStatusDefinition
             - name: moddate
               width: 160
               displayInChooseDialog: false

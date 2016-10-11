@@ -10,15 +10,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 @Slf4j
-public class RemoteArticleFolderPublisher implements RemoteDataPublisher {
+public class RemoteSlideshowsFolderPublisher implements RemoteDataPublisher {
 
 	static final String NODE_TYPE = "mgnl:folder";
 
-	private final RemoteArticlePublisher remoteArticlePublisher;
+	private final RemoteSlideshowsPublisher remoteSlideshowsPublisher;
 
 	@Inject
-	public RemoteArticleFolderPublisher(RemoteArticlePublisher remoteArticlePublisher) {
-		this.remoteArticlePublisher = remoteArticlePublisher;
+	public RemoteSlideshowsFolderPublisher(RemoteSlideshowsPublisher remoteSlideshowsPublisher) {
+		this.remoteSlideshowsPublisher = remoteSlideshowsPublisher;
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class RemoteArticleFolderPublisher implements RemoteDataPublisher {
 		try {
 			NodeIterator nodeIterator = node.getNodes();
 			while (nodeIterator.hasNext()) {
-				boolean result = remoteArticlePublisher.publish(nodeIterator.nextNode(), environment);
+				boolean result = remoteSlideshowsPublisher.publish(nodeIterator.nextNode(), environment);
 				if (!result) return false;
 			}
 		} catch (RepositoryException e) {
@@ -41,7 +41,7 @@ public class RemoteArticleFolderPublisher implements RemoteDataPublisher {
 		try {
 			NodeIterator nodeIterator = node.getNodes();
 			while (nodeIterator.hasNext()) {
-				boolean result = remoteArticlePublisher.unPublish(nodeIterator.nextNode(), environment);
+				boolean result = remoteSlideshowsPublisher.unPublish(nodeIterator.nextNode(), environment);
 				if (!result) return false;
 			}
 		} catch (RepositoryException e) {

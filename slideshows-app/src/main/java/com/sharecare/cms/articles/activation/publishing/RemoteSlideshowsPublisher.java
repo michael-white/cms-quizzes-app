@@ -9,7 +9,7 @@ import com.sharecare.articles.sdk.model.ArticleRequest;
 import com.sharecare.cms.articles.activation.remote.ArticleAssetProcessor;
 import com.sharecare.cms.articles.activation.remote.ArticleRequestBuilder;
 import com.sharecare.cms.articles.activation.remote.ArticlesUploadResult;
-import com.sharecare.cms.articles.configuration.ArticlesModuleConfig;
+import com.sharecare.cms.articles.configuration.SlideshowsModuleConfig;
 import com.sharecare.cms.publishing.commons.activation.RemoteDataPublisher;
 import com.sharecare.cms.publishing.commons.configuration.CommonsModuleConfig;
 import com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 import static com.sharecare.cms.publishing.commons.ui.taglib.activation.EnvironmentActivationField.ACTIVE_STATUS_FIELD;
 
 @Slf4j
-class RemoteArticlePublisher implements RemoteDataPublisher {
+class RemoteSlideshowsPublisher implements RemoteDataPublisher {
 
 	static final String NODE_TYPE = "mgnl:article";
 
@@ -36,12 +36,12 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 	private final ArticleAssetProcessor articleAssetProcessor;
 
 	@Inject
-	public RemoteArticlePublisher(ArticlesModuleConfig articlesModuleConfig,
-								  CommonsModuleConfig commonsModuleConfig,
-								  ArticleRequestBuilder articleRequestBuilder,
-								  ArticleAssetProcessor articleAssetProcessor) {
+	public RemoteSlideshowsPublisher(SlideshowsModuleConfig slideshowsModuleConfig,
+                                     CommonsModuleConfig commonsModuleConfig,
+                                     ArticleRequestBuilder articleRequestBuilder,
+                                     ArticleAssetProcessor articleAssetProcessor) {
 		this.articleAssetProcessor = articleAssetProcessor;
-		this.clientMap = buildApiClients(articlesModuleConfig.getPublishing().get(commonsModuleConfig.getEnvironment()));
+		this.clientMap = buildApiClients(slideshowsModuleConfig.getPublishing().get(commonsModuleConfig.getEnvironment()));
 		this.articleRequestBuilder = articleRequestBuilder;
 	}
 

@@ -393,8 +393,8 @@ subApps:
             - name: status
               width: 160
               displayInChooseDialog: false
-              formatterClass: com.sharecare.cms.articles.formatter.MultiSiteActivationStatusFormatter
-              class: com.sharecare.cms.articles.formatter.MultiSiteActivationStatusDefinition
+              formatterClass: com.sharecare.cms.publishing.commons.formatter.MultiSiteActivationStatusFormatter
+              class: com.sharecare.cms.publishing.commons.formatter.MultiSiteActivationStatusDefinition
             - name: moddate
               width: 160
               displayInChooseDialog: false

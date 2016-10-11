@@ -1,4 +1,4 @@
-package com.sharecare.cms.articles.formatter;
+package com.sharecare.cms.publishing.commons.formatter;
 
 import info.magnolia.ui.workbench.column.definition.AbstractColumnDefinition;
 

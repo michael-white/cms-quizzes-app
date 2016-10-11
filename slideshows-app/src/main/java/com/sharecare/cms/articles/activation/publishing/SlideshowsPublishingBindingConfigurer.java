@@ -8,12 +8,12 @@ import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.RemoteTagServic
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TagService;
 import com.sharecare.cms.publishing.commons.configuration.ComponentBindingConfigurer;
 
-public class ArticlesPublishingBindingConfigurer extends ComponentBindingConfigurer {
+public class SlideshowsPublishingBindingConfigurer extends ComponentBindingConfigurer {
 
 	@Override
 	protected void configureActions() {
-		bindPublisher().to(RemoteArticlePublisher.class);
-		bindPublisher().to(RemoteArticleFolderPublisher.class);
+		bindPublisher().to(RemoteSlideshowsPublisher.class);
+		bindPublisher().to(RemoteSlideshowsFolderPublisher.class);
 
 		binder().bind(ArticleRequestBuilder.class).to(RemoteArticleRequestBuilder.class);
 		binder().bind(ArticleAssetProcessor.class).to(CloudinaryArticlesAssetProcessor.class);

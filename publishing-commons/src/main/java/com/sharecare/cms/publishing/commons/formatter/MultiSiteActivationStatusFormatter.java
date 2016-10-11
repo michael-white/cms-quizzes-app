@@ -1,4 +1,4 @@
-package com.sharecare.cms.articles.formatter;
+package com.sharecare.cms.publishing.commons.formatter;
 
 import javax.jcr.Item;
 import javax.jcr.Node;
