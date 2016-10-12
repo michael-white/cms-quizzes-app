@@ -185,9 +185,8 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
                     builder.propensityScore(Long.parseLong(StringUtils.defaultIfBlank(value, "0")));
                     break;
                 case expirationDate:
-                    // Default date should be a safe time in the future like : 31 Dec 2050 = 2556075600000
-                    long milis = parseIsoDateTextToLong(value, 2556075600000L);
-                    builder.expirationDate(milis);
+                    // This date comes back from the CMS in ISO 8601 format.
+                    builder.expirationDate(value);
                     break;
                 case livingInTheGreenScale:
                     builder.livingInTheGreenScale(Long.parseLong(StringUtils.defaultIfBlank(value, "0")));
