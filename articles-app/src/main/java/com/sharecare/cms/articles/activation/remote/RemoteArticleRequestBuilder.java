@@ -208,6 +208,9 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
                 case authors:
                     builder.authors(values);
                     break;
+                case redirects:
+                    builder.legacyUris(values);
+                    break;
                 default:
                     break;
             }

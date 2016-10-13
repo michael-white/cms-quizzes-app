@@ -660,6 +660,12 @@ subApps:
           - name: editorial
             label: Editorial
             fields:
+              - name: redirects
+                class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
+                label: Redirects
+                field:
+                    class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                    label: Redirect
               - name: Notes
                 label: Notes
                 height: 300
