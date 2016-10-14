@@ -110,6 +110,7 @@ subApps:
               items:
                 - name: editProduct
                 - name: deleteProduct
+                - name: markAsDeletedProduct
                 - name: duplicateProduct
             - name: versioningActions
               items:
@@ -144,6 +145,7 @@ subApps:
               items:
                 - name: editProduct
                 - name: deleteProduct
+                - name: markAsDeletedProduct
                 - name: duplicateProduct
             - name: versioningActions
               items:
@@ -170,6 +172,7 @@ subApps:
               items:
                 - name: editProduct
                 - name: deleteProduct
+                - name: markAsDeletedProduct
                 - name: duplicateProduct
             - name: versioningActions
               items:
@@ -229,6 +232,9 @@ subApps:
         appName: articles
         class: info.magnolia.ui.contentapp.detail.action.EditItemActionDefinition
       deleteProduct:
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.DeleteItemActionDefinition
+      markAsDeletedProduct:
         icon: icon-delete
         class: info.magnolia.ui.framework.action.DeleteItemActionDefinition
       duplicateProduct:
