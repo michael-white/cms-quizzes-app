@@ -56,7 +56,9 @@ public class CloudinaryArticlesAssetProcessor implements ArticleAssetProcessor {
 					"responsive_breakpoints", new ResponsiveBreakpoint()
 							.createDerived(true)
 							.minWidth(60).maxWidth(600).maxImages(3)));
-			ArticlesUploadResult result = new ArticlesUploadResult(map.get("public_id").toString(), map.get("url").toString());
+
+			String id  = String.format("v%s/%s", map.get("version").toString(), map.get("public_id").toString()) ;
+			ArticlesUploadResult result = new ArticlesUploadResult(id, map.get("url").toString());
 			log.debug("File upload completed: {}", result.getUrl());
 			return Optional.of(result);
 		} catch (IOException e) {
