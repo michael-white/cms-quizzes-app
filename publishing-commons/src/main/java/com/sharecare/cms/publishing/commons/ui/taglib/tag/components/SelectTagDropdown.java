@@ -1,9 +1,5 @@
 package com.sharecare.cms.publishing.commons.ui.taglib.tag.components;
 
-import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TagResult;
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TagService;
 import com.vaadin.data.Property;
@@ -11,6 +7,11 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.*;
 import lombok.Getter;
 import org.apache.commons.collections.CollectionUtils;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 @Getter
 public class SelectTagDropdown  extends CustomComponent {
@@ -30,6 +31,8 @@ public class SelectTagDropdown  extends CustomComponent {
 		this.tagService = tagService;
 		this.selectMenuLayout = selectMenuLayout;
 
+		Collections.sort(topLevelTags);
+
 		BeanItemContainer<TagResult> container = new BeanItemContainer<>(TagResult.class);
 		topLevelTags.forEach(container::addItem);
 
@@ -46,7 +49,10 @@ public class SelectTagDropdown  extends CustomComponent {
 
 		TagResult selected = (TagResult) event.getProperty().getValue();
 		getTagSelectedConsumer().accept(getCompositionRoot().getParent(), selected);
+
 		List<TagResult> children = getTagService().getChildrenForTag(selected.getId());
+		Collections.sort(children);
+
 		if (CollectionUtils.isNotEmpty(children)) {
 			child = new SelectTagDropdown(children, getTagSelectedConsumer(), getTagService(), selectMenuLayout);
 			selectMenuLayout.addComponent(child);

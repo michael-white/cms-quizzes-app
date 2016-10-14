@@ -15,13 +15,14 @@ import com.vaadin.ui.*;
 import info.magnolia.ui.vaadin.integration.jcr.JcrNodeAdapter;
 import lombok.Getter;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.function.BiConsumer;
 
 @Getter
 public abstract class PrimaryTagField extends CustomField<PropertysetItem> {
-
+	private final Logger logger = Logger.getLogger(PrimaryTagField.class);
 
 	public static final String PRIMARY_TAG_FIELD = "primaryTag";
 	public static final String PRIMARY_TAG_TITLE_FIELD = "primaryTagTitle";

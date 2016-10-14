@@ -11,21 +11,19 @@ import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.Reindeer;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.BiConsumer;
 
 public class SecondaryTagField  extends CustomField<PropertysetItem> {
 
 	public static final String SECONDARY_TAG_FIELD = "secondaryTag";
+	private final String FIELD_SEPARATOR = "|";
 
 	private final TagService tagService;
 
 	private VerticalLayout savedTagsLayout;
 
-	private Map<String, String> tagTrain = new HashMap<>();
+	private Map<String, String> tagTrain = new LinkedHashMap<>();
 
 	public SecondaryTagField(TagService tagService) {
 		this.tagService = tagService;
@@ -69,9 +67,8 @@ public class SecondaryTagField  extends CustomField<PropertysetItem> {
 		PropertysetItem savedValues = getValue();
 		if (savedValues != null) {
 			List<String> tags =  isNullOrEmpty(savedValues.getItemProperty(SECONDARY_TAG_FIELD));
-			if (!tags.isEmpty()) {
-				tags.forEach(tag -> verticalLayout.addComponent(new Label(tag)));
-			}
+			if (!tags.isEmpty())
+				tags.forEach(tag -> verticalLayout.addComponent(new Label(formatTag(tag))));
 		}
 
 		return verticalLayout;
@@ -89,10 +86,11 @@ public class SecondaryTagField  extends CustomField<PropertysetItem> {
 	}
 
 	private BiConsumer<Component, TagResult> onTagSelected = (component ,tag) -> {
-		tagTrain.put(component.getParent().getId(), tag.getId());
+		tagTrain.put(component.getParent().getId(), String.format("%s%s%s", tag.getTitle(),
+				FIELD_SEPARATOR, tag.getId()));
 
 		savedTagsLayout.removeAllComponents();
-		tagTrain.values().forEach(v -> savedTagsLayout.addComponent(new Label(v)));
+		tagTrain.values().forEach(v -> savedTagsLayout.addComponent(new Label(formatTag(v))));
 
 		PropertysetItem propertysetItem = new PropertysetItem();
 
@@ -104,6 +102,11 @@ public class SecondaryTagField  extends CustomField<PropertysetItem> {
 	@Override
 	public Class<? extends PropertysetItem> getType() {
 		return PropertysetItem.class;
+	}
+
+	private String formatTag(String tag) {
+		String[] parts = tag.split("\\" + FIELD_SEPARATOR);
+		return String.format("%s (%s)", parts[0], parts[1]);
 	}
 
 }
