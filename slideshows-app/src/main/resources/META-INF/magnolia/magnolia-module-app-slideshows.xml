@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module SYSTEM "module.dtd" >
 <module>
-  <name>app-articles</name>
+  <name>app-slideshowsx</name>
   <displayName>App Slideshows</displayName>
   <description>Slideshows Content</description>
   <class>com.sharecare.cms.slideshows.configuration.SlideshowsModuleConfig</class>
