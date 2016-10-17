@@ -104,7 +104,7 @@ subApps:
               - name: isAllowedForDevhost
                 implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForDevRule
         - name: articleProdEnv
-          label: Article
+          label: Slideshow
           groups:
             - name: editActions
               items:
@@ -133,12 +133,12 @@ subApps:
                 - name: deactivateProd
           availability:
             nodeTypes:
-              - mgnl:article
+              - mgnl:slideshow
             rules:
               - name: isAllowedForProd
                 implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForProductionRule
         - name: articleQAEnv
-          label: Article
+          label: Slideshow
           groups:
             - name: editActions
               items:
@@ -159,12 +159,12 @@ subApps:
                 - name: deactivateQA
           availability:
             nodeTypes:
-              - mgnl:article
+              - mgnl:slideshow
             rules:
               - name: isAllowedForQA
                 implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForQARule
         - name: articleDevEnv
-          label: Article
+          label: Slideshow
           groups:
             - name: editActions
               items:
@@ -185,7 +185,7 @@ subApps:
                 - name: deactivateDev
           availability:
             nodeTypes:
-              - mgnl:article
+              - mgnl:slideshow
             rules:
               - name: isAllowedForDevhost
                 implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForDevRule
@@ -193,8 +193,8 @@ subApps:
       addProduct:
         subAppId: detail
         icon: icon-add-item
-        nodeType: mgnl:article
-        appName: articles
+        nodeType: mgnl:slideshow
+        appName: slideshows
         class: info.magnolia.ui.contentapp.detail.action.CreateItemActionDefinition
         availability:
           root: true
@@ -226,7 +226,7 @@ subApps:
       editProduct:
         subAppId: detail
         icon: icon-edit
-        appName: articles
+        appName: slideshows
         class: info.magnolia.ui.contentapp.detail.action.EditItemActionDefinition
       deleteProduct:
         icon: icon-delete
@@ -415,11 +415,11 @@ subApps:
        damLinkPropertyName: imageUpload
     contentConnector:
       includeProperties: false
-      workspace: articles
+      workspace: slideshows
       rootPath: /
       defaultOrder: jcrName
       nodeTypes:
-        - name: mgnl:article
+        - name: mgnl:slideshow
           icon: icon-items
         - name: mgnl:folder
           icon: icon-folder
@@ -440,7 +440,7 @@ subApps:
       form:
         tabs:
           - name: english
-            label: Article [English]
+            label: Slideshow [English]
             fields:
               - name: jcrName
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
@@ -504,79 +504,6 @@ subApps:
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Player ID
               - name: videoId
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Video ID
-              - name: videoTitle
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Video Title
-              - name: videoTeaser
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Video Teaser
-          - name: spanish
-            label: Article [Spanish]
-            fields:
-              - name: jcrName
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Article URI
-              - name: articleUri
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Full URI
-                readOnly: true
-              - name: es_title
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Title
-              - name: es_subHead
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Subhead
-              - name: es_byline
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Byline
-              - name: es_bylineUrl
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Byline URL
-              - name: es_bylineUrlOptionSelect
-                class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
-                multiselect: false
-                type: String
-                label: Byline Option
-                options:
-                  - name: internalLink
-                    label: Internal Link
-                    selected: false
-                  - name: externalLink
-                    label: External Link
-                    selected: true
-              - name: imageUpload
-                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
-                targetWorkspace: dam
-                appName: assets
-                label: Select imageUpload
-                identifierToPathConverter:
-                  class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
-                contentPreviewDefinition:
-                  contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
-              - name: es_body
-                class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
-                label: Body
-              - name: realAgeOptionSelect
-                class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
-                multiselect: false
-                type: String
-                label: Real Age Benefit Title
-                options:
-                  - name: yes
-                    label: "Yes "
-                    selected: false
-                  - name: no
-                    label: "No "
-                    selected: true
-              - name: es_callOutBody
-                class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
-                label: Callout Body
-              - name: playerId
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Player ID
-              - name: videoID
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Video ID
               - name: videoTitle
@@ -698,7 +625,7 @@ subApps:
                 transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.activation.ActivationStatusCompositeTransformer
       nodeType:
         icon: icon-items
-        name: mgnl:article
+        name: mgnl:slideshow
     contentConnector:
-      workspace: articles
+      workspace: slideshows
 
