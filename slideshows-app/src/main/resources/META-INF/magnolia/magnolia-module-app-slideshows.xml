@@ -2,7 +2,7 @@
 <!DOCTYPE module SYSTEM "module.dtd" >
 <module>
   <name>app-articles</name>
-  <displayName>App Articles</displayName>
+  <displayName>App Slideshows</displayName>
   <description>Slideshows Content</description>
   <class>com.sharecare.cms.slideshows.configuration.SlideshowsModuleConfig</class>
   <versionHandler>com.sharecare.cms.publishing.commons.bootstrap.GlobalVersionHandler</versionHandler>
@@ -40,7 +40,7 @@
     <repository>
       <name>magnolia</name>
       <workspaces>
-        <workspace>articles</workspace>
+        <workspace>slideshows</workspace>
       </workspaces>
       <nodeTypeFile>/mgnl-nodetypes/app-slideshows-nodetypes.xml</nodeTypeFile>
     </repository>
