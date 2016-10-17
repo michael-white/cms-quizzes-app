@@ -6,7 +6,7 @@
   <description>Slideshows Content</description>
   <class>com.sharecare.cms.slideshows.configuration.SlideshowsModuleConfig</class>
   <versionHandler>com.sharecare.cms.publishing.commons.bootstrap.GlobalVersionHandler</versionHandler>
-  <version>1.14</version>
+  <version>1.0</version>
 
   <components>
     <id>main</id> <!-- Container ID -->

@@ -103,7 +103,7 @@ subApps:
             rules:
               - name: isAllowedForDevhost
                 implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForDevRule
-        - name: articleProdEnv
+        - name: slideshowProdEnv
           label: Slideshow
           groups:
             - name: editActions
@@ -137,7 +137,7 @@ subApps:
             rules:
               - name: isAllowedForProd
                 implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForProductionRule
-        - name: articleQAEnv
+        - name: slideshowQAEnv
           label: Slideshow
           groups:
             - name: editActions
@@ -163,7 +163,7 @@ subApps:
             rules:
               - name: isAllowedForQA
                 implementationClass: com.sharecare.cms.articles.activation.rules.IsAllowedForQARule
-        - name: articleDevEnv
+        - name: slideshowDevEnv
           label: Slideshow
           groups:
             - name: editActions
@@ -207,10 +207,6 @@ subApps:
         class: info.magnolia.ui.contentapp.browser.action.RestoreVersionActionDefinition
         icon: icon-retrieve-versions
         label: Restore version
-#        availability:
-#          rules:
-#            - name: HasVersionsRule
-#              ruleClass: info.magnolia.ui.api.availability.HasVersionsRule
       addFolder:
         icon: icon-add-folder
         class: info.magnolia.ui.framework.action.AddFolderActionDefinition
@@ -376,9 +372,6 @@ subApps:
         dialogName: campaign-publisher:addToCampaign
         availability:
           multiple: true
-#          rules:
-#            - name: environmentRule
-#              implementationClass: com.sharecare.cms.articles.activation.EnvironmentAvailabilityRule
     workbench:
       dropConstraintClass: info.magnolia.ui.workbench.tree.drop.AlwaysTrueDropConstraint
       editable: false
@@ -445,73 +438,16 @@ subApps:
               - name: jcrName
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: JCR URI
-              - name: articleUri
+              - name: slideshowUri
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Full URI
                 readOnly: true
-              - name: en_title
+              - name: title
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Title
-              - name: en_subHead
+              - name: description
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Subhead
-              - name: en_byline
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Byline
-              - name: en_bylineUrl
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Byline URL
-              - name: bylineUrlOptionSelect
-                class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
-                multiselect: false
-                type: String
-                label: Byline Option
-                options:
-                  - name: internalLink
-                    label: Internal Link
-                    selected: false
-                  - name: externalLink
-                    label: External Link
-                    selected: true
-              - name: imageUpload
-                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
-                targetWorkspace: dam
-                appName: assets
-                label: Select imageUpload
-                identifierToPathConverter:
-                  class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
-                contentPreviewDefinition:
-                  contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
-              - name: en_body
-                class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
-                label: Body
-              - name: realAgeOptionSelect
-                class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
-                multiselect: false
-                type: String
-                label: Real Age Benefit Title
-                options:
-                  - name: yes
-                    label: "Yes "
-                    selected: false
-                  - name: no
-                    label: "No "
-                    selected: true
-              - name: en_callOutBody
-                class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
-                label: Callout Body
-              - name: playerId
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Player ID
-              - name: videoId
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Video ID
-              - name: videoTitle
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Video Title
-              - name: videoTeaser
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Video Teaser
+                label: Description
           - name: meta
             label: Meta
             fields:
@@ -524,60 +460,9 @@ subApps:
               - name: metaKeywords
                 label: Meta Keywords
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: contentFlags
-                class: info.magnolia.ui.form.field.definition.TwinColSelectFieldDefinition
-                type: String
-                label: Content Flags
-                options:
-                  - name: highQuality
-                    label: HIGH_QUALITY
-                    value: HIGH_QUALITY
-                  - name: minor
-                    label: MINOR
-                    value: MINOR
-                  - name: physicianProfile
-                    label: PHYSICIAN_PROFILE
-                    value: PHYSICIAN_PROFILE
-                  - name: sponsor
-                    label: SPONSOR
-                    value: SPONSOR
-                  - name: user
-                    label: USER
-                    value: USER
-              - name: hasSynviscComScore
-                label: Add Synvisc comscore tag
-                class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
-                buttonLabel: Check this box to add/remove synvisc comscore
-              - name: ogLabel
-                label: Open Graph
-                class: info.magnolia.ui.form.field.definition.StaticFieldDefinition
-                value: Open Graph Stuff here
               - name: disableSocial
                 label: Disable Social Buttons
                 class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
-                buttonLabel: Removes all OpenGraph tags and social share bar
-              - name: ogType
-                label: OG Type
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: ogImage
-                label: OG Image Url
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: ogTitle
-                label: OG Title
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: ogDescription
-                label: OG Description
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: ogUrl
-                label: OG Url
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: noIndexFollow
-                label: No Crawl
-                class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
-                buttonLabel: No Index No Follow
-              - name: canonicalReference
-                label: Canonical Reference
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: segmentSelect
                 class: com.sharecare.cms.publishing.commons.ui.taglib.segmentation.SegmentOptionGroupDefintion
                 multiselect: true
@@ -606,9 +491,9 @@ subApps:
           - name: tags
             label: Tags
             fields:
-              - name: articleUriPrimaryTag
+              - name: slideshowUriPrimaryTag
                 label: "Primary Tag"
-                webUriField: articleUriWebPath
+                webUriField: slideshowUriWebPath
                 class: com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagFieldDefinition
                 transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.tag.TagFieldCompositeTransformer
               - name: secondaryTag
@@ -620,7 +505,7 @@ subApps:
             fields:
               - name: activeStatus
                 label: "Activated on:"
-                webUriField: articleUriWebPath
+                webUriField: slideshowUriWebPath
                 class: com.sharecare.cms.publishing.commons.ui.taglib.activation.EnvironmentActivationDefinition
                 transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.activation.ActivationStatusCompositeTransformer
       nodeType:
