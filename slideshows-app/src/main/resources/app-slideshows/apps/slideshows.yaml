@@ -437,17 +437,41 @@ subApps:
             fields:
               - name: jcrName
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: JCR URI
-              - name: slideshowUri
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                label: Full URI
+                label: Slideshow URI
                 readOnly: true
               - name: title
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Title
               - name: description
+                rows: 4
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Description
+              - name: slides
+                class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
+                label: Slides
+                transformerClass: info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodePropertiesTransformer
+                field:
+                  name: compositeField
+                  layout: vertical
+                  class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
+                  transformerClass: info.magnolia.ui.form.field.transformer.composite.NoOpCompositeTransformer
+                  fields:
+                    - name: title
+                      class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                      label: Title
+                    - name: description
+                      class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                      label: Description
+                      rows: 4
+                    - name: image
+                      class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+                      label: Image
+                      targetWorkspace: dam
+                      appName: assets
+                      identifierToPathConverter:
+                        class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+                      contentPreviewDefinition:
+                        contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
           - name: meta
             label: Meta
             fields:

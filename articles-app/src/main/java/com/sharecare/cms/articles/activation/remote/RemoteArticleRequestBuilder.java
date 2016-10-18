@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import com.sharecare.articles.sdk.model.ArticleRequest;
 import com.sharecare.articles.sdk.model.Tag;
 import com.sharecare.cms.articles.schema.ArticleJCRSchema;
+import com.sharecare.cms.cloudinary.dam.AssetUploadResult;
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagField;
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.SecondaryTagField;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +28,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
     }
 
     @Override
-    public List<ArticleRequest> forNode(Node node, Optional<ArticlesUploadResult> uploadResult) throws RepositoryException {
+    public List<ArticleRequest> forNode(Node node, Optional<AssetUploadResult> uploadResult) throws RepositoryException {
         Map<String, ArticleRequest.ArticleRequestBuilder> localeArticles = initArticleLocaleMap(node, uploadResult);
 
         processProperties(node, localeArticles);
@@ -69,7 +70,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
         }
     }
 
-    private Map<String, ArticleRequest.ArticleRequestBuilder> initArticleLocaleMap(Node node, Optional<ArticlesUploadResult> uploadResult) throws RepositoryException {
+    private Map<String, ArticleRequest.ArticleRequestBuilder> initArticleLocaleMap(Node node, Optional<AssetUploadResult> uploadResult) throws RepositoryException {
 
         Map<String, ArticleRequest.ArticleRequestBuilder> map = Maps.newHashMap();
 
@@ -80,7 +81,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
                                                     .locale(l.name());
 
             if (uploadResult.isPresent()) {
-                ArticlesUploadResult ur = uploadResult.get();
+                AssetUploadResult ur = uploadResult.get();
                 builder.imageUrl(ur.getUrl())
                        .imageId(ur.getId());
             }

@@ -1,5 +1,6 @@
 package com.sharecare.cms.slideshows.activation.remote;
 
+import com.sharecare.cms.cloudinary.dam.AssetUploadResult;
 import com.sharecare.cms.slideshows.activation.remote.sdk.SlideshowsRequest;
 
 import javax.jcr.Node;
@@ -10,5 +11,5 @@ import java.util.Optional;
 
 public interface SlideshowsRequestBuilder {
 
-	List<SlideshowsRequest> forNode(Node node, Optional<ArticlesUploadResult> uploadResult) throws RepositoryException;
+	List<SlideshowsRequest> forNode(Node node, Optional<AssetUploadResult> uploadResult) throws RepositoryException;
 }

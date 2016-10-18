@@ -13,6 +13,7 @@ import java.util.Optional;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.ResponsiveBreakpoint;
 import com.cloudinary.utils.ObjectUtils;
+import com.sharecare.cms.cloudinary.dam.AssetUploadResult;
 import com.sharecare.cms.slideshows.schema.SlideshowsJCRSchema;
 import com.sharecare.cms.cloudinary.dam.CloudinaryClientServiceConnector;
 import info.magnolia.dam.api.AssetProvider;
@@ -35,7 +36,7 @@ public class CloudinarySlideshowsAssetProcessor implements SlideshowsAssetProces
 	}
 
 	@Override
-	public Optional<ArticlesUploadResult> uploadAssetFrom(Node node) throws RepositoryException {
+	public Optional<AssetUploadResult> uploadAssetFrom(Node node) throws RepositoryException {
 		if (!node.hasProperty(SlideshowsJCRSchema.imageUpload.name()))
 			return Optional.empty();
 
@@ -56,7 +57,7 @@ public class CloudinarySlideshowsAssetProcessor implements SlideshowsAssetProces
 					"responsive_breakpoints", new ResponsiveBreakpoint()
 							.createDerived(true)
 							.minWidth(60).maxWidth(600).maxImages(3)));
-			ArticlesUploadResult result = new ArticlesUploadResult(map.get("public_id").toString(), map.get("url").toString());
+			AssetUploadResult result = new AssetUploadResult(map.get("public_id").toString(), map.get("url").toString());
 			log.debug("File upload completed: {}", result.getUrl());
 			return Optional.of(result);
 		} catch (IOException e) {

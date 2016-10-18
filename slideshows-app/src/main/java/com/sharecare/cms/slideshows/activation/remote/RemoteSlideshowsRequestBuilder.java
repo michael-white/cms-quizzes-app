@@ -1,6 +1,7 @@
 package com.sharecare.cms.slideshows.activation.remote;
 
 import com.google.common.collect.Lists;
+import com.sharecare.cms.cloudinary.dam.AssetUploadResult;
 import com.sharecare.cms.slideshows.activation.remote.sdk.SlideshowsRequest;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,7 +15,7 @@ import java.util.regex.Pattern;
 public class RemoteSlideshowsRequestBuilder implements SlideshowsRequestBuilder {
 
     @Override
-    public List<SlideshowsRequest> forNode(Node node, Optional<ArticlesUploadResult> uploadResult) throws RepositoryException {
+    public List<SlideshowsRequest> forNode(Node node, Optional<AssetUploadResult> uploadResult) throws RepositoryException {
         return Lists.newArrayList();
     }
 
