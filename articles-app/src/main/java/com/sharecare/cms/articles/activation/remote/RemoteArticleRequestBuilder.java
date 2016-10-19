@@ -9,9 +9,9 @@ import com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagField;
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.SecondaryTagField;
 import lombok.extern.slf4j.Slf4j;
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
 
 import javax.jcr.*;
-import javax.xml.bind.DatatypeConverter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -185,8 +185,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
                     builder.propensityScore(Long.parseLong(StringUtils.defaultIfBlank(value, "0")));
                     break;
                 case expirationDate:
-                    // This date comes back from the CMS in ISO 8601 format.
-                    builder.expirationDate(value);
+                    builder.expirationDate(String.valueOf(new DateTime(value).getMillis()));
                     break;
                 case livingInTheGreenScale:
                     builder.livingInTheGreenScale(Long.parseLong(StringUtils.defaultIfBlank(value, "0")));
@@ -195,21 +194,6 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 
             }
         }
-    }
-
-    /**
-     * Use the DatatypeConverter to parse the iso date text from the UI.
-     */
-    protected long parseIsoDateTextToLong(String iso8601text, long defaultResult) {
-        long rslt = defaultResult;
-        try {
-            Calendar cal = DatatypeConverter.parseDateTime(iso8601text);
-            rslt = cal.getTimeInMillis();
-        }
-        catch (Exception e) {
-            log.info("Error parsing iso date", e);
-        }
-        return rslt;
     }
 
     private void populateBuilderMulti(ArticleRequest.ArticleRequestBuilder builder, String field, List<String> values) {
