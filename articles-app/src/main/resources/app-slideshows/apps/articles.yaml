@@ -683,6 +683,7 @@ subApps:
                 label: "Primary Tag"
                 webUriField: articleUriWebPath
                 class: com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagFieldDefinition
+                subdomain: article
                 transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.tag.TagFieldCompositeTransformer
               - name: secondaryTag
                 label: "Secondary Tag"

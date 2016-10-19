@@ -32,6 +32,6 @@ public class ArticleUriPrimaryTagFieldFactory extends AbstractFieldFactory<Prima
 
     @Override
     protected Field<PropertysetItem> createFieldComponent() {
-        return new ArticleUriPrimaryTagField(tagService, currentItem, definition.getWebUriField());
+        return new ArticleUriPrimaryTagField(tagService, currentItem, definition.getSubdomain(), definition.getWebUriField());
     }
 }

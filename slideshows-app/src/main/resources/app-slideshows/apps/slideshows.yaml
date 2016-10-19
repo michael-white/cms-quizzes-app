@@ -515,9 +515,10 @@ subApps:
           - name: tags
             label: Tags
             fields:
-              - name: slideshowUriPrimaryTag
+              - name: articleUriPrimaryTag
                 label: "Primary Tag"
                 webUriField: slideshowUriWebPath
+                subdomain: slideshow
                 class: com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagFieldDefinition
                 transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.tag.TagFieldCompositeTransformer
               - name: secondaryTag

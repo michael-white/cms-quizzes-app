@@ -6,12 +6,15 @@ import info.magnolia.ui.vaadin.integration.jcr.JcrNodeAdapter;
 
 public class ArticleUriPrimaryTagField extends PrimaryTagField {
 
-    public ArticleUriPrimaryTagField(TagService tagService, JcrNodeAdapter currentItem, String contentUriJCRFieldName) {
+    private final String subDomain;
+
+    public ArticleUriPrimaryTagField(TagService tagService, JcrNodeAdapter currentItem, String subDomain, String contentUriJCRFieldName) {
         super(tagService, currentItem, contentUriJCRFieldName);
+        this.subDomain = subDomain;
     }
 
     @Override
     public String buildContentUriLabel(String topicUri, String nodeName) {
-        return String.format("/health/%s/article/%s", topicUri, nodeName).toLowerCase();
+        return String.format("/health/%s/%s/%s", topicUri, subDomain ,nodeName).toLowerCase();
     }
 }
