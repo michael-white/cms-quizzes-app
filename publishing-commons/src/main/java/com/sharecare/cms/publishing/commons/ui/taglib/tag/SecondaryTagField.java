@@ -17,7 +17,6 @@ import java.util.function.BiConsumer;
 public class SecondaryTagField  extends CustomField<PropertysetItem> {
 
 	public static final String SECONDARY_TAG_FIELD = "secondaryTag";
-	private final String FIELD_SEPARATOR = "|";
 
 	private final TagService tagService;
 
@@ -68,7 +67,7 @@ public class SecondaryTagField  extends CustomField<PropertysetItem> {
 		if (savedValues != null) {
 			List<String> tags =  isNullOrEmpty(savedValues.getItemProperty(SECONDARY_TAG_FIELD));
 			if (!tags.isEmpty())
-				tags.forEach(tag -> verticalLayout.addComponent(new Label(formatTag(tag))));
+				tags.forEach(tag -> verticalLayout.addComponent(new Label(tag)));
 		}
 
 		return verticalLayout;
@@ -86,11 +85,10 @@ public class SecondaryTagField  extends CustomField<PropertysetItem> {
 	}
 
 	private BiConsumer<Component, TagResult> onTagSelected = (component ,tag) -> {
-		tagTrain.put(component.getParent().getId(), String.format("%s%s%s", tag.getTitle(),
-				FIELD_SEPARATOR, tag.getId()));
+		tagTrain.put(component.getParent().getId(), tag.getId());
 
 		savedTagsLayout.removeAllComponents();
-		tagTrain.values().forEach(v -> savedTagsLayout.addComponent(new Label(formatTag(v))));
+		tagTrain.values().forEach(v -> savedTagsLayout.addComponent(new Label(v)));
 
 		PropertysetItem propertysetItem = new PropertysetItem();
 
@@ -102,11 +100,6 @@ public class SecondaryTagField  extends CustomField<PropertysetItem> {
 	@Override
 	public Class<? extends PropertysetItem> getType() {
 		return PropertysetItem.class;
-	}
-
-	private String formatTag(String tag) {
-		String[] parts = tag.split("\\" + FIELD_SEPARATOR);
-		return String.format("%s (%s)", parts[0], parts[1]);
 	}
 
 }
