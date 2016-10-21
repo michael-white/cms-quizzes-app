@@ -23,7 +23,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
     private static final Pattern LOCALE_PATTERN = Pattern.compile("(\\w{2})_(\\w+)");
 
     private enum Locale {
-        en, es
+        en
     }
 
     @Override
