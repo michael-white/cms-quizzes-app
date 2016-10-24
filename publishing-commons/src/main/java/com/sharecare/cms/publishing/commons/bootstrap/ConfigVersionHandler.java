@@ -12,30 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ConfigVersionHandler extends GlobalVersionHandler {
 
-	private static final String OWNER = "dandonov@sharecare.com";
+	private static final String OWNER = "dan@sharecare.com";
 
-	private static final String LICENSE = "LS0tLS1CRUdJTiBQR1AgTUVTU0FHRS0tLS0tClZlcnNpb246IEJDUEcgdjE\n" +
-			"uNDYKCm93SjRuSnZB\n" +
-			"eTh6RXhEanY2Zk9OL3l5YUV4bFA3MHppemszUHk4\n" +
-			"bkpURTdOSzA0TjZ3M2VyaHllbXFMZ2xaaW4K\n" +
-			"WUdDbVlHaGhaV0pwWldLc\n" +
-			"zRPd2FvbUJrWUdqR1ZaWmFWSnlabjFkc0cyMnFZeGJObFYrZWwxcGtt\n" +
-			"NU\n" +
-			"tZbDVLZgpsMS9tVUp5UldKU2FETVI2eWZtNVhLa1ZCWmxGaVNWQTViWWd2Y\n" +
-			"m9HUnJvR3BseTUr\n" +
-			"U21sT2FtMnFYa2xxVVVGClJabkZxVnlwS1prbFlETV\n" +
-			"JZam9JcG01QlVYNWFhakhJMXNRY3JwVFUz\n" +
-			"SHpia3FMU1ZLNk9PU3hNakV\n" +
-			"3TWJLeE0KSUZjemNIRUt3SHoxc1l6NWYzaXVxaC9MQlpkTE04OU1a\n" +
-			"dFI5\n" +
-			"ek1pWE15M09LY2hqUTF5bnFtMmJsYTM1bE5lSgptMHdtdlhBTFBlSndzSjZ\n" +
-			"oa3JQRjdaVC9X\n" +
-			"K1B2MTZXU2JwOWwzZXJidTFIbC9wN2xWVHBySmFYNHRG\n" +
-			"M2lGdG9zCk8yN3pmSEgyU25ZVzJjL0h0\n" +
-			"Q2FtL2JyUjJlclNlRmRiL25aW\n" +
-			"HNxZFFjUGR2N2owVjMrTzM3VFc3bitkbTlXcWUKanQ5dUFLK0tq\n" +
-			"ZVk9Cj\n" +
-			"1ocUJ3Ci0tLS0tRU5EIFBHUCBNRVNTQUdFLS0tLS0K";
+	private static final String LICENSE = "LS0tLS1CRUdJTiBQR1AgTUVTU0FHRS0tLS0tClZlcnNpb246IEJDUEcgdjEuNDYKCm93SjRuSnZBeTh6RXhMaDQ4eU9HcFluL3RSbFB6MDdpemszUHk4bkpURTdOSzA0TisxdXhWRGtrbzFUQk43RkkKd2RoUXdkRFV5c2pReXNCU3dkVWxSTUhJd05DTXF5eTFxRGd6UDYvWU50cFV6MERQUU1jTVJFWno1WmZucFJiWgpwaVRtT1JSbkpCYWxKZ094WG5KK0xsZHFSVUZtVVdJSlVJY3RVTHU1cm9HeHJwRUJWMjUrU21sT2FyRnRhbDVKCmFsRkJVV1p4S2xkcVNtWUoyRndrc1k0NUxFeU1UQXhzckV3Z2R6RndjUXJBM08xNGlQbS82K2VXN3FveXhYTjkKSFhteXpKdGt4TDJpM3pOejZzOVdWcHpFOGI1TzczSnNvN3pKWXViVEYvajlwODErOU9yelViKzR5V3FUSjd1KwpmYVBETzMvWFRua3JMNlhhcFh0ckZodzMzbEt3VGUzOWZ5Rm5WNUZUSlcrRDl6WWUxMXZNcGRqZ0dYMjZ0K2w1Cit3bi9NbzdOTDcwL3ZkbHp1ZFJuOXdxanE1SXpWcWFGM1RiZTR4Z0RBSmhoZ2ZzPQo9RXRQagotLS0tLUVORCBQR1AgTUVTU0FHRS0tLS0tCg==";
 
 	/**
 	 * Forces extraction of the module's files, like template JSPs, from
