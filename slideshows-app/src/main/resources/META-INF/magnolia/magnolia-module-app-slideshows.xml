@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module SYSTEM "module.dtd" >
 <module>
-  <name>app-slideshowsx</name>
+  <name>app-slideshows</name>
   <displayName>App Slideshows</displayName>
   <description>Slideshows Content</description>
   <class>com.sharecare.cms.slideshows.configuration.SlideshowsModuleConfig</class>
   <versionHandler>com.sharecare.cms.publishing.commons.bootstrap.GlobalVersionHandler</versionHandler>
-  <version>1.0</version>
+  <version>1.1</version>
 
   <components>
     <id>main</id> <!-- Container ID -->

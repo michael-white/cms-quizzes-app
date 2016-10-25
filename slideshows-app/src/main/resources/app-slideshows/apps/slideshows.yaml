@@ -101,7 +101,7 @@ subApps:
             nodeTypes:
               - mgnl:folder
             rules:
-              - name: isAllowedForDevhost
+              - name: isAllowedForDev
                 implementationClass: com.sharecare.cms.publishing.commons.activation.rules.rules.IsAllowedForDevRule
         - name: slideshowProdEnv
           label: Slideshow
@@ -187,7 +187,7 @@ subApps:
             nodeTypes:
               - mgnl:slideshow
             rules:
-              - name: isAllowedForDevhost
+              - name: isAllowedForDev
                 implementationClass: com.sharecare.cms.publishing.commons.activation.rules.rules.IsAllowedForDevRule
     actions:
       addProduct:
@@ -438,7 +438,6 @@ subApps:
               - name: jcrName
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Slideshow URI
-                readOnly: true
               - name: title
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: Title
@@ -485,7 +484,7 @@ subApps:
                 label: Meta Keywords
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: disableSocial
-                label: Disable Social Buttons
+                label: "Disable Social Buttons"
                 class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
               - name: segmentSelect
                 class: com.sharecare.cms.publishing.commons.ui.taglib.segmentation.SegmentOptionGroupDefintion
@@ -515,7 +514,7 @@ subApps:
           - name: tags
             label: Tags
             fields:
-              - name: articleUriPrimaryTag
+              - name:slideshowUriPrimaryTag
                 label: "Primary Tag"
                 webUriField: slideshowUriWebPath
                 subdomain: slideshow

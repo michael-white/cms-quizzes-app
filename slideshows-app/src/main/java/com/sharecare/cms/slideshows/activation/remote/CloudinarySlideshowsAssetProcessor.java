@@ -7,6 +7,7 @@ import javax.jcr.Value;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -36,33 +37,35 @@ public class CloudinarySlideshowsAssetProcessor implements SlideshowsAssetProces
 	}
 
 	@Override
-	public Optional<AssetUploadResult> uploadAssetFrom(Node node) throws RepositoryException {
-		if (!node.hasProperty(SlideshowsJCRSchema.imageUpload.name()))
-			return Optional.empty();
+	public List<AssetUploadResult> uploadAssetFrom(Node node) throws RepositoryException {
+		return null;
 
-		Value value = node.getProperty(SlideshowsJCRSchema.imageUpload.name()).getValue();
-		JcrAsset asset = (JcrAsset) jcrAssetProvider.getAsset(ItemKey.from(value.getString()));
-		File file = extractFile(asset);
-		log.debug("Uploading file {}", file.getName());
-
-		try {
-			String publicId = file.getName();
-			if(publicId.contains("."))
-				publicId = file.getName().substring(0, file.getName().lastIndexOf("."));
-
-			Map map = cloudinary.uploader().upload(file, ObjectUtils.asMap(
-					"public_id", publicId,
-					"folder", "articles/",
-					"use_filename", true,
-					"responsive_breakpoints", new ResponsiveBreakpoint()
-							.createDerived(true)
-							.minWidth(60).maxWidth(600).maxImages(3)));
-			AssetUploadResult result = new AssetUploadResult(map.get("public_id").toString(), map.get("url").toString());
-			log.debug("File upload completed: {}", result.getUrl());
-			return Optional.of(result);
-		} catch (IOException e) {
-			throw new RepositoryException("Unable to upload asset: " + e.getMessage());
-		}
+//		if (!node.hasProperty(SlideshowsJCRSchema.imageUpload.name()))
+//			return Optional.empty();
+//
+//		Value value = node.getProperty(SlideshowsJCRSchema.imageUpload.name()).getValue();
+//		JcrAsset asset = (JcrAsset) jcrAssetProvider.getAsset(ItemKey.from(value.getString()));
+//		File file = extractFile(asset);
+//		log.debug("Uploading file {}", file.getName());
+//
+//		try {
+//			String publicId = file.getName();
+//			if(publicId.contains("."))
+//				publicId = file.getName().substring(0, file.getName().lastIndexOf("."));
+//
+//			Map map = cloudinary.uploader().upload(file, ObjectUtils.asMap(
+//					"public_id", publicId,
+//					"folder", "slideshows/",
+//					"use_filename", true,
+//					"responsive_breakpoints", new ResponsiveBreakpoint()
+//							.createDerived(true)
+//							.minWidth(60).maxWidth(600).maxImages(3)));
+//			AssetUploadResult result = new AssetUploadResult(map.get("public_id").toString(), map.get("url").toString());
+//			log.debug("File upload completed: {}", result.getUrl());
+//			return Optional.of(result);
+//		} catch (IOException e) {
+//			throw new RepositoryException("Unable to upload asset: " + e.getMessage());
+//		}
 	}
 
 	private File extractFile(JcrAsset jcrAsset) throws RepositoryException {

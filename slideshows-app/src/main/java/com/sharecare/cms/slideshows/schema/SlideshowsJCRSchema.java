@@ -1,37 +1,18 @@
 package com.sharecare.cms.slideshows.schema;
 
 public enum SlideshowsJCRSchema {
-	topicUri,
 	title,
-	subHead,
-	byline,
-	bylineUrl,
-	bylineUrlOptionSelect,
-	realAgeOptionSelect,
-	callOutBody,
-	body,
-	playerId,
-	videoId,
-	videoTitle,
-	videoTeaser,
-	metaKeywords,
+	description,
+	slides,
 	pageAndMetaTitle,
 	metaDescription,
-	hasSynviscComScore,
-	ogLabel,
+	metaKeywords,
 	disableSocial,
-	ogType,
-	ogImage,
-	ogTitle,
-	ogDescription,
-	ogUrl,
-	noIndexFollow,
-	canonicalReference,
-	imageUpload,
-	contentFlags,
 	segmentSelect,
 	mentions,
-	authors;
+	authors,
+	topicUri;
+
 
 	public static SlideshowsJCRSchema forName(String field) {
 		for(SlideshowsJCRSchema v : values()) {

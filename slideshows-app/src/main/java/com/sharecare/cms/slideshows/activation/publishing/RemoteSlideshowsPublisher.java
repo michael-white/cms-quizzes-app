@@ -1,102 +1,96 @@
 package com.sharecare.cms.slideshows.activation.publishing;
 
-import com.google.common.collect.Sets;
+import com.sharecare.cms.cloudinary.dam.AssetUploadResult;
 import com.sharecare.cms.publishing.commons.activation.RemoteDataPublisher;
+import com.sharecare.cms.publishing.commons.activation.RemoteServiceResponseProcessor;
 import com.sharecare.cms.publishing.commons.configuration.CommonsModuleConfig;
+import com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig;
+import com.sharecare.cms.slideshows.activation.remote.SlideshowsAssetProcessor;
+import com.sharecare.cms.slideshows.activation.remote.SlideshowsRequestBuilder;
 import com.sharecare.cms.slideshows.configuration.SlideshowsModuleConfig;
+import com.sharecare.core.sdk.BasicResponse;
+import com.sharecare.core.sdk.configuration.BasicAuthCredentials;
+import com.sharecare.core.sdk.configuration.ServerInfo;
+import com.sharecare.slideshows.sdk.SlideshowsApiClient;
+import com.sharecare.slideshows.sdk.model.SlideshowRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 import javax.inject.Inject;
 import javax.jcr.*;
-import java.util.Set;
-
-import static com.sharecare.cms.publishing.commons.ui.taglib.activation.EnvironmentActivationField.ACTIVE_STATUS_FIELD;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 class RemoteSlideshowsPublisher implements RemoteDataPublisher {
 
-	static final String NODE_TYPE = "mgnl:article";
+    static final String NODE_TYPE = "mgnl:slideshow";
+    private final Map<String, SlideshowsApiClient> clientMap;
+    private final SlideshowsAssetProcessor slideshowsAssetProcessor;
+    private final SlideshowsRequestBuilder slideshowRequestBuilder;
+    private final RemoteServiceResponseProcessor remoteServiceResponseProcessor;
+
+    @Inject
+    public RemoteSlideshowsPublisher(SlideshowsModuleConfig slideshowsModuleConfig,
+                                     CommonsModuleConfig commonsModuleConfig, SlideshowsAssetProcessor slideshowsAssetProcessor, SlideshowRequest.SlideshowRequestBuilder slideshowRequestBuilder, SlideshowsRequestBuilder slideshowRequestBuilder1, RemoteServiceResponseProcessor remoteServiceResponseProcessor) {
+        this.slideshowsAssetProcessor = slideshowsAssetProcessor;
+        this.slideshowRequestBuilder = slideshowRequestBuilder1;
+        this.remoteServiceResponseProcessor = remoteServiceResponseProcessor;
+        this.clientMap = buildApiClients(slideshowsModuleConfig.getPublishing().get(commonsModuleConfig.getEnvironment()));
+
+    }
+
+    @Override
+    public boolean publish(Node node, String environment) {
+        try {
+            log.info("Publishing {}:{} content to {} ", node.getName(), node.getIdentifier(), environment);
+            SlideshowsApiClient client = clientMap.get(environment);
+            List<AssetUploadResult> uploadResult = slideshowsAssetProcessor.uploadAssetFrom(node);
+            List<SlideshowRequest> slideshowRequests = slideshowRequestBuilder.forNode(node, uploadResult);
+            BasicResponse response = client.saveRequest().withData(slideshowRequests).execute();
+            return remoteServiceResponseProcessor.processResponse(node, environment, response);
+        } catch (RepositoryException e) {
+            log.error("Failed Activation of slideshow  {} ", ExceptionUtils.getFullStackTrace(e));
+            return false;
+        }
+    }
+
+    @Override
+    public boolean unPublish(Node node, String environment) {
+
+        try {
+            log.warn("Deleting {}:{} content from {} ", node.getName(), node.getIdentifier(), environment);
+            SlideshowsApiClient client = clientMap.get(environment);
+            log.debug("Executing DELETE rest call {}", node.getName());
+            BasicResponse response = client.deleteRequest().withUri(node.getName()).execute();
+            return remoteServiceResponseProcessor.processResponse(node, environment, response);
+        } catch (Exception e) {
+            log.error("Failed De-Activation of slideshow  {} ", ExceptionUtils.getFullStackTrace(e));
+            return false;
+        }
+    }
+
+    private Map<String, SlideshowsApiClient> buildApiClients(Map<String, RemoteServerResourceConfig> environmentsMap) {
+
+        return environmentsMap.entrySet()
+                .stream()
+                .collect(Collectors.toMap(Map.Entry::getKey,
+                        entry -> {
+                            RemoteServerResourceConfig config = entry.getValue();
+                            BasicAuthCredentials basicAuthCredentials = new BasicAuthCredentials(entry.getValue().getUsername(), config.getPassword());
+                            ServerInfo serverInfo = ServerInfo.builder().protocol(config.getHostProtocol())
+                                    .hostName(config.getHostAddress())
+                                    .port(config.getHostPort())
+                                    .basePath("/slideshows")
+                                    .build();
+                            return new SlideshowsApiClient(serverInfo, basicAuthCredentials);
+                        }));
+    }
 
 
-	@Inject
-	public RemoteSlideshowsPublisher(SlideshowsModuleConfig slideshowsModuleConfig,
-                                     CommonsModuleConfig commonsModuleConfigr) {
-	}
-
-	@Override
-	public boolean publish(Node node, String environment) {
-
-
-
-		return true;
-	}
-
-	@Override
-	public boolean unPublish(Node node, String environment) {
-
-
-		return true;
-	}
-
-
-	private interface StatusUpdater<V, I, S> {
-
-		boolean updateStatus(V valueFactory, I item, S environment);
-	}
-
-	private StatusUpdater<ValueFactory, Node, String> addEnvironmentCallback = (vf, item, environment) -> {
-		try {
-			if (item.hasProperty(ACTIVE_STATUS_FIELD)) {
-				Property p = item.getProperty(ACTIVE_STATUS_FIELD);
-				Set<Value> values = Sets.newHashSet(p.getValues());
-				values.add(vf.createValue(environment));
-				p.setValue(values.toArray(new Value[values.size()]));
-			} else {
-				Value[] values = new Value[]{vf.createValue(environment)};
-				item.setProperty(ACTIVE_STATUS_FIELD, values);
-			}
-		} catch (RepositoryException e) {
-			log.error("Failed to update JCR {} ", ExceptionUtils.getFullStackTrace(e));
-		}
-
-		return true;
-	};
-
-	private StatusUpdater<ValueFactory, Node, String> removeEnvironmentCallback = (vf, item, environment) -> {
-		try {
-			if (item.hasProperty(ACTIVE_STATUS_FIELD)) {
-				Property p = item.getProperty(ACTIVE_STATUS_FIELD);
-				Set<Value> values = Sets.newHashSet(p.getValues());
-				values.remove(vf.createValue(environment));
-				p.setValue(values.toArray(new Value[values.size()]));
-			}
-		} catch (RepositoryException e) {
-			log.error("Failed to update JCR {} ", ExceptionUtils.getFullStackTrace(e));
-			return false;
-		}
-
-		return true;
-	};
-
-
-	private StatusUpdater<Node, String, StatusUpdater<ValueFactory, Node, String>> activeStatusUpdater = (item, environment, statusUpdater) -> {
-		log.debug("Marking item {} as active on environment {}", item, environment);
-		try {
-			Session session = item.getSession();
-			ValueFactory valueFactory = session.getValueFactory();
-			boolean result = statusUpdater.updateStatus(valueFactory, item, environment);
-			session.save();
-			return result;
-		} catch (RepositoryException e) {
-			log.error("Failed to mark as activated {} ", ExceptionUtils.getFullStackTrace(e));
-			return unPublish(item, environment);
-		}
-	};
-
-
-	@Override
-	public boolean canService(String nodeType) {
-		return NODE_TYPE.equals(nodeType);
-	}
+    @Override
+    public boolean canService(String nodeType) {
+        return NODE_TYPE.equals(nodeType);
+    }
 }
