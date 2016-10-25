@@ -92,6 +92,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 
     private void populateBuilder(ArticleRequest.ArticleRequestBuilder builder, String field, String value) {
 
+        if (builder != null) {
         if (PrimaryTagField.PRIMARY_TAG_FIELD.equals(field)) {
             builder.primaryTag(new Tag(value, "tag"));
         } else {
@@ -183,36 +184,39 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
                     break;
 
             }
+            }
         }
     }
 
     private void populateBuilderMulti(ArticleRequest.ArticleRequestBuilder builder, String field, List<String> values) {
 
-        if (SecondaryTagField.SECONDARY_TAG_FIELD.equals(field)) {
-            builder.secondaryTags(values.stream().map(v -> new Tag(v, "tag")).collect(Collectors.toList()));
-        } else {
+        if (builder != null) {
+            if (SecondaryTagField.SECONDARY_TAG_FIELD.equals(field)) {
+                builder.secondaryTags(values.stream().map(v -> new Tag(v, "tag")).collect(Collectors.toList()));
+            } else {
 
-            ArticleJCRSchema fieldName = ArticleJCRSchema.forName(field);
-            if (fieldName == null) return;
+                ArticleJCRSchema fieldName = ArticleJCRSchema.forName(field);
+                if (fieldName == null) return;
 
-            switch (fieldName) {
-                case segmentSelect:
-                    builder.segments(values);
-                    break;
-                case contentFlags:
-                    builder.contentFlags(values);
-                    break;
-                case mentions:
-                    builder.mentions(values);
-                    break;
-                case authors:
-                    builder.authors(values);
-                    break;
-                case redirects:
-                    builder.legacyUris(values);
-                    break;
-                default:
-                    break;
+                switch (fieldName) {
+                    case segmentSelect:
+                        builder.segments(values);
+                        break;
+                    case contentFlags:
+                        builder.contentFlags(values);
+                        break;
+                    case mentions:
+                        builder.mentions(values);
+                        break;
+                    case authors:
+                        builder.authors(values);
+                        break;
+                    case redirects:
+                        builder.legacyUris(values);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
