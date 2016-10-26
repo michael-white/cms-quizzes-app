@@ -57,7 +57,8 @@ public class CloudinarySlideshowsAssetProcessor implements SlideshowsAssetProces
 					"responsive_breakpoints", new ResponsiveBreakpoint()
 							.createDerived(true)
 							.minWidth(60).maxWidth(600).maxImages(3)));
-			AssetUploadResult result = new AssetUploadResult(map.get("public_id").toString(), map.get("url").toString());
+			String id  = String.format("v%s/%s", map.get("version").toString(), map.get("public_id").toString()) ;
+			AssetUploadResult result = new AssetUploadResult(id, map.get("url").toString());
 			log.debug("File upload completed: {}", result.getUrl());
 			return Optional.of(result);
 		} catch (IOException e) {
