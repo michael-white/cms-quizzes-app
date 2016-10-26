@@ -17,7 +17,7 @@ public class RemoteServiceResponseProcessor implements ServiceResponseProcessor 
 
     @Override
     public boolean processResponse(Node node, String environment, BasicResponse response) throws RepositoryException {
-        if (response.getStatusCode() == 200) {
+        if (response.getStatusCode() == 200 || response.getStatusCode() == 201) {
             log.info("Successfully processed content item {} from remote", node.getName());
             if (!activeStatusUpdater.updateStatus(node, environment, removeEnvironmentCallback)) {
                 log.error("Failed to update node status: {}", node);

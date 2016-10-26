@@ -500,6 +500,7 @@ subApps:
               - name: disableSocial
                 label: "Disable Social Buttons"
                 class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+                buttonLabel: ""
               - name: segmentSelect
                 class: com.sharecare.cms.publishing.commons.ui.taglib.segmentation.SegmentOptionGroupDefintion
                 multiselect: true

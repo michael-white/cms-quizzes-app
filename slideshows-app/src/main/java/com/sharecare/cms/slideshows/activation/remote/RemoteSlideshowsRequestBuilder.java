@@ -4,11 +4,14 @@ import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.sharecare.cms.cloudinary.dam.AssetUploadResult;
 import com.sharecare.cms.slideshows.schema.SlideshowsJCRSchema;
-import com.sharecare.slideshows.sdk.model.Slide;
+import com.sharecare.slideshows.sdk.model.SlideRequest;
 import com.sharecare.slideshows.sdk.model.SlideshowRequest;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.jcr.*;
+import javax.jcr.Node;
+import javax.jcr.NodeIterator;
+import javax.jcr.Property;
+import javax.jcr.RepositoryException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,9 +42,9 @@ public class RemoteSlideshowsRequestBuilder implements SlideshowsRequestBuilder 
         return Lists.newArrayList(request);
     }
 
-    private List<Slide> processSlides(Node node) throws RepositoryException {
+    private List<SlideRequest> processSlides(Node node) throws RepositoryException {
 
-        List<Slide> slides = new ArrayList<>();
+        List<SlideRequest> slides = new ArrayList<>();
 
         if (!node.hasNode(SlideshowsJCRSchema.slides.name()))
             return Collections.emptyList();
@@ -52,14 +55,14 @@ public class RemoteSlideshowsRequestBuilder implements SlideshowsRequestBuilder 
 
             Node slide = iterator.nextNode();
 
-            Slide.SlideBuilder slideBuilder = Slide.builder()
+            SlideRequest.SlideRequestBuilder slideBuilder = SlideRequest.builder()
                     .title(fromNode(SlideshowsJCRSchema.title.name(), slide))
                     .description(fromNode(SlideshowsJCRSchema.description.name(), slide))
                     .showAd(Boolean.valueOf(fromNode(SlideshowsJCRSchema.showAd.name(), slide)));
 
             Optional<AssetUploadResult> uploadResult = slideshowsAssetProcessor.uploadAssetFrom(slide);
             if (uploadResult.isPresent()) {
-                slideBuilder.imageUrl(uploadResult.get().getUrl());
+                slideBuilder.imageId(uploadResult.get().getId());
             }
 
             slides.add(slideBuilder.build());
