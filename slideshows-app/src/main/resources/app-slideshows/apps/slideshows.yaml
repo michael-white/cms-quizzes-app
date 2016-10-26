@@ -79,7 +79,7 @@ subApps:
               - mgnl:folder
             rules:
               - name: isAllowedForQA
-                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.rules.IsAllowedForQARule
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForQARule
         - name: folderDevEnv
           label: Folder
           groups:
@@ -101,15 +101,16 @@ subApps:
             nodeTypes:
               - mgnl:folder
             rules:
-              - name: isAllowedForDev
-                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.rules.IsAllowedForDevRule
-        - name: slideshowProdEnv
+              - name: isAllowedForDevhost
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForDevRule
+        - name: prodEnv
           label: Slideshow
           groups:
             - name: editActions
               items:
                 - name: editProduct
                 - name: deleteProduct
+                - name: markAsDeletedProduct
                 - name: duplicateProduct
             - name: versioningActions
               items:
@@ -136,14 +137,15 @@ subApps:
               - mgnl:slideshow
             rules:
               - name: isAllowedForProd
-                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.rules.IsAllowedForProductionRule
-        - name: slideshowQAEnv
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForProductionRule
+        - name: qAEnv
           label: Slideshow
           groups:
             - name: editActions
               items:
                 - name: editProduct
                 - name: deleteProduct
+                - name: markAsDeletedProduct
                 - name: duplicateProduct
             - name: versioningActions
               items:
@@ -162,14 +164,15 @@ subApps:
               - mgnl:slideshow
             rules:
               - name: isAllowedForQA
-                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.rules.IsAllowedForQARule
-        - name: slideshowDevEnv
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForQARule
+        - name: devEnv
           label: Slideshow
           groups:
             - name: editActions
               items:
                 - name: editProduct
                 - name: deleteProduct
+                - name: markAsDeletedProduct
                 - name: duplicateProduct
             - name: versioningActions
               items:
@@ -187,8 +190,8 @@ subApps:
             nodeTypes:
               - mgnl:slideshow
             rules:
-              - name: isAllowedForDev
-                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.rules.IsAllowedForDevRule
+              - name: isAllowedForDevhost
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForDevRule
     actions:
       addProduct:
         subAppId: detail
@@ -207,6 +210,10 @@ subApps:
         class: info.magnolia.ui.contentapp.browser.action.RestoreVersionActionDefinition
         icon: icon-retrieve-versions
         label: Restore version
+#        availability:
+#          rules:
+#            - name: HasVersionsRule
+#              ruleClass: info.magnolia.ui.api.availability.HasVersionsRule
       addFolder:
         icon: icon-add-folder
         class: info.magnolia.ui.framework.action.AddFolderActionDefinition
@@ -225,6 +232,9 @@ subApps:
         appName: slideshows
         class: info.magnolia.ui.contentapp.detail.action.EditItemActionDefinition
       deleteProduct:
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.DeleteItemActionDefinition
+      markAsDeletedProduct:
         icon: icon-delete
         class: info.magnolia.ui.framework.action.DeleteItemActionDefinition
       duplicateProduct:
@@ -462,13 +472,17 @@ subApps:
                       class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                       label: Description
                       rows: 4
+                    - name: showAd
+                      class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+                      label: Show Add
+                      buttonLabel: ""
                     - name: image
                       class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
                       label: Image
                       targetWorkspace: dam
                       appName: assets
                       identifierToPathConverter:
-                        class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+                        class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
                       contentPreviewDefinition:
                         contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
           - name: meta
@@ -495,6 +509,12 @@ subApps:
           - name: editorial
             label: Editorial
             fields:
+              - name: redirects
+                class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
+                label: Redirects
+                field:
+                    class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                    label: Redirect
               - name: Notes
                 label: Notes
                 height: 300
@@ -514,14 +534,14 @@ subApps:
           - name: tags
             label: Tags
             fields:
-              - name:slideshowUriPrimaryTag
-                label: "Primary Tag"
+              - name: slideshowUriPrimaryTag
+                label: Primary Tag
                 webUriField: slideshowUriWebPath
                 subdomain: slideshow
                 class: com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagFieldDefinition
                 transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.tag.TagFieldCompositeTransformer
               - name: secondaryTag
-                label: "Secondary Tag"
+                label: Secondary Tag
                 class: com.sharecare.cms.publishing.commons.ui.taglib.tag.SecondaryTagFieldDefinition
                 transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.tag.TagFieldCompositeTransformer
           - name: activationStatus

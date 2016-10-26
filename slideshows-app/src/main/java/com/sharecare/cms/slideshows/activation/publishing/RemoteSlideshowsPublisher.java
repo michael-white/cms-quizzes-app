@@ -27,15 +27,13 @@ class RemoteSlideshowsPublisher implements RemoteDataPublisher {
 
     static final String NODE_TYPE = "mgnl:slideshow";
     private final Map<String, SlideshowsApiClient> clientMap;
-    private final SlideshowsAssetProcessor slideshowsAssetProcessor;
     private final SlideshowsRequestBuilder slideshowRequestBuilder;
     private final RemoteServiceResponseProcessor remoteServiceResponseProcessor;
 
     @Inject
     public RemoteSlideshowsPublisher(SlideshowsModuleConfig slideshowsModuleConfig,
-                                     CommonsModuleConfig commonsModuleConfig, SlideshowsAssetProcessor slideshowsAssetProcessor, SlideshowRequest.SlideshowRequestBuilder slideshowRequestBuilder, SlideshowsRequestBuilder slideshowRequestBuilder1, RemoteServiceResponseProcessor remoteServiceResponseProcessor) {
-        this.slideshowsAssetProcessor = slideshowsAssetProcessor;
-        this.slideshowRequestBuilder = slideshowRequestBuilder1;
+                                     CommonsModuleConfig commonsModuleConfig, SlideshowsRequestBuilder slideshowRequestBuilder, RemoteServiceResponseProcessor remoteServiceResponseProcessor) {
+        this.slideshowRequestBuilder = slideshowRequestBuilder;
         this.remoteServiceResponseProcessor = remoteServiceResponseProcessor;
         this.clientMap = buildApiClients(slideshowsModuleConfig.getPublishing().get(commonsModuleConfig.getEnvironment()));
 
@@ -46,8 +44,7 @@ class RemoteSlideshowsPublisher implements RemoteDataPublisher {
         try {
             log.info("Publishing {}:{} content to {} ", node.getName(), node.getIdentifier(), environment);
             SlideshowsApiClient client = clientMap.get(environment);
-            List<AssetUploadResult> uploadResult = slideshowsAssetProcessor.uploadAssetFrom(node);
-            List<SlideshowRequest> slideshowRequests = slideshowRequestBuilder.forNode(node, uploadResult);
+            List<SlideshowRequest> slideshowRequests = slideshowRequestBuilder.forNode(node);
             BasicResponse response = client.saveRequest().withData(slideshowRequests).execute();
             return remoteServiceResponseProcessor.processResponse(node, environment, response);
         } catch (RepositoryException e) {

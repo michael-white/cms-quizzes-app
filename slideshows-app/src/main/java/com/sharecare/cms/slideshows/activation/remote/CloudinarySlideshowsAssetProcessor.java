@@ -1,5 +1,18 @@
 package com.sharecare.cms.slideshows.activation.remote;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.ResponsiveBreakpoint;
+import com.cloudinary.utils.ObjectUtils;
+import com.sharecare.cms.cloudinary.dam.AssetUploadResult;
+import com.sharecare.cms.cloudinary.dam.CloudinaryClientServiceConnector;
+import com.sharecare.cms.slideshows.schema.SlideshowsJCRSchema;
+import info.magnolia.dam.api.AssetProvider;
+import info.magnolia.dam.api.AssetProviderRegistry;
+import info.magnolia.dam.api.ItemKey;
+import info.magnolia.dam.jcr.JcrAsset;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
+
 import javax.inject.Inject;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
@@ -7,22 +20,8 @@ import javax.jcr.Value;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
-import com.cloudinary.Cloudinary;
-import com.cloudinary.ResponsiveBreakpoint;
-import com.cloudinary.utils.ObjectUtils;
-import com.sharecare.cms.cloudinary.dam.AssetUploadResult;
-import com.sharecare.cms.slideshows.schema.SlideshowsJCRSchema;
-import com.sharecare.cms.cloudinary.dam.CloudinaryClientServiceConnector;
-import info.magnolia.dam.api.AssetProvider;
-import info.magnolia.dam.api.AssetProviderRegistry;
-import info.magnolia.dam.api.ItemKey;
-import info.magnolia.dam.jcr.JcrAsset;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.IOUtils;
 
 @Slf4j
 public class CloudinarySlideshowsAssetProcessor implements SlideshowsAssetProcessor {
@@ -37,35 +36,33 @@ public class CloudinarySlideshowsAssetProcessor implements SlideshowsAssetProces
 	}
 
 	@Override
-	public List<AssetUploadResult> uploadAssetFrom(Node node) throws RepositoryException {
-		return null;
+	public Optional<AssetUploadResult> uploadAssetFrom(Node node) throws RepositoryException {
+		if (!node.hasProperty(SlideshowsJCRSchema.image.name()))
+			return Optional.empty();
 
-//		if (!node.hasProperty(SlideshowsJCRSchema.imageUpload.name()))
-//			return Optional.empty();
-//
-//		Value value = node.getProperty(SlideshowsJCRSchema.imageUpload.name()).getValue();
-//		JcrAsset asset = (JcrAsset) jcrAssetProvider.getAsset(ItemKey.from(value.getString()));
-//		File file = extractFile(asset);
-//		log.debug("Uploading file {}", file.getName());
-//
-//		try {
-//			String publicId = file.getName();
-//			if(publicId.contains("."))
-//				publicId = file.getName().substring(0, file.getName().lastIndexOf("."));
-//
-//			Map map = cloudinary.uploader().upload(file, ObjectUtils.asMap(
-//					"public_id", publicId,
-//					"folder", "slideshows/",
-//					"use_filename", true,
-//					"responsive_breakpoints", new ResponsiveBreakpoint()
-//							.createDerived(true)
-//							.minWidth(60).maxWidth(600).maxImages(3)));
-//			AssetUploadResult result = new AssetUploadResult(map.get("public_id").toString(), map.get("url").toString());
-//			log.debug("File upload completed: {}", result.getUrl());
-//			return Optional.of(result);
-//		} catch (IOException e) {
-//			throw new RepositoryException("Unable to upload asset: " + e.getMessage());
-//		}
+		Value value = node.getProperty(SlideshowsJCRSchema.image.name()).getValue();
+		JcrAsset asset = (JcrAsset) jcrAssetProvider.getAsset(ItemKey.from(value.getString()));
+		File file = extractFile(asset);
+		log.debug("Uploading file {}", file.getName());
+
+		try {
+			String publicId = file.getName();
+			if(publicId.contains("."))
+				publicId = file.getName().substring(0, file.getName().lastIndexOf("."));
+
+			Map map = cloudinary.uploader().upload(file, ObjectUtils.asMap(
+					"public_id", publicId,
+					"folder", "slideshows/",
+					"use_filename", true,
+					"responsive_breakpoints", new ResponsiveBreakpoint()
+							.createDerived(true)
+							.minWidth(60).maxWidth(600).maxImages(3)));
+			AssetUploadResult result = new AssetUploadResult(map.get("public_id").toString(), map.get("url").toString());
+			log.debug("File upload completed: {}", result.getUrl());
+			return Optional.of(result);
+		} catch (IOException e) {
+			throw new RepositoryException("Unable to upload asset: " + e.getMessage());
+		}
 	}
 
 	private File extractFile(JcrAsset jcrAsset) throws RepositoryException {

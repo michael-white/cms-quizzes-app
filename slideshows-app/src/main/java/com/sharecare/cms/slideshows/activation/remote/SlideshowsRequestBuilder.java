@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface SlideshowsRequestBuilder {
 
-	List<SlideshowRequest> forNode(Node node, List<AssetUploadResult> uploadResult) throws RepositoryException;
+	List<SlideshowRequest> forNode(Node node) throws RepositoryException;
 }

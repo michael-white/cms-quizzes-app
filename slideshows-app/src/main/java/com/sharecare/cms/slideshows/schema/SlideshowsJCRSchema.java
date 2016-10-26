@@ -3,6 +3,8 @@ package com.sharecare.cms.slideshows.schema;
 public enum SlideshowsJCRSchema {
 	title,
 	description,
+	image,
+	showAd,
 	slides,
 	pageAndMetaTitle,
 	metaDescription,
@@ -11,7 +13,8 @@ public enum SlideshowsJCRSchema {
 	segmentSelect,
 	mentions,
 	authors,
-	topicUri;
+	topicUri,
+	redirects;
 
 
 	public static SlideshowsJCRSchema forName(String field) {

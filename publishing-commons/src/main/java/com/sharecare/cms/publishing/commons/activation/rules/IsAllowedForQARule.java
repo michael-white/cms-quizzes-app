@@ -19,6 +19,5 @@ public class IsAllowedForQARule extends AbstractAvailabilityRule {
 	@Override
 	protected boolean isAvailableForItem(Object itemId) {
 		return  commonsModuleConfig.getEnvironment().equals(CommonsModuleConfig.Environments.qa.name());
-
 	}
 }
