@@ -6,7 +6,7 @@
   <description>Articles Content</description>
   <class>com.sharecare.cms.articles.configuration.ArticlesModuleConfig</class>
   <versionHandler>com.sharecare.cms.publishing.commons.bootstrap.GlobalVersionHandler</versionHandler>
-  <version>1.14</version>
+  <version>1.17</version>
 
   <components>
     <id>main</id> <!-- Container ID -->
