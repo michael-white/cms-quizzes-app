@@ -691,7 +691,7 @@ subApps:
           - name: tags
             label: Tags
             fields:
-              - name: articleUriPrimaryTag
+              - name: primaryTag
                 label: "Primary Tag"
                 webUriField: articleUriWebPath
                 class: com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagFieldDefinition

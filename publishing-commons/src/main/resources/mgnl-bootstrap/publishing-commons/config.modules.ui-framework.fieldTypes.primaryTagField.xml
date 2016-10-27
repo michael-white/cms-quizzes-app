@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sv:node sv:name="slideshowUriPrimaryTagField" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<sv:node sv:name="primaryTagField" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <sv:property sv:name="jcr:primaryType" sv:type="Name">
     <sv:value>mgnl:contentNode</sv:value>
   </sv:property>
@@ -10,7 +10,7 @@
     <sv:value>com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagFieldDefinition</sv:value>
   </sv:property>
   <sv:property sv:name="factoryClass" sv:type="String">
-    <sv:value>com.sharecare.cms.slideshows.ui.taglib.SlideshowUriPrimaryTagFieldFactory</sv:value>
+    <sv:value>com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagFieldFactory</sv:value>
   </sv:property>
   <sv:property sv:name="jcr:createdBy" sv:type="String">
     <sv:value>admin</sv:value>

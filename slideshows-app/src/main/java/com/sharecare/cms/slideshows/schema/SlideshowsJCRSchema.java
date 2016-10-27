@@ -14,6 +14,8 @@ public enum SlideshowsJCRSchema {
 	mentions,
 	authors,
 	topicUri,
+	primaryTag,
+	secondaryTag,
 	redirects;
 
 

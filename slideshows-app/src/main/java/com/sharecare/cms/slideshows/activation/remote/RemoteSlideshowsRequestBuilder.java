@@ -4,18 +4,13 @@ import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.sharecare.cms.cloudinary.dam.AssetUploadResult;
 import com.sharecare.cms.slideshows.schema.SlideshowsJCRSchema;
+import com.sharecare.core.sdk.model.Tag;
 import com.sharecare.slideshows.sdk.model.SlideRequest;
 import com.sharecare.slideshows.sdk.model.SlideshowRequest;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.jcr.Node;
-import javax.jcr.NodeIterator;
-import javax.jcr.Property;
-import javax.jcr.RepositoryException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import javax.jcr.*;
+import java.util.*;
 
 @Slf4j
 public class RemoteSlideshowsRequestBuilder implements SlideshowsRequestBuilder {
@@ -36,10 +31,41 @@ public class RemoteSlideshowsRequestBuilder implements SlideshowsRequestBuilder 
                 .title(fromNode(SlideshowsJCRSchema.title.name(), node))
                 .description(fromNode(SlideshowsJCRSchema.description.name(), node))
                 .slides(processSlides(node))
+                .pageAndMetaTitle(fromNode(SlideshowsJCRSchema.pageAndMetaTitle.name(), node))
+                .keywords(fromCSV(fromNode(SlideshowsJCRSchema.metaKeywords.name(), node)))
+                .disableSocial(Boolean.valueOf(fromNode(SlideshowsJCRSchema.disableSocial.name(), node)))
+                .segments(extractMultiField(node, SlideshowsJCRSchema.segmentSelect.name()))
+                .authors(extractMultiField(node, SlideshowsJCRSchema.authors.name()))
+                .mentions(extractMultiField(node, SlideshowsJCRSchema.mentions.name()))
+                .topicUri(fromNode(SlideshowsJCRSchema.topicUri.name(), node))
+                .primaryTag(extractTag(SlideshowsJCRSchema.primaryTag.name(), node))
+                .legacyUris(extractMultiField(node, SlideshowsJCRSchema.redirects.name()))
                 .build();
 
 
         return Lists.newArrayList(request);
+    }
+
+    private Tag extractTag(String name, Node node) {
+        String tagId = fromNode(name, node);
+        return new Tag(tagId, "tag");
+    }
+
+    private Collection<String> fromCSV(String s) {
+        return Arrays.asList(s.split(","));
+    }
+
+    private List<String> extractMultiField(Node node, String field) throws RepositoryException {
+        List<String> values = new ArrayList<>();
+        if (node.hasProperty(field)) {
+             Property p = node.getProperty(field);
+            if (p.isMultiple()) {
+                for (Value author : p.getValues()) {
+                    values.add(author.getString());
+                }
+            }
+        }
+        return  values;
     }
 
     private List<SlideRequest> processSlides(Node node) throws RepositoryException {

@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 @Getter
-public abstract class PrimaryTagField extends CustomField<PropertysetItem> {
+public  class PrimaryTagField extends CustomField<PropertysetItem> {
 	private final Logger logger = Logger.getLogger(PrimaryTagField.class);
 
 	public static final String PRIMARY_TAG_FIELD = "primaryTag";
@@ -35,11 +35,13 @@ public abstract class PrimaryTagField extends CustomField<PropertysetItem> {
 	private final JcrNodeAdapter currentItem;
 
 	private final String contentUriJCRFieldName;
+	private final String subDomain;
 
-	public PrimaryTagField(TagService tagService, JcrNodeAdapter currentItem, String contentUriJCRFieldName) {
+	public PrimaryTagField(TagService tagService, JcrNodeAdapter currentItem,String subDomain, String contentUriJCRFieldName) {
 		this.tagService = tagService;
 		this.currentItem = currentItem;
 		this.contentUriJCRFieldName = contentUriJCRFieldName;
+		this.subDomain = subDomain;
 	}
 
 
@@ -142,7 +144,10 @@ public abstract class PrimaryTagField extends CustomField<PropertysetItem> {
 	}
 
 
-	protected abstract String buildContentUriLabel(String topicUri, String nodeName);
+
+	public String buildContentUriLabel(String topicUri, String nodeName) {
+		return String.format("/health/%s/%s/%s", topicUri, subDomain ,nodeName).toLowerCase();
+	}
 
 
 	@Override
