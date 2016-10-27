@@ -16,10 +16,10 @@ public class RemoteServiceResponseProcessor implements ServiceResponseProcessor 
 
 
     @Override
-    public boolean processResponse(Node node, String environment, BasicResponse response) throws RepositoryException {
+    public boolean processResponse(Node node, String environment, BasicResponse response, StatusUpdater<ValueFactory, Node, String> callBack) throws RepositoryException {
         if (response.getStatusCode() == 200 || response.getStatusCode() == 201) {
             log.info("Successfully processed content item {} from remote", node.getName());
-            if (!activeStatusUpdater.updateStatus(node, environment, removeEnvironmentCallback)) {
+            if (!activeStatusUpdater.updateStatus(node, environment, callBack)) {
                 log.error("Failed to update node status: {}", node);
                 return false;
             }
@@ -29,12 +29,12 @@ public class RemoteServiceResponseProcessor implements ServiceResponseProcessor 
     }
 
 
-    private interface StatusUpdater<V, I, S> {
+    public interface StatusUpdater<V, I, S> {
 
         boolean updateStatus(V valueFactory, I item, S environment);
     }
 
-    private StatusUpdater<ValueFactory, Node, String> addEnvironmentCallback = (vf, item, environment) -> {
+    public static StatusUpdater<ValueFactory, Node, String> addEnvironmentCallback = (vf, item, environment) -> {
         try {
             if (item.hasProperty(ACTIVE_STATUS_FIELD)) {
                 Property p = item.getProperty(ACTIVE_STATUS_FIELD);
@@ -52,7 +52,7 @@ public class RemoteServiceResponseProcessor implements ServiceResponseProcessor 
         return true;
     };
 
-    private StatusUpdater<ValueFactory, Node, String> removeEnvironmentCallback = (vf, item, environment) -> {
+    public static StatusUpdater<ValueFactory, Node, String> removeEnvironmentCallback = (vf, item, environment) -> {
         try {
             if (item.hasProperty(ACTIVE_STATUS_FIELD)) {
                 Property p = item.getProperty(ACTIVE_STATUS_FIELD);

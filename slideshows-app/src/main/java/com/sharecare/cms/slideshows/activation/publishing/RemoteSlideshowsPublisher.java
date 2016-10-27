@@ -1,11 +1,9 @@
 package com.sharecare.cms.slideshows.activation.publishing;
 
-import com.sharecare.cms.cloudinary.dam.AssetUploadResult;
 import com.sharecare.cms.publishing.commons.activation.RemoteDataPublisher;
 import com.sharecare.cms.publishing.commons.activation.RemoteServiceResponseProcessor;
 import com.sharecare.cms.publishing.commons.configuration.CommonsModuleConfig;
 import com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig;
-import com.sharecare.cms.slideshows.activation.remote.SlideshowsAssetProcessor;
 import com.sharecare.cms.slideshows.activation.remote.SlideshowsRequestBuilder;
 import com.sharecare.cms.slideshows.configuration.SlideshowsModuleConfig;
 import com.sharecare.core.sdk.BasicResponse;
@@ -46,7 +44,7 @@ class RemoteSlideshowsPublisher implements RemoteDataPublisher {
             SlideshowsApiClient client = clientMap.get(environment);
             List<SlideshowRequest> slideshowRequests = slideshowRequestBuilder.forNode(node);
             BasicResponse response = client.saveRequest().withData(slideshowRequests).execute();
-            return remoteServiceResponseProcessor.processResponse(node, environment, response);
+            return remoteServiceResponseProcessor.processResponse(node, environment, response, RemoteServiceResponseProcessor.addEnvironmentCallback);
         } catch (RepositoryException e) {
             log.error("Failed Activation of slideshow  {} ", ExceptionUtils.getFullStackTrace(e));
             return false;
@@ -61,7 +59,7 @@ class RemoteSlideshowsPublisher implements RemoteDataPublisher {
             SlideshowsApiClient client = clientMap.get(environment);
             log.debug("Executing DELETE rest call {}", node.getName());
             BasicResponse response = client.deleteRequest().withUri(node.getName()).execute();
-            return remoteServiceResponseProcessor.processResponse(node, environment, response);
+            return remoteServiceResponseProcessor.processResponse(node, environment, response, RemoteServiceResponseProcessor.removeEnvironmentCallback);
         } catch (Exception e) {
             log.error("Failed De-Activation of slideshow  {} ", ExceptionUtils.getFullStackTrace(e));
             return false;
