@@ -3,10 +3,10 @@ package com.sharecare.cms.articles.activation.remote;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Maps;
 import com.sharecare.articles.sdk.model.ArticleRequest;
-import com.sharecare.articles.sdk.model.Tag;
 import com.sharecare.cms.articles.schema.ArticleJCRSchema;
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagField;
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.SecondaryTagField;
+import com.sharecare.core.sdk.model.Tag;
 import lombok.extern.slf4j.Slf4j;
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
@@ -185,7 +185,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
                     builder.propensityScore(Long.parseLong(StringUtils.defaultIfBlank(value, "0")));
                     break;
                 case expirationDate:
-                    builder.expirationDate(String.valueOf(new DateTime(value).getMillis()));
+                    builder.expirationDate(new DateTime(value).getMillis());
                     break;
                 case livingInTheGreenScale:
                     builder.livingInTheGreenScale(Long.parseLong(StringUtils.defaultIfBlank(value, "0")));

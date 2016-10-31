@@ -2,9 +2,6 @@ package com.sharecare.cms.articles.activation.publishing;
 
 import com.google.common.collect.Sets;
 import com.sharecare.articles.sdk.ArticlesApiClient;
-import com.sharecare.articles.sdk.BasicResponse;
-import com.sharecare.articles.sdk.configuration.BasicAuthCredentials;
-import com.sharecare.articles.sdk.configuration.ServerInfo;
 import com.sharecare.articles.sdk.model.ArticleRequest;
 import com.sharecare.cms.articles.activation.remote.ArticleAssetProcessor;
 import com.sharecare.cms.articles.activation.remote.ArticleRequestBuilder;
@@ -13,6 +10,9 @@ import com.sharecare.cms.articles.configuration.ArticlesModuleConfig;
 import com.sharecare.cms.publishing.commons.activation.RemoteDataPublisher;
 import com.sharecare.cms.publishing.commons.configuration.CommonsModuleConfig;
 import com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig;
+import com.sharecare.core.sdk.BasicResponse;
+import com.sharecare.core.sdk.configuration.BasicAuthCredentials;
+import com.sharecare.core.sdk.configuration.ServerInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
@@ -162,7 +162,7 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 									.port(config.getHostPort())
 									.basePath("/articles")
 									.build();
-							return new ArticlesApiClient(basicAuthCredentials, serverInfo);
+							return new ArticlesApiClient(serverInfo, basicAuthCredentials);
 						}));
 	}
 
