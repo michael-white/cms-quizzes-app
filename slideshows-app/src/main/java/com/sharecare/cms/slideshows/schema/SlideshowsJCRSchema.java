@@ -1,6 +1,7 @@
 package com.sharecare.cms.slideshows.schema;
 
 public enum SlideshowsJCRSchema {
+	legacyUUID,
 	title,
 	description,
 	image,
@@ -16,6 +17,8 @@ public enum SlideshowsJCRSchema {
 	topicUri,
 	primaryTag,
 	secondaryTag,
+	slideTitle,
+	slideDescription,
 	redirects;
 
 

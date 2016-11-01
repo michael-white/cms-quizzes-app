@@ -25,8 +25,10 @@ public class RemoteSlideshowsRequestBuilder implements SlideshowsRequestBuilder 
     @Override
     public List<SlideshowRequest> forNode(Node node) throws RepositoryException {
 
+        String uuid = node.hasNode(SlideshowsJCRSchema.legacyUUID.name()) ? node.getProperty(SlideshowsJCRSchema.legacyUUID.name()).getString() : node.getIdentifier();
+
         SlideshowRequest request = SlideshowRequest.builder()
-                .id(node.getIdentifier())
+                .id(uuid)
                 .uri(node.getName())
                 .title(fromNode(SlideshowsJCRSchema.title.name(), node))
                 .description(fromNode(SlideshowsJCRSchema.description.name(), node))
@@ -82,8 +84,8 @@ public class RemoteSlideshowsRequestBuilder implements SlideshowsRequestBuilder 
             Node slide = iterator.nextNode();
 
             SlideRequest.SlideRequestBuilder slideBuilder = SlideRequest.builder()
-                    .title(fromNode(SlideshowsJCRSchema.title.name(), slide))
-                    .description(fromNode(SlideshowsJCRSchema.description.name(), slide))
+                    .title(fromNode(SlideshowsJCRSchema.slideTitle.name(), slide))
+                    .description(fromNode(SlideshowsJCRSchema.slideDescription.name(), slide))
                     .showAd(Boolean.valueOf(fromNode(SlideshowsJCRSchema.showAd.name(), slide)));
 
             Optional<AssetUploadResult> uploadResult = slideshowsAssetProcessor.uploadAssetFrom(slide);

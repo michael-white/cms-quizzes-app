@@ -74,9 +74,11 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 
         Map<String, ArticleRequest.ArticleRequestBuilder> map = Maps.newHashMap();
 
+        String uuid = node.hasNode(ArticleJCRSchema.legacyUUID.name()) ? node.getProperty(ArticleJCRSchema.legacyUUID.name()).getString() : node.getIdentifier();
+
         for (Locale l : Locale.values()) {
             ArticleRequest.ArticleRequestBuilder builder = ArticleRequest.builder()
-                                                    .id(node.getIdentifier())
+                                                    .id(uuid)
                                                     .articleUri(node.getName())
                                                     .locale(l.name());
 

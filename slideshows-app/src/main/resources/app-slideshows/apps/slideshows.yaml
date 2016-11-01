@@ -465,10 +465,10 @@ subApps:
                   class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
                   transformerClass: info.magnolia.ui.form.field.transformer.composite.NoOpCompositeTransformer
                   fields:
-                    - name: title
+                    - name: slideTitle
                       class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                       label: Title
-                    - name: description
+                    - name: slideDescription
                       class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                       label: Description
                       rows: 4
