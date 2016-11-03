@@ -186,7 +186,11 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
                     builder.propensityScore(Long.parseLong(StringUtils.defaultIfBlank(value, "0")));
                     break;
                 case expirationDate:
-                    builder.expirationDate(new DateTime(value).getMillis());
+                    long expirationDate = Integer.MAX_VALUE;
+                    if (StringUtils.isNotEmpty(value)) {
+                         expirationDate = new DateTime(value).getMillis();
+                    }
+                    builder.expirationDate(expirationDate);
                     break;
                 case livingInTheGreenScale:
                     builder.livingInTheGreenScale(Long.parseLong(StringUtils.defaultIfBlank(value, "0")));
