@@ -33,7 +33,6 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
         Map<String, ArticleRequest.ArticleRequestBuilder> localeArticles = initArticleLocaleMap(node, uploadResult);
 
         processProperties(node, localeArticles);
-
         return localeArticles.values()
                              .stream()
                              .map(ArticleRequest.ArticleRequestBuilder::build)
@@ -41,6 +40,9 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
     }
 
     private void processProperties(Node n, Map<String, ArticleRequest.ArticleRequestBuilder> localeArticles) throws RepositoryException {
+        if (!n.hasProperty("expirationDate")) {
+            n.setProperty("expirationDate", "");
+        }
         PropertyIterator it = n.getProperties();
         while (it.hasNext()) {
             Property p = it.nextProperty();
@@ -186,7 +188,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
                     builder.propensityScore(Long.parseLong(StringUtils.defaultIfBlank(value, "0")));
                     break;
                 case expirationDate:
-                    long expirationDate = Integer.MAX_VALUE;
+                    long expirationDate = Long.MAX_VALUE;
                     if (StringUtils.isNotEmpty(value)) {
                          expirationDate = new DateTime(value).getMillis();
                     }
