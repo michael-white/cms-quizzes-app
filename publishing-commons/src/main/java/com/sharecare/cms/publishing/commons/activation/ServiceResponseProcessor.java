@@ -1,4 +1,4 @@
-package com.sharecare.cms.publishing.commons;
+package com.sharecare.cms.publishing.commons.activation;
 
 import com.sharecare.cms.publishing.commons.activation.RemoteServiceResponseProcessor;
 import com.sharecare.core.sdk.BasicResponse;

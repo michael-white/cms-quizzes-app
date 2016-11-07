@@ -388,6 +388,7 @@ subApps:
       contentViews:
         - name: tree
           class: info.magnolia.ui.workbench.tree.TreePresenterDefinition
+          sortable: true
           columns: &myColumns
             - name: name
               editable: true
@@ -453,7 +454,7 @@ subApps:
                 label: Title
               - name: description
                 rows: 4
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
                 label: Description
               - name: slides
                 class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
@@ -469,7 +470,7 @@ subApps:
                       class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                       label: Title
                     - name: slideDescription
-                      class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                      class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
                       label: Description
                       rows: 4
                     - name: showAd
