@@ -10,4 +10,5 @@ build/
 publishing-central.ipr
 publishing-central.iws
 .DS_Store
+publishing-ui/src/main/webapp/tmp/
 

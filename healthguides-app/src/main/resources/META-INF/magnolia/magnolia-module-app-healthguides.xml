@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module SYSTEM "module.dtd" >
+<module>
+  <name>app-healthguides</name>
+  <displayName>App Health Guides</displayName>
+  <description>Example app for My first content app tutorial</description>
+  <version>${project.version}</version>
+
+  <dependencies>
+    <dependency>
+      <name>core</name>
+      <version>5.4/*</version>
+    </dependency>
+    <dependency>
+      <name>ui-admincentral</name>
+      <version>5.4/*</version>
+    </dependency>
+    <dependency>
+      <name>ui-contentapp</name>
+      <version>5.4/*</version>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <name>dam-app</name>
+      <version>2.1/*</version>
+    </dependency>
+  </dependencies>
+
+
+  <repositories>
+    <repository>
+      <name>magnolia</name>
+      <workspaces>
+        <workspace>healthguides</workspace>
+      </workspaces>
+      <nodeTypeFile>/mgnl-nodetypes/app-healthguides-nodetypes.xml</nodeTypeFile>
+    </repository>
+  </repositories>
+
+</module>

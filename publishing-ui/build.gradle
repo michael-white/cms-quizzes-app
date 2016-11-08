@@ -20,6 +20,7 @@ dependencies {
     compile project(':articles-app')
     compile project(':cloudinary-app')
     compile project(':publishing-commons')
+    compile project(':healthguides-app')
 
     executableWar("org.eclipse.jetty.aggregate:jetty-all:$jettyVersion",
             "com.sharecare.services:embedded-jetty:1.0")

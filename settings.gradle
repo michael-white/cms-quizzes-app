@@ -1,4 +1,4 @@
 include 'articles-app', 'publishing-ui'
 include 'publishing-commons'
 include 'cloudinary-app'
-
+include 'healthguides-app'
