@@ -41,6 +41,7 @@
       <name>magnolia</name>
       <workspaces>
         <workspace>slideshows</workspace>
+        <workspace>featured</workspace>
       </workspaces>
       <nodeTypeFile>/mgnl-nodetypes/app-slideshows-nodetypes.xml</nodeTypeFile>
     </repository>

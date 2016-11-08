@@ -16,7 +16,6 @@ public class SlideshowsPublishingBindingConfigurer extends ComponentBindingConfi
 	protected void configureActions() {
 		bindPublisher().to(RemoteSlideshowsPublisher.class);
 		bindPublisher().to(RemoteSlideshowsFolderPublisher.class);
-		bindPublisher().to(RemoteSlideshowsFolderPublisher.class);
 
 		binder().bind(SlideshowsRequestBuilder.class).to(RemoteSlideshowsRequestBuilder.class);
 		binder().bind(SlideshowsAssetProcessor.class).to(CloudinarySlideshowsAssetProcessor.class);
