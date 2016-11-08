@@ -4,8 +4,8 @@ import com.sharecare.cms.featured.remote.CloudinaryFeaturedSlideshowsAssetProces
 import com.sharecare.cms.featured.remote.FeaturedSlideshowsAssetProcessor;
 import com.sharecare.cms.featured.remote.FeaturedSlideshowsRequestBuilder;
 import com.sharecare.cms.featured.remote.RemoteFeaturedSlideshowsRequestBuilder;
-import com.sharecare.cms.publishing.commons.ServiceResponseProcessor;
 import com.sharecare.cms.publishing.commons.activation.RemoteServiceResponseProcessor;
+import com.sharecare.cms.publishing.commons.activation.ServiceResponseProcessor;
 import com.sharecare.cms.publishing.commons.configuration.ComponentBindingConfigurer;
 
 public class FeaturedSlideshowsPublishingBindingConfigurer extends ComponentBindingConfigurer {
