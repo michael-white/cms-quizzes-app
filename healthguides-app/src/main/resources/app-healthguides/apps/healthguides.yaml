@@ -151,6 +151,36 @@ subApps:
                   contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
               - name: description
                 class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+          - name: meta
+            label: Meta
+            fields:
+              - name: resources
+                class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
+                label: Health Guide Resources
+                transformerClass: info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodePropertiesTransformer
+                field:
+                  name: compositeField
+                  class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
+                  transformerClass: info.magnolia.ui.form.field.transformer.composite.NoOpCompositeTransformer
+                  fields:
+                    - name: resourceUri
+                      class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                      label: Resource URI (title)
+                      maxLength: 255
+                    - name: type
+                      class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
+                      label: Resource Type
+                      options:
+                        - name: article
+                          value: Article
+                          selected: false
+                          label: Article
+                        - name: slideshow
+                          value: Slideshow
+                          label: Slideshow
+                        - name: video
+                          value: Video
+                          label: Video
       nodeType:
         icon: icon-items
         name: mgnl:healthguide
