@@ -235,6 +235,7 @@ subApps:
         icon: icon-delete
         class: info.magnolia.ui.framework.action.DeleteItemActionDefinition
       markAsDeletedProduct:
+        label: Mark as deleted
         icon: icon-delete
         class: info.magnolia.ui.framework.action.DeleteItemActionDefinition
       duplicateProduct:
