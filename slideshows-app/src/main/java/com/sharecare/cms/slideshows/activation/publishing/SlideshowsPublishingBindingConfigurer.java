@@ -1,6 +1,6 @@
 package com.sharecare.cms.slideshows.activation.publishing;
 
-import com.sharecare.cms.publishing.commons.ServiceResponseProcessor;
+import com.sharecare.cms.publishing.commons.activation.ServiceResponseProcessor;
 import com.sharecare.cms.publishing.commons.activation.RemoteServiceResponseProcessor;
 import com.sharecare.cms.slideshows.activation.remote.SlideshowsAssetProcessor;
 import com.sharecare.cms.slideshows.activation.remote.SlideshowsRequestBuilder;

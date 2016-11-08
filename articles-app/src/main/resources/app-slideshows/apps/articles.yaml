@@ -391,6 +391,7 @@ subApps:
       contentViews:
         - name: tree
           class: info.magnolia.ui.workbench.tree.TreePresenterDefinition
+          sortable: true
           columns: &myColumns
             - name: name
               editable: true

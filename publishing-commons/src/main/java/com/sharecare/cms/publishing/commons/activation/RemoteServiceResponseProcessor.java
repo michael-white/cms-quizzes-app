@@ -1,7 +1,6 @@
 package com.sharecare.cms.publishing.commons.activation;
 
 import com.google.common.collect.Sets;
-import com.sharecare.cms.publishing.commons.ServiceResponseProcessor;
 import com.sharecare.core.sdk.BasicResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.exception.ExceptionUtils;
