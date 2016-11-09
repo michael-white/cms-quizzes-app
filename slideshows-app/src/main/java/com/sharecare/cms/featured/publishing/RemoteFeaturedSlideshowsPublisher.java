@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
-class RemoteFeaturedSlideshowsPublisher implements RemoteDataPublisher {
+public class RemoteFeaturedSlideshowsPublisher implements RemoteDataPublisher {
 
     static final String NODE_TYPE = "mgnl:featured";
     private final Map<String, FeaturedSlideshowsApiClient> clientMap;
