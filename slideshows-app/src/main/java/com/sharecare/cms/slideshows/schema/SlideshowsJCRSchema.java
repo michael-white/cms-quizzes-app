@@ -6,6 +6,9 @@ public enum SlideshowsJCRSchema {
 	description,
 	image,
 	showAd,
+	byline,
+	bylineUrl,
+	bylineUrlOptionSelect,
 	slides,
 	pageAndMetaTitle,
 	metaDescription,
@@ -19,7 +22,15 @@ public enum SlideshowsJCRSchema {
 	secondaryTag,
 	slideTitle,
 	slideDescription,
-	redirects;
+	redirects,
+	ogLabel,
+	ogType,
+	ogImage,
+	ogTitle,
+	ogDescription,
+	ogUrl,
+	noIndexFollow,
+	canonicalReference;
 
 
 	public static SlideshowsJCRSchema forName(String field) {

@@ -9,14 +9,14 @@ import com.sharecare.cms.slideshows.configuration.SlideshowsModuleConfig;
 import com.sharecare.core.sdk.BasicResponse;
 import com.sharecare.core.sdk.configuration.BasicAuthCredentials;
 import com.sharecare.core.sdk.configuration.ServerInfo;
-import com.sharecare.slideshows.sdk.SlideshowsApiClient;
-import com.sharecare.slideshows.sdk.model.SlideshowRequest;
+import com.sharecare.sdk.slideshows.SlideshowsApiClient;
+import com.sharecare.sdk.slideshows.model.SlideshowRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 import javax.inject.Inject;
-import javax.jcr.*;
-import java.util.List;
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -30,10 +30,13 @@ class RemoteSlideshowsPublisher implements RemoteDataPublisher {
 
     @Inject
     public RemoteSlideshowsPublisher(SlideshowsModuleConfig slideshowsModuleConfig,
-                                     CommonsModuleConfig commonsModuleConfig, SlideshowsRequestBuilder slideshowRequestBuilder, RemoteServiceResponseProcessor remoteServiceResponseProcessor) {
+                                     CommonsModuleConfig commonsModuleConfig,
+                                     SlideshowsRequestBuilder slideshowRequestBuilder,
+                                     RemoteServiceResponseProcessor remoteServiceResponseProcessor) {
         this.slideshowRequestBuilder = slideshowRequestBuilder;
         this.remoteServiceResponseProcessor = remoteServiceResponseProcessor;
-        this.clientMap = buildApiClients(slideshowsModuleConfig.getPublishing().get(commonsModuleConfig.getEnvironment()));
+        this.clientMap = buildApiClients(slideshowsModuleConfig.getPublishing()
+                .get(commonsModuleConfig.getEnvironment()));
 
     }
 
@@ -42,9 +45,10 @@ class RemoteSlideshowsPublisher implements RemoteDataPublisher {
         try {
             log.info("Publishing {}:{} content to {} ", node.getName(), node.getIdentifier(), environment);
             SlideshowsApiClient client = clientMap.get(environment);
-            List<SlideshowRequest> slideshowRequests = slideshowRequestBuilder.forNode(node);
-            BasicResponse response = client.saveRequest().withData(slideshowRequests).execute();
-            return remoteServiceResponseProcessor.processResponse(node, environment, response, RemoteServiceResponseProcessor.addEnvironmentCallback);
+            SlideshowRequest slideshowRequest = slideshowRequestBuilder.forNode(node);
+            BasicResponse response = client.saveRequest().withData(slideshowRequest).execute();
+            return remoteServiceResponseProcessor.processResponse(node, environment, response,
+                    RemoteServiceResponseProcessor.addEnvironmentCallback);
         } catch (RepositoryException e) {
             log.error("Failed Activation of slideshow  {} ", ExceptionUtils.getFullStackTrace(e));
             return false;
@@ -59,7 +63,8 @@ class RemoteSlideshowsPublisher implements RemoteDataPublisher {
             SlideshowsApiClient client = clientMap.get(environment);
             log.debug("Executing DELETE rest call {}", node.getName());
             BasicResponse response = client.deleteRequest().withUri(node.getName()).execute();
-            return remoteServiceResponseProcessor.processResponse(node, environment, response, RemoteServiceResponseProcessor.removeEnvironmentCallback);
+            return remoteServiceResponseProcessor.processResponse(node, environment, response,
+                    RemoteServiceResponseProcessor.removeEnvironmentCallback);
         } catch (Exception e) {
             log.error("Failed De-Activation of slideshow  {} ", ExceptionUtils.getFullStackTrace(e));
             return false;
@@ -73,7 +78,8 @@ class RemoteSlideshowsPublisher implements RemoteDataPublisher {
                 .collect(Collectors.toMap(Map.Entry::getKey,
                         entry -> {
                             RemoteServerResourceConfig config = entry.getValue();
-                            BasicAuthCredentials basicAuthCredentials = new BasicAuthCredentials(entry.getValue().getUsername(), config.getPassword());
+                            BasicAuthCredentials basicAuthCredentials = new BasicAuthCredentials(entry.getValue()
+                                    .getUsername(), config.getPassword());
                             ServerInfo serverInfo = ServerInfo.builder().protocol(config.getHostProtocol())
                                     .hostName(config.getHostAddress())
                                     .port(config.getHostPort())

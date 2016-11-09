@@ -1,14 +1,14 @@
 appClass: info.magnolia.ui.contentapp.ContentApp
 class: info.magnolia.ui.contentapp.ConfiguredContentAppDescriptor
 label: Slideshows
-icon: icon-items
+icon: icon-files
 name: slideshows
 subApps:
   browser:
     subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
     class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
     actionbar:
-      defaultAction: editProduct
+#      defaultAction: editProduct - can't do the default double-click here because of the Featured content node
       sections:
         - name: root
           label: Root
@@ -23,6 +23,9 @@ subApps:
               items:
                 - name: exportProduct
                 - name: importProduct
+            - name: featuredActions
+              items:
+                - name: addFeatured
           availability:
             nodes: false
             root: true
@@ -172,7 +175,6 @@ subApps:
               items:
                 - name: editProduct
                 - name: deleteProduct
-                - name: markAsDeletedProduct
                 - name: duplicateProduct
             - name: versioningActions
               items:
@@ -192,6 +194,20 @@ subApps:
             rules:
               - name: isAllowedForDevhost
                 implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForDevRule
+        - name: devFeaturedEnv
+          label: Featured
+          groups:
+            - name: featuredActions
+              items:
+                - name: editFeatured
+                - name: activateDev
+          availability:
+            nodeTypes:
+              - mgnl:featured
+            rules:
+              - name: isAllowedForDevhost
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForDevRule
+
     actions:
       addProduct:
         subAppId: detail
@@ -210,10 +226,6 @@ subApps:
         class: info.magnolia.ui.contentapp.browser.action.RestoreVersionActionDefinition
         icon: icon-retrieve-versions
         label: Restore version
-#        availability:
-#          rules:
-#            - name: HasVersionsRule
-#              ruleClass: info.magnolia.ui.api.availability.HasVersionsRule
       addFolder:
         icon: icon-add-folder
         class: info.magnolia.ui.framework.action.AddFolderActionDefinition
@@ -383,6 +395,24 @@ subApps:
         dialogName: campaign-publisher:addToCampaign
         availability:
           multiple: true
+      addFeatured:
+        label: "Add Featured"
+        subAppId: detailFeatured
+        command: addFeatured
+        nodeType: mgnl:featured
+        icon: icon-add-item
+        appName: slideshows
+        class: info.magnolia.ui.contentapp.detail.action.CreateItemActionDefinition
+        availability:
+          root: true
+      editFeatured:
+        label: "Edit Featured"
+        subAppId: detailFeatured
+        command: editFeatured
+        nodeType: mgnl:featured
+        icon: icon-edit
+        appName: slideshows
+        class: info.magnolia.ui.contentapp.detail.action.EditItemActionDefinition
     workbench:
       dropConstraintClass: info.magnolia.ui.workbench.tree.drop.AlwaysTrueDropConstraint
       editable: false
@@ -414,7 +444,6 @@ subApps:
         - name: search
           class: info.magnolia.ui.workbench.search.SearchPresenterDefinition
           columns: *myColumns
-
     imageProvider:
        class: info.magnolia.dam.app.ui.imageprovider.DamLinkImageProviderDefinition
        damLinkPropertyName: imageUpload
@@ -428,6 +457,8 @@ subApps:
           icon: icon-items
         - name: mgnl:folder
           icon: icon-folder
+        - name: mgnl:featured
+          icon: icon-files
   detail:
     subAppClass: info.magnolia.ui.contentapp.detail.DetailSubApp
     class: info.magnolia.ui.contentapp.detail.DetailSubAppDescriptor
@@ -457,6 +488,24 @@ subApps:
                 rows: 4
                 class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
                 label: Description
+              - name: byline
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Byline
+              - name: bylineUrl
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: Byline URL
+              - name: bylineUrlOptionSelect
+                class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+                multiselect: false
+                type: String
+                label: Byline Option
+                options:
+                  - name: internalLink
+                    label: Internal Link
+                    selected: false
+                  - name: externalLink
+                    label: External Link
+                    selected: true
               - name: slides
                 class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
                 label: Slides
@@ -476,7 +525,7 @@ subApps:
                       rows: 4
                     - name: showAd
                       class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
-                      label: Show Add
+                      label: Show Ad
                       buttonLabel: ""
                     - name: image
                       class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
@@ -499,10 +548,36 @@ subApps:
               - name: metaKeywords
                 label: Meta Keywords
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: ogLabel
+                label: "Open Graph"
+                class: info.magnolia.ui.form.field.definition.StaticFieldDefinition
+                value: Open Graph Stuff here
               - name: disableSocial
                 label: "Disable Social Buttons"
                 class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
-                buttonLabel: ""
+                buttonLabel: Removes all OpenGraph tags and social share bar
+              - name: ogType
+                label: "OG Type"
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: ogImage
+                label: OG Image Url
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: ogTitle
+                label: OG Title
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: ogDescription
+                label: OG Description
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: ogUrl
+                label: OG Url
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: noIndexFollow
+                label: No Crawl
+                class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+                buttonLabel: No Index No Follow
+              - name: canonicalReference
+                label: Canonical Reference
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: segmentSelect
                 class: com.sharecare.cms.publishing.commons.ui.taglib.segmentation.SegmentOptionGroupDefintion
                 multiselect: true
@@ -543,10 +618,6 @@ subApps:
                 subdomain: slideshow
                 class: com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagFieldDefinition
                 transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.tag.TagFieldCompositeTransformer
-#              - name: secondaryTag
-#                label: Secondary Tag
-#                class: com.sharecare.cms.publishing.commons.ui.taglib.tag.SecondaryTagFieldDefinition
-#                transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.tag.TagFieldCompositeTransformer
           - name: activationStatus
             label: Activation
             fields:
@@ -558,6 +629,66 @@ subApps:
       nodeType:
         icon: icon-items
         name: mgnl:slideshow
+    contentConnector:
+      workspace: slideshows
+  detailFeatured:
+    subAppClass: info.magnolia.ui.contentapp.detail.DetailSubApp
+    class: info.magnolia.ui.contentapp.detail.DetailSubAppDescriptor
+#    closable: false - removes the X to close the dialog/tab - don't remove yet
+    actions:
+      commit:
+        class: info.magnolia.ui.form.action.SaveFormActionDefinition
+        label: "Save Changes"
+      cancel:
+        class: info.magnolia.ui.form.action.CancelFormActionDefinition
+        label: "Cancel"
+    editor:
+      wide: true
+      actions:
+        - name: commit
+        - name: cancel
+      form:
+        tabs:
+          - name: featured
+            label: "Featured Slideshows"
+            fields:
+
+              - name: jcrName
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: "Featured Content"
+                defaultValue: "FEATURED"
+                readOnly: true
+
+              - name: ogLabel
+                label: ""
+                class: info.magnolia.ui.form.field.definition.StaticFieldDefinition
+                value: "<strong>Hero Slideshow</strong>"
+
+              - name: hero
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                required: true
+                label: Slideshow URI
+
+              - name: ogLabel
+                label: ""
+                class: info.magnolia.ui.form.field.definition.StaticFieldDefinition
+                value: ""
+              - name: ogLabel
+                label: ""
+                class: info.magnolia.ui.form.field.definition.StaticFieldDefinition
+                value: "<strong>Slideshow Carousel</strong>"
+
+
+              - name: carousel
+                class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
+                required: true
+                label: Slideshow URIs
+                field:
+                    class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                    label: URI
+      nodeType:
+        icon: icon-files
+        name: mgnl:featured
     contentConnector:
       workspace: slideshows
 
