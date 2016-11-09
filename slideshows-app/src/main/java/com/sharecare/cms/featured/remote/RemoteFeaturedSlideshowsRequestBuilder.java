@@ -6,6 +6,7 @@ import com.sharecare.sdk.slideshows.featured.model.FeaturedSlideshowRequest;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
+import static com.sharecare.cms.utils.NodeUtils.*;
 
 import static com.sharecare.cms.utils.NodeUtils.extractMultiField;
 import static com.sharecare.cms.utils.NodeUtils.fromNode;

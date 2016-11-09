@@ -665,7 +665,9 @@ subApps:
                 value: "<strong>Hero Slideshow</strong>"
 
               - name: hero
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+                targetWorkspace: slideshows
+                appName: slideshows
                 required: true
                 label: Slideshow URI
 
@@ -684,7 +686,9 @@ subApps:
                 required: true
                 label: Slideshow URIs
                 field:
-                    class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                    class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+                    targetWorkspace: slideshows
+                    appName: slideshows
                     label: URI
       nodeType:
         icon: icon-files

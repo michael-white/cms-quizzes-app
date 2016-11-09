@@ -1,11 +1,11 @@
 package com.sharecare.cms.featured.publishing;
 
-import com.sharecare.cms.featured.configuration.FeaturedSlideshowsModuleConfig;
 import com.sharecare.cms.featured.remote.FeaturedSlideshowsRequestBuilder;
 import com.sharecare.cms.publishing.commons.activation.RemoteDataPublisher;
 import com.sharecare.cms.publishing.commons.activation.RemoteServiceResponseProcessor;
 import com.sharecare.cms.publishing.commons.configuration.CommonsModuleConfig;
 import com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig;
+import com.sharecare.cms.slideshows.configuration.SlideshowsModuleConfig;
 import com.sharecare.core.sdk.BasicResponse;
 import com.sharecare.core.sdk.configuration.BasicAuthCredentials;
 import com.sharecare.core.sdk.configuration.ServerInfo;
@@ -29,13 +29,13 @@ public class RemoteFeaturedSlideshowsPublisher implements RemoteDataPublisher {
     private final RemoteServiceResponseProcessor remoteServiceResponseProcessor;
 
     @Inject
-    public RemoteFeaturedSlideshowsPublisher(FeaturedSlideshowsModuleConfig featuredSlideshowsModuleConfig,
+    public RemoteFeaturedSlideshowsPublisher(SlideshowsModuleConfig slideshowsModuleConfig,
                                              CommonsModuleConfig commonsModuleConfig,
                                              FeaturedSlideshowsRequestBuilder featuredSlideshowsRequestBuilder,
                                              RemoteServiceResponseProcessor remoteServiceResponseProcessor) {
         this.featuredSlideshowsRequestBuilder = featuredSlideshowsRequestBuilder;
         this.remoteServiceResponseProcessor = remoteServiceResponseProcessor;
-        this.clientMap = buildApiClients(featuredSlideshowsModuleConfig.getPublishing()
+        this.clientMap = buildApiClients(slideshowsModuleConfig.getPublishing()
                 .get(commonsModuleConfig.getEnvironment()));
 
     }
