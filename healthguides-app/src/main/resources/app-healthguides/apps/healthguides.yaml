@@ -154,6 +154,15 @@ subApps:
           - name: meta
             label: Meta
             fields:
+              - name: pageAndMetaTitle
+                label: Page & Meta Title
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: metaDescription
+                label: Meta Description
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: metaKeywords
+                label: Meta Keywords
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: resources
                 class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
                 label: Health Guide Resources
@@ -181,6 +190,193 @@ subApps:
                         - name: video
                           value: Video
                           label: Video
+              - name: contentFlags
+                class: info.magnolia.ui.form.field.definition.TwinColSelectFieldDefinition
+                type: String
+                label: Content Flags
+                options:
+                  - name: highQuality
+                    label: HIGH_QUALITY
+                    value: HIGH_QUALITY
+                  - name: minor
+                    label: MINOR
+                    value: MINOR
+                  - name: physicianProfile
+                    label: PHYSICIAN_PROFILE
+                    value: PHYSICIAN_PROFILE
+                  - name: sponsor
+                    label: SPONSOR
+                    value: SPONSOR
+                  - name: user
+                    label: USER
+                    value: USER
+                  - name: livingGreen
+                    label: LIVING_GREEN
+                    value: LIVING_GREEN
+                  - name: question
+                    label: QUESTION
+                    value: QUESTION
+                  - name: newsfeed
+                    label: NEWSFEED
+                    value: NEWSFEED
+              - name: propensityScore
+                class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+                multiselect: false
+                type: Long
+                label: Propensity Score
+                options:
+                  - name: 1
+                    label: "1"
+                    selected: false
+                  - name: 2
+                    label: "2"
+                    selected: false
+                  - name: 3
+                    label: "3"
+                    selected: false
+                  - name: 4
+                    label: "4"
+                    selected: false
+                  - name: 5
+                    label: "5"
+                    selected: false
+              - name: expirationDate
+                label: Expiration Date
+                class: info.magnolia.ui.form.field.definition.DateFieldDefinition
+                formatterClass: info.magnolia.ui.workbench.column.DateColumnFormatter
+                type: Date
+                time: false
+                dateFormat: dd MMM yyyy
+              - name: livingInTheGreenScale
+                class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+                label: Living In The Green Scale
+                multiselect: false
+                type: Long
+                options:
+                  - name: 1
+                    label: "1"
+                    selected: false
+                  - name: 2
+                    label: "2"
+                    selected: false
+                  - name: 3
+                    label: "3"
+                    selected: false
+                  - name: 4
+                    label: "4"
+                    selected: false
+                  - name: 5
+                    label: "5"
+                    selected: false
+              - name: hasSynviscComScore
+                label: Add Synvisc comscore tag
+                class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+                buttonLabel: Check this box to add/remove synvisc comscore
+              - name: ogLabel
+                label: Open Graph
+                class: info.magnolia.ui.form.field.definition.StaticFieldDefinition
+                value: Open Graph Stuff here
+              - name: disableSocial
+                label: Disable Social Buttons
+                class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+                buttonLabel: Removes all OpenGraph tags and social share bar
+              - name: ogType
+                label: OG Type
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: ogImage
+                label: OG Image Url
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: ogTitle
+                label: OG Title
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: ogDescription
+                label: OG Description
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: ogUrl
+                label: OG Url
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: noIndexFollow
+                label: No Crawl
+                class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+                buttonLabel: No Index No Follow
+              - name: canonicalReference
+                label: Canonical Reference
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: segmentSelect
+                class: com.sharecare.cms.publishing.commons.ui.taglib.segmentation.SegmentOptionGroupDefintion
+                multiselect: true
+                type: String
+                sortOptions: false
+                label: Segments visible for
+          - name: mobile
+            label: Mobile
+            fields:
+              - name: mobileEnabled
+                label: Mobile App is Enabled
+                class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+                buttonLabel: Check this box to enable/disable mobile
+              - name: mobileShortTitle
+                label: Short Title
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                maxLength: 70
+              - name: mobileAssetReference
+                label: Mobile Asset Reference
+                class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
+                options:
+                  - name: 640x640
+                    value: 640x640
+                    selected: true
+                  - name: 576x576
+                    value: 576x576
+                  - name: 432x432
+                    value: 432x432
+                  - name: 336x336
+                    value: 336x336
+          - name: editorial
+            label: Editorial
+            fields:
+              - name: redirects
+                class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
+                label: Redirects
+                field:
+                    class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                    label: Redirect
+              - name: Notes
+                label: Notes
+                height: 300
+                class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+              - name: authors
+                class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
+                label: Authors
+                field:
+                    class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                    label: Author
+              - name: mentions
+                class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
+                label: Mentions
+                field:
+                    class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                    label: Mention
+          - name: tags
+            label: Tags
+            fields:
+              - name: articleUriPrimaryTag
+                label: "Primary Tag"
+                webUriField: articleUriWebPath
+                class: com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagFieldDefinition
+                transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.tag.TagFieldCompositeTransformer
+              - name: secondaryTag
+                label: "Secondary Tag"
+                class: com.sharecare.cms.publishing.commons.ui.taglib.tag.SecondaryTagFieldDefinition
+                transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.tag.TagFieldCompositeTransformer
+          - name: activationStatus
+            label: Activation
+            fields:
+              - name: activeStatus
+                label: "Activated on:"
+                webUriField: articleUriWebPath
+                class: com.sharecare.cms.publishing.commons.ui.taglib.activation.EnvironmentActivationDefinition
+                transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.activation.ActivationStatusCompositeTransformer
       nodeType:
         icon: icon-items
         name: mgnl:healthguide
