@@ -8,7 +8,7 @@ subApps:
     subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
     class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
     actionbar:
-#      defaultAction: editProduct - can't do the default double-click here because of the Featured content node
+      defaultAction: editProduct
       sections:
         - name: root
           label: Root
@@ -23,9 +23,9 @@ subApps:
               items:
                 - name: exportProduct
                 - name: importProduct
-            - name: featuredActions
-              items:
-                - name: addFeatured
+#            - name: featuredActions
+#              items:
+#                - name: addFeatured
           availability:
             nodes: false
             root: true
@@ -395,16 +395,16 @@ subApps:
         dialogName: campaign-publisher:addToCampaign
         availability:
           multiple: true
-      addFeatured:
-        label: "Add Featured"
-        subAppId: detailFeatured
-        command: addFeatured
-        nodeType: mgnl:featured
-        icon: icon-add-item
-        appName: slideshows
-        class: info.magnolia.ui.contentapp.detail.action.CreateItemActionDefinition
-        availability:
-          root: true
+#      addFeatured:
+#        label: "Add Featured"
+#        subAppId: detailFeatured
+#        command: addFeatured
+#        nodeType: mgnl:featured
+#        icon: icon-add-item
+#        appName: slideshows
+#        class: info.magnolia.ui.contentapp.detail.action.CreateItemActionDefinition
+#        availability:
+#          root: true
       editFeatured:
         label: "Edit Featured"
         subAppId: detailFeatured
@@ -424,6 +424,11 @@ subApps:
             - name: name
               editable: true
               propertyName: jcrName
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: type
+              width: 75
+              editable: true
+              propertyName: jcrPrimaryType
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
             - name: status
               width: 160
@@ -530,6 +535,7 @@ subApps:
                     - name: image
                       class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
                       label: Image
+                      required: true
                       targetWorkspace: dam
                       appName: assets
                       identifierToPathConverter:
@@ -618,6 +624,7 @@ subApps:
                 subdomain: slideshow
                 class: com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagFieldDefinition
                 transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.tag.TagFieldCompositeTransformer
+            required: true
           - name: activationStatus
             label: Activation
             fields:
@@ -634,7 +641,6 @@ subApps:
   detailFeatured:
     subAppClass: info.magnolia.ui.contentapp.detail.DetailSubApp
     class: info.magnolia.ui.contentapp.detail.DetailSubAppDescriptor
-#    closable: false - removes the X to close the dialog/tab - don't remove yet
     actions:
       commit:
         class: info.magnolia.ui.form.action.SaveFormActionDefinition
@@ -679,7 +685,6 @@ subApps:
                 label: ""
                 class: info.magnolia.ui.form.field.definition.StaticFieldDefinition
                 value: "<strong>Slideshow Carousel</strong>"
-
 
               - name: carousel
                 class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
