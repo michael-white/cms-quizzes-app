@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class RemoteFeaturedSlideshowsPublisher implements RemoteDataPublisher {
 
-    static final String NODE_TYPE = "mgnl:featured";
+    static final String ROOT_NODE = "mgnl:featured";
     private final Map<String, FeaturedSlideshowsApiClient> clientMap;
     private final FeaturedSlideshowsRequestBuilder featuredSlideshowsRequestBuilder;
     private final RemoteServiceResponseProcessor remoteServiceResponseProcessor;
@@ -81,6 +81,6 @@ public class RemoteFeaturedSlideshowsPublisher implements RemoteDataPublisher {
 
     @Override
     public boolean canService(String nodeType) {
-        return NODE_TYPE.equals(nodeType);
+        return ROOT_NODE.equals(nodeType);
     }
 }
