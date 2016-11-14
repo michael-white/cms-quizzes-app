@@ -31,7 +31,7 @@ if ("dev".equals(System.getProperty("env"))) {
         }
     }
 
-    root(DEBUG, ["APP_LOG"])
+    root(ERROR, ["APP_LOG"])
     logger("com.sharecare", DEBUG, ["APP_LOG"])
 }
 
