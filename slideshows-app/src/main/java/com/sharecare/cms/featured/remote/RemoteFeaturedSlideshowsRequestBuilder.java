@@ -22,11 +22,12 @@ public class RemoteFeaturedSlideshowsRequestBuilder implements FeaturedSlideshow
         // housecleaning to do.  Because the data coming from the selector
         // has the full JCR path including folder name, we need to strip that off.
         String hero = fromNode(FeaturedJCRSchema.hero.name(), node);
-        hero = hero.substring(hero.lastIndexOf("/"), hero.length());
+        hero = stripPath(hero);
 
         List<String> uriList = extractMultiField(node, FeaturedJCRSchema.carousel.name());
         List<String> carousel = uriList.stream()
-                .map(slideshow -> slideshow.substring(slideshow.lastIndexOf("/"), slideshow.length())).collect(Collectors.toList());
+                .map(this::stripPath)
+                .collect(Collectors.toList());
 
         FeaturedSlideshowRequest request = FeaturedSlideshowRequest.builder()
                 .hero(hero)
@@ -36,6 +37,10 @@ public class RemoteFeaturedSlideshowsRequestBuilder implements FeaturedSlideshow
         log.info("Created Featured request object {} ", request);
 
         return request;
+    }
+
+    private String stripPath(String hero) {
+        return hero.substring(hero.lastIndexOf("/") + 1, hero.length());
     }
 
 }
