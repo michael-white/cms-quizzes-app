@@ -3,9 +3,6 @@
   <sv:property sv:name="jcr:primaryType" sv:type="Name">
     <sv:value>mgnl:featured</sv:value>
   </sv:property>
-  <sv:property sv:name="jcr:uuid" sv:type="String">
-    <sv:value>9dfa062d-d54e-4bac-82ce-7bf0dfd0b414</sv:value>
-  </sv:property>
   <sv:property sv:name="carousel" sv:type="String" sv:multiple="true">
     <sv:value>/fff</sv:value>
   </sv:property>

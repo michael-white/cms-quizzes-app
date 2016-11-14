@@ -31,12 +31,12 @@ public class SlideshowsApp extends ContentApp {
             BrowserSubAppDescriptor browserSubAppDescriptor = (BrowserSubAppDescriptor) first;
             JcrContentConnectorDefinition connectorDefinition = ((JcrContentConnectorDefinition)browserSubAppDescriptor.getContentConnector());
             String path = connectorDefinition.getRootPath();
-            getAppContext().openSubApp(new DefaultLocation(Location.LOCATION_TYPE_APP, "slideshows", subAppDescriptor.getName(), path));
+            getAppContext().openSubApp(new DefaultLocation(Location.LOCATION_TYPE_APP, first.getLabel(), subAppDescriptor.getName(), path));
         }
         BrowserSubAppDescriptor browserSubAppDescriptor = (BrowserSubAppDescriptor) first;
         JcrContentConnectorDefinition connectorDefinition = ((JcrContentConnectorDefinition)browserSubAppDescriptor.getContentConnector());
         String path = connectorDefinition.getRootPath();
-        getAppContext().openSubApp(new DefaultLocation(Location.LOCATION_TYPE_APP, "slideshows", first.getName(), path));
+        getAppContext().openSubApp(new DefaultLocation(Location.LOCATION_TYPE_APP, first.getLabel(), first.getName(), path));
     }
 
 }

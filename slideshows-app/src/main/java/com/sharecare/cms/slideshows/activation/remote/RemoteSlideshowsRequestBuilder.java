@@ -48,7 +48,7 @@ public class RemoteSlideshowsRequestBuilder implements SlideshowsRequestBuilder 
                 .url(fromNode(SlideshowsJCRSchema.ogUrl.name(), node))
                 .build();
 
-        SlideshowRequest request = SlideshowRequest.builder()
+        return SlideshowRequest.builder()
                 .id(uuid)
                 .uri(node.getName())
                 .title(fromNode(SlideshowsJCRSchema.title.name(), node))
@@ -69,8 +69,6 @@ public class RemoteSlideshowsRequestBuilder implements SlideshowsRequestBuilder 
                 .noIndexFollow(Boolean.valueOf(fromNode(SlideshowsJCRSchema.noIndexFollow.name(), node)))
                 .canonicalReference(fromNode(SlideshowsJCRSchema.canonicalReference.name(), node))
                 .build();
-
-        return request;
     }
 
     private Collection<String> fromCSV(String s) {

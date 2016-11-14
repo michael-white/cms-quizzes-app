@@ -5,6 +5,7 @@ icon: icon-files
 name: slideshows
 subApps:
   slideshows:
+    label: slideshows
     subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
     class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
     actionbar:
@@ -432,6 +433,7 @@ subApps:
         - name: mgnl:folder
           icon: icon-folder
   featured:
+    label: Customized
     subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
     class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
     actionbar:
@@ -618,5 +620,8 @@ subApps:
           icon: icon-files
         - name: mgnl:folder
           icon: icon-folder
+
+
+
 
 

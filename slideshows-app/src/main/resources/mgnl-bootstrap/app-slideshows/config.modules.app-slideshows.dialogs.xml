@@ -909,7 +909,7 @@
                       <sv:value>1945abf8-7175-4150-8418-7665d0a18765</sv:value>
                     </sv:property>
                     <sv:property sv:name="buttonLabel" sv:type="String">
-                      <sv:value/>
+                      <sv:value>Show Ad</sv:value>
                     </sv:property>
                     <sv:property sv:name="class" sv:type="String">
                       <sv:value>info.magnolia.ui.form.field.definition.CheckboxFieldDefinition</sv:value>
@@ -918,7 +918,7 @@
                       <sv:value>admin</sv:value>
                     </sv:property>
                     <sv:property sv:name="label" sv:type="String">
-                      <sv:value>Show Ad</sv:value>
+                      <sv:value/>
                     </sv:property>
                     <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
                       <sv:value>false</sv:value>
@@ -936,7 +936,7 @@
                       <sv:value>superuser</sv:value>
                     </sv:property>
                     <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-                      <sv:value>2016-11-10T15:24:51.360-05:00</sv:value>
+                      <sv:value>2016-11-14T11:14:10.868-05:00</sv:value>
                     </sv:property>
                     <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
                       <sv:value>superuser</sv:value>
@@ -958,14 +958,11 @@
                     <sv:property sv:name="class" sv:type="String">
                       <sv:value>info.magnolia.ui.form.field.definition.LinkFieldDefinition</sv:value>
                     </sv:property>
-                    <sv:property sv:name="fieldEditable" sv:type="String">
-                      <sv:value>false</sv:value>
-                    </sv:property>
                     <sv:property sv:name="jcr:createdBy" sv:type="String">
                       <sv:value>admin</sv:value>
                     </sv:property>
                     <sv:property sv:name="label" sv:type="String">
-                      <sv:value>Image</sv:value>
+                      <sv:value/>
                     </sv:property>
                     <sv:property sv:name="mgnl:created" sv:type="Date">
                       <sv:value>2016-11-10T15:25:05.796-05:00</sv:value>
@@ -974,7 +971,7 @@
                       <sv:value>superuser</sv:value>
                     </sv:property>
                     <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-                      <sv:value>2016-11-14T10:58:05.678-05:00</sv:value>
+                      <sv:value>2016-11-14T11:13:12.300-05:00</sv:value>
                     </sv:property>
                     <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
                       <sv:value>superuser</sv:value>
