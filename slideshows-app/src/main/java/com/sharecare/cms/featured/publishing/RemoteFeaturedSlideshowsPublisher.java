@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class RemoteFeaturedSlideshowsPublisher implements RemoteDataPublisher {
 
-    static final String ROOT_NODE = "mgnl:featured";
+    static final String ROOT_NODE = "mgnl:featuredSlideshows";
     private final Map<String, FeaturedSlideshowsApiClient> clientMap;
     private final FeaturedSlideshowsRequestBuilder featuredSlideshowsRequestBuilder;
     private final RemoteServiceResponseProcessor remoteServiceResponseProcessor;
