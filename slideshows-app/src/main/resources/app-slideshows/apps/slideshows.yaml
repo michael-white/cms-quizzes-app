@@ -463,7 +463,7 @@ subApps:
                 - name: activateProd
           availability:
             nodeTypes:
-              - mgnl:featured
+              - mgnl:featuredSlideshows
             rules:
               - name: isAllowedForProd
                 implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForProductionRule
@@ -479,7 +479,7 @@ subApps:
                 - name: activateQA
           availability:
             nodeTypes:
-              - mgnl:featured
+              - mgnl:featuredSlideshows
             rules:
               - name: isAllowedForQA
                 implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForQARule
@@ -495,7 +495,7 @@ subApps:
                 - name: activateDev
           availability:
             nodeTypes:
-              - mgnl:featured
+              - mgnl:featuredSlideshows
             rules:
               - name: isAllowedForDevhost
                 implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForDevRule
@@ -577,7 +577,7 @@ subApps:
         dialogName: app-slideshows:slideshowFeatured
         appName: slideshows
         subAppId: detail
-        nodeType: mgnl:featured
+        nodeType: mgnl:featuredSlideshows
         icon: icon-edit
         class: info.magnolia.ui.framework.action.OpenEditDialogActionDefinition
     workbench:
@@ -616,7 +616,7 @@ subApps:
       workspace: featured
       rootPath: /
       nodeTypes:
-        - name: mgnl:featured
+        - name: mgnl:featuredSlideshows
           icon: icon-files
         - name: mgnl:folder
           icon: icon-folder

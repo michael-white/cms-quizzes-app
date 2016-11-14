@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sv:node sv:name="FEATURED" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <sv:property sv:name="jcr:primaryType" sv:type="Name">
-    <sv:value>mgnl:featured</sv:value>
+    <sv:value>mgnl:featuredSlideshows</sv:value>
   </sv:property>
   <sv:property sv:name="carousel" sv:type="String" sv:multiple="true">
     <sv:value>/fff</sv:value>

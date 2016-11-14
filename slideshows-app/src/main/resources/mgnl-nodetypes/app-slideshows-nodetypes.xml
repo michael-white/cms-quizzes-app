@@ -10,7 +10,7 @@
             <supertype>mgnl:content</supertype>
         </supertypes>
     </nodeType>
-    <nodeType name="mgnl:featured" isMixin="false" hasOrderableChildNodes="false" primaryItemName="">
+    <nodeType name="mgnl:featuredSlideshows" isMixin="false" hasOrderableChildNodes="false" primaryItemName="">
         <supertypes>
             <supertype>mgnl:content</supertype>
         </supertypes>
