@@ -94,9 +94,9 @@ public class RemoteSlideshowsRequestBuilder implements SlideshowsRequestBuilder 
                     .showAd(Boolean.valueOf(fromNode(SlideshowsJCRSchema.showAd.name(), slide)));
 
             Optional<AssetUploadResult> uploadResult = slideshowsAssetProcessor.uploadAssetFrom(slide);
-//            if (uploadResult.isPresent()) {
-//                slideBuilder.imageId(uploadResult.get().getId());
-//            }
+            if (uploadResult.isPresent()) {
+                slideBuilder.imageId(uploadResult.get().getId());
+            }
 
             slides.add(slideBuilder.build());
         }
