@@ -55,7 +55,7 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
             Optional<AssetUploadResult> uploadResult = articleAssetProcessor.uploadAssetFrom(node);
             List<ArticleRequest> articleRequests = articleRequestBuilder.forNode(node, uploadResult);
 
-            BasicResponse response = client.saveRequest().withData(articleRequests).execute();
+            BasicResponse response = client.saveListRequest().withData(articleRequests).execute();
             return remoteServiceResponseProcessor.processResponse(node, environment, response, RemoteServiceResponseProcessor.addEnvironmentCallback);
         } catch (Exception e) {
             log.error("Failed Activation of article  {} ", ExceptionUtils.getFullStackTrace(e));
