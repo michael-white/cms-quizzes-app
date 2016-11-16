@@ -194,8 +194,6 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
                     }
                     builder.expirationDate(expirationDate);
                     break;
-                case livingInTheGreenScale:
-                    builder.livingInTheGreenScale(Long.parseLong(StringUtils.defaultIfBlank(value, "0")));
                 default:
                     break;
 
@@ -230,6 +228,11 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
                     case redirects:
                         builder.legacyUris(values);
                         break;
+                    case livingInTheGreenScale:
+                        builder.livingInTheGreenScale(values.stream()
+                                .mapToInt(Integer::parseInt)
+                                .boxed()
+                                .collect(Collectors.toList()));
                     default:
                         break;
                 }

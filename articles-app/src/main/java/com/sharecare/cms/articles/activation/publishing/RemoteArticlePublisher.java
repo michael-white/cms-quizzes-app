@@ -54,7 +54,7 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 			Optional<ArticlesUploadResult> uploadResult = articleAssetProcessor.uploadAssetFrom(node);
 			List<ArticleRequest> articleRequests = articleRequestBuilder.forNode(node, uploadResult);
 
-			BasicResponse response = client.saveRequest().withData(articleRequests).execute();
+			BasicResponse response = client.saveListRequest().withData(articleRequests).execute();
 
 			if (String.valueOf(response.getStatusCode()).startsWith("20")) {
 				log.info("Successfully published content item {}:{} to {}", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
