@@ -64,7 +64,7 @@ import java.util.List;
  * @param <D> The endpoint definition
  */
 @Api(value = "/nodesrec/v1.1", description = "The nodes API 1.1")
-@Path("/nodesrec/v1")
+@Path("/nodes/v1.1")
 public class RecursiveNodeEndpoint<D extends RecursiveNodeEndpointDefinition> extends AbstractEndpoint<D> {
 
     private static final String STATUS_MESSAGE_OK = "OK";
