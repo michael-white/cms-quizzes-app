@@ -13,6 +13,8 @@ import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.sharecare.cms.utils.NodeUtils.*;
 
@@ -71,8 +73,8 @@ public class RemoteSlideshowsRequestBuilder implements SlideshowsRequestBuilder 
                 .build();
     }
 
-    private Collection<String> fromCSV(String s) {
-        return Arrays.asList(s.split(","));
+    private Collection<String> fromCSV(String csv) {
+       return Stream.of(csv.trim().split(",")).map(String::trim).collect(Collectors.toList());
     }
 
     private List<SlideRequest> processSlides(Node node) throws RepositoryException {
