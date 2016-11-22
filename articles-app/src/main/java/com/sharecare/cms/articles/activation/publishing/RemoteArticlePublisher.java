@@ -71,7 +71,7 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
             ArticlesApiClient client = clientMap.get(environment);
             log.debug("Executing DELETE rest call {}", node.getName());
             BasicResponse response = client.deleteRequest().withUri(node.getName()).execute();
-            return remoteServiceResponseProcessor.processResponse(node, environment, response, RemoteServiceResponseProcessor.addEnvironmentCallback);
+            return remoteServiceResponseProcessor.processResponse(node, environment, response, RemoteServiceResponseProcessor.removeEnvironmentCallback);
         } catch (Exception e) {
             log.error("Failed De-Activation of article  {} ", ExceptionUtils.getFullStackTrace(e));
             return false;
