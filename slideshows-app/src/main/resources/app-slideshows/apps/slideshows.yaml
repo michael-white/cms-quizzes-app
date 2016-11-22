@@ -414,8 +414,6 @@ subApps:
         - name: list
           class: info.magnolia.ui.workbench.list.ListPresenterDefinition
           columns: *myColumns
-        - name: thumbnail
-          class: info.magnolia.ui.workbench.thumbnail.ThumbnailPresenterDefinition
         - name: search
           class: info.magnolia.ui.workbench.search.SearchPresenterDefinition
           columns: *myColumns
