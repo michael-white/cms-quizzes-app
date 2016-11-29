@@ -8,7 +8,6 @@ import lombok.Setter;
 @Setter
 public class PrimaryTagFieldDefinition extends ConfiguredFieldDefinition {
 
-    private String webUriField;
     private String subdomain;
 
 }

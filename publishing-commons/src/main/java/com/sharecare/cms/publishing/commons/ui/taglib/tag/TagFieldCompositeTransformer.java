@@ -37,10 +37,6 @@ public class TagFieldCompositeTransformer extends BasicTransformer<PropertysetIt
                 newValues.addItemProperty(f, relatedFormItem.getItemProperty(f));
         });
 
-        if (definition instanceof PrimaryTagFieldDefinition) {
-            PrimaryTagFieldDefinition tagFieldDefinition = (PrimaryTagFieldDefinition) this.definition;
-            newValues.addItemProperty(tagFieldDefinition.getWebUriField(), relatedFormItem.getItemProperty(tagFieldDefinition.getWebUriField()));
-        }
         return newValues;
     }
 }

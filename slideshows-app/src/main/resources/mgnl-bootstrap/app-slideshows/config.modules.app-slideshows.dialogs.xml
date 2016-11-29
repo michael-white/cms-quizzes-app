@@ -1866,9 +1866,6 @@
               <sv:property sv:name="transformerClass" sv:type="String">
                 <sv:value>com.sharecare.cms.publishing.commons.ui.taglib.tag.TagFieldCompositeTransformer</sv:value>
               </sv:property>
-              <sv:property sv:name="webUriField" sv:type="String">
-                <sv:value>slideshowUriWebPath</sv:value>
-              </sv:property>
             </sv:node>
           </sv:node>
         </sv:node>
@@ -1949,9 +1946,6 @@
               </sv:property>
               <sv:property sv:name="transformerClass" sv:type="String">
                 <sv:value>com.sharecare.cms.publishing.commons.ui.taglib.activation.ActivationStatusCompositeTransformer</sv:value>
-              </sv:property>
-              <sv:property sv:name="webUriField" sv:type="String">
-                <sv:value>slideshowUriWebPath</sv:value>
               </sv:property>
             </sv:node>
           </sv:node>

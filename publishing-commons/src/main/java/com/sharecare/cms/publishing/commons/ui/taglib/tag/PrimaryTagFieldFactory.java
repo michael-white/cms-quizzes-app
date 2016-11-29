@@ -31,6 +31,6 @@ public class PrimaryTagFieldFactory extends AbstractFieldFactory<PrimaryTagField
 
     @Override
     protected Field<PropertysetItem> createFieldComponent() {
-        return new PrimaryTagField(tagService, currentItem, definition.getSubdomain(), definition.getWebUriField());
+        return new PrimaryTagField(tagService, currentItem, definition.getSubdomain());
     }
 }
