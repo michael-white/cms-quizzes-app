@@ -62,28 +62,10 @@ public class ConfigVersionHandler extends GlobalVersionHandler {
     }
 
     @Override
-    protected List<Task> getDefaultUpdateTasks(Version forVersion) {
-        List<Task> tasks = super.getDefaultUpdateTasks(forVersion);
-
-        tasks.add(removeSSLFilter);
-        return tasks;
-    }
-
-
-    @Override
     protected List<Task> getExtraInstallTasks(InstallContext ctx) {
 
         log.info("Running ConfigVersionHandler.getExtraInstallTasks()");
         return super.getExtraInstallTasks(ctx);
     }
 
-
-    private static NodeExistsDelegateTask removeSSLFilter = new NodeExistsDelegateTask("Check if SSL Filter is registered",
-            "checking for the existence of /server/filters/ssl",
-            "config",
-            "/server/filters/ssl",
-            new RemoveNodeTask("Remove the Secure redirect filter",
-                    "Removing the node /server/filters/ssl",
-                    "config",
-                    "/server/filters/ssk"));
 }
