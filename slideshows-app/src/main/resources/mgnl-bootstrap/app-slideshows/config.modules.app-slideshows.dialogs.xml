@@ -1855,7 +1855,7 @@
                 <sv:value>superuser</sv:value>
               </sv:property>
               <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-                <sv:value>2016-11-14T10:48:44.195-05:00</sv:value>
+                <sv:value>2016-11-29T18:07:13.602-05:00</sv:value>
               </sv:property>
               <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
                 <sv:value>superuser</sv:value>
@@ -1939,13 +1939,16 @@
                 <sv:value>superuser</sv:value>
               </sv:property>
               <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-                <sv:value>2016-11-14T10:50:51.161-05:00</sv:value>
+                <sv:value>2016-11-28T14:44:01.892-05:00</sv:value>
               </sv:property>
               <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
                 <sv:value>superuser</sv:value>
               </sv:property>
               <sv:property sv:name="transformerClass" sv:type="String">
                 <sv:value>com.sharecare.cms.publishing.commons.ui.taglib.activation.ActivationStatusCompositeTransformer</sv:value>
+              </sv:property>
+              <sv:property sv:name="webUriPattern" sv:type="String">
+                <sv:value>/health/{topic}/slideshow/{uri}</sv:value>
               </sv:property>
             </sv:node>
           </sv:node>
