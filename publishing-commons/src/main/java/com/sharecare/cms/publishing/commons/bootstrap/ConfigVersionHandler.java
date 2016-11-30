@@ -58,6 +58,7 @@ public class ConfigVersionHandler extends GlobalVersionHandler {
                         "config",
                         "/server/activation/subscribers")));
 
+        tasks.add(removeSlideshowsEditDialog);
         return tasks;
     }
 
@@ -67,5 +68,15 @@ public class ConfigVersionHandler extends GlobalVersionHandler {
         log.info("Running ConfigVersionHandler.getExtraInstallTasks()");
         return super.getExtraInstallTasks(ctx);
     }
+
+
+    private static NodeExistsDelegateTask removeSlideshowsEditDialog = new NodeExistsDelegateTask("Removing the slideshows dialogs config",
+            "We clean up and rebuild this using the bootstrapped JCR",
+            "config",
+            "/modules/app-slideshows/dialogs",
+            new RemoveNodeTask("removing cache module",
+                    "We clean up and rebuild this using the bootstrapped JCR",
+                    "config",
+                    "/modules/app-slideshows/dialogs"));
 
 }
