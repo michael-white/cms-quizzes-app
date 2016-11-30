@@ -37,9 +37,9 @@ public class EnvironmentActivationField  extends CustomField<PropertysetItem> {
 
 		PropertysetItem savedValues = getValue();
 
-        Object activationStatus = getCurrentItem().getItemProperty("mgnl:activationStatus");
+		Property activationStatus = getCurrentItem().getItemProperty("mgnl:activationStatus");
 
-		if (savedValues != null && activationStatus != null && Boolean.TRUE.equals(activationStatus)) {
+		if (savedValues != null && activationStatus != null && Boolean.TRUE.equals(activationStatus.getValue())) {
 			Property savedProperty = savedValues.getItemProperty(ACTIVE_STATUS_FIELD);
 
 			if (savedProperty != null && savedProperty.getValue() instanceof List) {
