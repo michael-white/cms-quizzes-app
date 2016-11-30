@@ -28,9 +28,20 @@ public class MultiSiteActivationStatusFormatter extends AbstractColumnFormatter<
 			try {
 
 				if (NodeUtil.isNodeType(node, NodeTypes.Content.NAME)) {
+					Integer status;
+					try {
+						status = NodeTypes.Activatable.getActivationStatus(node);
+					} catch (RepositoryException e) {
+						status = NodeTypes.Activatable.ACTIVATION_STATUS_NOT_ACTIVATED;
+					}
+
 					String icon = "<span class=\"icon-shape-circle activation-status  %s \"></span>";
 
-					if ( node.hasProperty(EnvironmentActivationField.ACTIVE_STATUS_FIELD)) {
+					if (NodeTypes.Activatable.ACTIVATION_STATUS_NOT_ACTIVATED == status) {
+						return String.format(icon, "color-red");
+					} else if (NodeTypes.Activatable.ACTIVATION_STATUS_MODIFIED == status) {
+						return String.format(icon, "color-yellow");
+					} else if ( node.hasProperty(EnvironmentActivationField.ACTIVE_STATUS_FIELD)) {
 						Property p = node.getProperty(EnvironmentActivationField.ACTIVE_STATUS_FIELD);
 						if (p.getValues() != null && p.getValues().length > 0) {
 							return String.format(icon, "color-green");
