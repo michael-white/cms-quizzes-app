@@ -36,7 +36,10 @@ public class EnvironmentActivationField  extends CustomField<PropertysetItem> {
 		rootLayout.setSpacing(true);
 
 		PropertysetItem savedValues = getValue();
-		if (savedValues != null) {
+
+        Object activationStatus = getCurrentItem().getItemProperty("mgnl:activationStatus").getValue();
+
+		if (savedValues != null && Boolean.TRUE.equals(activationStatus)) {
 			Property savedProperty = savedValues.getItemProperty(ACTIVE_STATUS_FIELD);
 
 			if (savedProperty != null && savedProperty.getValue() instanceof List) {
