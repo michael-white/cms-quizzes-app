@@ -1,4 +1,6 @@
-include 'articles-app', 'publishing-ui'
+include 'articles-app'
+include 'publishing-ui'
 include 'publishing-commons'
 include 'cloudinary-app'
+include 'slideshows-app'
 

@@ -4,6 +4,7 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Maps;
 import com.sharecare.articles.sdk.model.ArticleRequest;
 import com.sharecare.cms.articles.schema.ArticleJCRSchema;
+import com.sharecare.cms.cloudinary.dam.AssetUploadResult;
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagField;
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.SecondaryTagField;
 import com.sharecare.core.sdk.model.Tag;
@@ -29,7 +30,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
     }
 
     @Override
-    public List<ArticleRequest> forNode(Node node, Optional<ArticlesUploadResult> uploadResult) throws RepositoryException {
+    public List<ArticleRequest> forNode(Node node, Optional<AssetUploadResult> uploadResult) throws RepositoryException {
         Map<String, ArticleRequest.ArticleRequestBuilder> localeArticles = initArticleLocaleMap(node, uploadResult);
 
         processProperties(node, localeArticles);
@@ -73,18 +74,20 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
         }
     }
 
-    private Map<String, ArticleRequest.ArticleRequestBuilder> initArticleLocaleMap(Node node, Optional<ArticlesUploadResult> uploadResult) throws RepositoryException {
+    private Map<String, ArticleRequest.ArticleRequestBuilder> initArticleLocaleMap(Node node, Optional<AssetUploadResult> uploadResult) throws RepositoryException {
 
         Map<String, ArticleRequest.ArticleRequestBuilder> map = Maps.newHashMap();
 
+        String uuid = node.hasNode(ArticleJCRSchema.legacyUUID.name()) ? node.getProperty(ArticleJCRSchema.legacyUUID.name()).getString() : node.getIdentifier();
+
         for (Locale l : Locale.values()) {
             ArticleRequest.ArticleRequestBuilder builder = ArticleRequest.builder()
-                                                    .id(node.getIdentifier())
+                                                    .id(uuid)
                                                     .articleUri(node.getName())
                                                     .locale(l.name());
 
             if (uploadResult.isPresent()) {
-                ArticlesUploadResult ur = uploadResult.get();
+                AssetUploadResult ur = uploadResult.get();
                 builder.imageUrl(ur.getUrl())
                        .imageId(ur.getId());
             }

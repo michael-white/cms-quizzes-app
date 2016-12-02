@@ -21,133 +21,137 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 @Getter
-public abstract class PrimaryTagField extends CustomField<PropertysetItem> {
-	private final Logger logger = Logger.getLogger(PrimaryTagField.class);
+public class PrimaryTagField extends CustomField<PropertysetItem> {
+    private final Logger logger = Logger.getLogger(PrimaryTagField.class);
 
-	public static final String PRIMARY_TAG_FIELD = "primaryTag";
-	public static final String PRIMARY_TAG_TITLE_FIELD = "primaryTagTitle";
-	public static final String TOPIC_URI_FIELD = "topicUri";
+    public static final String PRIMARY_TAG_FIELD = "primaryTag";
+    public static final String PRIMARY_TAG_TITLE_FIELD = "primaryTagTitle";
+    public static final String TOPIC_URI_FIELD = "topicUri";
 
-	private static final String SELECTED_URI_LABEL = "Selected Content Uri:";
-	private static final String SELECTED_PRIMARY_TAG_LABEL = "Selected Primary Tag:";
+    private static final String SELECTED_URI_LABEL = "Selected Content Uri:";
+    private static final String SELECTED_PRIMARY_TAG_LABEL = "Selected Primary Tag:";
 
-	private final TagService     tagService;
-	private final JcrNodeAdapter currentItem;
+    private final TagService tagService;
+    private final JcrNodeAdapter currentItem;
 
-	private final String contentUriJCRFieldName;
+    private final String subDomain;
 
-	public PrimaryTagField(TagService tagService, JcrNodeAdapter currentItem, String contentUriJCRFieldName) {
-		this.tagService = tagService;
-		this.currentItem = currentItem;
-		this.contentUriJCRFieldName = contentUriJCRFieldName;
-	}
-
-
-	private VerticalLayout rootLayout;
-
-	private Label contentUriLabel;
-	private Label primaryTagLabel;
-
-	@Override
-	protected Component initContent() {
-
-		rootLayout = new VerticalLayout();
-		rootLayout.setSizeFull();
-		rootLayout.setSpacing(true);
-
-		SearchResultsTable resultsTable = new SearchResultsTable(getOnTagSelected());
-		SearchFieldComponent searchFieldComponent = new SearchFieldComponent(resultsTable, tagService);
-		rootLayout.addComponent(searchFieldComponent);
-		rootLayout.addComponent(resultsTable);
+    public PrimaryTagField(TagService tagService, JcrNodeAdapter currentItem, String subDomain) {
+        this.tagService = tagService;
+        this.currentItem = currentItem;
+        this.subDomain = subDomain;
+    }
 
 
-		HorizontalLayout selectMenus = initSelectTagComponents();
-		rootLayout.addComponent(selectMenus);
+    private VerticalLayout rootLayout;
 
-		initSelectedLabels();
+    private Label contentUriLabel;
+    private Label primaryTagLabel;
 
-		return rootLayout;
-	}
+    @Override
+    protected Component initContent() {
 
-	private void initSelectedLabels() {
-		PropertysetItem savedValues = getValue();
-		if (savedValues != null) {
-			String contentUri = isNullOrEmpty(savedValues.getItemProperty(getContentUriJCRFieldName()));
-			String primaryTag = isNullOrEmpty(savedValues.getItemProperty(PRIMARY_TAG_FIELD));
-			String primaryTagTitle = isNullOrEmpty(savedValues.getItemProperty(PRIMARY_TAG_TITLE_FIELD));
-			contentUriLabel = initLabel(SELECTED_URI_LABEL, contentUri, contentUriLabel);
-			primaryTagLabel = initLabelPrimaryTagLabel(primaryTagTitle, primaryTag);
-		}
-	}
+        rootLayout = new VerticalLayout();
+        rootLayout.setSizeFull();
+        rootLayout.setSpacing(true);
 
-	private Label initLabelPrimaryTagLabel(String primaryTagTitle, String primaryTag) {
-		return initLabel(SELECTED_PRIMARY_TAG_LABEL, primaryTagTitle + " (" + primaryTag + ")", primaryTagLabel);
-	}
+        SearchResultsTable resultsTable = new SearchResultsTable(getOnTagSelected());
+        SearchFieldComponent searchFieldComponent = new SearchFieldComponent(resultsTable, tagService);
+        rootLayout.addComponent(searchFieldComponent);
+        rootLayout.addComponent(resultsTable);
 
 
-	private HorizontalLayout initSelectTagComponents() {
-		List<TagResult> topLevelTags = getTagService().getAllTopLevelTags();
-		HorizontalLayout selectMenuLayout = new HorizontalLayout();
-		selectMenuLayout.addComponent(new SelectTagDropdown(topLevelTags, getOnTagSelected(), getTagService(), selectMenuLayout));
+        HorizontalLayout selectMenus = initSelectTagComponents();
+        rootLayout.addComponent(selectMenus);
 
-		return selectMenuLayout;
-	}
+        initSelectedLabels();
 
-	private String isNullOrEmpty(Property itemProperty) {
-		return itemProperty != null ? itemProperty.toString() : StringUtils.EMPTY;
-	}
+        return rootLayout;
+    }
 
-	private BiConsumer<Component, TagResult> onTagSelected = (parent,tag) -> {
-		PropertysetItem propertysetItem = new PropertysetItem();
+    private void initSelectedLabels() {
+        PropertysetItem savedValues = getValue();
+        if (savedValues != null) {
+            String primaryTag = isNullOrEmpty(savedValues.getItemProperty(PRIMARY_TAG_FIELD));
+            String primaryTagTitle = isNullOrEmpty(savedValues.getItemProperty(PRIMARY_TAG_TITLE_FIELD));
+            String topicUri = isNullOrEmpty(savedValues.getItemProperty(TOPIC_URI_FIELD));
 
-		try {
-			TopicResult topic = getTagService().getTopicForTag(tag.getId());
-			if (topic != null) {
-				String topicUri = topic.getUri();
-				String contentUriFullPath = buildContentUriLabel(topicUri, getCurrentItem().getNodeName());
-				initLabel(SELECTED_URI_LABEL, contentUriFullPath, contentUriLabel);
-				propertysetItem.addItemProperty(TOPIC_URI_FIELD, new ObjectProperty<>(topicUri));
-				propertysetItem.addItemProperty(getContentUriJCRFieldName(), new ObjectProperty<>(contentUriFullPath));
-			}
-		} catch (ResourceNotFoundException r) {
-			// its ok. Tag has no associated topic
-		}
+            String contentUriFullPath = buildContentUriLabel(topicUri, getCurrentItem().getNodeName());
+            contentUriLabel = initLabel(SELECTED_URI_LABEL, contentUriFullPath, contentUriLabel);
+            primaryTagLabel = initLabelPrimaryTagLabel(primaryTagTitle, primaryTag);
+        }
+    }
 
-		initLabelPrimaryTagLabel(tag.getTitle(), tag.getId());
-		propertysetItem.addItemProperty(PRIMARY_TAG_FIELD, new ObjectProperty<>(tag.getId()));
-		propertysetItem.addItemProperty(PRIMARY_TAG_TITLE_FIELD, new ObjectProperty<>(tag.getTitle()));
+    private Label initLabelPrimaryTagLabel(String primaryTagTitle, String primaryTag) {
+        return initLabel(SELECTED_PRIMARY_TAG_LABEL, primaryTagTitle + " (" + primaryTag + ")", primaryTagLabel);
+    }
 
-		getPropertyDataSource().setValue(propertysetItem);
-	};
+    private HorizontalLayout initSelectTagComponents() {
+        List<TagResult> topLevelTags = getTagService().getAllTopLevelTags();
+        HorizontalLayout selectMenuLayout = new HorizontalLayout();
+        selectMenuLayout.addComponent(new SelectTagDropdown(topLevelTags, getOnTagSelected(), getTagService(), selectMenuLayout));
 
-	private String getContentUriJCRFieldName() {
-		return this.contentUriJCRFieldName;
-	}
+        return selectMenuLayout;
+    }
 
-	private TagService getTagService() {
-		return tagService;
-	}
+    private String isNullOrEmpty(Property itemProperty) {
+        return itemProperty != null ? itemProperty.toString() : StringUtils.EMPTY;
+    }
 
-	private Label initLabel(String message, String value, Label component) {
-		String label = String.format("<b>%s %s</b>", message, value);
+    private BiConsumer<Component, TagResult> onTagSelected = (parent, tag) -> {
+        PropertysetItem propertysetItem = new PropertysetItem();
 
-		if (component == null) {
-			component = new Label(label, ContentMode.HTML);
-			rootLayout.addComponent(component);
-		} else {
-			component.setValue(label);
-		}
+        try {
+            TopicResult topic = getTagService().getTopicForTag(tag.getId());
+            if (topic != null) {
+                String topicUri = topic.getUri();
+                String contentUriFullPath = buildContentUriLabel(topicUri, getCurrentItem().getNodeName());
+                initLabel(SELECTED_URI_LABEL, contentUriFullPath, contentUriLabel);
+                propertysetItem.addItemProperty(TOPIC_URI_FIELD, new ObjectProperty<>(topicUri));
+            }
+        } catch (ResourceNotFoundException r) {
+            // its ok. Tag has no associated topic
+        }
 
-		return component;
-	}
+        initLabelPrimaryTagLabel(tag.getTitle(), tag.getId());
+        propertysetItem.addItemProperty(PRIMARY_TAG_FIELD, new ObjectProperty<>(tag.getId()));
+        propertysetItem.addItemProperty(PRIMARY_TAG_TITLE_FIELD, new ObjectProperty<>(tag.getTitle()));
+
+        getPropertyDataSource().setValue(propertysetItem);
+    };
+
+    private TagService getTagService() {
+        return tagService;
+    }
+
+    private Label initLabel(String message, String value, Label component) {
+        String label = String.format("<b>%s %s</b>", message, value);
+
+        if (component == null) {
+            component = new Label(label, ContentMode.HTML);
+            rootLayout.addComponent(component);
+        } else {
+            component.setValue(label);
+        }
+
+        return component;
+    }
 
 
-	protected abstract String buildContentUriLabel(String topicUri, String nodeName);
+    private String buildContentUriLabel(String topicUri, String nodeName) {
+        if (StringUtils.isEmpty(topicUri))
+            return "No topic selected";
+
+        if (StringUtils.isEmpty(nodeName))
+            return "No content uri set";
+
+        return String.format("/health/%s/%s/%s", topicUri, subDomain, nodeName).toLowerCase();
+    }
 
 
-	@Override
-	public Class<? extends PropertysetItem> getType() {
-		return PropertysetItem.class;
-	}
+    @Override
+    public Class<? extends PropertysetItem> getType() {
+        return PropertysetItem.class;
+    }
 }
 
