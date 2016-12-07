@@ -21,7 +21,7 @@ s3 {
     awsProfile = 'cmscentral'
     bucket = "admin-sharecare/builds/$awsProfile/$env/$version.$curTime"
     upload {
-        key = "cmscentral.war"
+        key = "publishing-central.war"
         file = "$project.buildDir/libs/$project.name-$version" + ".war"
     }
 
