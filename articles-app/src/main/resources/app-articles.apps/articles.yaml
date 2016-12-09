@@ -593,7 +593,7 @@ subApps:
                 class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
                 label: Living In The Green Scale
                 multiselect: true
-                type: Long
+                type: String
                 options:
                   - name: 1
                     label: "1"
