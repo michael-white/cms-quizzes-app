@@ -1,15 +1,14 @@
 package com.sharecare.cms.publishing.commons.ui.taglib.activation;
 
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagField;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.PropertysetItem;
 import com.vaadin.server.ExternalResource;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.CustomField;
-import com.vaadin.ui.Link;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 import info.magnolia.ui.vaadin.integration.jcr.JcrItemAdapter;
 import lombok.Getter;
 
+import javax.jcr.RepositoryException;
 import java.util.List;
 import java.util.Map;
 
@@ -17,16 +16,16 @@ import java.util.Map;
 public class EnvironmentActivationField  extends CustomField<PropertysetItem> {
 	
 	public static final String ACTIVE_STATUS_FIELD = "activeStatus";
-	private final String webUriField;
+	private final String webUriPattern;
 
 	private  JcrItemAdapter currentItem;
 	private  Map<String, String> webHosts;
 
-	public EnvironmentActivationField(JcrItemAdapter currentItem, Map<String, String> webHosts, String webUriField) {
+	public EnvironmentActivationField(JcrItemAdapter currentItem, Map<String, String> webHosts, String webUriPattern) {
 		super();
 		this.currentItem = currentItem;
 		this.webHosts = webHosts;
-		this.webUriField = webUriField;
+		this.webUriPattern = webUriPattern;
 	}
 
 	@Override
@@ -37,7 +36,10 @@ public class EnvironmentActivationField  extends CustomField<PropertysetItem> {
 		rootLayout.setSpacing(true);
 
 		PropertysetItem savedValues = getValue();
-		if (savedValues != null) {
+
+		Property activationStatus = getCurrentItem().getItemProperty("mgnl:activationStatus");
+
+		if (savedValues != null && activationStatus != null && Boolean.TRUE.equals(activationStatus.getValue())) {
 			Property savedProperty = savedValues.getItemProperty(ACTIVE_STATUS_FIELD);
 
 			if (savedProperty != null && savedProperty.getValue() instanceof List) {
@@ -51,10 +53,26 @@ public class EnvironmentActivationField  extends CustomField<PropertysetItem> {
 
 	private Component generateLink(String environment) {
 		String host = webHosts.get(environment);
-		String articleUri = getCurrentItem().getItemProperty(webUriField).toString();
-		Link link = new Link(environment.toUpperCase(), new ExternalResource(host + articleUri));
-		link.setTargetName("_blank");
-		return link;
+		try {
+			String contentUri = getCurrentItem().getJcrItem().getName();
+			String topicUri = getOrEmpty(PrimaryTagField.TOPIC_URI_FIELD);
+
+			String webUri = webUriPattern.replaceAll("\\{topic\\}", topicUri).replaceAll("\\{uri\\}", contentUri);
+			Link link = new Link(environment.toUpperCase(), new ExternalResource(host + webUri));
+			link.setTargetName("_blank");
+			return link;
+		} catch (RepositoryException e) {
+			e.printStackTrace();
+		}
+
+		return new Label();
+	}
+
+	private String getOrEmpty(String fieldName) {
+		Property p = getCurrentItem().getItemProperty(fieldName);
+		if (p != null) return p.getValue().toString();
+
+		return "";
 	}
 
 	@Override

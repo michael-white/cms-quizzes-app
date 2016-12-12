@@ -1,6 +1,7 @@
 package com.sharecare.cms.articles.schema;
 
 public enum ArticleJCRSchema {
+	legacyUUID,
 	topicUri,
 	title,
 	subHead,

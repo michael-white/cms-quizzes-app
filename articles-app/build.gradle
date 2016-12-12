@@ -1,5 +1,5 @@
 group 'com.sharecare.cms'
-version '1.9'
+version '2.0'
 
 apply plugin: 'java'
 
@@ -8,5 +8,5 @@ dependencies {
     compile project(':publishing-commons')
     compile project(':cloudinary-app')
 
-    compile(group: 'com.sharecare.services', name: 'articles-java-sdk', version: '2.1')
+    compile(group: 'com.sharecare.services', name: 'articles-java-sdk', version: '2.3')
 }

@@ -18,6 +18,7 @@ dependencies {
     compile "org.eclipse.jetty.aggregate:jetty-all:$jettyVersion"
 
     compile project(':articles-app')
+    compile project(':slideshows-app')
     compile project(':cloudinary-app')
     compile project(':publishing-commons')
     compile project(':healthguides-app')
