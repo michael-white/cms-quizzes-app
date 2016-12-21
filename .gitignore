@@ -10,3 +10,6 @@ build/
 **/repositories/
 *.ipr
 *.iws
+.DS_Store
+publishing-ui/src/main/webapp/cache
+publishing-ui/src/main/webapp/tmp

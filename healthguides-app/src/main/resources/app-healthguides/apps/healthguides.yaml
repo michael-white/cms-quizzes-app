@@ -140,6 +140,8 @@ subApps:
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: title
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: sponsor
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: image
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
                 targetWorkspace: dam
