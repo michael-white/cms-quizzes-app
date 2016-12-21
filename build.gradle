@@ -27,19 +27,19 @@ allprojects {
         mavenCentral()
 
         maven {
-            credentials {
+          /*  credentials {
                 username artUsername
                 password artPassword
-            }
+            }*/
             url "http://artifactory.be.sharecare.com/JAM-release-local"
             name = "maven-jamp-release"
         }
 
         maven {
-            credentials {
+         /*   credentials {
                 username artUsername
                 password artPassword
-            }
+            }*/
             url "http://artifactory.be.sharecare.com/JAM-snapshot-local"
             name = "maven-jamp-snapshot"
         }
