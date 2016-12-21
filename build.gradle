@@ -121,9 +121,9 @@ allprojects {
                 "info.magnolia.dam:magnolia-dam-external-app:$magDamV",
 
                 // REST
-                "info.magnolia.rest:magnolia-rest-services:1.1.1",
-                "info.magnolia.rest:magnolia-rest-integration:1.1.1",
-                "info.magnolia.rest:magnolia-rest-tools:1.1.1",
+                "info.magnolia.rest:magnolia-rest-services:1.1.2",
+                "info.magnolia.rest:magnolia-rest-integration:1.1.2",
+                "info.magnolia.rest:magnolia-rest-tools:1.1.2",
 
                 "info.magnolia.campaign:magnolia-campaign-publisher:1.0",
                 "info.magnolia.personalization:magnolia-personalization-integration:1.2.2",

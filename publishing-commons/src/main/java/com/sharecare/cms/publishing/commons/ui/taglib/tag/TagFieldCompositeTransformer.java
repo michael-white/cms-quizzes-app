@@ -13,10 +13,9 @@ import java.util.List;
 public class TagFieldCompositeTransformer extends BasicTransformer<PropertysetItem> {
 
     private List<String> fieldsName = Lists.newArrayList(PrimaryTagField.TOPIC_URI_FIELD,
-                                                         "articleUriWebPath", // TODO FIX THIS
-                                                         PrimaryTagField.PRIMARY_TAG_FIELD,
-                                                         PrimaryTagField.PRIMARY_TAG_TITLE_FIELD,
-                                                         SecondaryTagField.SECONDARY_TAG_FIELD);
+            PrimaryTagField.PRIMARY_TAG_FIELD,
+            PrimaryTagField.PRIMARY_TAG_TITLE_FIELD,
+            SecondaryTagField.SECONDARY_TAG_FIELD);
 
     public TagFieldCompositeTransformer(Item relatedFormItem, ConfiguredFieldDefinition definition, Class<PropertysetItem> type, I18NAuthoringSupport i18NAuthoringSupport) {
         super(relatedFormItem, definition, type, i18NAuthoringSupport);
@@ -25,8 +24,8 @@ public class TagFieldCompositeTransformer extends BasicTransformer<PropertysetIt
     @Override
     public void writeToItem(PropertysetItem newValues) {
         newValues.getItemPropertyIds()
-                 .iterator()
-                 .forEachRemaining(p -> relatedFormItem.addItemProperty(p, newValues.getItemProperty(p)));
+                .iterator()
+                .forEachRemaining(p -> relatedFormItem.addItemProperty(p, newValues.getItemProperty(p)));
     }
 
     @Override

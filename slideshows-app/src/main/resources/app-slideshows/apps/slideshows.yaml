@@ -1,0 +1,625 @@
+appClass: com.sharecare.cms.SlideshowsApp
+class: info.magnolia.ui.contentapp.ConfiguredContentAppDescriptor
+label: Slideshows
+icon: icon-files
+name: slideshows
+subApps:
+  slideshows:
+    label: slideshows
+    subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
+    class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
+    actionbar:
+      defaultAction: editProduct
+      sections:
+        - name: root
+          label: Root
+          groups:
+            - name: rootActions
+              items:
+                - name: addFolder
+                - name: editFolder
+                - name: deleteFolder
+                - name: addProduct
+            - name: adminActions
+              items:
+                - name: exportProduct
+                - name: importProduct
+          availability:
+            nodes: false
+            root: true
+        - name: folderProdEnv
+          label: Folder
+          groups:
+            - name: groupActions
+              items:
+                - name: addFolder
+                - name: editFolder
+                - name: deleteFolder
+                - name: addProduct
+            - name: adminActions
+              items:
+                - name: exportProduct
+                - name: importProduct
+            - name: previewEnv
+              items:
+                - name: activatePreview
+                - name: deactivatePreview
+            - name: stageEnv
+              items:
+                - name: activateStage
+                - name: deactivateStage
+            - name: prodEnv
+              items:
+                - name: activateProd
+                - name: deactivateProd
+          availability:
+            nodeTypes:
+              - mgnl:folder
+            rules:
+              - name: isAllowedForProd
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForProductionRule
+        - name: folderQAEnv
+          label: Folder
+          groups:
+            - name: groupActions
+              items:
+                - name: addFolder
+                - name: editFolder
+                - name: deleteFolder
+                - name: addProduct
+            - name: adminActions
+              items:
+                - name: exportProduct
+                - name: importProduct
+            - name: qaEnv
+              items:
+                - name: activateQA
+                - name: deactivateQA
+          availability:
+            nodeTypes:
+              - mgnl:folder
+            rules:
+              - name: isAllowedForQA
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForQARule
+        - name: folderDevEnv
+          label: Folder
+          groups:
+            - name: groupActions
+              items:
+                - name: addFolder
+                - name: editFolder
+                - name: deleteFolder
+                - name: addProduct
+            - name: adminActions
+              items:
+                - name: exportProduct
+                - name: importProduct
+            - name: devEnv
+              items:
+                - name: activateDev
+                - name: deactivateDev
+          availability:
+            nodeTypes:
+              - mgnl:folder
+            rules:
+              - name: isAllowedForDevhost
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForDevRule
+        - name: prodEnv
+          label: Slideshow
+          groups:
+            - name: editActions
+              items:
+                - name: editProduct
+                - name: deleteProduct
+                - name: markAsDeletedProduct
+                - name: duplicateProduct
+            - name: versioningActions
+              items:
+                - name: showVersions
+                - name: restoreVersions
+            - name: adminActions
+              items:
+                - name: exportProduct
+                - name: selectCampaignAction
+            - name: previewEnv
+              items:
+                - name: activatePreview
+                - name: deactivatePreview
+            - name: stageEnv
+              items:
+                - name: activateStage
+                - name: deactivateStage
+            - name: prodEnv
+              items:
+                - name: activateProd
+                - name: deactivateProd
+          availability:
+            nodeTypes:
+              - mgnl:slideshow
+            rules:
+              - name: isAllowedForProd
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForProductionRule
+        - name: qAEnv
+          label: Slideshow
+          groups:
+            - name: editActions
+              items:
+                - name: editProduct
+                - name: deleteProduct
+                - name: markAsDeletedProduct
+                - name: duplicateProduct
+            - name: versioningActions
+              items:
+                - name: showVersions
+                - name: restoreVersions
+            - name: adminActions
+              items:
+                - name: exportProduct
+                - name: selectCampaignAction
+            - name: qaEnv
+              items:
+                - name: activateQA
+                - name: deactivateQA
+          availability:
+            nodeTypes:
+              - mgnl:slideshow
+            rules:
+              - name: isAllowedForQA
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForQARule
+        - name: devEnv
+          label: Slideshow
+          groups:
+            - name: editActions
+              items:
+                - name: editProduct
+                - name: deleteProduct
+                - name: duplicateProduct
+            - name: versioningActions
+              items:
+                - name: showVersions
+                - name: restoreVersions
+            - name: adminActions
+              items:
+                - name: exportProduct
+                - name: selectCampaignAction
+            - name: alphaEnv
+              items:
+                - name: activateDev
+                - name: deactivateDev
+          availability:
+            nodeTypes:
+              - mgnl:slideshow
+            rules:
+              - name: isAllowedForDevhost
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForDevRule
+    actions:
+      addProduct:
+        dialogName: app-slideshows:slideshowDetail
+        label: Add slideshow
+        icon: icon-add-item
+        nodeType: mgnl:slideshow
+        appName: slideshows
+        subAppId: detail
+        class: info.magnolia.ui.framework.action.OpenCreateDialogActionDefinition
+        availability:
+          root: true
+          nodeTypes:
+            - mgnl:folder
+      showVersions:
+        class: info.magnolia.ui.contentapp.browser.action.ShowVersionsActionDefinition
+        icon: icon-show-versions
+      restoreVersions:
+        class: info.magnolia.ui.contentapp.browser.action.RestoreVersionActionDefinition
+        icon: icon-retrieve-versions
+        label: Restore version
+      addFolder:
+        icon: icon-add-folder
+        class: info.magnolia.ui.framework.action.AddFolderActionDefinition
+        availability:
+          root: true
+      editFolder:
+        icon: icon-edit
+        dialogName: ui-framework:folder
+        class: info.magnolia.ui.framework.action.OpenEditDialogActionDefinition
+      deleteFolder:
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.DeleteItemActionDefinition
+      editProduct:
+        label: Edit Slideshow
+        nodeType: mgnl:slideshow
+        appName: slideshows
+        subAppId: detail
+        dialogName: app-slideshows:slideshowDetail
+        nodeType: mgnl:slideshow
+        icon: icon-edit
+        class: info.magnolia.ui.framework.action.OpenEditDialogActionDefinition
+      deleteProduct:
+        label: Delete Slideshow
+        nodeType: mgnl:slideshow
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.DeleteItemActionDefinition
+      markAsDeletedProduct:
+        label: Mark as deleted
+        nodeType: mgnl:slideshow
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.DeleteItemActionDefinition
+      duplicateProduct:
+        label: Duplicate item
+        icon: icon-duplicate
+        class: info.magnolia.ui.framework.action.DuplicateNodeActionDefinition
+      exportProduct:
+        label: Export items
+        icon: icon-export
+        command: export
+        class: info.magnolia.ui.framework.action.ExportActionDefinition
+        availability:
+          root: true
+      importProduct:
+        label: Import items
+        icon: icon-import
+        dialogName: ui-admincentral:import
+        class: info.magnolia.ui.framework.action.OpenCreateDialogActionDefinition
+        availability:
+          root: true
+      activatePreview:
+        label: Publish On Preview
+        catalog: versioned
+        command: activatePreview
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      deactivatePreview:
+        label: Unpublish Preview
+        command: deactivatePreview
+        catalog: versioned
+        icon: icon-unpublish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "De-Activation Failed"
+        failureMessage: "De-Activation Failed"
+        successMessage: "De-Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      activateStage:
+        label: Publish On Stage
+        catalog: versioned
+        command: activateStage
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      deactivateStage:
+        label: Unpublish On Stage
+        command: deactivateStage
+        catalog: versioned
+        icon: icon-unpublish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "De-Activation Failed"
+        failureMessage: "De-Activation Failed"
+        successMessage: "De-Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      activateProd:
+        label: Publish On Prod
+        catalog: versioned
+        command: activateProd
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      deactivateProd:
+        label: Unpublish On Prod
+        command: deactivateProd
+        catalog: versioned
+        icon: icon-unpublish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "De-Activation Failed"
+        failureMessage: "De-Activation Failed"
+        successMessage: "De-Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      activateQA:
+        label: Publish On QA
+        catalog: versioned
+        command: activateQA
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      deactivateQA:
+        label: Unpublish On QA
+        command: deactivateQA
+        catalog: versioned
+        icon: icon-unpublish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "De-Activation Failed"
+        failureMessage: "De-Activation Failed"
+        successMessage: "De-Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      activateDev:
+        label: Publish Dev
+        catalog: versioned
+        command: activateDev
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      deactivateDev:
+        label: Unpublish Dev
+        command: deactivateDev
+        catalog: versioned
+        icon: icon-unpublish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "De-Activation Failed"
+        failureMessage: "De-Activation Failed"
+        successMessage: "De-Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      selectCampaignAction:
+        label: campaign-publisher.actions.selectCampaignAction.label
+        icon: icon-add-folder
+        class: info.magnolia.campaignpublisher.ui.action.OpenMultiEditDialogAction$Definition
+        dialogName: campaign-publisher:addToCampaign
+        availability:
+          multiple: true
+    workbench:
+      dropConstraintClass: info.magnolia.ui.workbench.tree.drop.AlwaysTrueDropConstraint
+      editable: false
+      contentViews:
+        - name: tree
+          class: info.magnolia.ui.workbench.tree.TreePresenterDefinition
+          sortable: true
+          columns: &myColumns
+            - name: name
+              editable: true
+              propertyName: jcrName
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: status
+              width: 160
+              displayInChooseDialog: false
+              formatterClass: com.sharecare.cms.publishing.commons.formatter.MultiSiteActivationStatusFormatter
+              class: com.sharecare.cms.publishing.commons.formatter.MultiSiteActivationStatusDefinition
+            - name: moddate
+              width: 160
+              displayInChooseDialog: false
+              formatterClass: info.magnolia.ui.workbench.column.DateColumnFormatter
+              propertyName: mgnl:lastModified
+              class: info.magnolia.ui.workbench.column.definition.MetaDataColumnDefinition
+        - name: list
+          class: info.magnolia.ui.workbench.list.ListPresenterDefinition
+          columns: *myColumns
+        - name: search
+          class: info.magnolia.ui.workbench.search.SearchPresenterDefinition
+          columns: *myColumns
+    imageProvider:
+       class: info.magnolia.dam.app.ui.imageprovider.DamLinkImageProviderDefinition
+       damLinkPropertyName: imageUpload
+    contentConnector:
+      includeProperties: false
+      workspace: slideshows
+      rootPath: /
+      defaultOrder: jcrName
+      nodeTypes:
+        - name: mgnl:slideshow
+          icon: icon-items
+        - name: mgnl:folder
+          icon: icon-folder
+  featured:
+    label: Customized
+    subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
+    class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
+    actionbar:
+      defaultAction: editFeatured
+      sections:
+        - name: root
+          label: Root
+          groups:
+            - name: adminActions
+              items:
+                - name: exportProduct
+                - name: importProduct
+          availability:
+            nodes: false
+            root: true
+        - name: prodEnv
+          label: Featured Slideshow
+          groups:
+            - name: exportActions
+              items:
+                - name: exportProduct
+            - name: adminActions
+              items:
+                - name: editFeatured
+                - name: activatePreview
+                - name: activateStage
+                - name: activateProd
+          availability:
+            nodeTypes:
+              - mgnl:featuredSlideshows
+            rules:
+              - name: isAllowedForProd
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForProductionRule
+        - name: qAEnv
+          label: Featured Slideshow
+          groups:
+            - name: exportActions
+              items:
+                - name: exportProduct
+            - name: adminActions
+              items:
+                - name: editFeatured
+                - name: activateQA
+          availability:
+            nodeTypes:
+              - mgnl:featuredSlideshows
+            rules:
+              - name: isAllowedForQA
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForQARule
+        - name: devEnv
+          label: Featured Slideshow
+          groups:
+            - name: exportActions
+              items:
+                - name: exportProduct
+            - name: adminActions
+              items:
+                - name: editFeatured
+                - name: activateDev
+          availability:
+            nodeTypes:
+              - mgnl:featuredSlideshows
+            rules:
+              - name: isAllowedForDevhost
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForDevRule
+    actions:
+      exportProduct:
+        label: Export items
+        icon: icon-export
+        command: export
+        class: info.magnolia.ui.framework.action.ExportActionDefinition
+        availability:
+          root: true
+      importProduct:
+        label: Import items
+        icon: icon-import
+        dialogName: ui-admincentral:import
+        class: info.magnolia.ui.framework.action.OpenCreateDialogActionDefinition
+        availability:
+          root: true
+      activatePreview:
+        label: Publish On Preview
+        catalog: versioned
+        command: activatePreview
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      activateStage:
+        label: Publish On Stage
+        command: activateStage
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      activateProd:
+        label: Publish On Prod
+        catalog: versioned
+        command: activateProd
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      activateQA:
+        label: Publish On QA
+        catalog: versioned
+        command: activateQA
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      activateDev:
+        label: Publish Dev
+        command: activateDev
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
+        recursive: true
+        availability:
+          root: true
+      editFeatured:
+        label: "Edit Featured"
+        dialogName: app-slideshows:slideshowFeatured
+        appName: slideshows
+        subAppId: detail
+        nodeType: mgnl:featuredSlideshows
+        icon: icon-edit
+        class: info.magnolia.ui.framework.action.OpenEditDialogActionDefinition
+    workbench:
+      dropConstraintClass: info.magnolia.ui.workbench.tree.drop.AlwaysTrueDropConstraint
+      dragAndDrop: true
+      editable: false
+      contentViews:
+        - name: list
+          class: info.magnolia.ui.workbench.list.ListPresenterDefinition
+          sortable: true
+          columns: &myColumns
+            - name: name
+              editable: true
+              propertyName: jcrName
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: status
+              width: 160
+              displayInChooseDialog: false
+              formatterClass: com.sharecare.cms.publishing.commons.formatter.MultiSiteActivationStatusFormatter
+              class: com.sharecare.cms.publishing.commons.formatter.MultiSiteActivationStatusDefinition
+            - name: moddate
+              width: 160
+              displayInChooseDialog: false
+              formatterClass: info.magnolia.ui.workbench.column.DateColumnFormatter
+              propertyName: mgnl:lastModified
+              class: info.magnolia.ui.workbench.column.definition.MetaDataColumnDefinition
+        - name: search
+          class: info.magnolia.ui.workbench.search.SearchPresenterDefinition
+          columns: *myColumns
+    imageProvider:
+       class: info.magnolia.dam.app.ui.imageprovider.DamLinkImageProviderDefinition
+       damLinkPropertyName: imageUpload
+    contentConnector:
+      defaultOrder: hero
+      includeProperties: false
+      workspace: featured
+      rootPath: /
+      nodeTypes:
+        - name: mgnl:featuredSlideshows
+          icon: icon-files
+        - name: mgnl:folder
+          icon: icon-folder
+
+
+
+
+
