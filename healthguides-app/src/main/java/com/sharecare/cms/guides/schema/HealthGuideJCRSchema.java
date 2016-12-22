@@ -9,6 +9,8 @@ public enum HealthGuideJCRSchema {
 
       id,
       title,
+      sponsor,
+      tocImageUrl,
       description,
       thumbnailUrl,
       healthGuideUri,
