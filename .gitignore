@@ -5,8 +5,11 @@ out/
 build/
 /articles-app/build/
 /slideshows-app/build/
+/healthguides-app/build/
 /publishing-ui/build/
 *.log
 **/repositories/
 *.ipr
 *.iws
+.DS_Store
+publishing-ui/src/main/webapp/tmp/
