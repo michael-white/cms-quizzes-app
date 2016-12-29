@@ -2,7 +2,6 @@ package com.sharecare.cms.guides.fieldvalidator;
 
 import com.google.inject.Inject;
 import com.sharecare.cms.guides.configuration.HealthGuideModuleConfig;
-import com.sharecare.cms.guides.remote.HealthGuideRequestBuilder;
 import com.sharecare.cms.publishing.commons.configuration.CommonsModuleConfig;
 import com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig;
 import com.sharecare.healthguides.sdk.DataResponse;
@@ -19,16 +18,13 @@ import java.util.stream.Collectors;
 public class ResourceUriDuplicateFieldValidator implements com.vaadin.data.Validator {
 
     private Map<String,HealthGuidesApiClient> clientMap;
-    private HealthGuideRequestBuilder requestBuilder;
     private final String environment;
 
     @Inject
     public ResourceUriDuplicateFieldValidator(HealthGuideModuleConfig moduleConfig,
-                                              CommonsModuleConfig commonsModuleConfig,
-                                              HealthGuideRequestBuilder requestBuilder){
+                                              CommonsModuleConfig commonsModuleConfig){
 
         this.clientMap = buildApiClients(moduleConfig.getPublishing().get(commonsModuleConfig.getEnvironment()));
-        this.requestBuilder = requestBuilder;
         this.environment = commonsModuleConfig.getEnvironment();
     }
 
@@ -40,9 +36,10 @@ public class ResourceUriDuplicateFieldValidator implements com.vaadin.data.Valid
             throw new InvalidValueException("Health Guide Resource URI is empty");
         }
 
-        HealthGuidesApiClient client = clientMap.get(environment);
+
 
         try {
+            HealthGuidesApiClient client = clientMap.get(environment);
             DataResponse<Collection<BasicHealthGuideResponse>> searchResult = client.searchRequest()
                                                                                     .searchParam("contentRefList", value.toString())
                                                                                     .execute();

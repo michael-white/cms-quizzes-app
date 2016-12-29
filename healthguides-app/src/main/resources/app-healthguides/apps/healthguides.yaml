@@ -168,7 +168,8 @@ subApps:
                       label: Resource URI (title)
                        validators:
                        -name: resourceUri
-                        class: 
+                        class: com.sharecare.cms.guides.fieldvalidator.ResourceUriDuplicateFieldValidator
+                        errorMessage: Resource URI already exists
                       maxLength: 255
                     - name: type
                       class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
