@@ -1,21 +1,14 @@
 package com.sharecare.cms.guides.fieldvalidator;
 
 import com.google.inject.Inject;
-import com.sharecare.cms.ClientDelegate;
 import com.sharecare.cms.guides.configuration.HealthGuideModuleConfig;
 import com.sharecare.cms.guides.remote.HealthGuideRequestBuilder;
 import com.sharecare.cms.publishing.commons.configuration.CommonsModuleConfig;
 import com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig;
-import com.sharecare.core.sdk.configuration.BasicAuthCredentials;
-import com.sharecare.core.sdk.configuration.ServerInfo;
 import com.sharecare.healthguides.sdk.DataResponse;
 import com.sharecare.healthguides.sdk.HealthGuidesApiClient;
-import com.sharecare.healthguides.sdk.SearchRequest;
 import com.sharecare.healthguides.sdk.model.BasicHealthGuideResponse;
-import com.sharecare.healthguides.sdk.model.Identifier;
-import com.vaadin.data.Validator;
 import org.apache.commons.lang.StringUtils;
-
 import java.util.Collection;
 import java.util.Map;
 import java.util.stream.Collectors;
