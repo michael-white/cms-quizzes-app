@@ -9,7 +9,7 @@
     <components>
         <id>main</id> <!-- Container ID -->
         <configurer>
-            <class>com.sharecare.cms.articles.activation.publishing.ArticlesPublishingBindingConfigurer</class>
+            <class>com.sharecare.cms.guides.activation.publishing.HealthGuidesPublishingBindingConfigurer</class>
         </configurer>
     </components>
 
