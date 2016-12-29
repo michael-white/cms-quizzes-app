@@ -2,8 +2,8 @@ package com.sharecare.cms.articles.activation.publishing;
 
 import com.sharecare.articles.sdk.ArticlesApiClient;
 import com.sharecare.articles.sdk.model.ArticleRequest;
-import com.sharecare.cms.articles.activation.remote.ArticleAssetProcessor;
 import com.sharecare.cms.articles.activation.remote.ArticleRequestBuilder;
+import com.sharecare.cms.articles.activation.remote.CloudinaryArticlesAssetProcessor;
 import com.sharecare.cms.articles.configuration.ArticlesModuleConfig;
 import com.sharecare.cms.cloudinary.dam.AssetUploadResult;
 import com.sharecare.cms.publishing.commons.activation.RemoteDataPublisher;
@@ -30,7 +30,7 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
 
     private final Map<String, ArticlesApiClient> clientMap;
     private final ArticleRequestBuilder articleRequestBuilder;
-    private final ArticleAssetProcessor articleAssetProcessor;
+    private final CloudinaryArticlesAssetProcessor articleAssetProcessor;
     private final RemoteServiceResponseProcessor remoteServiceResponseProcessor;
 
 
@@ -38,7 +38,7 @@ class RemoteArticlePublisher implements RemoteDataPublisher {
     public RemoteArticlePublisher(ArticlesModuleConfig articlesModuleConfig,
                                   CommonsModuleConfig commonsModuleConfig,
                                   ArticleRequestBuilder articleRequestBuilder,
-                                  ArticleAssetProcessor articleAssetProcessor,
+                                  CloudinaryArticlesAssetProcessor articleAssetProcessor,
                                   RemoteServiceResponseProcessor remoteServiceResponseProcessor) {
         this.articleAssetProcessor = articleAssetProcessor;
         this.remoteServiceResponseProcessor = remoteServiceResponseProcessor;

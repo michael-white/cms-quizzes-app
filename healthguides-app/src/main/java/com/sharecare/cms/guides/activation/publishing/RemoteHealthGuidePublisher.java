@@ -1,16 +1,14 @@
 package com.sharecare.cms.guides.activation.publishing;
 
 import com.google.common.collect.Sets;
+import com.sharecare.cms.guides.activation.remote.HealthGuideRequestBuilder;
 import com.sharecare.cms.guides.configuration.HealthGuideModuleConfig;
-import com.sharecare.cms.guides.remote.HealthGuideAssetProcessor;
-import com.sharecare.cms.guides.remote.HealthGuideRequestBuilder;
-import com.sharecare.cms.guides.remote.HealthGuideUploadResult;
-import com.sharecare.cms.publishing.commons.configuration.CommonsModuleConfig;
-import com.sharecare.healthguides.sdk.BasicResponse;
-import com.sharecare.healthguides.sdk.configuration.BasicAuthCredentials;
-import com.sharecare.healthguides.sdk.configuration.ServerInfo;
 import com.sharecare.cms.publishing.commons.activation.RemoteDataPublisher;
+import com.sharecare.cms.publishing.commons.configuration.CommonsModuleConfig;
 import com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig;
+import com.sharecare.core.sdk.BasicResponse;
+import com.sharecare.core.sdk.configuration.BasicAuthCredentials;
+import com.sharecare.core.sdk.configuration.ServerInfo;
 import com.sharecare.healthguides.sdk.HealthGuidesApiClient;
 import com.sharecare.healthguides.sdk.model.HealthGuideRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -18,17 +16,12 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 
 import javax.inject.Inject;
 import javax.jcr.*;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.sharecare.cms.publishing.commons.ui.taglib.activation.EnvironmentActivationField.ACTIVE_STATUS_FIELD;
 
-/**
- * Created by robert.davis on 12/20/2016.
- */
 @Slf4j
 public class RemoteHealthGuidePublisher implements RemoteDataPublisher {
 
@@ -36,7 +29,6 @@ public class RemoteHealthGuidePublisher implements RemoteDataPublisher {
 
     private Map<String,HealthGuidesApiClient> clientMap;
     private HealthGuideRequestBuilder requestBuilder;
-    private HealthGuideAssetProcessor assetProcessor;
 
     private interface StatusUpdater<V, I, S> {
         boolean updateStatus(V valueFactory, I item, S environment);
@@ -46,10 +38,7 @@ public class RemoteHealthGuidePublisher implements RemoteDataPublisher {
     @Inject
     public RemoteHealthGuidePublisher(HealthGuideModuleConfig healthGuideModuleConfig,
                                   CommonsModuleConfig commonsModuleConfig,
-                                  HealthGuideRequestBuilder requestBuilder,
-                                  HealthGuideAssetProcessor assetProcessor) {
-
-        this.assetProcessor = assetProcessor;
+                                  HealthGuideRequestBuilder requestBuilder) {
         this.clientMap = buildApiClients(healthGuideModuleConfig.getPublishing().get(commonsModuleConfig.getEnvironment()));
         this.requestBuilder = requestBuilder;
     }
@@ -62,10 +51,12 @@ public class RemoteHealthGuidePublisher implements RemoteDataPublisher {
             log.info("Publishing {}:{} content to {} ", node.getName(), node.getIdentifier(), environment);
             HealthGuidesApiClient client = clientMap.get(environment);
 
-            Optional<HealthGuideUploadResult> uploadResult = assetProcessor.uploadAssetFrom(node);
-            List<HealthGuideRequest> request = requestBuilder.forNode(node, uploadResult);
+            HealthGuideRequest request = requestBuilder.forNode(node);
 
-            BasicResponse response = client.saveRequest().withData(request).execute();
+            BasicResponse response = client.saveRequest()
+                    .withData(request)
+                    .execute();
+
             if (String.valueOf(response.getStatusCode()).startsWith("20")) {
                 log.info("Successfully published content item {}:{} to {}", node.getPrimaryNodeType().getName(), node.getIdentifier(), environment);
                 if (!activeStatusUpdater.updateStatus(node, environment, addEnvironmentCallback))
