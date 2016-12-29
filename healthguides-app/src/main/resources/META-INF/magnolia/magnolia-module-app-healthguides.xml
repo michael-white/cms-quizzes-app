@@ -4,7 +4,17 @@
   <name>app-healthguides</name>
   <displayName>App Health Guides</displayName>
   <description>Example app for My first content app tutorial</description>
+  <class>com.sharecare.cms.guides.configuration.HealthGuideModuleConfig</class>
+  <versionHandler>com.sharecare.cms.publishing.commons.bootstrap.GlobalVersionHandler</versionHandler>
   <version>${project.version}</version>
+
+
+  <components>
+    <id>main</id> <!-- Container ID -->
+    <configurer>
+      <class>com.sharecare.cms.guides.activation.publishing.HealthGuidesPublishingBindingConfigurer</class>
+    </configurer>
+  </components>
 
   <dependencies>
     <dependency>

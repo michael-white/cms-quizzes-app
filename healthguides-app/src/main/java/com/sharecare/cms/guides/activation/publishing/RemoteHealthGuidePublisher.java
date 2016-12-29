@@ -44,13 +44,13 @@ public class RemoteHealthGuidePublisher implements RemoteDataPublisher {
 
 
     @Inject
-    public RemoteHealthGuidePublisher(HealthGuideModuleConfig healthGuideModuleConfig,
+    public RemoteHealthGuidePublisher(HealthGuideModuleConfig moduleConfig,
                                   CommonsModuleConfig commonsModuleConfig,
                                   HealthGuideRequestBuilder requestBuilder,
                                   HealthGuideAssetProcessor assetProcessor) {
 
         this.assetProcessor = assetProcessor;
-        this.clientMap = buildApiClients(healthGuideModuleConfig.getPublishing().get(commonsModuleConfig.getEnvironment()));
+        this.clientMap = buildApiClients(moduleConfig.getPublishing().get(commonsModuleConfig.getEnvironment()));
         this.requestBuilder = requestBuilder;
     }
 

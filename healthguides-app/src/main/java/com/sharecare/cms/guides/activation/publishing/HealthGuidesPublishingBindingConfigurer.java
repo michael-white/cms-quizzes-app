@@ -9,6 +9,6 @@ public class HealthGuidesPublishingBindingConfigurer extends ComponentBindingCon
 
     @Override
     protected void configureActions() {
-        bindPublisher().to(RemoteHealthGuidePublisher.class);
+                bindPublisher().to(RemoteHealthGuidePublisher.class);
     }
 }

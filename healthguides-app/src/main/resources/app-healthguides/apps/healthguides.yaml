@@ -166,6 +166,9 @@ subApps:
                     - name: resourceUri
                       class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                       label: Resource URI (title)
+                       validators:
+                       -name: resourceUri
+                        class: 
                       maxLength: 255
                     - name: type
                       class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
