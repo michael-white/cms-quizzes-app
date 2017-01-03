@@ -8,36 +8,187 @@ subApps:
       defaultAction: editHealthGuide
       sections:
         - name: root
+          label: Root
           groups:
-            - name: addActions
+            - name: rootActions
               items:
-                - name: addHealthGuide
                 - name: addFolder
+                - name: editFolder
+                - name: deleteFolder
+                - name: addHealthGuide
+            - name: adminActions
+              items:
+                - name: exportProduct
+                - name: importProduct
           availability:
             nodes: false
             root: true
-        - name: folder
+        - name: folderProdEnv
+          label: Folder
           groups:
-            - name: addActions
+            - name: groupActions
               items:
-                - name: addHealthGuide
                 - name: addFolder
-            - name: editActions
-              items:
                 - name: editFolder
                 - name: deleteFolder
+                - name: addHealthGuide
+            - name: adminActions
+              items:
+                - name: exportProduct
+                - name: importProduct
+            - name: previewEnv
+              items:
+                - name: activatePreview
+                - name: deactivatePreview
+            - name: stageEnv
+              items:
+                - name: activateStage
+                - name: deactivateStage
+            - name: prodEnv
+              items:
+                - name: activateProd
+                - name: deactivateProd
           availability:
             nodeTypes:
               - mgnl:folder
-        - name: healthguide
+            rules:
+              - name: isAllowedForProd
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForProductionRule
+        - name: folderQAEnv
+          label: Folder
+          groups:
+            - name: groupActions
+              items:
+                - name: addFolder
+                - name: editFolder
+                - name: deleteFolder
+                - name: addProduct
+            - name: adminActions
+              items:
+                - name: exportProduct
+                - name: importProduct
+            - name: qaEnv
+              items:
+                - name: activateQA
+                - name: deactivateQA
+          availability:
+            nodeTypes:
+              - mgnl:folder
+            rules:
+              - name: isAllowedForQA
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForQARule
+        - name: folderDevEnv
+          label: Folder
+          groups:
+            - name: groupActions
+              items:
+                - name: addFolder
+                - name: editFolder
+                - name: deleteFolder
+                - name: addProduct
+            - name: adminActions
+              items:
+                - name: exportProduct
+                - name: importProduct
+            - name: devEnv
+              items:
+                - name: activateDev
+                - name: deactivateDev
+          availability:
+            nodeTypes:
+              - mgnl:folder
+            rules:
+              - name: isAllowedForDevhost
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForDevRule
+        - name: healthguideProdEnv
+          label: Health Guide
           groups:
             - name: editActions
               items:
                 - name: editHealthGuide
                 - name: deleteHealthGuide
+                - name: markAsDeletedHealthGuide
+                - name: duplicateHealthGuide
+            - name: versioningActions
+              items:
+                - name: showVersions
+                - name: restoreVersions
+            - name: adminActions
+              items:
+                - name: exportHealthGuide
+                - name: selectCampaignAction
+            - name: previewEnv
+              items:
+                - name: activatePreview
+                - name: deactivatePreview
+            - name: stageEnv
+              items:
+                - name: activateStage
+                - name: deactivateStage
+            - name: prodEnv
+              items:
+                - name: activateProd
+                - name: deactivateProd
           availability:
             nodeTypes:
               - mgnl:healthguide
+            rules:
+              - name: isAllowedForProd
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForProductionRule
+        - name: healthGuideQAEnv
+          label: Health Guide
+          groups:
+            - name: editActions
+              items:
+                - name: editHealthGuide
+                - name: deleteHealthGuide
+                - name: markAsDeletedHealthGuide
+                - name: duplicateHealthGuide
+            - name: versioningActions
+              items:
+                - name: showVersions
+                - name: restoreVersions
+            - name: adminActions
+              items:
+                - name: exportHealthguide
+                - name: selectCampaignAction
+            - name: qaEnv
+              items:
+                - name: activateQA
+                - name: deactivateQA
+          availability:
+            nodeTypes:
+              - mgnl:healthguide
+            rules:
+              - name: isAllowedForQA
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForQARule
+        - name: healthGuideDevEnv
+          label: HealthGuide
+          groups:
+            - name: editActions
+              items:
+                - name: editHealthGuide
+                - name: deleteHealthGuide
+                - name: markAsDeletedHealthGuide
+                - name: duplicateHealthGuide
+            - name: versioningActions
+              items:
+                - name: showVersions
+                - name: restoreVersions
+            - name: adminActions
+              items:
+                - name: exportHealthGuide
+                - name: selectCampaignAction
+            - name: alphaEnv
+              items:
+                - name: activateDev
+                - name: deactivateDev
+          availability:
+            nodeTypes:
+              - mgnl:healthguide
+            rules:
+              - name: isAllowedForDevhost
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForDevRule
     actions:
       addHealthGuide:
         subAppId: detail
@@ -72,6 +223,155 @@ subApps:
       deleteHealthGuide:
         icon: icon-delete
         class: info.magnolia.ui.framework.action.DeleteItemActionDefinition
+      markAsDeleteHealthGuide:
+        label: Mark as deleted
+        icon: icon-delete
+        class: info.magnolia.ui.framework.action.DeleteItemActionDefinition
+      duplicateHealthGuide:
+        label: Duplicate item
+        icon: icon-duplicate
+        class: info.magnolia.ui.framework.action.DuplicateNodeActionDefinition
+      exportHealthGuide:
+        label: Export items
+        icon: icon-export
+        command: export
+        class: info.magnolia.ui.framework.action.ExportActionDefinition
+        availability:
+          root: true
+      importHealthGuide:
+        label: Import items
+        icon: icon-import
+        dialogName: ui-admincentral:import
+        class: info.magnolia.ui.framework.action.OpenCreateDialogActionDefinition
+        availability:
+          root: true
+      activatePreview:
+        label: Publish On Preview
+        catalog: versioned
+        command: activatePreview
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      deactivatePreview:
+        label: Unpublish Preview
+        command: deactivatePreview
+        catalog: versioned
+        icon: icon-unpublish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "De-Activation Failed"
+        failureMessage: "De-Activation Failed"
+        successMessage: "De-Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      activateStage:
+        label: Publish On Stage
+        catalog: versioned
+        command: activateStage
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      deactivateStage:
+        label: Unpublish On Stage
+        command: deactivateStage
+        catalog: versioned
+        icon: icon-unpublish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "De-Activation Failed"
+        failureMessage: "De-Activation Failed"
+        successMessage: "De-Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      activateProd:
+        label: Publish On Prod
+        catalog: versioned
+        command: activateProd
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      deactivateProd:
+        label: Unpublish On Prod
+        command: deactivateProd
+        catalog: versioned
+        icon: icon-unpublish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "De-Activation Failed"
+        failureMessage: "De-Activation Failed"
+        successMessage: "De-Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      activateQA:
+        label: Publish On QA
+        catalog: versioned
+        command: activateQA
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      deactivateQA:
+        label: Unpublish On QA
+        command: deactivateQA
+        catalog: versioned
+        icon: icon-unpublish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "De-Activation Failed"
+        failureMessage: "De-Activation Failed"
+        successMessage: "De-Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      activateDev:
+        label: Publish Dev
+        catalog: versioned
+        command: activateDev
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      deactivateDev:
+        label: Unpublish Dev
+        command: deactivateDev
+        catalog: versioned
+        icon: icon-unpublish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "De-Activation Failed"
+        failureMessage: "De-Activation Failed"
+        successMessage: "De-Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      selectCampaignAction:
+        label: campaign-publisher.actions.selectCampaignAction.label
+        icon: icon-add-folder
+        class: info.magnolia.campaignpublisher.ui.action.OpenMultiEditDialogAction$Definition
+        dialogName: campaign-publisher:addToCampaign
+        availability:
+          multiple: true
     workbench:
       dropConstraintClass: info.magnolia.ui.workbench.tree.drop.AlwaysTrueDropConstraint
       editable: false
@@ -264,7 +564,7 @@ subApps:
               - name: primaryTag
                 label: "Primary Tag"
                 class: com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagFieldDefinition
-                subdomain: article
+                subdomain: healthguide
                 transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.tag.TagFieldCompositeTransformer
               - name: secondaryTag
                 label: "Secondary Tag"

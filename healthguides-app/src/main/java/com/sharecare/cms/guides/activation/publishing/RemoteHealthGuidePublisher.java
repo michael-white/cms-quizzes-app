@@ -37,8 +37,8 @@ public class RemoteHealthGuidePublisher implements RemoteDataPublisher {
 
     @Inject
     public RemoteHealthGuidePublisher(HealthGuideModuleConfig healthGuideModuleConfig,
-                                  CommonsModuleConfig commonsModuleConfig,
-                                  HealthGuideRequestBuilder requestBuilder) {
+                                      CommonsModuleConfig commonsModuleConfig,
+                                      HealthGuideRequestBuilder requestBuilder) {
         this.clientMap = buildApiClients(healthGuideModuleConfig.getPublishing().get(commonsModuleConfig.getEnvironment()));
         this.requestBuilder = requestBuilder;
     }
