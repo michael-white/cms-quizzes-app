@@ -9,6 +9,8 @@ import com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagField;
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.SecondaryTagField;
 import com.sharecare.core.sdk.model.Tag;
 import lombok.extern.slf4j.Slf4j;
+import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
 
 import javax.jcr.*;
 import java.util.*;
@@ -32,7 +34,6 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
         Map<String, ArticleRequest.ArticleRequestBuilder> localeArticles = initArticleLocaleMap(node, uploadResult);
 
         processProperties(node, localeArticles);
-
         return localeArticles.values()
                              .stream()
                              .map(ArticleRequest.ArticleRequestBuilder::build)
@@ -40,6 +41,9 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
     }
 
     private void processProperties(Node n, Map<String, ArticleRequest.ArticleRequestBuilder> localeArticles) throws RepositoryException {
+        if (!n.hasProperty("expirationDate")) {
+            n.setProperty("expirationDate", "");
+        }
         PropertyIterator it = n.getProperties();
         while (it.hasNext()) {
             Property p = it.nextProperty();
@@ -95,6 +99,7 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 
     private void populateBuilder(ArticleRequest.ArticleRequestBuilder builder, String field, String value) {
 
+        if (builder != null) {
         if (PrimaryTagField.PRIMARY_TAG_FIELD.equals(field)) {
             builder.primaryTag(new Tag(value, "tag"));
         } else {
@@ -182,40 +187,58 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
                 case contentFlags:
                     builder.contentFlags(Collections.singletonList(value));
                     break;
+                case propensityScore:
+                    builder.propensityScore(Long.parseLong(StringUtils.defaultIfBlank(value, "0")));
+                    break;
+                case expirationDate:
+                    long expirationDate = Long.MAX_VALUE;
+                    if (StringUtils.isNotEmpty(value)) {
+                         expirationDate = new DateTime(value).getMillis();
+                    }
+                    builder.expirationDate(expirationDate);
+                    break;
                 default:
                     break;
 
+            }
             }
         }
     }
 
     private void populateBuilderMulti(ArticleRequest.ArticleRequestBuilder builder, String field, List<String> values) {
 
-        if (SecondaryTagField.SECONDARY_TAG_FIELD.equals(field)) {
-            builder.secondaryTags(values.stream().map(v -> new Tag(v, "tag")).collect(Collectors.toList()));
-        } else {
+        if (builder != null) {
+            if (SecondaryTagField.SECONDARY_TAG_FIELD.equals(field)) {
+                builder.secondaryTags(values.stream().map(v -> new Tag(v, "tag")).collect(Collectors.toList()));
+            } else {
 
-            ArticleJCRSchema fieldName = ArticleJCRSchema.forName(field);
-            if (fieldName == null) return;
+                ArticleJCRSchema fieldName = ArticleJCRSchema.forName(field);
+                if (fieldName == null) return;
 
-            switch (fieldName) {
-                case segmentSelect:
-                    builder.segments(values);
-                    break;
-                case contentFlags:
-                    builder.contentFlags(values);
-                    break;
-                case mentions:
-                    builder.mentions(values);
-                    break;
-                case authors:
-                    builder.authors(values);
-                    break;
-                case redirects:
-                    builder.legacyUris(values);
-                    break;
-                default:
-                    break;
+                switch (fieldName) {
+                    case segmentSelect:
+                        builder.segments(values);
+                        break;
+                    case contentFlags:
+                        builder.contentFlags(values);
+                        break;
+                    case mentions:
+                        builder.mentions(values);
+                        break;
+                    case authors:
+                        builder.authors(values);
+                        break;
+                    case redirects:
+                        builder.legacyUris(values);
+                        break;
+                    case livingInTheGreenScale:
+                        builder.livingInTheGreenScale(values.stream()
+                                .mapToInt(Integer::parseInt)
+                                .boxed()
+                                .collect(Collectors.toList()));
+                    default:
+                        break;
+                }
             }
         }
     }
