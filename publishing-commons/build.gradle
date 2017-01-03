@@ -6,6 +6,6 @@ apply plugin: 'java'
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
 
-    compile(group: 'com.sharecare.services', name: 'core-java-sdk', version: '1.0')
+    compile(group: 'com.sharecare.services', name: 'core-java-sdk', version: '1.1.0')
 
 }

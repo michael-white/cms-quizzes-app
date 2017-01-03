@@ -7,19 +7,22 @@ import java.util.stream.Stream;
  */
 public enum HealthGuideJCRSchema {
 
-      id,
-      title,
-      description,
-      thumbnailUrl,
-      healthGuideUri,
-      tagReference,
-      keywords,
-      segments,
-      contentRefList,
-      publishDate,
-      creationDate;
+    id,
+    title,
+    description,
+    thumbnailUrl,
+    healthGuideUri,
+    primaryTag,
+    secondaryTags,
+    keywords,
+    segments,
+    contentRefList,
+    image,
+    topicUri,
+    publishDate,
+    creationDate;
 
-    public static HealthGuideJCRSchema  forName(String field){
+    public static HealthGuideJCRSchema forName(String field){
         if( field == null )
             return null;
         return Stream.of(values()).filter(v->v.name().equals(field))

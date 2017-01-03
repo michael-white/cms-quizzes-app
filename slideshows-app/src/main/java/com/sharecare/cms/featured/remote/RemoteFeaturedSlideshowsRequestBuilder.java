@@ -9,8 +9,8 @@ import javax.jcr.RepositoryException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.sharecare.cms.utils.NodeUtils.extractMultiField;
-import static com.sharecare.cms.utils.NodeUtils.fromNode;
+import static com.sharecare.cms.publishing.commons.utils.NodeUtils.extractMultiField;
+import static com.sharecare.cms.publishing.commons.utils.NodeUtils.fromNode;
 
 @Slf4j
 public class RemoteFeaturedSlideshowsRequestBuilder implements FeaturedSlideshowsRequestBuilder {

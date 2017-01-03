@@ -1,4 +1,4 @@
-package com.sharecare.cms.utils;
+package com.sharecare.cms.publishing.commons.utils;
 
 import com.sharecare.core.sdk.model.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -41,5 +41,4 @@ public class NodeUtils {
         String tagId = fromNode(name, node);
         return new Tag(tagId, "tag");
     }
-
 }

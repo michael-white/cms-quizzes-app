@@ -16,7 +16,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.sharecare.cms.utils.NodeUtils.*;
+import static com.sharecare.cms.publishing.commons.utils.NodeUtils.*;
 
 @Slf4j
 public class RemoteSlideshowsRequestBuilder implements SlideshowsRequestBuilder {
