@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sv:node sv:name="config" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <sv:property sv:name="jcr:primaryType" sv:type="Name">
+    <sv:value>mgnl:contentNode</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:uuid" sv:type="String">
+    <sv:value>8ecf55b0-7476-4b67-888c-122d33470d3e</sv:value>
+  </sv:property>
+  <sv:property sv:name="jcr:createdBy" sv:type="String">
+    <sv:value>admin</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+    <sv:value>false</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:created" sv:type="Date">
+    <sv:value>2016-12-29T16:50:36.943-05:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:createdBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+    <sv:value>2016-12-29T16:50:36.954-05:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+    <sv:value>2016-12-29T16:51:00.207-05:00</sv:value>
+  </sv:property>
+  <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+    <sv:value>superuser</sv:value>
+  </sv:property>
+  <sv:node sv:name="publishing">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>2919b9af-8c53-452f-9ab4-207d7b99615d</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:createdBy" sv:type="String">
+      <sv:value>admin</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+      <sv:value>false</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:created" sv:type="Date">
+      <sv:value>2016-12-29T16:50:36.943-05:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:createdBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+      <sv:value>2016-12-29T16:50:36.955-05:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+      <sv:value>2016-12-29T16:51:00.207-05:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:node sv:name="dev">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>b3d22867-b255-4e92-b881-be8c5f8e77df</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:createdBy" sv:type="String">
+        <sv:value>admin</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+        <sv:value>false</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:created" sv:type="Date">
+        <sv:value>2016-12-29T16:50:36.943-05:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:createdBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+        <sv:value>2016-12-29T16:50:36.956-05:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+        <sv:value>2016-12-29T16:51:00.207-05:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:node sv:name="dev">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>mgnl:contentNode</sv:value>
+        </sv:property>
+        <sv:property sv:name="jcr:uuid" sv:type="String">
+          <sv:value>dcbf5aaf-1ed0-4634-bbf4-a246a1b3b100</sv:value>
+        </sv:property>
+        <sv:property sv:name="class" sv:type="String">
+          <sv:value>com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig</sv:value>
+        </sv:property>
+        <sv:property sv:name="hostAddress" sv:type="String">
+          <sv:value>localhost</sv:value>
+        </sv:property>
+        <sv:property sv:name="hostPort" sv:type="String">
+          <sv:value>3000</sv:value>
+        </sv:property>
+        <sv:property sv:name="hostProtocol" sv:type="String">
+          <sv:value>http</sv:value>
+        </sv:property>
+        <sv:property sv:name="jcr:createdBy" sv:type="String">
+          <sv:value>admin</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+          <sv:value>false</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:created" sv:type="Date">
+          <sv:value>2016-12-29T16:50:36.943-05:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:createdBy" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+          <sv:value>2016-12-29T16:50:36.957-05:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+          <sv:value>2016-12-30T12:44:08.143-05:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="password" sv:type="String">
+          <sv:value>hswi</sv:value>
+        </sv:property>
+        <sv:property sv:name="username" sv:type="String">
+          <sv:value>sharecare</sv:value>
+        </sv:property>
+      </sv:node>
+    </sv:node>
+    <sv:node sv:name="qa">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>217b6015-bf41-47c1-b315-64c3545d0892</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:createdBy" sv:type="String">
+        <sv:value>admin</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+        <sv:value>false</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:created" sv:type="Date">
+        <sv:value>2016-12-29T16:50:36.943-05:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:createdBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+        <sv:value>2016-12-29T16:50:36.957-05:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+        <sv:value>2016-12-29T16:51:00.207-05:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:node sv:name="qa">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>mgnl:contentNode</sv:value>
+        </sv:property>
+        <sv:property sv:name="jcr:uuid" sv:type="String">
+          <sv:value>da20d1c0-8a46-42fb-a0d8-1e92f836c776</sv:value>
+        </sv:property>
+        <sv:property sv:name="class" sv:type="String">
+          <sv:value>com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig</sv:value>
+        </sv:property>
+        <sv:property sv:name="hostAddress" sv:type="String">
+          <sv:value>api.mservices.sharecare.com</sv:value>
+        </sv:property>
+        <sv:property sv:name="hostPort" sv:type="String">
+          <sv:value>443</sv:value>
+        </sv:property>
+        <sv:property sv:name="hostProtocol" sv:type="String">
+          <sv:value>https</sv:value>
+        </sv:property>
+        <sv:property sv:name="jcr:createdBy" sv:type="String">
+          <sv:value>admin</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+          <sv:value>false</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:created" sv:type="Date">
+          <sv:value>2016-12-29T16:50:36.943-05:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:createdBy" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+          <sv:value>2016-12-29T16:50:36.959-05:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+          <sv:value>2016-12-29T16:51:00.207-05:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="password" sv:type="String">
+          <sv:value>hswi</sv:value>
+        </sv:property>
+        <sv:property sv:name="username" sv:type="String">
+          <sv:value>sharecare</sv:value>
+        </sv:property>
+      </sv:node>
+    </sv:node>
+    <sv:node sv:name="release">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>deb14c7d-5f61-4683-b130-9b53a2700913</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:createdBy" sv:type="String">
+        <sv:value>admin</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+        <sv:value>false</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:created" sv:type="Date">
+        <sv:value>2016-12-29T16:50:36.943-05:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:createdBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+        <sv:value>2016-12-29T16:50:36.959-05:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+        <sv:value>2016-12-29T16:51:00.207-05:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:node sv:name="preview">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>mgnl:contentNode</sv:value>
+        </sv:property>
+        <sv:property sv:name="jcr:uuid" sv:type="String">
+          <sv:value>6bd49a33-bc5a-4702-9247-0c9e0fef0f3f</sv:value>
+        </sv:property>
+        <sv:property sv:name="class" sv:type="String">
+          <sv:value>com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig</sv:value>
+        </sv:property>
+        <sv:property sv:name="hostAddress" sv:type="String">
+          <sv:value>api.preview.sharecare.com</sv:value>
+        </sv:property>
+        <sv:property sv:name="hostPort" sv:type="String">
+          <sv:value>443</sv:value>
+        </sv:property>
+        <sv:property sv:name="hostProtocol" sv:type="String">
+          <sv:value>https</sv:value>
+        </sv:property>
+        <sv:property sv:name="jcr:createdBy" sv:type="String">
+          <sv:value>admin</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+          <sv:value>false</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:created" sv:type="Date">
+          <sv:value>2016-12-29T16:50:36.943-05:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:createdBy" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+          <sv:value>2016-12-29T16:50:36.960-05:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+          <sv:value>2016-12-29T16:51:00.207-05:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="password" sv:type="String">
+          <sv:value>hswi</sv:value>
+        </sv:property>
+        <sv:property sv:name="username" sv:type="String">
+          <sv:value>sharecare</sv:value>
+        </sv:property>
+      </sv:node>
+      <sv:node sv:name="stage">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>mgnl:contentNode</sv:value>
+        </sv:property>
+        <sv:property sv:name="jcr:uuid" sv:type="String">
+          <sv:value>d026a557-d0d3-4ce7-b7e4-a5e263669557</sv:value>
+        </sv:property>
+        <sv:property sv:name="class" sv:type="String">
+          <sv:value>com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig</sv:value>
+        </sv:property>
+        <sv:property sv:name="hostAddress" sv:type="String">
+          <sv:value>api.stage.sharecare.com</sv:value>
+        </sv:property>
+        <sv:property sv:name="hostPort" sv:type="String">
+          <sv:value>443</sv:value>
+        </sv:property>
+        <sv:property sv:name="hostProtocol" sv:type="String">
+          <sv:value>https</sv:value>
+        </sv:property>
+        <sv:property sv:name="jcr:createdBy" sv:type="String">
+          <sv:value>admin</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+          <sv:value>false</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:created" sv:type="Date">
+          <sv:value>2016-12-29T16:50:36.943-05:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:createdBy" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+          <sv:value>2016-12-29T16:50:36.961-05:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+          <sv:value>2016-12-29T16:51:00.207-05:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="password" sv:type="String">
+          <sv:value>hswi</sv:value>
+        </sv:property>
+        <sv:property sv:name="username" sv:type="String">
+          <sv:value>sharecare</sv:value>
+        </sv:property>
+      </sv:node>
+      <sv:node sv:name="prod">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>mgnl:contentNode</sv:value>
+        </sv:property>
+        <sv:property sv:name="jcr:uuid" sv:type="String">
+          <sv:value>468f0681-5bb8-4496-87b5-d8d33a60512a</sv:value>
+        </sv:property>
+        <sv:property sv:name="class" sv:type="String">
+          <sv:value>com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig</sv:value>
+        </sv:property>
+        <sv:property sv:name="hostAddress" sv:type="String">
+          <sv:value>api.sharecare.com</sv:value>
+        </sv:property>
+        <sv:property sv:name="hostPort" sv:type="String">
+          <sv:value>443</sv:value>
+        </sv:property>
+        <sv:property sv:name="hostProtocol" sv:type="String">
+          <sv:value>https</sv:value>
+        </sv:property>
+        <sv:property sv:name="jcr:createdBy" sv:type="String">
+          <sv:value>admin</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+          <sv:value>false</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:created" sv:type="Date">
+          <sv:value>2016-12-29T16:50:36.943-05:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:createdBy" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+          <sv:value>2016-12-29T16:50:36.961-05:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+          <sv:value>2016-12-29T16:51:00.207-05:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="password" sv:type="String">
+          <sv:value>hswi</sv:value>
+        </sv:property>
+        <sv:property sv:name="username" sv:type="String">
+          <sv:value>sharecare</sv:value>
+        </sv:property>
+      </sv:node>
+    </sv:node>
+  </sv:node>
+  <sv:node sv:name="segments">
+    <sv:property sv:name="jcr:primaryType" sv:type="Name">
+      <sv:value>mgnl:contentNode</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:uuid" sv:type="String">
+      <sv:value>df842eea-bd30-4670-b74e-d725e72193ca</sv:value>
+    </sv:property>
+    <sv:property sv:name="jcr:createdBy" sv:type="String">
+      <sv:value>admin</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+      <sv:value>false</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:created" sv:type="Date">
+      <sv:value>2016-12-29T16:50:36.943-05:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:createdBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+      <sv:value>2016-12-29T16:50:36.962-05:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+      <sv:value>2016-12-29T16:51:00.207-05:00</sv:value>
+    </sv:property>
+    <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+      <sv:value>superuser</sv:value>
+    </sv:property>
+    <sv:node sv:name="global">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>7c39a499-d515-4555-982c-811df2ad1110</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:createdBy" sv:type="String">
+        <sv:value>admin</sv:value>
+      </sv:property>
+      <sv:property sv:name="label" sv:type="String">
+        <sv:value>Global</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+        <sv:value>false</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:created" sv:type="Date">
+        <sv:value>2016-12-29T16:50:36.943-05:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:createdBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+        <sv:value>2016-12-29T16:50:36.963-05:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+        <sv:value>2016-12-29T16:51:00.207-05:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="selected" sv:type="String">
+        <sv:value>true</sv:value>
+      </sv:property>
+      <sv:property sv:name="value" sv:type="String">
+        <sv:value>global</sv:value>
+      </sv:property>
+    </sv:node>
+    <sv:node sv:name="hca-va">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>b4cf21b5-355e-46af-8a41-7fae23e2ca5b</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:createdBy" sv:type="String">
+        <sv:value>admin</sv:value>
+      </sv:property>
+      <sv:property sv:name="label" sv:type="String">
+        <sv:value>HCA VA</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+        <sv:value>false</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:created" sv:type="Date">
+        <sv:value>2016-12-29T16:50:36.943-05:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:createdBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+        <sv:value>2016-12-29T16:50:36.964-05:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+        <sv:value>2016-12-29T16:51:00.207-05:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="value" sv:type="String">
+        <sv:value>hca&gt;hca-va</sv:value>
+      </sv:property>
+    </sv:node>
+    <sv:node sv:name="hca-va-rock10">
+      <sv:property sv:name="jcr:primaryType" sv:type="Name">
+        <sv:value>mgnl:contentNode</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:uuid" sv:type="String">
+        <sv:value>cc4f9b94-971b-4932-8d56-7651f259cf7c</sv:value>
+      </sv:property>
+      <sv:property sv:name="jcr:createdBy" sv:type="String">
+        <sv:value>admin</sv:value>
+      </sv:property>
+      <sv:property sv:name="label" sv:type="String">
+        <sv:value>HCA VA Rock 10</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:activationStatus" sv:type="Boolean">
+        <sv:value>false</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:created" sv:type="Date">
+        <sv:value>2016-12-29T16:50:36.943-05:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:createdBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastActivated" sv:type="Date">
+        <sv:value>2016-12-29T16:50:36.965-05:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastActivatedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+        <sv:value>2016-12-29T16:51:00.207-05:00</sv:value>
+      </sv:property>
+      <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+        <sv:value>superuser</sv:value>
+      </sv:property>
+      <sv:property sv:name="value" sv:type="String">
+        <sv:value>hca&gt;hca-va&gt;rock-10</sv:value>
+      </sv:property>
+    </sv:node>
+  </sv:node>
+</sv:node>
