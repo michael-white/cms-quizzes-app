@@ -19,6 +19,7 @@ public class ResourceUriDuplicateFieldValidator implements com.vaadin.data.Valid
 
     private Map<String,HealthGuidesApiClient> clientMap;
     private final String environment;
+    private final static String ENDPOINT_BASEPATH = "/health-guides";
 
     @Inject
     public ResourceUriDuplicateFieldValidator(HealthGuideModuleConfig moduleConfig,
@@ -41,8 +42,8 @@ public class ResourceUriDuplicateFieldValidator implements com.vaadin.data.Valid
         try {
             HealthGuidesApiClient client = clientMap.get(environment);
             DataResponse<Collection<BasicHealthGuideResponse>> searchResult = client.searchRequest()
-                                                                                    .searchParam("contentRefList", value.toString())
-                                                                                    .execute();
+                    .searchParam("contentRefList.contentUrl", value.toString())
+                    .execute();
 
             if( ! searchResult.getResult().isEmpty() ){
                 throw new InvalidValueException("Health Guide Resource URI : " + value + " already exists");
@@ -64,7 +65,7 @@ public class ResourceUriDuplicateFieldValidator implements com.vaadin.data.Valid
                             com.sharecare.healthguides.sdk.configuration.ServerInfo serverInfo = com.sharecare.healthguides.sdk.configuration.ServerInfo.builder().protocol(config.getHostProtocol())
                                     .hostName(config.getHostAddress())
                                     .port(config.getHostPort())
-                                    .basePath("/health-guides")
+                                    .basePath(ENDPOINT_BASEPATH)
                                     .build();
                             return new HealthGuidesApiClient(basicAuthCredentials, serverInfo);
                         }));
