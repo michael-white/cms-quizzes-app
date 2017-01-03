@@ -4,10 +4,13 @@ import com.google.inject.Inject;
 import com.sharecare.cms.guides.configuration.HealthGuideModuleConfig;
 import com.sharecare.cms.publishing.commons.configuration.CommonsModuleConfig;
 import com.sharecare.cms.publishing.commons.configuration.RemoteServerResourceConfig;
-import com.sharecare.healthguides.sdk.DataResponse;
+import com.sharecare.core.sdk.DataResponse;
+import com.sharecare.core.sdk.configuration.BasicAuthCredentials;
+import com.sharecare.core.sdk.configuration.ServerInfo;
 import com.sharecare.healthguides.sdk.HealthGuidesApiClient;
-import com.sharecare.healthguides.sdk.model.BasicHealthGuideResponse;
+import com.sharecare.healthguides.sdk.model.HealthGuideResponse;
 import org.apache.commons.lang.StringUtils;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -41,7 +44,7 @@ public class ResourceUriDuplicateFieldValidator implements com.vaadin.data.Valid
 
         try {
             HealthGuidesApiClient client = clientMap.get(environment);
-            DataResponse<Collection<BasicHealthGuideResponse>> searchResult = client.searchRequest()
+            DataResponse<Collection<HealthGuideResponse>> searchResult = client.searchRequest()
                     .searchParam("contentRefList.contentUrl", value.toString())
                     .execute();
 
@@ -61,8 +64,8 @@ public class ResourceUriDuplicateFieldValidator implements com.vaadin.data.Valid
                 .collect(Collectors.toMap(Map.Entry::getKey,
                         entry -> {
                             RemoteServerResourceConfig config = entry.getValue();
-                            com.sharecare.healthguides.sdk.configuration.BasicAuthCredentials basicAuthCredentials = new com.sharecare.healthguides.sdk.configuration.BasicAuthCredentials(entry.getValue().getUsername(), config.getPassword());
-                            com.sharecare.healthguides.sdk.configuration.ServerInfo serverInfo = com.sharecare.healthguides.sdk.configuration.ServerInfo.builder().protocol(config.getHostProtocol())
+                            BasicAuthCredentials basicAuthCredentials = new BasicAuthCredentials(entry.getValue().getUsername(), config.getPassword());
+                            ServerInfo serverInfo = ServerInfo.builder().protocol(config.getHostProtocol())
                                     .hostName(config.getHostAddress())
                                     .port(config.getHostPort())
                                     .basePath(ENDPOINT_BASEPATH)
