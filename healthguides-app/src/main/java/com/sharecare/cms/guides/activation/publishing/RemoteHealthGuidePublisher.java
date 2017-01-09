@@ -13,6 +13,7 @@ import com.sharecare.healthguides.sdk.HealthGuidesApiClient;
 import com.sharecare.healthguides.sdk.model.HealthGuideRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.exception.ExceptionUtils;
+
 import javax.inject.Inject;
 import javax.jcr.*;
 import java.util.Map;
@@ -21,9 +22,6 @@ import java.util.stream.Collectors;
 
 import static com.sharecare.cms.publishing.commons.ui.taglib.activation.EnvironmentActivationField.ACTIVE_STATUS_FIELD;
 
-/**
- * Created by robert.davis on 12/20/2016.
- */
 @Slf4j
 public class RemoteHealthGuidePublisher implements RemoteDataPublisher {
 
@@ -52,8 +50,8 @@ public class RemoteHealthGuidePublisher implements RemoteDataPublisher {
         try {
             log.info("Publishing {}:{} content to {} ", node.getName(), node.getIdentifier(), environment);
             HealthGuidesApiClient client = clientMap.get(environment);
-            
-             HealthGuideRequest request = requestBuilder.forNode(node);
+
+            HealthGuideRequest request = requestBuilder.forNode(node);
 
             BasicResponse response = client.saveRequest().withData(request).execute();
             if (String.valueOf(response.getStatusCode()).startsWith("20")) {

@@ -479,11 +479,11 @@ subApps:
                     - name: resourceUri
                       class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                       label: Resource URI (title)
-                       validators:
-                       -name: resourceUriDuplicate
-                        class: com.sharecare.cms.guides.fieldvalidator.ResourceUriDuplicateFieldValidator
-                        errorMessage: Resource URI already exists
                       maxLength: 255
+                      validators:
+                       - name: resourceUriDuplicate
+                         class: com.sharecare.cms.guides.fieldvalidator.ResourceUriDuplicateFieldValidator
+                         errorMessage: Resource URI already exists
                     - name: type
                       class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
                       label: Resource Type
