@@ -14,10 +14,10 @@ public class RemoteHealthGuideFolderPublisher implements RemoteDataPublisher {
 
 	static final String NODE_TYPE = "mgnl:folder";
 
-	private final RemoteHealthGuideFolderPublisher publisher;
+	private final RemoteHealthGuidePublisher publisher;
 
 	@Inject
-	public RemoteHealthGuideFolderPublisher(RemoteHealthGuideFolderPublisher publisher) {
+	public RemoteHealthGuideFolderPublisher(RemoteHealthGuidePublisher publisher) {
 		this.publisher = publisher;
 	}
 
