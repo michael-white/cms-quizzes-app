@@ -18,8 +18,8 @@ subApps:
                 - name: addHealthGuide
             - name: adminActions
               items:
-                - name: exportProduct
-                - name: importProduct
+                - name: exportHealthGuide
+                - name: importHealthGuide
           availability:
             nodes: false
             root: true
@@ -34,8 +34,8 @@ subApps:
                 - name: addHealthGuide
             - name: adminActions
               items:
-                - name: exportProduct
-                - name: importProduct
+                - name: exportHealthGuide
+                - name: importHealthGuide
             - name: previewEnv
               items:
                 - name: activatePreview
@@ -62,11 +62,11 @@ subApps:
                 - name: addFolder
                 - name: editFolder
                 - name: deleteFolder
-                - name: addProduct
+                - name: addHealthGuide
             - name: adminActions
               items:
-                - name: exportProduct
-                - name: importProduct
+                - name: exportHealthGuide
+                - name: importHealthGuide
             - name: qaEnv
               items:
                 - name: activateQA
@@ -85,11 +85,11 @@ subApps:
                 - name: addFolder
                 - name: editFolder
                 - name: deleteFolder
-                - name: addProduct
+                - name: addHealthGuide
             - name: adminActions
               items:
-                - name: exportProduct
-                - name: importProduct
+                - name: exportHealthGuide
+                - name: importHealthGuide
             - name: devEnv
               items:
                 - name: activateDev
@@ -223,7 +223,7 @@ subApps:
       deleteHealthGuide:
         icon: icon-delete
         class: info.magnolia.ui.framework.action.DeleteItemActionDefinition
-      markAsDeleteHealthGuide:
+      markAsDeletedHealthGuide:
         label: Mark as deleted
         icon: icon-delete
         class: info.magnolia.ui.framework.action.DeleteItemActionDefinition
@@ -372,6 +372,13 @@ subApps:
         dialogName: campaign-publisher:addToCampaign
         availability:
           multiple: true
+      showVersions:
+        class: info.magnolia.ui.contentapp.browser.action.ShowVersionsActionDefinition
+        icon: icon-show-versions
+      restoreVersions:
+        class: info.magnolia.ui.contentapp.browser.action.RestoreVersionActionDefinition
+        icon: icon-retrieve-versions
+        label: Restore version
     workbench:
       dropConstraintClass: info.magnolia.ui.workbench.tree.drop.AlwaysTrueDropConstraint
       editable: false
