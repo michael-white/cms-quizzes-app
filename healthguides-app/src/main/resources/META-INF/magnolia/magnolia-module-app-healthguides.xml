@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module SYSTEM "module.dtd" >
 <module>
-    <name>app-healthguides</name>
-    <displayName>App Health Guides</displayName>
-    <description>Example app for My first content app tutorial</description>
-    <version>${project.version}</version>
-
-    <components>
-        <id>main</id> <!-- Container ID -->
-        <configurer>
-            <class>com.sharecare.cms.guides.activation.publishing.HealthGuidesPublishingBindingConfigurer</class>
-        </configurer>
-    </components>
+  <name>app-healthguides</name>
+  <displayName>App Health Guides</displayName>
+  <description>Example app for My first content app tutorial</description>
+  <class>com.sharecare.cms.guides.configuration.HealthGuideModuleConfig</class>
+  <versionHandler>com.sharecare.cms.publishing.commons.bootstrap.GlobalVersionHandler</versionHandler>
+  <version>${project.version}</version>
 
 
-    <dependencies>
+  <components>
+    <id>main</id> <!-- Container ID -->
+    <configurer>
+      <class>com.sharecare.cms.guides.activation.publishing.HealthGuidesPublishingBindingConfigurer</class>
+    </configurer>
+  </components>
+
+  <dependencies>
     <dependency>
       <name>core</name>
       <version>5.4/*</version>

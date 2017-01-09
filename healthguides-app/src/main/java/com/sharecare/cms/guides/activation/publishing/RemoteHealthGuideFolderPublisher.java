@@ -12,47 +12,47 @@ import javax.jcr.RepositoryException;
 @Slf4j
 public class RemoteHealthGuideFolderPublisher implements RemoteDataPublisher {
 
-    static final String NODE_TYPE = "mgnl:folder";
+	static final String NODE_TYPE = "mgnl:folder";
 
-    private final RemoteHealthGuidePublisher remoteHealthGuidePublisher;
+	private final RemoteHealthGuideFolderPublisher publisher;
 
-    @Inject
-    public RemoteHealthGuideFolderPublisher(RemoteHealthGuidePublisher remoteHealthGuidePublisher) {
-        this.remoteHealthGuidePublisher = remoteHealthGuidePublisher;
-    }
+	@Inject
+	public RemoteHealthGuideFolderPublisher(RemoteHealthGuideFolderPublisher publisher) {
+		this.publisher = publisher;
+	}
 
-    @Override
-    public boolean publish(Node node, String environment) {
-        try {
-            NodeIterator nodeIterator = node.getNodes();
-            while (nodeIterator.hasNext()) {
-                boolean result = remoteHealthGuidePublisher.publish(nodeIterator.nextNode(), environment);
-                if (!result) return false;
-            }
-        } catch (RepositoryException e) {
-            log.error("Failed Activation of Folder  {} ", ExceptionUtils.getFullStackTrace(e));
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public boolean publish(Node node, String environment) {
+		try {
+			NodeIterator nodeIterator = node.getNodes();
+			while (nodeIterator.hasNext()) {
+				boolean result = publisher.publish(nodeIterator.nextNode(), environment);
+				if (!result) return false;
+			}
+		} catch (RepositoryException e) {
+			log.error("Failed Activation of Folder  {} ", ExceptionUtils.getFullStackTrace(e));
+			return false;
+		}
+		return true;
+	}
 
-    @Override
-    public boolean unPublish(Node node, String environment) {
-        try {
-            NodeIterator nodeIterator = node.getNodes();
-            while (nodeIterator.hasNext()) {
-                boolean result = remoteHealthGuidePublisher.unPublish(nodeIterator.nextNode(), environment);
-                if (!result) return false;
-            }
-        } catch (RepositoryException e) {
-            log.error("Failed De-Activation of Folder  {} ", ExceptionUtils.getFullStackTrace(e));
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public boolean unPublish(Node node, String environment) {
+		try {
+			NodeIterator nodeIterator = node.getNodes();
+			while (nodeIterator.hasNext()) {
+				boolean result = publisher.unPublish(nodeIterator.nextNode(), environment);
+				if (!result) return false;
+			}
+		} catch (RepositoryException e) {
+			log.error("Failed De-Activation of Folder  {} ", ExceptionUtils.getFullStackTrace(e));
+			return false;
+		}
+		return true;
+	}
 
-    @Override
-    public boolean canService(String nodeType) {
-        return NODE_TYPE.equals(nodeType);
-    }
+	@Override
+	public boolean canService(String nodeType) {
+		return NODE_TYPE.equals(nodeType);
+	}
 }
