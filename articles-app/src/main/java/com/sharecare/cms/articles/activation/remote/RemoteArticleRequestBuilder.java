@@ -58,7 +58,8 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
 
                 if (m.find()) {
                     ArticleRequest.ArticleRequestBuilder builder = localeArticles.get(m.group(1));
-                    populateBuilderMulti(builder, m.group(2), valueList);
+                    if (builder != null)
+                        populateBuilderMulti(builder, m.group(2), valueList);
                 } else {
                     localeArticles.forEach((k, v) -> populateBuilderMulti(v, field, valueList));
                 }
@@ -66,7 +67,8 @@ public class RemoteArticleRequestBuilder implements ArticleRequestBuilder {
                 final String value = p.getString();
                 if (m.find()) {
                     ArticleRequest.ArticleRequestBuilder builder = localeArticles.get(m.group(1));
-                    populateBuilder(builder, m.group(2), value);
+                    if (builder != null)
+                        populateBuilder(builder, m.group(2), value);
                 } else {
                     localeArticles.forEach((k, v) -> populateBuilder(v, field, value));
                 }
