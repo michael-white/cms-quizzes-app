@@ -30,7 +30,11 @@ public enum SlideshowsJCRSchema {
 	ogDescription,
 	ogUrl,
 	noIndexFollow,
-	canonicalReference;
+	canonicalReference,
+    contentFlags,
+    propensityScore,
+    expirationDate,
+    livingInTheGreenScale;
 
 
 	public static SlideshowsJCRSchema forName(String field) {

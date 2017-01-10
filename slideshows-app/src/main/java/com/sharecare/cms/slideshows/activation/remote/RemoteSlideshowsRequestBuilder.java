@@ -70,6 +70,13 @@ public class RemoteSlideshowsRequestBuilder implements SlideshowsRequestBuilder 
                 .openGraph(openGraph)
                 .noIndexFollow(Boolean.valueOf(fromNode(SlideshowsJCRSchema.noIndexFollow.name(), node)))
                 .canonicalReference(fromNode(SlideshowsJCRSchema.canonicalReference.name(), node))
+                .contentFlags(extractMultiField(node, SlideshowsJCRSchema.contentFlags.name()))
+                .propensityScore(Long.parseLong(fromNode(SlideshowsJCRSchema.propensityScore.name(), node)))
+                .expirationDate(extractDateInMillis(fromNode(SlideshowsJCRSchema.expirationDate.name(), node)))
+                .livingInTheGreenScale(extractMultiField(node, SlideshowsJCRSchema.livingInTheGreenScale.name())
+                        .stream()
+                        .map(Integer::parseInt)
+                        .collect(Collectors.toList()))
                 .build();
     }
 

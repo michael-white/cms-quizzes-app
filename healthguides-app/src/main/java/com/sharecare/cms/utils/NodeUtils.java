@@ -2,6 +2,8 @@ package com.sharecare.cms.utils;
 
 import com.sharecare.core.sdk.model.Tag;
 import lombok.extern.slf4j.Slf4j;
+import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
 
 import javax.jcr.Node;
 import javax.jcr.Property;
@@ -40,6 +42,15 @@ public class NodeUtils {
     public static Tag extractTag(String name, Node node) {
         String tagId = fromNode(name, node);
         return new Tag(tagId, "tag");
+    }
+
+    public static long extractDateInMillis(String value) {
+        long dateInMillis = Long.MAX_VALUE;
+        if (StringUtils.isNotEmpty(value)) {
+            dateInMillis = new DateTime(value).getMillis();
+        }
+
+        return dateInMillis;
     }
 
 }
