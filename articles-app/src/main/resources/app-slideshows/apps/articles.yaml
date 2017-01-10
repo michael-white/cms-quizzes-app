@@ -552,6 +552,69 @@ subApps:
                   - name: user
                     label: USER
                     value: USER
+                  - name: livingGreen
+                    label: LIVING_GREEN
+                    value: LIVING_GREEN
+                  - name: question
+                    label: QUESTION
+                    value: QUESTION
+                  - name: newsfeed
+                    label: NEWSFEED
+                    value: NEWSFEED
+              - name: propensityScore
+                class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+                multiselect: false
+                type: Long
+                label: Propensity Score
+                options:
+                  - name: 1
+                    label: "1"
+                    selected: false
+                  - name: 2
+                    label: "2"
+                    selected: false
+                  - name: 3
+                    label: "3"
+                    selected: false
+                  - name: 4
+                    label: "4"
+                    selected: false
+                  - name: 5
+                    label: "5"
+                    selected: false
+              - name: expirationDate
+                label: Expiration Date
+                class: info.magnolia.ui.form.field.definition.DateFieldDefinition
+                formatterClass: info.magnolia.ui.workbench.column.DateColumnFormatter
+                type: Date
+                time: false
+                dateFormat: dd MMM yyyy
+              - name: livingInTheGreenScale
+                class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+                label: Living In The Green Scale
+                multiselect: true
+                type: String
+                options:
+                  - name: 1
+                    label: "1"
+                    selected: false
+                    value: 1
+                  - name: 2
+                    label: "2"
+                    selected: false
+                    value: 2
+                  - name: 3
+                    label: "3"
+                    selected: false
+                    value: 3
+                  - name: 4
+                    label: "4"
+                    selected: false
+                    value: 4
+                  - name: 5
+                    label: "5"
+                    selected: false
+                    value: 5
               - name: hasSynviscComScore
                 label: Add Synvisc comscore tag
                 class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
