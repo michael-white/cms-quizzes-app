@@ -51,7 +51,7 @@ public class RemoteHealthGuidePublisher implements RemoteDataPublisher {
             log.info("Publishing {}:{} content to {} ", node.getName(), node.getIdentifier(), environment);
             HealthGuidesApiClient client = clientMap.get(environment);
 
-            HealthGuideRequest request = requestBuilder.forNode(node);
+            HealthGuideRequest request = requestBuilder.forNode(node, environment);
 
             BasicResponse response = client.saveRequest().withData(request).execute();
             if (String.valueOf(response.getStatusCode()).startsWith("20")) {

@@ -2,15 +2,12 @@ package com.sharecare.cms.guides.schema;
 
 import java.util.stream.Stream;
 
-/**
- * Created by robert.davis on 12/20/2016.
- */
 public enum HealthGuideJCRSchema {
 
     id,
     title,
     description,
-    sponsor,
+    sponsorName,
     tocImageUrl,
     thumbnailUrl,
     healthGuideUri,
@@ -21,6 +18,17 @@ public enum HealthGuideJCRSchema {
     contentRefList,
     image,
     topicUri,
+    ogLabel,
+    ogType,
+    ogImage,
+    ogTitle,
+    ogDescription,
+    ogUrl,
+    noIndexFollow,
+    canonicalReference,
+    pageAndMetaTitle,
+    metaDescription,
+    disableSocial,
     publishDate,
     creationDate;
 

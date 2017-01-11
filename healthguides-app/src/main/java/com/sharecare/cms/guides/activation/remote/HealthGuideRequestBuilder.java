@@ -6,5 +6,5 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 
 public interface HealthGuideRequestBuilder {
-    HealthGuideRequest forNode(Node node) throws RepositoryException;
+    HealthGuideRequest forNode(Node node, String environment) throws RepositoryException;
 }

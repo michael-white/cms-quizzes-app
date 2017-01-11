@@ -15,9 +15,6 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * Created by robert.davis on 12/21/2016.
- */
 public class ResourceUriDuplicateFieldValidator implements com.vaadin.data.Validator {
 
     private Map<String,HealthGuidesApiClient> clientMap;
@@ -27,8 +24,6 @@ public class ResourceUriDuplicateFieldValidator implements com.vaadin.data.Valid
     @Inject
     public ResourceUriDuplicateFieldValidator(HealthGuideModuleConfig moduleConfig,
                                               CommonsModuleConfig commonsModuleConfig){
-
-        this.clientMap = buildApiClients(moduleConfig.getPublishing().get(commonsModuleConfig.getEnvironment()));
         this.environment = commonsModuleConfig.getEnvironment();
     }
 

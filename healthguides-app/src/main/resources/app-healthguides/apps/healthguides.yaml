@@ -447,7 +447,8 @@ subApps:
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: title
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: sponsor
+              - name: sponsorName
+                label: Sponsor Name
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: tocImageUrl
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
@@ -474,7 +475,7 @@ subApps:
               - name: metaKeywords
                 label: Meta Keywords
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: resources
+              - name: contentRefList
                 class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
                 label: Health Guide Resources
                 transformerClass: info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodePropertiesTransformer
@@ -502,9 +503,6 @@ subApps:
                         - name: slideshow
                           value: Slideshow
                           label: Slideshow
-                        - name: video
-                          value: Video
-                          label: Video
               - name: hasSynviscComScore
                 label: Add Synvisc comscore tag
                 class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
