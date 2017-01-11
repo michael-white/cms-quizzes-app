@@ -6,7 +6,6 @@ import com.cloudinary.utils.ObjectUtils;
 import com.sharecare.cms.cloudinary.dam.AssetUploadResult;
 import com.sharecare.cms.cloudinary.dam.CloudinaryClientServiceConnector;
 import com.sharecare.cms.guides.activation.remote.HealthGuideAssetProcessor;
-import com.sharecare.cms.guides.schema.HealthGuideJCRSchema;
 import info.magnolia.dam.api.AssetProvider;
 import info.magnolia.dam.api.AssetProviderRegistry;
 import info.magnolia.dam.api.ItemKey;
@@ -38,11 +37,11 @@ public class CloudinaryHealthGuidesAssetProcessor implements HealthGuideAssetPro
     }
 
     @Override
-    public Optional<AssetUploadResult> uploadAssetFrom(Node node) throws RepositoryException {
-        if (!node.hasProperty(HealthGuideJCRSchema.image.name()))
+    public Optional<AssetUploadResult> uploadAssetFrom(Node node, String propertyName) throws RepositoryException {
+        if (!node.hasProperty(propertyName))
             return Optional.empty();
 
-        Value value = node.getProperty(HealthGuideJCRSchema.image.name()).getValue();
+        Value value = node.getProperty(propertyName).getValue();
         JcrAsset asset = (JcrAsset) jcrAssetProvider.getAsset(ItemKey.from(value.getString()));
         File file = extractFile(asset);
         log.debug("Uploading file {}", file.getName());

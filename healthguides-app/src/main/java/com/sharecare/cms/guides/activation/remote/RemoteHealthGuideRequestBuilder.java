@@ -45,7 +45,8 @@ public class RemoteHealthGuideRequestBuilder implements HealthGuideRequestBuilde
     @Override
     public HealthGuideRequest forNode(Node node, String environment) throws RepositoryException {
 
-        Optional<AssetUploadResult> uploadResult = healthGuideAssetProcessor.uploadAssetFrom(node);
+        Optional<AssetUploadResult> tocImageUploadResult = healthGuideAssetProcessor.uploadAssetFrom(node, HealthGuideJCRSchema.tocImageUrl.name());
+        Optional<AssetUploadResult> thumbnailImagUploadResult = healthGuideAssetProcessor.uploadAssetFrom(node, HealthGuideJCRSchema.thumbnailUrl.name());
 
         Sponsor sponsor = Sponsor.builder()
                 .sponsorName(fromNode(HealthGuideJCRSchema.sponsorName.name(), node))
@@ -77,7 +78,8 @@ public class RemoteHealthGuideRequestBuilder implements HealthGuideRequestBuilde
                 .noIndexFollow(Boolean.valueOf(fromNode(HealthGuideJCRSchema.noIndexFollow.name(), node)))
                 .canonicalReference(fromNode(HealthGuideJCRSchema.canonicalReference.name(), node))
                 .metaDescription(fromNode(HealthGuideJCRSchema.metaDescription.name(), node))
-                .tocImageUrl(uploadResult.isPresent() ? uploadResult.get().getUrl() : "")
+                .tocImageUrl(tocImageUploadResult.isPresent() ? tocImageUploadResult.get().getId() : "")
+                .thumbnailUrl(thumbnailImagUploadResult.isPresent() ? thumbnailImagUploadResult.get().getId() : "")
                 .build();
     }
 
