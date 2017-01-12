@@ -580,7 +580,7 @@ subApps:
               - name: primaryTag
                 label: "Primary Tag"
                 class: com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagFieldDefinition
-                subdomain: healthguide
+                subdomain: health-guide
                 transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.tag.TagFieldCompositeTransformer
               - name: secondaryTag
                 label: "Secondary Tag"
