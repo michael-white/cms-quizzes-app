@@ -8,6 +8,7 @@ import com.sharecare.sdk.slideshows.model.OpenGraph;
 import com.sharecare.sdk.slideshows.model.SlideRequest;
 import com.sharecare.sdk.slideshows.model.SlideshowRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
@@ -71,7 +72,7 @@ public class RemoteSlideshowsRequestBuilder implements SlideshowsRequestBuilder 
                 .noIndexFollow(Boolean.valueOf(fromNode(SlideshowsJCRSchema.noIndexFollow.name(), node)))
                 .canonicalReference(fromNode(SlideshowsJCRSchema.canonicalReference.name(), node))
                 .contentFlags(extractMultiField(node, SlideshowsJCRSchema.contentFlags.name()))
-                .propensityScore(Long.parseLong(fromNode(SlideshowsJCRSchema.propensityScore.name(), node)))
+                .propensityScore(Long.parseLong(StringUtils.defaultIfBlank(fromNode(SlideshowsJCRSchema.propensityScore.name(), node), "0")))
                 .expirationDate(extractDateInMillis(fromNode(SlideshowsJCRSchema.expirationDate.name(), node)))
                 .livingInTheGreenScale(extractMultiField(node, SlideshowsJCRSchema.livingInTheGreenScale.name())
                         .stream()
