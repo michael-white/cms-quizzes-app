@@ -4,4 +4,5 @@ include 'publishing-commons'
 include 'cloudinary-app'
 include 'healthguides-app'
 include 'slideshows-app'
+include 'quizzes-app'
 
