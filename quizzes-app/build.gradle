@@ -1,0 +1,12 @@
+group 'com.sharecare.cms'
+version '1.9'
+
+apply plugin: 'java'
+
+dependencies {
+
+    compile project(':publishing-commons')
+    compile project(':cloudinary-app')
+
+    compile(group: 'com.sharecare.services', name: 'quizzes-java-sdk', version: '1.0.0')
+}

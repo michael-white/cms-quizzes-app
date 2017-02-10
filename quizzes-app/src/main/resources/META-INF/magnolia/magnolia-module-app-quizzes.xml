@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module SYSTEM "module.dtd" >
+<module>
+  <name>app-quizzes</name>
+  <displayName>App Quizzes</displayName>
+  <description>Quizzes Workspace</description>
+  <class>com.sharecare.cms.quizzes.configuration.QuizzesModuleConfig</class>
+  <versionHandler>com.sharecare.cms.publishing.commons.bootstrap.GlobalVersionHandler</versionHandler>
+  <version>1.0</version>
+
+
+  <components>
+    <id>main</id> <!-- Container ID -->
+    <configurer>
+      <class>com.sharecare.cms.quizzes.activation.publishing.QuizzesPublishingBindingConfigurer</class>
+    </configurer>
+  </components>
+
+  <dependencies>
+    <dependency>
+      <name>core</name>
+      <version>5.4/*</version>
+    </dependency>
+    <dependency>
+      <name>ui-admincentral</name>
+      <version>5.4/*</version>
+    </dependency>
+    <dependency>
+      <name>ui-contentapp</name>
+      <version>5.4/*</version>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <name>dam-app</name>
+      <version>2.1/*</version>
+    </dependency>
+  </dependencies>
+
+
+  <repositories>
+    <repository>
+      <name>magnolia</name>
+      <workspaces>
+        <workspace>quizzes</workspace>
+      </workspaces>
+      <nodeTypeFile>/mgnl-nodetypes/app-quizzes-nodetypes.xml</nodeTypeFile>
+    </repository>
+  </repositories>
+
+</module>
