@@ -46,7 +46,7 @@ class RemoteQuizzesPublisher implements RemoteDataPublisher {
             log.info("Publishing {}:{} content to {} ", node.getName(), node.getIdentifier(), environment);
             QuizzesApiClient client = clientMap.get(environment);
             QuizRequest quizRequest = quizRequestBuilder.forNode(node, environment);
-            BasicResponse response = client.saveRequest().withData(quizRequest).execute();
+            BasicResponse response = client.putRequest().withData(quizRequest).withUri(quizRequest.getId()).execute();
             return remoteServiceResponseProcessor.processResponse(node, environment, response,
                     RemoteServiceResponseProcessor.addEnvironmentCallback);
         } catch (RepositoryException e) {
@@ -78,8 +78,7 @@ class RemoteQuizzesPublisher implements RemoteDataPublisher {
                 .collect(Collectors.toMap(Map.Entry::getKey,
                         entry -> {
                             RemoteServerResourceConfig config = entry.getValue();
-                            BasicAuthCredentials basicAuthCredentials = new BasicAuthCredentials(entry.getValue()
-                                    .getUsername(), config.getPassword());
+                            BasicAuthCredentials basicAuthCredentials = new BasicAuthCredentials(entry.getValue().getUsername(), config.getPassword());
                             ServerInfo serverInfo = ServerInfo.builder().protocol(config.getHostProtocol())
                                     .hostName(config.getHostAddress())
                                     .port(config.getHostPort())

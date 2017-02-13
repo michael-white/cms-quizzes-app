@@ -41,7 +41,8 @@ public enum QuizJCRSchema {
     answerC,
     answerD,
     explanation,
-    correctAnswer;
+    correctAnswer,
+    notes;
 
     public static QuizJCRSchema forName(String field){
         if( field == null )

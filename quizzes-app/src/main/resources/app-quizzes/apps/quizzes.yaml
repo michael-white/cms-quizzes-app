@@ -397,7 +397,7 @@ subApps:
             - name: name
               editable: true
               sortable: true
-              propertyName: jcrName
+              propertyName: uri
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
             - name: status
               width: 45
@@ -427,7 +427,7 @@ subApps:
       includeProperties: false
       workspace: quizzes
       rootPath: /
-      defaultOrder: jcrName
+      defaultOrder: uri
       nodeTypes:
         - name: mgnl:quiz
           icon: icon-items
@@ -452,12 +452,15 @@ subApps:
           - name: quiz
             label: Main
             fields:
-              - name: jcrName
+              - name: uri
                 label: URI
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               - name: title
                 label: Title
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: subTitle
+                label: Sub Title
+                class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
               - name: tocImageUrl
                 class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
                 targetWorkspace: dam
@@ -470,10 +473,30 @@ subApps:
               - name: description
                 label: Description
                 class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+              - name: quizId
+                label: Quiz ID
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: branding
+                label: Branding
+                class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
+                options:
+                  - name: colgate
+                    label: Colgate
+                    selected: true
+                  - name: realage
+                    label: Real Age
+                  - name: triton
+                    label: Triton
+                  - name: uhg
+                    label: UHG
+                  - name: walgreens
+                    label: Walgreens
+                  - name: youbeauty
+                    label: You Beauty
           - name: questionsTab
             label: Questions
             fields:
-              - name: addQuestionsArea
+              - name: questions
                 label: Questions
                 class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
                 buttonSelectAddLabel: Add New Question
@@ -514,6 +537,9 @@ subApps:
                           label: D
                     - name: explanation
                       label: Explanation
+                      class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+                    - name: notes
+                      label: Notes
                       class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
           - name: meta
             label: Meta

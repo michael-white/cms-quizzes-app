@@ -8,6 +8,7 @@ import com.sharecare.core.sdk.DataResponse;
 import com.sharecare.core.sdk.configuration.BasicAuthCredentials;
 import com.sharecare.core.sdk.configuration.ServerInfo;
 import com.sharecare.quizzes.sdk.QuizzesApiClient;
+import com.sharecare.quizzes.sdk.model.FullQuizResponse;
 import com.sharecare.quizzes.sdk.model.QuizResponse;
 import org.apache.commons.lang.StringUtils;
 
@@ -38,11 +39,11 @@ public class ResourceUriDuplicateFieldValidator implements com.vaadin.data.Valid
 
         try {
             QuizzesApiClient client = clientMap.get(environment);
-            DataResponse<Collection<QuizResponse>> searchResult = client.searchRequest()
-                    .searchParam("uri", value.toString())
+            DataResponse<FullQuizResponse> searchResult = client.getRequest()
+                    .withUri(value.toString())
                     .execute();
 
-            if( ! searchResult.getResult().isEmpty() ){
+            if( null != searchResult.getResult() ){
                 throw new InvalidValueException("Quiz Resource URI : " + value + " already exists");
             }
 
