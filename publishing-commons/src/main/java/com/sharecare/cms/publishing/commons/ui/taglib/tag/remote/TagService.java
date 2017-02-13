@@ -13,4 +13,6 @@ public interface TagService {
 	List<TagResult> getAllTopLevelTags();
 
 	List<TagResult> getChildrenForTag(String tagId);
+
+	List<TagResult> getParentsForTag(String tagId);
 }

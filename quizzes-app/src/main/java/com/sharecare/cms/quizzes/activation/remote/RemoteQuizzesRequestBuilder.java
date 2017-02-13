@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import com.sharecare.cms.cloudinary.dam.AssetUploadResult;
 import com.sharecare.cms.publishing.commons.configuration.CommonsModuleConfig;
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.RemoteTagService;
+import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TagResult;
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TagService;
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TopicResult;
 import com.sharecare.cms.quizzes.configuration.QuizzesModuleConfig;
@@ -44,27 +45,29 @@ public class RemoteQuizzesRequestBuilder implements QuizzesRequestBuilder {
     @Override
     public QuizRequest forNode(Node node, String environment) throws RepositoryException {
 
-        //TODO: These are all currently 'text' fields...
-        //Ultimately, some may be imageUploader to use QuizAssetProcessor
-        //Or Checkbox, or Radio,  or Select ... Once SDK is available,  revisit and finalize these
 
-        Optional<AssetUploadResult> introImageUploadResult = quizAssetProcessor.uploadAssetFrom(node, QuizJCRSchema.assetReference.name());
+        String primaryId = fromNode(QuizJCRSchema.primaryTag.name(), node);
+        List<TagResult> allParents = remoteTagService.getParentsForTag(primaryId);
+        String rootTagId = primaryId;
+        if(allParents.size() > 0) {
+            rootTagId = allParents.get(0).getId();
+        }
 
-       // List<Tag> allParents = remoteTagService.getAllParents(primaryTag);
-        TopicResult topicResult = remoteTagService.getTopicForTag(fromNode(QuizJCRSchema.primaryTag.name(), node));
+        TopicResult topicResult = remoteTagService.getTopicForTag(primaryId);
 
         return QuizRequest.builder()
                 .id(node.getIdentifier())
                 .title(fromNode(QuizJCRSchema.title.name(), node))
                 .subTitle(fromNode(QuizJCRSchema.subTitle.name(), node))
-                .path(fromNode(QuizJCRSchema.path.name(), node))
+                .path(node.getPath())
                 .uri(fromNode(QuizJCRSchema.uri.name(), node))
                 .publishDate(new Date().getTime())
                 .branding(fromNode(QuizJCRSchema.branding.name(),node))
                 .keywords(fromCSV(fromNode(QuizJCRSchema.metaKeywords.name(),node)))
-                .primaryTag(fromNode(QuizJCRSchema.primaryTag.name(), node))
-                .rootTag(fromNode(QuizJCRSchema.primaryTag.name(), node))
+                .primaryTag(primaryId)
+                .rootTag(rootTagId)
                 .firstAncestralTopic(topicResult.getId())
+                .topicUri(topicResult.getUri())
                 .questions(processQuestions(node))
                 .build();
     }
@@ -96,8 +99,7 @@ public class RemoteQuizzesRequestBuilder implements QuizzesRequestBuilder {
                     .answerA(fromNode(QuizJCRSchema.answerA.name(),question))
                     .answerB(fromNode(QuizJCRSchema.answerB.name(),question))
                     .answerC(fromNode(QuizJCRSchema.answerC.name(),question))
-                    .answerD(fromNode(QuizJCRSchema.answerD.name(),question))
-            ;
+                    .answerD(fromNode(QuizJCRSchema.answerD.name(),question));
 
 
             questions.add(questionBuilder.build());

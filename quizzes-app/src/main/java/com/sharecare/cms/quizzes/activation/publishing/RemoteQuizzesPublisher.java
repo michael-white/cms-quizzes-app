@@ -46,7 +46,9 @@ class RemoteQuizzesPublisher implements RemoteDataPublisher {
             log.info("Publishing {}:{} content to {} ", node.getName(), node.getIdentifier(), environment);
             QuizzesApiClient client = clientMap.get(environment);
             QuizRequest quizRequest = quizRequestBuilder.forNode(node, environment);
-            BasicResponse response = client.putRequest().withData(quizRequest).withUri(quizRequest.getId()).execute();
+            BasicResponse response = client.putRequest().withData(quizRequest)
+                                                        .withUri(quizRequest.getId())
+                                                        .execute();
             return remoteServiceResponseProcessor.processResponse(node, environment, response,
                     RemoteServiceResponseProcessor.addEnvironmentCallback);
         } catch (RepositoryException e) {
@@ -62,7 +64,8 @@ class RemoteQuizzesPublisher implements RemoteDataPublisher {
             log.warn("Deleting {}:{} content from {} ", node.getName(), node.getIdentifier(), environment);
             QuizzesApiClient client = clientMap.get(environment);
             log.debug("Executing DELETE rest call {}", node.getName());
-            BasicResponse response = client.deleteRequest().withUri(node.getName()).execute();
+            BasicResponse response = client.deleteRequest().withUri(node.getIdentifier())
+                                                           .execute();
             return remoteServiceResponseProcessor.processResponse(node, environment, response,
                     RemoteServiceResponseProcessor.removeEnvironmentCallback);
         } catch (Exception e) {

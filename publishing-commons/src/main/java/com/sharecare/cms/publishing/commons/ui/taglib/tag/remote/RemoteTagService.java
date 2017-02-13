@@ -89,6 +89,16 @@ public class RemoteTagService implements TagService {
 		return results.getEntity();
 	}
 
+	@Override
+	public List<TagResult> getParentsForTag(String tagId) {
+		String requestUrl = String.format("%s/%s/%s/parents", serverInfo.toBaseUrl(), TAG_RESOURCE_URI, tagId);
+		CollectionResponse<TagResult> results =  new RESTTagTemplate().forUrl(requestUrl).getItems();
+		if (results.getStatusCode() != 200)
+			throw new IllegalStateException("Search for parent tags failed");
+
+		return results.getEntity();
+	}
+
 	private class RESTTopicTemplate {
 
 		String requestUrl;
