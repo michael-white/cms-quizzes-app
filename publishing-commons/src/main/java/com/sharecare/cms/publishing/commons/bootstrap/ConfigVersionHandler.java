@@ -59,6 +59,7 @@ public class ConfigVersionHandler extends GlobalVersionHandler {
                         "/server/activation/subscribers")));
 
         tasks.add(removeSlideshowsEditDialog);
+        tasks.add(removeQuizzesEditDialog);
         return tasks;
     }
 
@@ -78,5 +79,14 @@ public class ConfigVersionHandler extends GlobalVersionHandler {
                     "We clean up and rebuild this using the bootstrapped JCR",
                     "config",
                     "/modules/app-slideshows/dialogs"));
+
+    private static NodeExistsDelegateTask removeQuizzesEditDialog = new NodeExistsDelegateTask("Removing the quizzes dialogs config",
+            "We clean up and rebuild this using the bootstrapped JCR",
+            "config",
+            "/modules/app-quizzes/dialogs",
+            new RemoveNodeTask("removing cache module",
+                    "We clean up and rebuild this using the bootstrapped JCR",
+                    "config",
+                    "/modules/app-quizzes/dialogs"));
 
 }

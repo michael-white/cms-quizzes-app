@@ -52,7 +52,7 @@ class RemoteQuizzesPublisher implements RemoteDataPublisher {
             return remoteServiceResponseProcessor.processResponse(node, environment, response,
                     RemoteServiceResponseProcessor.addEnvironmentCallback);
         } catch (RepositoryException e) {
-            log.error("Failed Activation of slideshow  {} ", ExceptionUtils.getFullStackTrace(e));
+            log.error("Failed Activation of quiz  {} ", ExceptionUtils.getFullStackTrace(e));
             return false;
         }
     }
@@ -69,7 +69,7 @@ class RemoteQuizzesPublisher implements RemoteDataPublisher {
             return remoteServiceResponseProcessor.processResponse(node, environment, response,
                     RemoteServiceResponseProcessor.removeEnvironmentCallback);
         } catch (Exception e) {
-            log.error("Failed De-Activation of slideshow  {} ", ExceptionUtils.getFullStackTrace(e));
+            log.error("Failed De-Activation of quiz  {} ", ExceptionUtils.getFullStackTrace(e));
             return false;
         }
     }

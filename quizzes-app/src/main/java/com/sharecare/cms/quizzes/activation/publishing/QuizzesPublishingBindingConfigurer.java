@@ -1,5 +1,8 @@
 package com.sharecare.cms.quizzes.activation.publishing;
 
+import com.sharecare.cms.featured.activation.publishing.RemoteFeaturedQuizzesPublisher;
+import com.sharecare.cms.featured.activation.remote.FeaturedQuizzesRequestBuilder;
+import com.sharecare.cms.featured.activation.remote.RemoteFeaturedQuizzesRequestBuilder;
 import com.sharecare.cms.publishing.commons.activation.RemoteServiceResponseProcessor;
 import com.sharecare.cms.publishing.commons.activation.ServiceResponseProcessor;
 import com.sharecare.cms.publishing.commons.configuration.ComponentBindingConfigurer;
@@ -15,6 +18,9 @@ public class QuizzesPublishingBindingConfigurer extends ComponentBindingConfigur
     protected void configureActions() {
         bindPublisher().to(RemoteQuizzesPublisher.class);
         bindPublisher().to(RemoteQuizzesFolderPublisher.class);
+
+        bindPublisher().to(RemoteFeaturedQuizzesPublisher.class);
+        binder().bind(FeaturedQuizzesRequestBuilder.class).to(RemoteFeaturedQuizzesRequestBuilder.class);
 
         binder().bind(QuizzesRequestBuilder.class).to(RemoteQuizzesRequestBuilder.class);
         binder().bind(QuizAssetProcessor.class).to(CloudinaryQuizzesAssetProcessor.class);

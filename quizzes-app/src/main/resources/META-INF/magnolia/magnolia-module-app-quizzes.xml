@@ -6,7 +6,7 @@
   <description>Quizzes Workspace</description>
   <class>com.sharecare.cms.quizzes.configuration.QuizzesModuleConfig</class>
   <versionHandler>com.sharecare.cms.publishing.commons.bootstrap.GlobalVersionHandler</versionHandler>
-  <version>1.0</version>
+  <version>1.1</version>
 
 
   <components>
@@ -42,6 +42,7 @@
       <name>magnolia</name>
       <workspaces>
         <workspace>quizzes</workspace>
+        <workspace>featuredQuiz</workspace>
       </workspaces>
       <nodeTypeFile>/mgnl-nodetypes/app-quizzes-nodetypes.xml</nodeTypeFile>
     </repository>

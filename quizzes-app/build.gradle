@@ -8,5 +8,5 @@ dependencies {
     compile project(':publishing-commons')
     compile project(':cloudinary-app')
 
-    compile(group: 'com.sharecare.services', name: 'quizzes-java-sdk', version: '1.0.4')
+    compile(group: 'com.sharecare.services', name: 'quizzes-java-sdk', version: '1.0.6')
 }

@@ -637,3 +637,191 @@ subApps:
         name: mgnl:quiz
     contentConnector:
       workspace: quizzes
+  featured:
+    label: Featured
+    subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
+    class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
+    actionbar:
+      defaultAction: editFeaturedQuiz
+      sections:
+        - name: root
+          label: Root
+          groups:
+            - name: adminActions
+              items:
+                - name: exportFeaturedQuiz
+                - name: importFeaturedQuiz
+          availability:
+            nodes: false
+            root: true
+        - name: prodEnv
+          label: Featured Quiz
+          groups:
+            - name: exportActions
+              items:
+                - name: exportFeaturedQuiz
+            - name: adminActions
+              items:
+                - name: editFeaturedQuiz
+                - name: activatePreview
+                - name: activateStage
+                - name: activateProd
+          availability:
+            nodeTypes:
+              - mgnl:featuredQuiz
+            rules:
+              - name: isAllowedForProd
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForProductionRule
+        - name: qAEnv
+          label: Featured Quiz
+          groups:
+            - name: exportActions
+              items:
+                - name: exportFeaturedQuiz
+            - name: adminActions
+              items:
+                - name: editFeaturedQuiz
+                - name: activateQA
+          availability:
+            nodeTypes:
+              - mgnl:featuredQuiz
+            rules:
+              - name: isAllowedForQA
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForQARule
+        - name: devEnv
+          label: Featured Quiz
+          groups:
+            - name: exportActions
+              items:
+                - name: exportFeaturedQuiz
+            - name: adminActions
+              items:
+                - name: editFeaturedQuiz
+                - name: activateDev
+          availability:
+            nodeTypes:
+              - mgnl:featuredQuiz
+            rules:
+              - name: isAllowedForDevhost
+                implementationClass: com.sharecare.cms.publishing.commons.activation.rules.IsAllowedForDevRule
+    actions:
+      exportFeaturedQuiz:
+        label: Export items
+        icon: icon-export
+        command: export
+        class: info.magnolia.ui.framework.action.ExportActionDefinition
+        availability:
+          root: true
+      importFeaturedQuiz:
+        label: Import items
+        icon: icon-import
+        dialogName: ui-admincentral:import
+        class: info.magnolia.ui.framework.action.OpenCreateDialogActionDefinition
+        availability:
+          root: true
+      activatePreview:
+        label: Publish On Preview
+        catalog: versioned
+        command: activatePreview
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      activateStage:
+        label: Publish On Stage
+        command: activateStage
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      activateProd:
+        label: Publish On Prod
+        catalog: versioned
+        command: activateProd
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      activateQA:
+        label: Publish On QA
+        catalog: versioned
+        command: activateQA
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
+        recursive: true
+        availability:
+          multiple: true
+      activateDev:
+        label: Publish Dev
+        command: activateDev
+        icon: icon-publish
+        class: info.magnolia.ui.framework.action.ActivationActionDefinition
+        errorMessage: "Activation Failed"
+        failureMessage: "Activation Failed"
+        successMessage: "Activation Success"
+        recursive: true
+        availability:
+          root: true
+      editFeaturedQuiz:
+         label: "Edit Featured"
+         dialogName: app-quizzes:quizFeatured
+         appName: quizzes
+         subAppId: detail
+         nodeType: mgnl:featuredQuiz
+         icon: icon-edit
+         class: info.magnolia.ui.framework.action.OpenEditDialogActionDefinition
+    workbench:
+      dropConstraintClass: info.magnolia.ui.workbench.tree.drop.AlwaysTrueDropConstraint
+      dragAndDrop: true
+      editable: false
+      contentViews:
+        - name: list
+          class: info.magnolia.ui.workbench.list.ListPresenterDefinition
+          sortable: true
+          columns: &myColumns
+            - name: name
+              editable: true
+              propertyName: jcrName
+              class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
+            - name: status
+              width: 160
+              displayInChooseDialog: false
+              formatterClass: com.sharecare.cms.publishing.commons.formatter.MultiSiteActivationStatusFormatter
+              class: com.sharecare.cms.publishing.commons.formatter.MultiSiteActivationStatusDefinition
+            - name: moddate
+              width: 160
+              displayInChooseDialog: false
+              formatterClass: info.magnolia.ui.workbench.column.DateColumnFormatter
+              propertyName: mgnl:lastModified
+              class: info.magnolia.ui.workbench.column.definition.MetaDataColumnDefinition
+        - name: search
+          class: info.magnolia.ui.workbench.search.SearchPresenterDefinition
+          columns: *myColumns
+    imageProvider:
+      class: info.magnolia.dam.app.ui.imageprovider.DamLinkImageProviderDefinition
+      damLinkPropertyName: imageUpload
+    contentConnector:
+      defaultOrder: hero
+      includeProperties: false
+      workspace: featuredQuiz
+      rootPath: /
+      nodeTypes:
+        - name: mgnl:featuredQuiz
+          icon: icon-files
+        - name: mgnl:folder
+          icon: icon-folder

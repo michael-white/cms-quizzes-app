@@ -10,4 +10,9 @@
             <supertype>mgnl:content</supertype>
         </supertypes>
     </nodeType>
+    <nodeType name="mgnl:featuredQuiz" isMixin="false" hasOrderableChildNodes="false" primaryItemName="">
+        <supertypes>
+            <supertype>mgnl:content</supertype>
+        </supertypes>
+    </nodeType>
 </nodeTypes>
