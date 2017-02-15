@@ -1,13 +1,15 @@
-appClass: info.magnolia.ui.contentapp.ContentApp
-class: info.magnolia.ui.contentapp.ContentAppDescriptor
+appClass: com.sharecare.cms.QuizzesApp
+class: info.magnolia.ui.contentapp.ConfiguredContentAppDescriptor
 label: Quizzes
 icon: icon-files
 name: quizzes
 subApps:
-  browser:
+  quizzes:
     subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
     class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
-    label: Quiz
+    label: quizzes
+    closable: false
+    icon: icon-app
     actionbar:
       defaultAction: editQuiz
       sections:
@@ -389,7 +391,6 @@ subApps:
     workbench:
       dropConstraintClass: info.magnolia.ui.workbench.tree.drop.AlwaysTrueDropConstraint
       editable: false
-
       contentViews:
         - name: tree
           class: info.magnolia.ui.workbench.tree.TreePresenterDefinition
@@ -397,7 +398,7 @@ subApps:
             - name: name
               editable: true
               sortable: true
-              propertyName: uri
+              propertyName: jcrName
               class: info.magnolia.ui.workbench.column.definition.PropertyColumnDefinition
             - name: status
               width: 45
@@ -419,7 +420,6 @@ subApps:
         - name: search
           class: info.magnolia.ui.workbench.search.SearchPresenterDefinition
           columns: *myColumns
-
     imageProvider:
        class: info.magnolia.dam.app.ui.imageprovider.DamLinkImageProviderDefinition
        damLinkPropertyName: image
@@ -427,220 +427,18 @@ subApps:
       includeProperties: false
       workspace: quizzes
       rootPath: /
-      defaultOrder: uri
+      defaultOrder: jcrName
       nodeTypes:
         - name: mgnl:quiz
           icon: icon-items
         - name: mgnl:folder
           icon: icon-folder
-  detail:
-    subAppClass: info.magnolia.ui.contentapp.detail.DetailSubApp
-    class: info.magnolia.ui.contentapp.detail.DetailSubAppDescriptor
-    label: Quiz Detail
-    actions:
-      commit:
-        implementationClass: info.magnolia.ui.form.action.SaveFormAction
-        class: info.magnolia.ui.form.action.SaveFormActionDefinition
-      cancel:
-        class: info.magnolia.ui.form.action.CancelFormActionDefinition
-    editor:
-      actions:
-        - name: commit
-        - name: cancel
-      form:
-        tabs:
-          - name: quiz
-            label: Main
-            fields:
-              - name: uri
-                label: URI
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: title
-                label: Title
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: subTitle
-                label: Sub Title
-                class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
-              - name: tocImageUrl
-                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
-                targetWorkspace: dam
-                appName: assets
-                label: Image
-                identifierToPathConverter:
-                  class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
-                contentPreviewDefinition:
-                  contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
-              - name: description
-                label: Description
-                class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
-              - name: quizId
-                label: Quiz ID
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: branding
-                label: Branding
-                class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
-                options:
-                  - name: colgate
-                    label: Colgate
-                    selected: true
-                  - name: realage
-                    label: Real Age
-                  - name: triton
-                    label: Triton
-                  - name: uhg
-                    label: UHG
-                  - name: walgreens
-                    label: Walgreens
-                  - name: youbeauty
-                    label: You Beauty
-          - name: questionsTab
-            label: Questions
-            fields:
-              - name: questions
-                label: Questions
-                class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
-                buttonSelectAddLabel: Add New Question
-                transformerClass: info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodePropertiesTransformer
-                field:
-                  name: compositeField
-                  class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
-                  transformerClass: info.magnolia.ui.form.field.transformer.composite.NoOpCompositeTransformer
-                  layout: vertical
-                  fields:
-                    - name: caption
-                      label: Question Text
-                      class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                    - name: answerA
-                      label: Answer A
-                      class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                    - name: answerB
-                      label: Answer B
-                      class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                    - name: answerC
-                      label: Answer C
-                      class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                    - name: answerD
-                      label: Answer D
-                      class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                    - name: correctAnswer
-                      label: Correct Answer
-                      class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
-                      options:
-                        - name: choiceA
-                          label: A
-                          selected: true
-                        - name: choiceB
-                          label: B
-                        - name: choiceC
-                          label: C
-                        - name: choiceD
-                          label: D
-                    - name: explanation
-                      label: Explanation
-                      class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
-                    - name: notes
-                      label: Notes
-                      class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
-          - name: meta
-            label: Meta
-            fields:
-              - name: pageAndMetaTitle
-                label: Page & Meta Title
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: metaDescription
-                label: Meta Description
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: metaKeywords
-                label: Meta Keywords
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: ogLabel
-                label: Open Graph
-                class: info.magnolia.ui.form.field.definition.StaticFieldDefinition
-                value: Open Graph Stuff here
-              - name: disableSocial
-                label: Disable Social Buttons
-                class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
-                buttonLabel: Removes all OpenGraph tags and social share bar
-              - name: ogType
-                label: OG Type
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: ogImage
-                label: OG Image Url
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: ogTitle
-                label: OG Title
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: ogDescription
-                label: OG Description
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: ogUrl
-                label: OG Url
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-              - name: noIndexFollow
-                label: No Crawl
-                class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
-                buttonLabel: No Index No Follow
-              - name: canonicalReference
-                label: Canonical Reference
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-
-          - name: mobile
-            label: Mobile
-            fields:
-              - name: mobileEnabled
-                label: Mobile App is Enabled
-                class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
-                buttonLabel: Check this box to enable/disable mobile
-              - name: mobileShortTitle
-                label: Short Title
-                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-                maxLength: 70
-              - name: mobileAssetReference
-                label: Mobile Asset Reference
-                class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
-                options:
-                   - name: 640x640
-                     value: 640x640
-                     label: 640x640
-                     selected: true
-                   - name: 576x576
-                     value: 576x576
-                     label: 576x576
-                   - name: 432x432
-                     value: 432x432
-                     label: 432x432
-                   - name: 336x336
-                     value: 336x336
-                     label: 336x336
-          - name: tags
-            label: Tags
-            fields:
-              - name: primaryTag
-                label: "Primary Tag"
-                class: com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagFieldDefinition
-                subdomain: quiz
-                transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.tag.TagFieldCompositeTransformer
-              - name: secondaryTag
-                label: "Secondary Tag"
-                class: com.sharecare.cms.publishing.commons.ui.taglib.tag.SecondaryTagFieldDefinition
-                transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.tag.TagFieldCompositeTransformer
-          - name: activationStatus
-            label: Activation
-            fields:
-              - name: activeStatus
-                label: "Activated on:"
-                webUriPattern: /quizzes/{uri}
-                class: com.sharecare.cms.publishing.commons.ui.taglib.activation.EnvironmentActivationDefinition
-                transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.activation.ActivationStatusCompositeTransformer
-      nodeType:
-        icon: icon-items
-        name: mgnl:quiz
-    contentConnector:
-      workspace: quizzes
   featured:
     label: Featured
     subAppClass: info.magnolia.ui.contentapp.browser.BrowserSubApp
     class: info.magnolia.ui.contentapp.browser.BrowserSubAppDescriptor
+    closable: false
+    icon: icon-app
     actionbar:
       defaultAction: editFeaturedQuiz
       sections:
@@ -816,7 +614,7 @@ subApps:
       class: info.magnolia.dam.app.ui.imageprovider.DamLinkImageProviderDefinition
       damLinkPropertyName: imageUpload
     contentConnector:
-      defaultOrder: hero
+      defaultOrder: jcrName
       includeProperties: false
       workspace: featuredQuiz
       rootPath: /
@@ -825,3 +623,147 @@ subApps:
           icon: icon-files
         - name: mgnl:folder
           icon: icon-folder
+  detail:
+    subAppClass: info.magnolia.ui.contentapp.detail.DetailSubApp
+    class: info.magnolia.ui.contentapp.detail.DetailSubAppDescriptor
+    label: Quiz Detail
+    actions:
+      commit:
+        implementationClass: info.magnolia.ui.form.action.SaveFormAction
+        class: info.magnolia.ui.form.action.SaveFormActionDefinition
+      cancel:
+        class: info.magnolia.ui.form.action.CancelFormActionDefinition
+    editor:
+      actions:
+        - name: commit
+        - name: cancel
+      form:
+        tabs:
+          - name: quiz
+            label: Main
+            fields:
+              - name: jcrName
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                label: URI
+                required: true
+                validators:
+                  - name: resourceUriDuplicate
+                    class: com.sharecare.cms.quizzes.fieldvalidator.ResourceUriDuplicateFieldValidator
+                    errorMessage: Resource URI already exists
+              - name: title
+                label: Title
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                required: true
+              - name: subTitle
+                label: Sub Title
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                rows: 4
+              - name: introImage
+                required: true
+                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+                targetWorkspace: dam
+                appName: assets
+                label: Intro Image
+                identifierToPathConverter:
+                  class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+                contentPreviewDefinition:
+                  contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+              - name: introText
+                label: Intro Text
+                class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+                required: true
+              - name: keywords
+                label: Keywords
+                class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              - name: branding
+                label: Branding
+                class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
+                options:
+                  - name: colgate
+                    label: Colgate
+                    selected: true
+                  - name: realage
+                    label: Real Age
+                  - name: triton
+                    label: Triton
+                  - name: uhg
+                    label: UHG
+                  - name: walgreens
+                    label: Walgreens
+                  - name: youbeauty
+                    label: You Beauty
+          - name: questionsTab
+            label: Questions
+            fields:
+              - name: questions
+                label: Questions
+                class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
+                buttonSelectAddLabel: Add New Question
+                transformerClass: info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodePropertiesTransformer
+                field:
+                  name: compositeField
+                  class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
+                  transformerClass: info.magnolia.ui.form.field.transformer.composite.NoOpCompositeTransformer
+                  layout: vertical
+                  fields:
+                    - name: text
+                      label: Question
+                      class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                    - name: answerA
+                      label: Answer A
+                      class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                    - name: answerB
+                      label: Answer B
+                      class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                    - name: answerC
+                      label: Answer C
+                      class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                    - name: answerD
+                      label: Answer D
+                      class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                    - name: correctAnswer
+                      label: Correct Answer
+                      class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
+                      options:
+                        - name: choiceA
+                          label: A
+                          selected: true
+                        - name: choiceB
+                          label: B
+                        - name: choiceC
+                          label: C
+                        - name: choiceD
+                          label: D
+                    - name: explanation
+                      label: Answer Explanation
+                      class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                      rows: 4
+                    - name: notes
+                      label: Notes
+                      class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+                      rows: 4
+          - name: tags
+            label: Tags
+            fields:
+              - name: primaryTag
+                label: "Primary Tag"
+                class: com.sharecare.cms.publishing.commons.ui.taglib.tag.PrimaryTagFieldDefinition
+                subdomain: quiz
+                transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.tag.TagFieldCompositeTransformer
+              - name: secondaryTag
+                label: "Secondary Tag"
+                class: com.sharecare.cms.publishing.commons.ui.taglib.tag.SecondaryTagFieldDefinition
+                transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.tag.TagFieldCompositeTransformer
+          - name: activationStatus
+            label: Activation
+            fields:
+              - name: activeStatus
+                label: "Activated on:"
+                webUriPattern: /quizzes/{uri}
+                class: com.sharecare.cms.publishing.commons.ui.taglib.activation.EnvironmentActivationDefinition
+                transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.activation.ActivationStatusCompositeTransformer
+      nodeType:
+        icon: icon-items
+        name: mgnl:quiz
+    contentConnector:
+      workspace: quizzes

@@ -10,8 +10,8 @@ import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TagService;
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TopicResult;
 import com.sharecare.cms.quizzes.configuration.QuizzesModuleConfig;
 import com.sharecare.cms.quizzes.schema.QuizJCRSchema;
-import com.sharecare.quizzes.sdk.model.OpenGraph;
 import com.sharecare.quizzes.sdk.model.QuestionRequest;
+import com.sharecare.quizzes.sdk.model.QuizIntro;
 import com.sharecare.quizzes.sdk.model.QuizRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
@@ -55,20 +55,28 @@ public class RemoteQuizzesRequestBuilder implements QuizzesRequestBuilder {
 
         TopicResult topicResult = remoteTagService.getTopicForTag(primaryId);
 
+        Optional<AssetUploadResult> introImageResult = quizAssetProcessor.uploadAssetFrom(node, QuizJCRSchema.introImage.name());
+        QuizIntro quizIntro = QuizIntro.builder()
+                                        .quizImage(introImageResult.isPresent() ? introImageResult.get().getUrl() : "")
+                                        .text(fromNode(QuizJCRSchema.introText.name(),node))
+                                        .build();
+
+
         return QuizRequest.builder()
                 .id(node.getIdentifier())
                 .title(fromNode(QuizJCRSchema.title.name(), node))
                 .subTitle(fromNode(QuizJCRSchema.subTitle.name(), node))
                 .path(node.getPath())
-                .uri(fromNode(QuizJCRSchema.uri.name(), node))
+                .uri(node.getName())
                 .publishDate(new Date().getTime())
                 .branding(fromNode(QuizJCRSchema.branding.name(),node))
-                .keywords(fromCSV(fromNode(QuizJCRSchema.metaKeywords.name(),node)))
+                .keywords(fromCSV(fromNode(QuizJCRSchema.keywords.name(),node)))
                 .primaryTag(primaryId)
                 .rootTag(rootTagId)
-                .firstAncestralTopic(topicResult.getId())
-                .topicUri(topicResult.getUri())
+                .firstAncestralTopic(null != topicResult ? topicResult.getId() : "")
+                .topicUri(null != topicResult ?  topicResult.getUri() : "")
                 .questions(processQuestions(node))
+                .quizIntro(quizIntro)
                 .build();
     }
 
@@ -92,7 +100,7 @@ public class RemoteQuizzesRequestBuilder implements QuizzesRequestBuilder {
             Node question = iterator.nextNode();
 
             QuestionRequest.QuestionRequestBuilder questionBuilder = QuestionRequest.builder()
-                    .caption(fromNode(QuizJCRSchema.caption.name(), question))
+                    .text(fromNode(QuizJCRSchema.text.name(), question))
                     .correctAnswer(fromNode(QuizJCRSchema.correctAnswer.name(), question))
                     .explanation(fromNode(QuizJCRSchema.explanation.name(), question))
                     .notes(fromNode(QuizJCRSchema.notes.name(), question))
