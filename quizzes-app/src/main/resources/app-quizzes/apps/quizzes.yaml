@@ -583,6 +583,40 @@ subApps:
          nodeType: mgnl:featuredQuiz
          icon: icon-edit
          class: info.magnolia.ui.framework.action.OpenEditDialogActionDefinition
+    form:
+      tabs:
+        - name: featured
+          label: Featured Quizzes
+          fields:
+            - name: jcrName
+              label: Featured Content
+              defaultValue: FEATURED
+              appName: quizzes
+              class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              readonly: true
+            - name: hero
+              label: Hero Quiz Uri
+              required: true
+              class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+              appName: quizzes
+              targetWorkspace: quizzes
+            - name: carousel
+              label: Quiz URIs
+              class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
+              required: true
+              field:
+                appName: quizzes
+                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+                label: URI
+                targetWorkspace: quizzes
+        - name: activationStatus
+          label: Activation
+          fields:
+            - name: activeStatus
+              label: "Activated on:"
+              webUriPattern: /quizzes/featured
+              class: com.sharecare.cms.publishing.commons.ui.taglib.activation.EnvironmentActivationDefinition
+              transformerClass: com.sharecare.cms.publishing.commons.ui.taglib.activation.ActivationStatusCompositeTransformer
     workbench:
       dropConstraintClass: info.magnolia.ui.workbench.tree.drop.AlwaysTrueDropConstraint
       dragAndDrop: true
@@ -646,10 +680,6 @@ subApps:
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition
                 label: URI
                 required: true
-                validators:
-                  - name: resourceUriDuplicate
-                    class: com.sharecare.cms.quizzes.fieldvalidator.ResourceUriDuplicateFieldValidator
-                    errorMessage: Resource URI already exists
               - name: title
                 label: Title
                 class: info.magnolia.ui.form.field.definition.TextFieldDefinition

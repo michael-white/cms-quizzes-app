@@ -1,12 +1,10 @@
 package com.sharecare.cms.quizzes.activation.remote;
 
-import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.sharecare.cms.cloudinary.dam.AssetUploadResult;
 import com.sharecare.cms.publishing.commons.configuration.CommonsModuleConfig;
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.RemoteTagService;
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TagResult;
-import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TagService;
 import com.sharecare.cms.publishing.commons.ui.taglib.tag.remote.TopicResult;
 import com.sharecare.cms.quizzes.configuration.QuizzesModuleConfig;
 import com.sharecare.cms.quizzes.schema.QuizJCRSchema;
@@ -14,12 +12,10 @@ import com.sharecare.quizzes.sdk.model.QuestionRequest;
 import com.sharecare.quizzes.sdk.model.QuizIntro;
 import com.sharecare.quizzes.sdk.model.QuizRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.joda.time.DateTime;
 
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
